@@ -51,6 +51,7 @@ Please download the files in the [ipf] folder and place them yourself.
 Under mounting
 * Evaluate by moving average
 * In the case that the stall's vender was a "like" / "block" person,it add a mark to the signboard.
+
 Under investigation
 * Hide the player only while pressing the Alt key.
 * Similar comments will be posted to other stalls types.
