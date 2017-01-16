@@ -2,7 +2,7 @@
 
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
 
-Description of [English Version is Here](#description_of_english_version).  
+Description of [English Version is Here](#description-of-english-version).  
 **Notice**: This add-on is **under construction**. So, This add-on does not implement English display mode yet.  
 
 ---
