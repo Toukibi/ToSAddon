@@ -1,5 +1,5 @@
 local addonName = "ShopHelper";
-local verText = "0.01e";
+local verText = "0.30";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 
@@ -9,24 +9,143 @@ _G['ADDONS'][autherName][addonName] = _G['ADDONS'][autherName][addonName] or {};
 
 local Me = _G['ADDONS'][autherName][addonName];
 Me.HoockedOrigProc = Me.HoockedOrigProc or {};
-
-if (not Me.Settings) then
-	Me.Settings = {};
-	Me.Settings.DoNothing = true;
-end
-
-
+Me.BuyHistory = Me.BuyHistory or {};
+Me.SettingFilePathName = string.format("../addons/%s/settings.json", addonNameLower);
+Me.DebugMode = false;
 Me.loaded = false;
-CHAT_SYSTEM(addonName .. " " .. verText .. " loaded!");
+
+-- ==================================
+--  初期化関連
+-- ==================================
+
+CHAT_SYSTEM(string.format("{#333333}[Add-ons]%s %s loaded!{/}", addonName, verText));
+-- For Debbug use
+-- ShopHelper = Me;
 
 function SHOPHELPER_ON_INIT(addon, frame)
+	-- 各種設定を読み込む
+	if not Me.loaded then
+		Me.LoadSetting();
+		Me.SetResText();
+	end
 	-- フックしたいイベントを記述
---	Me.setHook(Me.AUTOSELLER_BALLOON_HOOKED, "AUTOSELLER_BALLOON"); 
+	--	Me.setHook(Me.AUTOSELLER_BALLOON_HOOKED, "AUTOSELLER_BALLOON"); 
 	Me.setHook(Me.OPEN_ITEMBUFF_UI_HOOKED, "OPEN_ITEMBUFF_UI");
 	Me.setHook(Me.UPDATE_BUFFSELLER_SLOT_TARGET_HOOKED, "UPDATE_BUFFSELLER_SLOT_TARGET");
+	Me.setHook(Me.BUY_BUFF_AUTOSELL_HOOKED, "BUY_BUFF_AUTOSELL");
+	Me.setHook(Me.SQIORE_REPAIR_EXCUTE_HOOKED, "SQIORE_REPAIR_EXCUTE");
+	Me.setHook(Me.GEMROASTING_EXCUTE_HOOKED, "GEMROASTING_EXCUTE");
+	addon:RegisterMsg("FPS_UPDATE", "TOUKIBI_SHOPHELPER_HIDE_PLAYERS");
+	-- CHAT_SYSTEM("{#333333}[ShopHelper]イベントのフック登録が完了しました{/}");
+	-- 非表示中のフレームのリスト
+	Me.HiddenFrameList = {};
 	-- 読み込み完了処理を記述
 	Me.loaded = true;
 end
+
+function Me.CreateValueWithStyleCode(Value, Styles)
+	-- ValueにStylesで与えたスタイルタグを付加した文字列を返します
+	local ReturnValue;
+	if Styles == nil or #Styles == 0 then
+		-- スタイル指定なし
+		ReturnValue = Value
+	else
+		local TagHeader = ""
+		for i, StyleTag in ipairs(Styles) do
+			TagHeader = TagHeader .. string.format( "{%s}", StyleTag)
+		end
+		ReturnValue = string.format( "%s%s%s", TagHeader, Value, string.rep("{/}", #Styles))
+	end
+	return ReturnValue;
+end
+
+function TOUKIBI_SHOPHELPER_ADDLOG(Message, Mode, DisplayAddonName, OnlyDebugMode)
+	if Me.Settings == nil then return end
+	if (not Me.DebugMode) and (not Me.Settings.ShowMessageLog) and Mode == "Info" then return end
+	if (not Me.DebugMode) and OnlyDebugMode then return end
+	local HeaderText = "";
+	if DisplayAddonName then
+		HeaderText = string.format("[%s]", addonName);
+	end
+	local MsgText = HeaderText .. Message;
+	if Mode == "Info" then
+		MsgText = Me.CreateValueWithStyleCode(MsgText, {"#333333"});
+	elseif Mode == "Warning" then
+		MsgText = Me.CreateValueWithStyleCode(MsgText, {"#331111"});
+	elseif Mode == "Notice" then
+		MsgText = Me.CreateValueWithStyleCode(MsgText, {"#333366"});
+	else
+		-- 何もしない
+	end
+	CHAT_SYSTEM(MsgText);
+end
+
+-- ==================================
+--  設定関連
+-- ==================================
+
+-- デフォルトの設定に戻す
+function Me.SetDefaultSetting()
+	TOUKIBI_SHOPHELPER_ADDLOG("設定がリセットされました", "Warning", true, false);
+	Me.Settings = {
+		DoNothing = true,
+		LangMode = "jp",
+		ShowMessageLog = false,
+		ShowMsgBoxOnBuffShop = true;
+		UpdateAverage = true,
+		AddInfoToBaloon = false,
+		EnableBaloonRightClick = false,
+		AverageNCount = 30,
+		RecalcInterval = 60
+	};
+	Me.SetDefaultPrice();
+end
+
+-- 平均価格をリセット
+function Me.SetDefaultPrice()
+	TOUKIBI_SHOPHELPER_ADDLOG("平均価格がリセットされました", "Warning", true, false);
+	Me.Settings.AveragePrice = {};
+	Me.Settings.AveragePrice['GemRoasting'] = 6500; -- ClassID = 21003
+	Me.Settings.AveragePrice['SquireBuff'] = 170; -- ClassID = 10703
+	Me.Settings.AveragePrice['21003'] = 6500; -- ClassID = 21003
+	Me.Settings.AveragePrice['10703'] = 170; -- ClassID = 10703
+	Me.Settings.AveragePrice['40203'] = 750; -- ブレス
+	Me.Settings.AveragePrice['40205'] = 850; -- サクラ
+	Me.Settings.AveragePrice['40201'] = 1050; -- アスパ
+end
+
+-- 設定読み込み
+function Me.LoadSetting()
+	TOUKIBI_SHOPHELPER_ADDLOG("Me.LoadSettingが呼び出されました", "Info", true, true)
+	local acutil = require("acutil");
+	local objReadValue, error = acutil.loadJSON(Me.SettingFilePathName);
+	if error then
+		Me.SetDefaultSetting();
+		Me.SaveSetting();
+	else
+		Me.Settings = objReadValue;
+	end
+end
+
+-- 設定書き込み
+function Me.SaveSetting()
+	TOUKIBI_SHOPHELPER_ADDLOG("Me.SaveSettingが呼び出されました", "Info", true, true)
+	if Me.Settings == nil then
+		TOUKIBI_SHOPHELPER_ADDLOG("Me.Settingが存在しないので標準の設定が呼び出されます", "Warning", true, false)
+		Me.SetDefaultSetting()
+	end
+	TOUKIBI_SHOPHELPER_ADDLOG("保存先:" .. Me.SettingFilePathName, "Info", true, true)
+	local acutil = require("acutil");
+	acutil.saveJSON(Me.SettingFilePathName, Me.Settings);
+end
+
+Me.LoadSetting();
+-- Me.Settings.LangMode = "jp";
+
+
+-- ==================================
+--  イベント処理関連
+-- ==================================
 
 -- イベントの飛び先を変更するためのプロシージャ
 function Me.setHook(newFunction, hookedFunctionStr) 
@@ -43,6 +162,8 @@ function Me.AUTOSELLER_BALLOON_HOOKED(title, sellType, handle, skillID, skillLv)
 	Me.ADDTO_SHOPBALOON(title, sellType, handle, skillID, skillLv); 
 end 
 
+-- フックイベント中継
+-- 修理/ジェムロースティング店を開くイベント
 function Me.OPEN_ITEMBUFF_UI_HOOKED(groupName, sellType, handle) 
 	Me.HoockedOrigProc["OPEN_ITEMBUFF_UI"](groupName, sellType, handle); 
 	if sellType == AUTO_SELL_GEM_ROASTING then
@@ -52,141 +173,446 @@ function Me.OPEN_ITEMBUFF_UI_HOOKED(groupName, sellType, handle)
 	end
 end 
 
+-- バフ屋の各バフの項目が描画される時のイベント
 function Me.UPDATE_BUFFSELLER_SLOT_TARGET_HOOKED(ctrlSet, info)
 	Me.HoockedOrigProc["UPDATE_BUFFSELLER_SLOT_TARGET"](ctrlSet, info);
-	Me.AddInfoToBuffSellerSlot(ctrlSet, info)
+	Me.AddInfoToBuffSellerSlot(ctrlSet, info);
 end
 
-function Me.PrintShopInfo(sellType)
-	if sellType == AUTO_SELL_BUFF then
-	elseif sellType == AUTO_TITLE_FOOD_TABLE then
-	elseif sellType == AUTO_SELL_GEM_ROASTING then
-		Me.AddInfoToGemRoasting(ui.GetFrame("itembuffgemroasting"));
-	elseif sellType == AUTO_SELL_SQUIRE_BUFF then
-		Me.AddInfoToSquireBuff(ui.GetFrame("itembuffrepair"));
-	elseif sellType == AUTO_SELL_OBLATION then
-	elseif sellType == AUTO_SELL_ORACLE_SWITCHGENDER then
-	elseif sellType == AUTO_ENCHANTAROR_STORE_OPEN then
-	elseif sellType == AUTO_SELL_ENCHANTERARMOR then
-	elseif sellType == AUTO_SELL_ORACLE_SWITCHGENDER then
+-- バフ屋の購入ボタンを押した時のイベント
+function Me.BUY_BUFF_AUTOSELL_HOOKED(ctrlSet, btn)
+	Me.btnBuyBuffAutosell_Click(ctrlSet, btn);
+	-- 元の処理は下の通りだけど置き換えて元の処理には返さない
+	-- Me.HoockedOrigProc["BUY_BUFF_AUTOSELL"](ctrlSet, btn);
+end
+
+-- 修理商店の修理ボタンを押した時のイベント (さりげに公式がスペルミス)
+function Me.SQIORE_REPAIR_EXCUTE_HOOKED(parent)
+	Me.btnBuySquireRepair_Click(parent)
+	-- 元の処理は下の通りだけど置き換えて元の処理には返さない
+	-- Me.HoockedOrigProc["SQIORE_REPAIR_EXCUTE"](parent);
+end
+
+-- ジェムロースティング商店の確認ボタンを押した時のイベント
+function Me.GEMROASTING_EXCUTE_HOOKED(parent)
+	Me.btnBuyGemRoasting_Click(parent)
+	-- 元の処理は下の通りだけど置き換えて元の処理には返さない
+	-- Me.HoockedOrigProc["GEMROASTING_EXCUTE"](parent);
+end
+
+-- ==================================
+--  メイン
+-- ==================================
+
+-- バフ商店の購入ボタンをクリックしたときの処理
+function Me.btnBuyBuffAutosell_Click(ctrlSet, btn)
+	local frame = ctrlSet:GetTopParentFrame();
+	local sellType = frame:GetUserIValue("SELLTYPE");
+	local groupName = frame:GetUserValue("GROUPNAME");
+	local index = ctrlSet:GetUserIValue("INDEX");
+	local itemInfo = session.autoSeller.GetByIndex(groupName, index);
+	local buycount =  GET_CHILD(ctrlSet, "price");
+	-- 勝手に埋め込んだパラメータを取り出す
+	local DoAlart = (ctrlSet:GetUserValue("ImpressionValue") == "RipOff");
+	if itemInfo == nil then
+		return;
+	end
+
+	local cnt = 1;
+	if buycount ~= nil then
+		cnt = buycount:GetNumber();
+	end
+
+	local totalPrice = itemInfo.price * cnt;
+	local myMoney = GET_TOTAL_MONEY();
+	if totalPrice > myMoney or  myMoney <= 0 then
+		ui.SysMsg(ClMsg("NotEnoughMoney"));
+		return;
+	end
+
+	-- 飛び先も自前で偽装する(価格情報が欲しいため)
+	local strscp = string.format("TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(%d, %d, %d, %d, %d, %d)", frame:GetUserIValue("HANDLE"), index, cnt, sellType, itemInfo.classID, itemInfo.price);
+	if DoAlart then
+		-- 価格データを作り直す(本当はポインター的な手法で渡したかった)
+		local BuffPriceInfo = Me.GetPriceInfo(itemInfo.classID);
+		local PriceTextData = Me.GetPriceText(itemInfo.price, BuffPriceInfo);
+		local objSkill = GetClassByType("Skill", itemInfo.classID);
+
+		local msg_title = string.format("%s  {s40}{b}{ol}{#CC0808}%s{/}{/}{/}{/}  %s"
+									  , "{img NOTICE_Dm_! 56 56}{/}"
+									  , Me.ResText[Me.Settings.LangMode].data.WarningMsg.title
+									  , "{img NOTICE_Dm_! 56 56}{/}");
+
+		local msg_body = string.format(Me.ResText[Me.Settings.LangMode].data.WarningMsg.body);
+		
+		local msg_skillinfo = string.format("{img icon_%s 60 60}{/}  %s Lv.%s"
+										  , objSkill.Icon
+										  , objSkill.Name
+										  , string.format("{@st41}{#%s}%d{/}{/}"
+														, Me.GetBuffLvColor(itemInfo.level, BuffPriceInfo.MaxLv)
+														, itemInfo.level
+														)
+											);
+
+		local msg_priceinfo = string.format("%s:%s {#111111}(%s){/}{nl} {nl}{#111111}{s16}%s{/}{/}"
+										  , Me.ResText[Me.Settings.LangMode].data.CurrentPrice
+										  , PriceTextData.PriceText
+										  , PriceTextData.ImpressionText
+										  , PriceTextData.ToolTipText);
+
+		local msg = string.format("%s{nl} {nl}%s{nl} {nl} {nl}%s{nl} {nl}%s"
+								, msg_title
+								, msg_body
+								, msg_skillinfo
+								, msg_priceinfo);
+		
+		ui.MsgBox(msg, strscp, "None");
 	else
+		if Me.Settings.ShowMsgBoxOnBuffShop then
+			local msg = ClMsg("ReallyBuy?")
+			ui.MsgBox(msg, strscp, "None");
+		else
+			TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(frame:GetUserIValue("HANDLE"), index, cnt, sellType, itemInfo.classID, itemInfo.price);
+		end
 	end
 end
 
-function Me.GetBuffLvColorFor15(SLv)
+-- 修理商店の修理ボタンをクリックしたときの処理
+function Me.btnBuySquireRepair_Click(frame)
+	local ParentFrame = frame:GetTopParentFrame();
+	local SLv = ParentFrame:GetUserIValue("SKILLLEVEL");
+	local RepairPrice = ParentFrame:GetUserIValue("PRICE");
+	-- 勝手に埋め込んだパラメータを取り出す
+	local DoAlart = (ParentFrame:GetUserValue("ImpressionValue") == "RipOff");
+
+	if DoAlart then
+		local strscp = string.format("TOUKIBI_SHOPHELPER_EXEC_SQUIRE_REPAIR('%s')", ParentFrame:GetName());
+		local msg = Me.MakeWarningMsg(10703, SLv, RepairPrice)
+		ui.MsgBox(msg, strscp, "None");
+	else
+		TOUKIBI_SHOPHELPER_EXEC_SQUIRE_REPAIR(ParentFrame:GetName())
+	end
+end
+
+-- ジェムロースティング商店の確認ボタンをクリックしたときの処理
+function Me.btnBuyGemRoasting_Click(frame)
+	session.ResetItemList();
+
+	local ParentFrame = frame:GetTopParentFrame();
+	local SLv = ParentFrame:GetUserIValue("SKILLLEVEL");
+	local Price = ParentFrame:GetUserIValue("PRICE");
+	-- 勝手に埋め込んだパラメータを取り出す
+	local DoAlart = (ParentFrame:GetUserValue("ImpressionValue") == "RipOff");
+
+	if DoAlart then
+		local strscp = string.format("TOUKIBI_SHOPHELPER_EXEC_GEM_ROASTING('%s')", ParentFrame:GetName());
+		local msg = Me.MakeWarningMsg(21003, SLv, Price)
+		ui.MsgBox(msg, strscp, "None");
+	else
+		TOUKIBI_SHOPHELPER_EXEC_GEM_ROASTING(ParentFrame:GetName())
+	end
+end
+
+-- 修理アクション
+function TOUKIBI_SHOPHELPER_EXEC_SQUIRE_REPAIR(ParentFrameName)
+	local ParentFrame = ui.GetFrame(ParentFrameName);
+	local handle = ParentFrame:GetUserValue("HANDLE");
+	local skillName = ParentFrame:GetUserValue("SKILLNAME");
+	local RepairPrice = ParentFrame:GetUserIValue("PRICE");
+	
+	session.ResetItemList();
+	local slotSet = GET_CHILD_RECURSIVELY(ParentFrame, "slotlist", "ui::CSlotSet")
+	
+	if slotSet:GetSelectedSlotCount() < 1 then
+		ui.MsgBox(ScpArgMsg("SelectRepairItemPlz"))
+		return;
+	end
+
+	-- 最終使用時間を記憶する
+	Me.UpdateAveragePrice(handle, 10703, RepairPrice)
+
+	for i = 0, slotSet:GetSelectedSlotCount() -1 do
+		local slot = slotSet:GetSelectedSlot(i);
+		local Icon = slot:GetIcon();
+		local iconInfo = Icon:GetInfo();
+
+		session.AddItemID(iconInfo:GetIESID());
+	end
+	session.autoSeller.BuyItems(handle, AUTO_SELL_SQUIRE_BUFF, session.GetItemIDList(), skillName);
+end
+
+-- バフ屋のバフの購入アクション
+function TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(handle, index, cnt, sellType, skillID, Price)
+	-- 最終使用時間を記憶する
+	Me.UpdateAveragePrice(handle, skillID, Price)
+	EXEC_BUY_AUTOSELL(handle, index, cnt, sellType);
+end
+
+--ジェムローストアクション
+function TOUKIBI_SHOPHELPER_EXEC_GEM_ROASTING(ParentFrameName)
+	session.ResetItemList();
+
+	local ParentFrame = ui.GetFrame(ParentFrameName);
+	local targetbox = ParentFrame:GetChild("roasting");
+	local slot = GET_CHILD(targetbox, "slot", "ui::CSlot");
+	local itemIESID = slot:GetUserValue("GEM_IESID");
+
+	if itemIESID == "0" or itemIESID == "" then
+		ui.MsgBox(ScpArgMsg("DropItemPlz"))
+		return;
+	end
+
+	local handle = ParentFrame:GetUserValue("HANDLE");
+	local skillName = ParentFrame:GetUserValue("SKILLNAME");
+	local RoastPrice = ParentFrame:GetUserIValue("PRICE");
+	-- 最終使用時間を記憶する
+	Me.UpdateAveragePrice(handle, 21003, RoastPrice)
+
+	session.AddItemID(itemIESID);
+	session.autoSeller.BuyItems(handle, AUTO_SELL_GEM_ROASTING, session.GetItemIDList(), skillName);
+end
+
+-- 最終使用時間を記憶して修正移動平均とsetting.jsonを更新する
+function Me.UpdateAveragePrice(handle, skillID, LatestPrice)
+	local OwnerFamilyName = info.GetFamilyName(handle);
+	local objSkill = GetClassByType("Skill", skillID);
+	local objSkillName;
+	if objSkill ~= nil then
+		objSkillName = objSkill.Name;
+	else
+		objSkillName = string.format("スキルID[%s]", skillID);
+	end
+	TOUKIBI_SHOPHELPER_ADDLOG(string.format("%sの%sを%ssで受けました。"
+							, OwnerFamilyName
+							, objSkillName
+							, Me.GetCommaedTextEx(LatestPrice)
+							), "Info", true, false);
+
+	if Me.Settings.UpdateAverage then
+		Me.BuyHistory[handle] = Me.BuyHistory[handle] or {};
+		Me.BuyHistory[handle][skillID] = Me.BuyHistory[handle][skillID] or {};
+		local CurrentHistory = Me.BuyHistory[handle][skillID];
+		if CurrentHistory.LatestUse == nil or os.clock() - CurrentHistory.LatestUse >= Me.Settings.RecalcInterval then
+			-- 修正移動平均を求めて平均値を更新する
+			Me.Settings.AveragePrice[tostring(skillID)] = (Me.Settings.AveragePrice[tostring(skillID)] * (Me.Settings.AverageNCount - 1) + LatestPrice) / Me.Settings.AverageNCount
+			CurrentHistory.LatestUse = os.clock();
+			TOUKIBI_SHOPHELPER_ADDLOG(string.format("%sの平均価格を%sに更新しました"
+									, objSkillName
+									, Me.GetCommaedTextEx(Me.Settings.AveragePrice[tostring(skillID)], nil, 2)
+									), "Info", true, false);
+
+			Me.SaveSetting()
+		else
+			TOUKIBI_SHOPHELPER_ADDLOG(string.format("まだ%d秒しか経過していないため、平均価格の更新は行いません。(設定待機時間:%d秒)"
+									, os.clock() - CurrentHistory.LatestUse
+									, Me.Settings.RecalcInterval
+									), "Info", true, false);
+		end
+	end
+end
+
+-- 全プレイヤーの名前を隠す
+function TOUKIBI_SHOPHELPER_HIDE_PLAYERS()
+	if keyboard.IsPressed(KEY_ALT) == 1 then
+		-- Altキーが押されている間はキャラクター情報を非表示にする
+		local selectedObjects, selectedObjectsCount = SelectObject(GetMyPCObject(), 1000000, "ALL");
+		for i = 1, selectedObjectsCount do
+			local handle = GetHandle(selectedObjects[i]);
+			if handle ~= nil then
+				if info.IsPC(handle) == 1 then
+					local shopFrame = ui.GetFrame("SELL_BALLOON_" .. handle);
+					-- 露店には何もしない
+					if shopFrame == nil then
+						local FrameName = "charbaseinfo1_" .. handle;
+						local ytxtFrame = ui.GetFrame(FrameName);
+						if ytxtFrame ~= nil then
+							if ytxtFrame:IsVisible() == 1 then
+								table.insert(Me.HiddenFrameList, FrameName);
+								ytxtFrame:ShowWindow(0);
+							end
+						end
+					end
+				end
+			end
+		end
+	else
+		-- 押されていない場合は隠されたフレームをすべて元に戻す
+		while table.maxn(Me.HiddenFrameList) >= 1 do
+			local v = table.remove(Me.HiddenFrameList)
+			local frame = ui.GetFrame(v);
+			if frame ~= nil then
+				frame:ShowWindow(1);
+			end
+		end
+	end
+end
+
+function Me.GetBuffLvColor(SLv, MaxLv)
 	local ResultValue = "FFFFFF";
-	if SLv <= 6 then
-		ResultValue = "FFFFFF";
-	elseif SLv < 15 then
-		ResultValue = "108CFF";
-	elseif SLv == 15 then
-		ResultValue = "9F30FF";
-	elseif SLv > 15 then
-		ResultValue = "FF4F00";
+	if MaxLv >= 15 then
+		if SLv <= 6 then
+			ResultValue = "FFFFFF";
+		elseif SLv < 15 then
+			ResultValue = "108CFF";
+		elseif SLv == 15 then
+			ResultValue = "9F30FF";
+		elseif SLv > 15 then
+			ResultValue = "FF4F00";
+		end
+	elseif MaxLv >= 10 then
+		if SLv < 5 then
+			ResultValue = "FFFFFF";
+		elseif SLv <= 6 then
+			ResultValue = "108CFF";
+		elseif SLv == 10 then
+			ResultValue = "9F30FF";
+		elseif SLv > 10 then
+			ResultValue = "FF4F00";
+		end
+	elseif MaxLv >= 5 then
+		if SLv < 5 then
+			ResultValue = "FFFFFF";
+		elseif SLv == 5 then
+			ResultValue = "9F30FF";
+		elseif SLv > 5 then
+			ResultValue = "FF4F00";
+		end
+	else
 	end
 	return ResultValue;
 end
 
-function Me.GetBuffLvColorFor10(SLv)
-	local ResultValue = "FFFFFF";
-	if SLv < 5 then
-		ResultValue = "FFFFFF";
-	elseif SLv <= 6 then
-		ResultValue = "108CFF";
-	elseif SLv == 10 then
-		ResultValue = "9F30FF";
-	elseif SLv > 10 then
-		ResultValue = "FF4F00";
+-- 価格情報を取り出す
+function Me.GetPriceInfo(skillID)
+	local ReturnValue = {};
+	ReturnValue.AveragePrice = Me.Settings.AveragePrice[tostring(skillID)];
+	if ReturnValue.AveragePrice == nil then
+		ReturnValue.AveragePrice = 100;
 	end
-	return ResultValue;
-end
-
-function Me.ReturnBuffPriceInfo(SkillID)
-	if SkillID == 40203 then
-		return 400, 750, 10, 15, true; -- ブレス
-	elseif SkillID == 40205 then
-		return 700, 850, 10, 10, true; -- サクラ
-	elseif SkillID == 40201 then
-		return 1000, 1050, 10, 15, true; -- アスパ
+	if skillID == 40203 then
+		-- ブレス
+		ReturnValue.CostPrice = 400;
+		ReturnValue.Span = 10;
+		ReturnValue.MaxLv = 15;
+		ReturnValue.DoAddInfo = true
+	elseif skillID == 40205 then
+		-- サクラ
+		ReturnValue.CostPrice = 700;
+		ReturnValue.Span = 10;
+		ReturnValue.MaxLv = 10;
+		ReturnValue.DoAddInfo = true
+	elseif skillID == 40201 then
+		-- アスパ
+		ReturnValue.CostPrice = 1000;
+		ReturnValue.Span = 10;
+		ReturnValue.MaxLv = 15;
+		ReturnValue.DoAddInfo = true
+	elseif skillID == 10703 then
+		-- 修理
+		ReturnValue.CostPrice = 160;
+		ReturnValue.Span = 1;
+		ReturnValue.MaxLv = 15;
+		ReturnValue.DoAddInfo = true
+	elseif skillID == 21003 then
+		-- ジェムロースティング
+		ReturnValue.CostPrice = 6000;
+		ReturnValue.Span = 50;
+		ReturnValue.MaxLv = 10;
+		ReturnValue.DoAddInfo = true
 	else
-		return 100, 100, 20, 15, false; -- それ以外
+		-- それ以外
+		ReturnValue.CostPrice = 100;
+		ReturnValue.Span = 20;
+		ReturnValue.MaxLv = 15;
+		ReturnValue.DoAddInfo = false;
 	end
+	return ReturnValue;
 end
 
-function Me.PriceText(Price, CostPrice, MeanPrice, Span, ShowCostPrice, ShowComment, ShowPriceComparison)
-	local PriceText = Price;
-	local Comment = "";
-	local Comparsion = "";
-	local DoAlart = false;
-	if Price < CostPrice then
-		PriceText = "{#0000FF}" .. Price .. "{/}";
-		Comment = "{#0000FF}原価割れ{/}";
-		Comparsion = "原価:160s";
-	elseif Price == CostPrice then
-		PriceText = "{#0000FF}" .. Price .. "{/}";
-		Comment = "{#0000FF}原価販売{/}";
-		Comparsion = "原価:160s";
-	elseif Price <= CostPrice + Span * 3 then
-		PriceText = "{@st41b}{#00CC00}" .. Price .. "{/}{/}";
-		Comment = "{#006633}ほぼ原価{/}";
-		Comparsion = "原価+" .. Price - CostPrice;
-	elseif Price < MeanPrice - Span * 2 then
+-- 値段のテキスト情報を作成する
+function Me.GetPriceText(Price, PriceInfo)
+	local ReturnValue = {};
+	local CustomFormat = {};
+	ReturnValue.ImpressionValue = "Empty";
+	if Price < PriceInfo.CostPrice then
+		ReturnValue.ImpressionValue = "BelowCost"
+		CustomFormat.Price = {"#0000FF"};
+		CustomFormat.Impression = {"#0000FF"};
+	elseif Price == PriceInfo.CostPrice then
+		ReturnValue.ImpressionValue = "AtCost"
+		CustomFormat.Price = {"#0000FF"};
+		CustomFormat.Impression = {"#0000FF"};
+	elseif Price <= PriceInfo.CostPrice + PriceInfo.Span * 3 then
+		ReturnValue.ImpressionValue = "NearCost"
+		CustomFormat.Price = {"@st41b", "#00CC00"};
+		CustomFormat.Impression = {"#006633"};
+	elseif Price < PriceInfo.AveragePrice - PriceInfo.Span * 2 then
 		-- お値打ち1
-		PriceText = "{@st41b}{#9999FF}" .. Price .. "{/}{/}";
-		Comment = "{#3333FF}お値打ち!!{/}";
-		Comparsion = "平均-" .. MeanPrice - Price .. "  原価+" .. Price - CostPrice;
-	elseif Price < MeanPrice then
-		-- お値打ち2
-		PriceText = "{@st41b}{#CCCCFF}" .. Price .. "{/}{/}";
-		Comment = "平均近く";
-		Comparsion = "平均-" .. MeanPrice - Price .. "  原価+" .. Price - CostPrice;
-	elseif Price <= MeanPrice + Span * 5 then
+		ReturnValue.ImpressionValue = "GoodValue"
+		CustomFormat.Price = {"@st41b", "#9999FF"};
+		CustomFormat.Impression = {"#3333FF"};
+	elseif Price < PriceInfo.AveragePrice then
+		-- お値打ち2 だけど大体平均
+		ReturnValue.ImpressionValue = "WithinAverage"
+		CustomFormat.Price = {"@st41b", "#CCCCFF"};
+	elseif Price <= PriceInfo.AveragePrice + PriceInfo.Span * 5 then
 		-- 普通
-		PriceText = "{@st41b}" .. Price .. "{/}";
-		Comment = "平均近く";
-		Comparsion = "平均+" .. Price - MeanPrice .. "  原価+" .. Price - CostPrice;
-	elseif Price <= MeanPrice + Span * 20 then
+		ReturnValue.ImpressionValue = "WithinAverage"
+		CustomFormat.Price = {"@st41b"};
+	elseif Price <= PriceInfo.AveragePrice + PriceInfo.Span * 20 then
 		-- ちょい高
-		PriceText = "{@st41b}{#FF9999}" .. Price .. "{/}{/}";
-		Comment = "高くない？";
-		Comparsion = "平均+" .. Price - MeanPrice .. "  原価+" .. Price - CostPrice;
-	elseif Price >= MeanPrice * 1.8 then
+		ReturnValue.ImpressionValue = "ALittleExpensive"
+		CustomFormat.Price = {"@st41b", "#FF9999"};
+	elseif Price >= PriceInfo.AveragePrice * 1.8 then
 		-- 異常に高い2
-		PriceText = "{img NOTICE_Dm_! 26 26}{@st41b}{#FF0000}" .. Price .. "{/}{/}";
-		local CostRate = math.floor(Price * 100 / CostPrice);
-		local MeanRate = math.floor(Price * 100 / CostPrice);
-		Comment = "異常に高額!!";
-		Comparsion = "平均×" .. math.floor(MeanRate / 100) .. "." .. MeanRate % 100 .. "  原価×" .. math.floor(CostRate / 100) .. "." .. CostRate % 100;
-		DoAlart = true;
-	elseif Price >= MeanPrice + Span * 100 then
+		ReturnValue.ImpressionValue = "RipOff"
+		CustomFormat.Price = {"img NOTICE_Dm_! 26 26", "@st41b", "#FF0000"};
+	elseif Price >= PriceInfo.AveragePrice + PriceInfo.Span * 100 then
 		-- 異常に高い1
-		PriceText = "{img NOTICE_Dm_! 26 26}{@st41b}{#FF0000}" .. Price .. "{/}{/}";
-		Comment = "異常に高額!!";
-		Comparsion = "平均+" .. Price - MeanPrice .. "  原価+" .. Price - CostPrice;
-		DoAlart = true;
+		ReturnValue.ImpressionValue = "RipOff"
+		CustomFormat.Price = {"img NOTICE_Dm_! 26 26", "@st41b", "#FF0000"};
 	else
-		PriceText = "{@st41b}{#FF3333}" .. Price .. "{/}{/}";
-		Comment = "高いと思います";
-		Comparsion = "平均+" .. Price - MeanPrice .. "  原価+" .. Price - CostPrice;
+		ReturnValue.ImpressionValue = "Expensive"
+		CustomFormat.Price = {"@st41b", "#FF3333"};
 	end
-	local ReturnText = "";
-	if ShowCostPrice then
-		if ReturnText ~= "" then ReturnText = ReturnText .. "  " end
-		ReturnText = ReturnText .. PriceText;
-	end
-	if ShowComment then
-		if ReturnText ~= "" then ReturnText = ReturnText .. "  " end
-		ReturnText = ReturnText .. Comment;
-	end
-	if ShowPriceComparison then
-		local AddBrackets = (ShowCostPrice or ShowComment)
-		if AddBrackets then ReturnText = ReturnText .. " (" end
-		ReturnText = ReturnText .. Comparsion;
-		if AddBrackets then ReturnText = ReturnText .. ")" end
-	end
-	return ReturnText, DoAlart;
-end
+	-- 備考の文字を作成する
+	ReturnValue.PriceText = Me.CreateValueWithStyleCode(Me.GetCommaedTextEx(Price), CustomFormat.Price);
+	ReturnValue.ImpressionText = Me.CreateValueWithStyleCode(Me.ResText[Me.Settings.LangMode]["data"][ReturnValue.ImpressionValue], CustomFormat.Impression);
+	if ReturnValue.ImpressionValue == "BelowCost" or ReturnValue.ImpressionValue == "AtCost" then
+		-- 原価を表示
+		ReturnValue.ComparsionText = string.format("%s:%ss"
+												 , Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+												 , Me.GetCommaedTextEx(PriceInfo.CostPrice));
 
+		ReturnValue.ToolTipText = Me.MakePriceToolTipText(Price, PriceInfo.CostPrice, PriceInfo.AveragePrice);
+	elseif ReturnValue.ImpressionValue == "AtCost" then
+		-- 原価との比較のみ表示
+		ReturnValue.ComparsionText = string.format("%s%s"
+												 , Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+												 , Me.GetCommaedTextEx(Price - PriceInfo.CostPrice, 0, 0, true, true));
+		ReturnValue.ToolTipText = Me.MakePriceToolTipText(Price, PriceInfo.CostPrice, PriceInfo.AveragePrice);
+	elseif ReturnValue.ImpressionValue == "RipOff" and  Price >= PriceInfo.AveragePrice * 1.8 then
+		-- 原価・平均との割合で表示(ぼったくり対応)
+		ReturnValue.ComparsionText = string.format("%sx%s  %sx%s"
+												 , Me.ResText[Me.Settings.LangMode]["data"]["AveragePrice"]
+												 , Me.GetCommaedTextEx(Price / PriceInfo.AveragePrice, nil, 2)
+												 , Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+												 , Me.GetCommaedTextEx(Price / PriceInfo.CostPrice, nil, 2));
+
+		ReturnValue.ToolTipText = Me.MakePriceToolTipText(Price, PriceInfo.CostPrice, PriceInfo.AveragePrice, true);
+	else
+		-- 通常表示(原価と平均比較)
+		ReturnValue.ComparsionText = string.format("%s%s  %s%s"
+												 , Me.ResText[Me.Settings.LangMode]["data"]["AveragePrice"]
+												 , Me.GetCommaedTextEx(Price - PriceInfo.AveragePrice, nil, nil, true)
+												 , Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+												 , Me.GetCommaedTextEx(Price - PriceInfo.CostPrice, nil, nil, true));
+
+		ReturnValue.ToolTipText = Me.MakePriceToolTipText(Price, PriceInfo.CostPrice, PriceInfo.AveragePrice);
+	end
+	if ReturnValue.ImpressionValue == "RipOff" then ReturnValue.DoAlart = true end
+	return ReturnValue;
+end
 
 function Me.ADDTO_SHOPBALOON(title, sellType, handle, skillID, skillLv)
 	-- デフォルト状態のショップバルーンを作ってもらう
@@ -200,7 +626,7 @@ function Me.ADDTO_SHOPBALOON(title, sellType, handle, skillID, skillLv)
 	if true then
 		return nil;
 	end
---	CHAT_SYSTEM("AUTOSELLER_BALLOON_HOOKED実行");
+	--	CHAT_SYSTEM("AUTOSELLER_BALLOON_HOOKED実行");
 	-- 落書きする
 	local lvBox = frame:GetChild("withLvBox");
 	local text = frame:GetChild("text");
@@ -225,6 +651,7 @@ function Me.ADDTO_SHOPBALOON(title, sellType, handle, skillID, skillLv)
 
 end
 
+-- 修理商店に情報を付加する
 function Me.AddInfoToSquireBuff(BaseFrame)
 	if BaseFrame == nil then return nil end
 	if BaseFrame:GetUserIValue("HANDLE") ==  session.GetMyHandle() then return nil end
@@ -245,12 +672,31 @@ function Me.AddInfoToSquireBuff(BaseFrame)
 		local OwnerFamilyName = tostring(info.GetFamilyName(BaseFrame:GetUserIValue("HANDLE")));
 		local SLv = BaseFrame:GetUserIValue("SKILLLEVEL");
 		local Price = BaseFrame:GetUserIValue("PRICE");
-		local TextColor = Me.GetBuffLvColorFor15(SLv);
-		Me.AddRichText(BaseFrame, "lblOwnerInfo", "{@st42b}{#" .. TextColor .. "}Lv." .. SLv .. "{/}{/}    " .. OwnerFamilyName .. " の修理露店", 40, 120, 420, 20, 16);
-		Me.AddRichText(BaseFrame, "lblPriceInfo", "単価：" .. Me.PriceText(Price, 160, 170, 1, true, true, true), 40, 200, 420, 20, 16);
+		local PriceInfo = Me.GetPriceInfo(10703); -- リペアのスキルID
+		local PriceTextData = Me.GetPriceText(Price, PriceInfo)
+		Me.AddRichText(BaseFrame
+					 , "lblOwnerInfo"
+					 , string.format("{@st42b}{#%s}Lv.%d{/}{/}  %s"
+					 			   , Me.GetBuffLvColor(SLv, PriceInfo.MaxLv)
+								   , SLv
+								   , string.format(Me.ResText[Me.Settings.LangMode].ShopName.SquireBuff, OwnerFamilyName)
+					 				)
+					 , 40, 120, 420, 20, 16);
+		local lblPrice = Me.AddRichText(BaseFrame
+									  , "lblPriceInfo"
+									  , string.format("%s：%s  %s (%s)"
+													, Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+													, PriceTextData.PriceText
+													, PriceTextData.ImpressionText
+													, PriceTextData.ComparsionText)
+									  , 40, 200, 420, 20, 16);
+		lblPrice:SetTextTooltip(PriceTextData.ToolTipText);
+		-- 購入時の注意フラグを追加する
+		BaseFrame:SetUserValue("ImpressionValue", PriceTextData.ImpressionValue);
 	end
 end
 
+-- ジェムロースティング店に情報を付加する
 function Me.AddInfoToGemRoasting(BaseFrame)
 	if BaseFrame == nil then return nil end
 	if BaseFrame:GetUserIValue("HANDLE") ==  session.GetMyHandle() then return nil end
@@ -273,55 +719,74 @@ function Me.AddInfoToGemRoasting(BaseFrame)
 		local OwnerFamilyName = tostring(info.GetFamilyName(BaseFrame:GetUserIValue("HANDLE")));
 		local SLv = BaseFrame:GetUserIValue("SKILLLEVEL");
 		local Price = BaseFrame:GetUserIValue("PRICE");
-		local TextColor = Me.GetBuffLvColorFor10(SLv);
-		Me.AddRichText(BaseFrame, "lblOwnerInfo", "{@st42b}{#" .. TextColor .. "}Lv." .. SLv .. "{/}{/}    " .. OwnerFamilyName .. " のジェムロースティング店", 40, 120, 420, 20, 16);
-		Me.AddRichText(BaseFrame, "lblPriceInfo", "単価：" .. Me.PriceText(Price, 6000, 6500, 50, true, true, true), 40, 200, 420, 20, 16);
+		local PriceInfo = Me.GetPriceInfo(21003);
+		local PriceTextData = Me.GetPriceText(Price, PriceInfo)
+
+		Me.AddRichText(BaseFrame
+					 , "lblOwnerInfo"
+					 , string.format("{@st42b}{#%s}Lv.%d{/}{/}  %s"
+					 			   , Me.GetBuffLvColor(SLv, PriceInfo.MaxLv)
+								   , SLv
+								   , string.format(Me.ResText[Me.Settings.LangMode].ShopName.GemRoasting, OwnerFamilyName)
+					 				)
+					 , 40, 120, 420, 20, 16);
+		local lblPrice = Me.AddRichText(BaseFrame
+									  , "lblPriceInfo"
+									  , string.format("%s：%s  %s (%s)"
+													, Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+													, PriceTextData.PriceText
+													, PriceTextData.ImpressionText
+													, PriceTextData.ComparsionText)
+									  , 40, 200, 420, 20, 16);
+		lblPrice:SetTextTooltip(PriceTextData.ToolTipText);
+		-- 購入時の注意フラグを追加する
+		BaseFrame:SetUserValue("ImpressionValue", PriceTextData.ImpressionValue);
 	end
 end
 
+-- バフ商店に情報を付加する
 function Me.AddInfoToBuffSellerSlot(BaseFrame, info)
 	if BaseFrame == nil then return nil end
 	local ParentFrame = BaseFrame:GetTopParentFrame();
 	if ParentFrame == nil then return nil end
 	if ParentFrame:GetUserIValue("HANDLE") ==  session.GetMyHandle() then return nil end
-	local CostPrice, MeanPrice, Span, MaxLv, DoAddInfo = Me.ReturnBuffPriceInfo(info.classID);
+	local BuffPriceInfo = Me.GetPriceInfo(info.classID);
 
-	if DoAddInfo then
-		local strPrice = Me.PriceText(info.price, CostPrice, MeanPrice, Span, true, false, false);
-		local strComment, DoAlart = Me.PriceText(info.price, CostPrice, MeanPrice, Span, false, true, false);
-		local strComparsion = Me.PriceText(info.price, CostPrice, MeanPrice, Span, false, false, true);
-		local TextColor = "FFFFFF";
-		if MaxLv == 15 then
-			TextColor = Me.GetBuffLvColorFor15(info.level);
-		elseif MaxLv == 10 then
-			TextColor = Me.GetBuffLvColorFor10(info.level);
-		else
-			TextColor = Me.GetBuffLvColorFor15(info.level);
-		end
+	if BuffPriceInfo.DoAddInfo then
+		local PriceTextData = Me.GetPriceText(info.price, BuffPriceInfo)
 		local lblSLv = BaseFrame:GetChild("skilllevel");
-		lblSLv:SetTextByKey("value", "{@st41}{#" .. TextColor .. "}" .. info.level .. "{/}{/}");
+		lblSLv:SetTextByKey("value", string.format("{@st41}{#%s}%d{/}{/}"
+												 , Me.GetBuffLvColor(info.level, BuffPriceInfo.MaxLv)
+												 , info.level));
+
+
 		local lblPrice = BaseFrame:GetChild("price")
-		lblPrice:SetTextByKey("value", strPrice);
-		lblPrice:SetTextTooltip(strComparsion);
+		lblPrice:SetTextByKey("value", PriceTextData.PriceText);
+		lblPrice:SetTextTooltip(PriceTextData.ToolTipText);
 
 		-- ボタンを上へ動かす
-		local objTextItem = Me.AddRichTextToCenter(BaseFrame, "lblPriceInfo", strComment, 250, 40, 150, 20, 16);
-		objTextItem:SetTextTooltip(strComparsion);
+		local objTextItem = Me.AddRichTextToCenter(BaseFrame, "lblPriceInfo", PriceTextData.ImpressionText, 250, 40, 150, 20, 16);
+		objTextItem:SetTextTooltip(PriceTextData.ToolTipText);
 		local BuyButton = BaseFrame:GetChild("btn");
 		if BuyButton ~= nil then
 			tolua.cast(BuyButton, 'ui::CButton');
 			Me.ChangeControlMargin_Left(BuyButton, 280 - 30);
 			BuyButton:Resize(118 + 30, 45);
-			if DoAlart then
-				BuyButton:SetText("{img NOTICE_Dm_! 32 32}{@st41}{#FF3333}高いよ？{/}{/}");
+			if PriceTextData.DoAlart then
+				BuyButton:SetText(Me.ResText[Me.Settings.LangMode].data.lblWarning);
 			else
 				BuyButton:SetText("");
-				BuyButton:SetText("{@st41}購入");
+				BuyButton:SetText(Me.ResText[Me.Settings.LangMode].data.lblBuy);
 			end
+			-- 購入時の注意フラグを追加する
+			BaseFrame:SetUserValue("ImpressionValue", PriceTextData.ImpressionValue);
 		end
 	end
 end
 
+-- ==================================
+--  UI関連
+-- ==================================
 function Me.ChangeControlMargin_Top(TargetControl, NewValue)
 	if TargetControl ~= nil then
 		local BeforeMargin = TargetControl:GetMargin();
@@ -370,4 +835,182 @@ function Me.AddRichTextToCenter(BaseFrame, NewLabelName, NewText, NewLeft, NewTo
 	local objTextItem = Me.AddRichText(BaseFrame, NewLabelName, NewText, NewLeft, NewTop, NewWidth, NewHeight, TextSize); 
 	Me.ChangeControlMargin(objTextItem, NewLeft + math.floor((NewWidth - objTextItem:GetWidth()) / 2), NewTop + math.floor((NewHeight - objTextItem:GetHeight()) / 2), 0, 0);
 	return objTextItem;
+end
+
+function Me.GetCommaedTextEx(value, MaxTextLen, AfterTheDecimalPointLen, usePlusMark, AddSpaceAfterSign)
+	local lMaxTextLen = MaxTextLen or 0;
+	local lAfterTheDecimalPointLen = AfterTheDecimalPointLen or 0;
+	local lusePlusMark = usePlusMark or false;
+	local lAddSpaceAfterSign = AddSpaceAfterSign or lusePlusMark;
+
+	if lAfterTheDecimalPointLen < 0 then lAfterTheDecimalPointLen = 0 end
+	local IsNegative = (value < 0);
+	local SourceValue = math.floor(math.abs(value) * math.pow(10, lAfterTheDecimalPointLen) + 0.5);
+	local IntegerPartValue = math.floor(SourceValue * math.pow(10, -1 *lAfterTheDecimalPointLen));
+	local DecimalPartValue = SourceValue - IntegerPartValue * math.pow(10, lAfterTheDecimalPointLen);
+	local IntegerPartText = GetCommaedText(IntegerPartValue);
+	local DecimalPartText = tostring(DecimalPartValue);
+
+	-- 記号をつける
+	local SignMark = "";
+	if IsNegative then
+		-- 負の数の場合は頭にマイナスをつける
+		SignMark = "-";
+	else
+		-- 正の数の場合はusePlusMarkがTrueの場合のみ付加する
+		if lusePlusMark then
+			if Me.Settings.LangMode == "jp" and IntegerPartValue == 0 and DecimalPartValue == 0 then
+			-- 日本語の場合はゼロぴったり時に±を実装
+				SignMark = "±";
+			else
+				SignMark = "+";
+			end
+		end
+	end
+	if lAddSpaceAfterSign and string.len(SignMark) > 0 then
+		SignMark = " " .. SignMark .. " ";
+	end
+	-- 整数部を成形
+	local RoughFinish = SignMark .. IntegerPartText;
+	-- 小数部を成形
+	if DecimalPartValue > 0 or lAfterTheDecimalPointLen > 0 then
+		RoughFinish = RoughFinish .. string.format(string.format(".%%0%dd", lAfterTheDecimalPointLen), DecimalPartValue);
+	end
+	-- 長さに合わせて整形する
+	-- すでに文字長オーバーの場合はそのまま返す
+	if string.len(RoughFinish) >= lMaxTextLen then return RoughFinish end
+	-- 挿入する空白を作成する
+	local PaddingText = string.rep(" ", lMaxTextLen - string.len(RoughFinish));
+	return PaddingText .. RoughFinish;
+end
+
+-- 価格参考のツールチップテキストを作成する
+function Me.MakePriceToolTipText(Price, CostPrice, AveragePrice, MultiplicationMode)
+	local lMultiplicationMode = MultiplicationMode or false;
+	local ReturnText = "";
+	if lMultiplicationMode then
+		-- 倍率モード
+		ReturnText = string.format("%s x %s   (%s:%ss){nl}%s x %s   (%s:%ss)"
+								 , Me.ResText[Me.Settings.LangMode]["data"]["AveragePrice"]
+								 , Me.GetCommaedTextEx(Price / AveragePrice, 7, 2)
+								 , Me.ResText[Me.Settings.LangMode]["data"]["AveragePrice"]
+								 , Me.GetCommaedTextEx(AveragePrice, 7)
+								 , Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+								 , Me.GetCommaedTextEx(Price / CostPrice, 7, 2)
+								 , Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+								 , Me.GetCommaedTextEx(CostPrice, 7));
+
+	else
+		-- 通常モード
+		ReturnText = string.format("%s %s   (%s:%ss){nl}%s %s   (%s:%ss)"
+								 , Me.ResText[Me.Settings.LangMode]["data"]["AveragePrice"]
+								 , Me.GetCommaedTextEx(Price - AveragePrice, 7, nil, true)
+								 , Me.ResText[Me.Settings.LangMode]["data"]["AveragePrice"]
+								 , Me.GetCommaedTextEx(AveragePrice, 7)
+								 , Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+								 , Me.GetCommaedTextEx(Price - CostPrice, 7, nil, true)
+								 , Me.ResText[Me.Settings.LangMode]["data"]["CostPrice"]
+								 , Me.GetCommaedTextEx(CostPrice, 7));
+
+	end
+	return ReturnText;
+end
+
+-- 警告メッセージを作成する
+function Me.MakeWarningMsg(usrSkillID, SLv, Price)
+	local BuffPriceInfo = Me.GetPriceInfo(usrSkillID);
+	local PriceTextData = Me.GetPriceText(Price, BuffPriceInfo);
+	local objSkill;
+	objSkill = GetClassByType("Skill", usrSkillID);
+
+	local msg_title = string.format("%s  {s40}{b}{ol}{#CC0808}%s{/}{/}{/}{/}  %s"
+									, "{img NOTICE_Dm_! 56 56}{/}"
+									, Me.ResText[Me.Settings.LangMode].data.WarningMsg.title
+									, "{img NOTICE_Dm_! 56 56}{/}");
+
+	local msg_body = string.format(Me.ResText[Me.Settings.LangMode].data.WarningMsg.body);
+	
+	local msg_skillinfo = string.format("{img icon_%s 60 60}{/}  %s Lv.%s"
+										, objSkill.Icon
+										, objSkill.Name
+										, string.format("{@st41}{#%s}%d{/}{/}"
+													, Me.GetBuffLvColor(SLv, BuffPriceInfo.MaxLv)
+													, SLv
+													)
+										);
+
+	local msg_priceinfo = string.format("%s:%s {#111111}(%s){/}{nl} {nl}{#111111}{s16}%s{/}{/}"
+										, Me.ResText[Me.Settings.LangMode].data.CurrentPrice
+										, PriceTextData.PriceText
+										, PriceTextData.ImpressionText
+										, PriceTextData.ToolTipText);
+
+	return string.format("%s{nl} {nl}%s{nl} {nl} {nl}%s{nl} {nl}%s"
+					   , msg_title
+					   , msg_body
+					   , msg_skillinfo
+					   , msg_priceinfo);
+end
+
+-- ==================================
+--  リソース関連
+-- ==================================
+function Me.SetResText()
+	Me.ResText = Me.ResText or {};
+	Me.ResText.jp = Me.ResText.jp or {};
+	Me.ResText.en = Me.ResText.en or {};
+	local jpres = Me.ResText.jp;
+	local enres = Me.ResText.en;
+	-- Set string resource for Japanese.
+	jpres.ShopName = {
+		SquireBuff = "%s の修理商店",
+		GemRoasting = "%sのジェムロースティング商店"
+	};
+	jpres.data = {
+		CostPrice = "原価",
+		AveragePrice = "平均",
+		CurrentPrice = "価格",
+		BelowCost = "原価割れ",
+		AtCost = "原価販売",
+		NearCost = "ほぼ原価",
+		GoodValue = "お値打ち",
+		WithinAverage = "平均近く",
+		ALittleExpensive = "高くない？",
+		Expensive = "高いと思います",
+		RipOff = "異常に高額!!",
+		Empty = "予想外のパターン(バグ)",
+		lblBuy = "{@st41}購入{/}",
+		lblWarning = "{img NOTICE_Dm_! 32 32}{@st41}{#FF3333}高いよ？{/}{/}",
+		WarningMsg = {
+			title = "価格確認",
+			body = "{#111111}この商品は{s24}{b}{ol}{#FF0000}異常に高い{/}{/}{/}{/}ですが、{nl}本当に購入してもいいですか？{/}"
+		}
+	};
+
+	-- Set string resource for English.
+	enres.ShopName = {
+		SquireBuff = "%s の修理商店",
+		GemRoasting = "%sのジェムロースティング商店"
+	};
+	enres.data = {
+		CostPrice = "Cost price",
+		AveragePrice = "Average price",
+		CurrentPrice = "Current price",
+		BelowCost = "Below cost",
+		AtCost = "At cost price",
+		NearCost = "Near cost price",
+		GoodValue = "Good value",
+		WithinAverage = "Within Average price range",
+		ALittleExpensive = "Is't it a little expensive?",
+		Expensive = "Expensive",
+		RipOff = "Rip-off!",
+		Empty = "Out of implementation(Bugs?)",
+		lblBuy = "{@st41}Buy",
+		lblWarning = "{@st41}{#FF3333}Not regret?{/}{/}",
+		WarningMsg = {
+			title = "Warning!!",
+			body = "{#111111}This item is {nl}{s24}{b}{ol}{#FF0000}abnormally expensive{/}{/}{/}{/}.{nl}Are you sure you're not gonna regret this?{/}"
+		}
+	};
+	TOUKIBI_SHOPHELPER_ADDLOG("文字情報の読み込みが完了しました", "Info", true, true);
 end
