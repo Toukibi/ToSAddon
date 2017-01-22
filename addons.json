@@ -3,7 +3,7 @@
         "name" : "Shop Helper",
         "file" : "shophelper",
         "extension" : "ipf",
-        "fileVersion" : "v0.0.1",
+        "fileVersion" : "v0.3.0",
         "releaseTag" : "ShopHelper",
         "unicode" : "⛄",
         "description" : "This add-on will tell you whether the price of buff/repair/etc. is expensive or cheap. 街などで開かれている露店の価格が高いか安いかをコメントしてくれます。",
