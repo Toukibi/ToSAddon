@@ -1,5 +1,5 @@
 local addonName = "ShopHelper";
-local verText = "0.30";
+local verText = "0.50beta";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 
@@ -20,23 +20,17 @@ Me.loaded = false;
 
 CHAT_SYSTEM(string.format("{#333333}[Add-ons]%s %s loaded!{/}", addonName, verText));
 -- For Debbug use
--- ShopHelper = Me;
+if Me.DebugMode then ShopHelper = Me end
 
 function SHOPHELPER_ON_INIT(addon, frame)
+	Me.SettingFrame = frame
+	Me.AddonHandle = addon
 	-- 各種設定を読み込む
 	if not Me.loaded then
 		Me.LoadSetting();
 		Me.SetResText();
 	end
-	-- フックしたいイベントを記述
-	--	Me.setHook(Me.AUTOSELLER_BALLOON_HOOKED, "AUTOSELLER_BALLOON"); 
-	Me.setHook(Me.OPEN_ITEMBUFF_UI_HOOKED, "OPEN_ITEMBUFF_UI");
-	Me.setHook(Me.UPDATE_BUFFSELLER_SLOT_TARGET_HOOKED, "UPDATE_BUFFSELLER_SLOT_TARGET");
-	Me.setHook(Me.BUY_BUFF_AUTOSELL_HOOKED, "BUY_BUFF_AUTOSELL");
-	Me.setHook(Me.SQIORE_REPAIR_EXCUTE_HOOKED, "SQIORE_REPAIR_EXCUTE");
-	Me.setHook(Me.GEMROASTING_EXCUTE_HOOKED, "GEMROASTING_EXCUTE");
-	addon:RegisterMsg("FPS_UPDATE", "TOUKIBI_SHOPHELPER_HIDE_PLAYERS");
-	-- CHAT_SYSTEM("{#333333}[ShopHelper]イベントのフック登録が完了しました{/}");
+	Me.RefreshMe(addon, frame)
 	-- 非表示中のフレームのリスト
 	Me.HiddenFrameList = {};
 	-- 読み込み完了処理を記述
@@ -139,6 +133,111 @@ function Me.SaveSetting()
 	acutil.saveJSON(Me.SettingFilePathName, Me.Settings);
 end
 
+function Me.SettingFrame_BeforeDisplay()
+	local BaseFrame = ui.GetFrame("shophelper");
+	if BaseFrame == nil then
+		TOUKIBI_SHOPHELPER_ADDLOG("設定画面のハンドルが取得できませんでした", "Warning", true, false);
+		return;
+	end
+	Me.InitSettingText(BaseFrame);
+	Me.InitSettingValue(BaseFrame);
+	BaseFrame:ShowWindow(1);
+end
+
+function Me.InitSettingText(BaseFrame)
+	-- 微調整
+	-- local HeaderFrame = GET_CHILD(BaseFrame, "pnlMain", "ui::CGroupBox");
+	-- BaseFrame:SetSkinName("test_frame_low");
+
+
+
+	-- ここまで転記完了
+	-- GET_CHILD_GROUPBOX(frame, name) でグループボックスが取得可能
+	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlMain");
+	local TargetGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlPrice");
+	BaseFrame:Resize(640, 900);
+	BodyGBox:Resize(640, 800);
+	Me.ChangeControlMargin_Top(TargetGBox, 370 + 40);
+
+
+end
+
+function Me.InitSettingValue(BaseFrame)
+	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlMain");
+	if BodyGBox == nil then return end
+	local ModeGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlOption");
+	Me.SetCheckedStateByName(ModeGBox, "ShowMessageLog", Me.Settings.ShowMessageLog);
+	Me.SetCheckedStateByName(ModeGBox, "ShowMsgBoxOnBuffShop", not Me.Settings.ShowMsgBoxOnBuffShop);
+	Me.SetCheckedStateByName(ModeGBox, "AddInfoToBaloon", Me.Settings.AddInfoToBaloon);
+	Me.SetCheckedStateByName(ModeGBox, "EnableBaloonRightClick", Me.Settings.EnableBaloonRightClick);
+	Me.SetCheckedStateByName(ModeGBox, "UpdateAverage", Me.Settings.UpdateAverage);
+	Me.SetSliderValue(ModeGBox, "AverageNCount", "AverageNCount_text", math.floor(Me.Settings.AverageNCount / 10), Me.Settings.AverageNCount);
+	Me.SetSliderValue(ModeGBox, "RecalcInterval", "RecalcInterval_text", math.floor(Me.Settings.RecalcInterval / 10), Me.Settings.RecalcInterval);
+end
+
+function Me.OpenSettingFrame()
+	Me.SettingFrame_BeforeDisplay();
+end
+
+function Me.CloseSettingFrame()
+	local BaseFrame = ui.GetFrame("shophelper");
+	if BaseFrame == nil then
+		TOUKIBI_SHOPHELPER_ADDLOG("設定画面のハンドルが取得できませんでした", "Warning", true, false);
+		return;
+	end
+	BaseFrame:ShowWindow(0);
+end
+
+function Me.ExecSetting()
+	local BaseFrame = ui.GetFrame("shophelper");
+	if BaseFrame == nil then
+		TOUKIBI_SHOPHELPER_ADDLOG("設定画面のハンドルが取得できませんでした", "Warning", true, false);
+		return;
+	end
+	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlMain");
+	if BodyGBox == nil then return end
+	Me.Settings.LangMode = Me.GetSelectedRadioButton(Me.GetLangSeedRadioButton("lang_jp"));
+	local ModeGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlOption");
+	Me.Settings.ShowMessageLog = Me.GetCheckedStateByName(ModeGBox, "ShowMessageLog");
+	Me.Settings.ShowMsgBoxOnBuffShop = not Me.GetCheckedStateByName(ModeGBox, "ShowMsgBoxOnBuffShop");
+	Me.Settings.AddInfoToBaloon = Me.GetCheckedStateByName(ModeGBox, "AddInfoToBaloon");
+	Me.Settings.EnableBaloonRightClick = Me.GetCheckedStateByName(ModeGBox, "EnableBaloonRightClick");
+	Me.Settings.UpdateAverage = Me.GetCheckedStateByName(ModeGBox, "UpdateAverage");
+	local intValue;
+	intValue = Me.GetSliderValueByName(ModeGBox, "AverageNCount");
+	if intValue ~= nil then
+		Me.Settings.AverageNCount = intValue * 10
+	end
+	intValue = Me.GetSliderValueByName(ModeGBox, "RecalcInterval");
+	if intValue ~= nil then
+		Me.Settings.RecalcInterval = intValue * 10
+	end
+
+
+	Me.SaveSetting()
+	Me.CloseSettingFrame()
+end
+
+function Me.ChangeLanguage(Mode)
+	local SettingTest = Me.ResText[Mode];
+	local msg;
+	if SettingTest == nil then
+		msg = string.format("Sorry, 'ShopHelper' does not implement '%s' mode.{nl}Language mode has not been changed from '%s'.", 
+							Mode, Me.Settings.LangMode);
+		TOUKIBI_SHOPHELPER_ADDLOG(msg, "Warning", true, false)
+		return;
+	end
+	Me.Settings.LangMode = Mode;
+	Me.SaveSetting();
+	if Me.Settings.LangMode == "jp" then
+		msg = "日本語モードに切り替わりました";
+	else
+		msg = string.format("Language mode has been changed to '%s'.", Mode);
+	end
+	TOUKIBI_SHOPHELPER_ADDLOG(msg, "Notice", true, false);
+	InitSettingText(frame);
+end
+
 Me.LoadSetting();
 -- Me.Settings.LangMode = "jp";
 
@@ -199,6 +298,88 @@ function Me.GEMROASTING_EXCUTE_HOOKED(parent)
 	-- 元の処理は下の通りだけど置き換えて元の処理には返さない
 	-- Me.HoockedOrigProc["GEMROASTING_EXCUTE"](parent);
 end
+
+-- 設定画面オープン
+function TOUKIBI_SHOPHELPER_OPEN_SETTING()
+	Me.SettingFrame_BeforeDisplay();
+end
+
+-- 設定保存
+function TOUKIBI_SHOPHELPER_EXEC_SETTING()
+	Me.ExecSetting();
+end
+
+-- 設定画面クローズ
+function TOUKIBI_SHOPHELPER_CLOSE_SETTING()
+	Me.CloseSettingFrame();
+end
+
+-- 言語切替
+function TOUKIBI_SHOPHELPER_CHANGE_LANGMODE()
+	CHAT_SYSTEM(Me.GetSelectedRadioButton(Me.GetLangSeedRadioButton("lang_jp")));
+	-- Me.ChangeLanguage("jp");
+end
+
+-- コマンド受取
+function TOUKIBI_SHOPHELPER_PROCESS_COMMAND(command)
+	TOUKIBI_SHOPHELPER_ADDLOG("TOUKIBI_SHOPHELPER_PROCESS_COMMANDが呼び出されました", "Info", true, true)
+	local cmd = ""; 
+	if #command > 0 then 
+		cmd = table.remove(command, 1); 
+	else 
+		Me.OpenSettingFrame();
+		return;
+	end 
+	if cmd == "reset" then 
+		-- 平均値をリセット
+		Me.SetDefaultPrice(); 
+		return; 
+	elseif cmd == "resetall" then
+		-- すべてをリセット
+		Me.SetDefaultSetting()
+		return;
+	elseif cmd == "refresh" and Me.DebugMode then
+		-- プログラムをリセット
+		TOUKIBI_SHOPHELPER_ADDLOG("プログラムを初期化します", "Notice", true, false);
+		Me.RefreshMe(Me.AddonHandle, Me.SettingFrame);
+		return;
+	elseif cmd == "jp" or cmd == "en" or string.len(cmd) == 2 then
+		-- 言語モードと勘違いした？
+		ChangeLanguage(cmd);
+		return;
+	elseif cmd ~= "?" then
+		TOUKIBI_SHOPHELPER_ADDLOG("無効なコマンドが呼び出されました{nl}コマンド一覧を見るには[ /sh ? ]を用いてください", "Warning", true, false);
+	end 
+	Me.PrintHelpToLog()
+end
+
+-- スライダーの値が変わった時のイベント
+function TOUKIBI_SHOPHELPER_SLIDER_CHANGED(frame, ctrl, str, num)
+	tolua.cast(ctrl, "ui::CSlideBar");
+	local ControlName = ctrl:GetName();
+	local SettingName = nil;
+	local CurrentValue = nil;
+	local BuddyText = nil;
+	if ControlName == "AverageNCount" or ControlName == "RecalcInterval" then
+		SettingName = ControlName;
+		CurrentValue = num * 10;
+		BuddyText = GET_PARENT(ctrl):GetChild(ControlName .. "_text");
+	end
+	if SettingName ~= nil then
+		-- Me.Settings[SettingName] = CurrentValue;
+		if BuddyText ~= nil then
+			BuddyText:SetTextByKey("opValue", CurrentValue);
+		end
+	end
+end
+
+--コンテキストメニュー表示 
+function TOUKIBI_SHOPHELPER_OPEN_BALOON_CONTEXT_MENU(frame, msg, clickedGroupName, argNum) 
+	-- local context = ui.CreateContextMenu("TEMPLATE_RBTN", addonName, 0, 0, 300, 100); 
+	-- ui.AddContextMenuItem(context, "Hide", "TEMPLATE_TOGGLE_FRAME()"); 
+	-- context:Resize(300, context:GetHeight()); 
+	-- ui.OpenContextMenu(context); 
+end 
 
 -- ==================================
 --  メイン
@@ -837,6 +1018,93 @@ function Me.AddRichTextToCenter(BaseFrame, NewLabelName, NewText, NewLeft, NewTo
 	return objTextItem;
 end
 
+-- チェックボックスの状態を設定する
+function Me.SetCheckedStateByName(frame, ControlName, pValue)
+	if frame == nil then return nil end
+	local TargetCheckBox = GET_CHILD(frame, ControlName, "ui::CCheckBox");
+	if TargetCheckBox ~= nil then
+		return Me.SetCheckedState(TargetCheckBox, pValue);
+	else
+		return nil;
+	end
+end
+function Me.SetCheckedState(TargetCheckBox, pValue)
+	if TargetCheckBox == nil then return nil end
+	local intValue = 0;
+	if type(pValue) == "boolean" and pValue then
+		intValue = 1;
+	elseif type(pValue) == "string" and (pValue ~= "" and pValue ~= "false" and pValue ~= "0") then
+		intValue = 1;
+	elseif type == nil then
+		intValue = false;
+	end
+	tolua.cast(TargetCheckBox, "ui::CCheckBox");
+	TargetCheckBox:SetCheck(intValue);
+end
+-- チェックボックスの状態を取得する
+function Me.GetCheckedStateByName(frame, ControlName)
+	if frame == nil then return nil end
+	local TargetCheckBox = GET_CHILD(frame, ControlName, "ui::CCheckBox");
+	if TargetCheckBox ~= nil then
+		return Me.GetCheckedState(TargetCheckBox);
+	else
+		return nil;
+	end
+end
+function Me.GetCheckedState(TargetCheckBox)
+	if TargetCheckBox == nil then return nil end
+	tolua.cast(TargetCheckBox, "ui::CCheckBox");
+	return TargetCheckBox:IsChecked() == 1;
+end
+
+-- スライダーの値を設定する
+function Me.SetSliderValue(frame, ControlName, LabelName, pValue, pValueText)
+	local objSlider = GET_CHILD(frame, ControlName, "ui::CSlideBar");
+	if objSlider ~= nil then
+		objSlider:SetLevel(pValue);
+	end
+	local txtTarget = GET_CHILD(frame, LabelName, "ui::CRichText");
+	if txtTarget ~= nil then
+		txtTarget:SetTextByKey("opValue", pValueText);
+	end
+end
+-- スライダーの値を取得する
+function Me.GetSliderValueByName(frame, ControlName)
+	if frame == nil then return nil end
+	local TargetSlider = GET_CHILD(frame, ControlName, "ui::CSlideBar");
+	if TargetSlider ~= nil then
+		return Me.GetSliderValue(TargetSlider);
+	else
+		return nil;
+	end
+end
+function Me.GetSliderValue(TargetSlider)
+	if TargetSlider == nil then return nil end
+	tolua.cast(TargetSlider, "ui::CSlideBar");
+	return TargetSlider:GetLevel();
+end
+
+-- 選択されているラジオボタンの名前を取得する
+function Me.GetSelectedRadioButton(SeedControl)
+	if SeedControl == nil then return nil end
+	local radioBtn = tolua.cast(SeedControl, "ui::CRadioButton");
+	radioBtn = radioBtn:GetSelectedButton();
+	return string.match(radioBtn:GetName(),".-_(.+)");
+end
+function Me.GetLangSeedRadioButton(SeedName)
+	local BaseFrame = ui.GetFrame("shophelper");
+	if BaseFrame == nil then
+		TOUKIBI_SHOPHELPER_ADDLOG("設定画面のハンドルが取得できませんでした", "Warning", true, false);
+		return nil;
+	end
+	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlMain");
+	if BodyGBox == nil then return nil end
+	local LangGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlLang");
+	local radioBtn = GET_CHILD(LangGBox, SeedName, "ui::CRadioButton");
+	if radioBtn == nil then return nil end
+	return radioBtn
+end
+
 function Me.GetCommaedTextEx(value, MaxTextLen, AfterTheDecimalPointLen, usePlusMark, AddSpaceAfterSign)
 	local lMaxTextLen = MaxTextLen or 0;
 	local lAfterTheDecimalPointLen = AfterTheDecimalPointLen or 0;
@@ -952,6 +1220,35 @@ function Me.MakeWarningMsg(usrSkillID, SLv, Price)
 					   , msg_priceinfo);
 end
 
+-- 使い方のテキストを出力する
+function Me.PrintHelpToLog()
+	local helpmsg = Me.ResText[Me.Settings.LangMode].data.HelpMsg;
+	if helpmsg == nil then
+		helpmsg = Me.ResText["en"].data.HelpMsg;
+	end
+	TOUKIBI_SHOPHELPER_ADDLOG(helpmsg, "None", false, false);
+end
+
+function Me.RefreshMe(addon, frame)
+	Me.LoadSetting()
+	Me.SetResText()
+	
+	-- フックしたいイベントを記述
+	--	Me.setHook(Me.AUTOSELLER_BALLOON_HOOKED, "AUTOSELLER_BALLOON"); 
+	Me.setHook(Me.OPEN_ITEMBUFF_UI_HOOKED, "OPEN_ITEMBUFF_UI");
+	Me.setHook(Me.UPDATE_BUFFSELLER_SLOT_TARGET_HOOKED, "UPDATE_BUFFSELLER_SLOT_TARGET");
+	Me.setHook(Me.BUY_BUFF_AUTOSELL_HOOKED, "BUY_BUFF_AUTOSELL");
+	Me.setHook(Me.SQIORE_REPAIR_EXCUTE_HOOKED, "SQIORE_REPAIR_EXCUTE");
+	Me.setHook(Me.GEMROASTING_EXCUTE_HOOKED, "GEMROASTING_EXCUTE");
+	addon:RegisterMsg("FPS_UPDATE", "TOUKIBI_SHOPHELPER_HIDE_PLAYERS");
+	-- CHAT_SYSTEM("{#333333}[ShopHelper]イベントのフック登録が完了しました{/}");
+	local acutil = require("acutil");
+	acutil.slashCommand("/shophelper", TOUKIBI_SHOPHELPER_PROCESS_COMMAND);
+	acutil.slashCommand("/shelper", TOUKIBI_SHOPHELPER_PROCESS_COMMAND);
+	acutil.slashCommand("/sh", TOUKIBI_SHOPHELPER_PROCESS_COMMAND);
+
+end
+
 -- ==================================
 --  リソース関連
 -- ==================================
@@ -984,7 +1281,8 @@ function Me.SetResText()
 		WarningMsg = {
 			title = "価格確認",
 			body = "{#111111}この商品は{s24}{b}{ol}{#FF0000}異常に高い{/}{/}{/}{/}ですが、{nl}本当に購入してもいいですか？{/}"
-		}
+		},
+		HelpMsg = "{#333333}Shop Helperのコマンド説明{/}{nl}{#92D2A0}ShopHelperは次のコマンドで設定を呼び出してください。{/}{nl}{#333333}'/shophelper [コマンド]' または '/shelper [コマンド]' または '/sh [コマンド]'{/}{nl}{#333366}コマンドなしで呼び出された場合は設定ウィンドウを開きます。(例： /sh ){/}{nl}{#333333}使用可能なコマンド：{nl}/sh jp       :日本語モードに切り替え{nl}/sh en       :Switch to English mode.{nl}/sh reset    :価格の平均値設定をリセット{nl}/sh resetall :すべての設定をリセット{/}{nl} "
 	};
 
 	-- Set string resource for English.
@@ -1010,7 +1308,8 @@ function Me.SetResText()
 		WarningMsg = {
 			title = "Warning!!",
 			body = "{#111111}This item is {nl}{s24}{b}{ol}{#FF0000}abnormally expensive{/}{/}{/}{/}.{nl}Are you sure you're not gonna regret this?{/}"
-		}
+		},
+		HelpMsg = "{nl}{#92D2A0}To change settings of 'ShopHelper', please call the following command.{/}{nl}{#333333}'/shophelper [paramaters]' or '/shelper [paramaters]' or '/sh [paramaters]'{/}{nl}{#333366}The setting screen will be displayed when you call the comannd without paramaters.(e.g. /sh ){/}{nl}{#333333}Available commands:{nl}/sh jp       :Switch to Japanese mode.(日本語へ){nl}/sh en       :Switch to English mode.{nl}/sh reset    :Reset the paramaters of price average settings.{nl}/sh resetall :Reset the all settings.{/}{nl} "
 	};
 	TOUKIBI_SHOPHELPER_ADDLOG("文字情報の読み込みが完了しました", "Info", true, true);
 end

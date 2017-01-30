@@ -1,9 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uiframe name="shophelper" x="0" y="0" width="10" height="10">
-	<frame fasthide="true" layout_gravity="left top"/>
-	<input moveable="false" hittestframe="false"/>
-	<layer layerlevel="10"/>
-	<draw drawframe="false" drawtitlebarframe="false" drawtitlebar="false"/>
-	<option closebutton="false" hideable="false"/>
-<controls/>
+<uiframe name="shophelper" x="0" y="0" width="640" height="640" create="open">
+  <frame fasthide="true" layout_gravity="center center" margin="0 0 0 0"/>
+  <skin frameskin=" "/>
+  <input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+  <layer layerlevel="99"/>
+  <draw drawframe="true" drawtitlebarframe="false" drawtitlebar="false"/>
+  <option closebutton="false" hideable="false"/>
+  <sound opensound="sys_popup_open_1" closesound="character_item_window_close"/>
+  <script OpenScp="TOUKIBI_SHOPHELPER_OPEN_SETTING" CloseScp="TOUKIBI_SHOPHELPER_CLOSE_SETTING"/>
+  <controls>
+    <groupbox name="pnlMain" rect="0 0 640 600" margin="0 30 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="true" skin="test_frame_low"/>
+    <groupbox name="pipwin_top" rect="0 0 640 60" margin="0 0 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false" skin="test_frame_top"/>
+    <richtext name="title" rect="0 0 200 80" margin="0 16 0 0" layout_gravity="center top" caption="{@st43}Shop Helperの設定{/}" textalign="left top"/>
+    <button name="close" rect="0 0 44 44" margin="0 19 28 0" layout_gravity="right top" image="testclose_button"
+		LBtnUpScp="ui.CloseFrame(&apos;shophelper&apos;)" texttooltip="{@st59}마켓 창을 닫습니다{/}"
+		clicksound="button_click_big" oversound="button_over" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover"/>
+
+    <groupbox name="pnlLang" parent="pnlMain" rect="0 0 640 65" margin="0 35 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="true" scrollbar="false"/>
+    <richtext name="lang_title" parent="pnlLang" rect="0 0 120 24" margin="20 0 0 0" layout_gravity="left top" format="{@st43}言語 (Language){/}"/>
+    <radiobutton name="lang_jp" parent="pnlLang" rect="0 0 200 24" margin="40 35 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}日本語{/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+    <radiobutton name="lang_en" parent="pnlLang" rect="0 0 200 24" margin="200 35 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}English{/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+
+    <groupbox name="pnlOption" parent="pnlMain" rect="0 0 640 245" margin="0 105 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="true" scrollbar="false"/>
+    <richtext name="option_title" parent="pnlOption" rect="0 0 120 24" margin="20 0 0 0" layout_gravity="left top" format="{@st43}動作設定{/}"/>
+    <checkbox name="ShowMessageLog" parent="pnlOption" rect="0 0 120 30" margin="40 40 0 0" layout_gravity="left top" ConfigName="ShowMessageLog" caption="{@st66b}ログを表示する{/}" clicksound="button_click_big" oversound="button_over"/>
+    <checkbox name="ShowMsgBoxOnBuffShop" parent="pnlOption" rect="0 0 120 30" margin="40 70 0 0" layout_gravity="left top" ConfigName="ShowMsgBoxOnBuffShop" caption="{@st66b}バフ購入時の確認メッセージをスキップする{/}" clicksound="button_click_big" oversound="button_over"/>
+    <checkbox name="AddInfoToBaloon" parent="pnlOption" rect="0 0 120 30" margin="40 100 0 0" layout_gravity="left top" ConfigName="AddInfoToBaloon" caption="{@st66b}露店の看板に追記する{/}" clicksound="button_click_big" oversound="button_over"/>
+    <checkbox name="EnableBaloonRightClick" parent="pnlOption" rect="0 0 120 30" margin="40 130 0 0" layout_gravity="left top" ConfigName="EnableBaloonRightClick" caption="{@st66b}露店の看板の右クリックを有効にする{/}" clicksound="button_click_big" oversound="button_over"/>
+
+    <checkbox name="UpdateAverage" parent="pnlOption" rect="0 0 120 30" margin="40 160 0 0" layout_gravity="left top" ConfigName="UpdateAverage" caption="{@st66b}平均値を更新する{/}" clicksound="button_click_big" oversound="button_over"/>
+    <richtext name="AverageNCount_text" parent="pnlOption" rect="0 0 120 24" margin="100 190 0 0" layout_gravity="left top" format="{@st66b}移動平均の重み：(%s:1){/}" param1="opValue"/>
+    <richtext name="RecalcInterval_text" parent="pnlOption" rect="0 0 120 24" margin="100 240 0 0" layout_gravity="left top" format="{@st66b}次の更新までの待機時間：(%s秒){/}" param1="opValue"/>
+    <slidebar name="AverageNCount" parent="pnlOption" rect="0 0 300 20" margin="100 215 0 0" layout_gravity="left top" SlideScp="TOUKIBI_SHOPHELPER_SLIDER_CHANGED" clicksound="button_click_big_2" maxlevel="20" minlevel="1" oversound="button_over" skin="slidebar"/>
+    <slidebar name="RecalcInterval" parent="pnlOption" rect="0 0 300 20" margin="100 265 0 0" layout_gravity="left top" SlideScp="TOUKIBI_SHOPHELPER_SLIDER_CHANGED" clicksound="button_click_big_2" maxlevel="12" minlevel="1" oversound="button_over" skin="slidebar"/>
+    <!--
+
+平均価格のしきい値設定
+ブレッシング
+サクラメント
+アスパーション
+
+修理
+ジェムロースティング
+
+		-->
+    <groupbox name="pnlPrice" parent="pnlMain" rect="0 0 640 240" margin="0 370 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="true" scrollbar="true" skin="pipwin_low"/>
+    <richtext name="price_title" parent="pnlPrice" rect="0 0 120 24" margin="20 0 0 0" layout_gravity="left top" format="{@st43}価格評価設定{/}"/>
+
+    <button name="btn_cencel" parent="pnlMain" rect="10 10 140 55" margin=" 80 0 0 80" layout_gravity="center bottom" LBtnUpScp="ui.CloseFrame(&apos;shophelper&apos;)" caption="{@st42}閉じる" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_gray_button"/>
+    <button name="btn_excute" parent="pnlMain" rect="10 10 140 55" margin="-90 0 0 80" layout_gravity="center bottom" LBtnUpScp="TOUKIBI_SHOPHELPER_EXEC_SETTING" caption="{@st42}保存" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_red_button"/>
+
+
+  </controls>
 </uiframe>
