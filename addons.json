@@ -15,5 +15,20 @@
             "jp",
             "en"
         ]
+    },
+    {
+        "name" : "Dur Notice Mini",
+        "file" : "durnoticemini",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.0",
+        "releaseTag" : "DurNoticeMini",
+        "unicode" : "⛄",
+        "description" : "zealotさんのDur Noticeを小型化してステータス表示に溶け込めるようにしたものです。 This add-on is a miniaturized version of durability value viewer 'Dur Notice' made by 'zealot'. But sorry, this add-on is Japanese-version only.",
+        "tags" : [
+            "ui",
+            "durability",
+            "miniaturized",
+            "jp"
+        ]
     }
 ]
