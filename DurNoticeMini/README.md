@@ -26,17 +26,18 @@ Description of [English Version is Here](#description-of-english-version).
 * 基本はステータスウィンドウに吸着
   
 ### 2.使用可能なコマンド一覧
-基本のコマンドは **`/durmini`** または **`/DurMini`** です    
+基本のコマンドは **`/durmini`** または **`/DurMini`** です  
+
 |コマンド|効果|
+|---|---|
 |/DurMini|メイン画面の表示/非表示を切り替え|
-|:-|:-|
 |/DurMini reset|設定リセット|
 |/DurMini resetpos|耐久値表示画面の位置をリセット|
 |/DurMini refresh|位置・表示を更新|
 |/DurMini update|耐久値表示を更新|
 |/DurMini ?|チャットログにヘルプを表示|
 |/DurMini joke|？？？|
-|||
+
 
 ### 3.導入方法
 このアドオンは、アドオンマネージャJPに登録しています。  
