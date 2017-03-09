@@ -30,5 +30,20 @@
             "miniaturized",
             "jp"
         ]
+    },
+    {
+        "name" : "Map Mate",
+        "file" : "mapmate",
+        "extension" : "ipf",
+        "fileVersion" : "v0.1.0",
+        "releaseTag" : "MapMate",
+        "unicode" : "⛄",
+        "description" : "マップ表示を色々便利にしてくれます。(現在はミニマップに追加情報を表示するだけ) This add-on makes map display a lot convenient. (Currently it only displays additional information in the mini map)  But sorry, this add-on is Japanese-version only.",
+        "tags" : [
+            "ui",
+            "map",
+            "pc-count",
+            "jp"
+        ]
     }
 ]
