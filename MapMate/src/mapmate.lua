@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.10";
+local verText = "0.12";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/MapMate", "/mmate", "/MMate"};
@@ -121,7 +121,7 @@ local function LoadSetting()
 		AddLog(string.format("設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。{nl}{#331111}%s{/}", tostring(objError)), "Caution", true, false);
 		MargeDefaultSetting(true, false);
 	else
-		Settings = objReadValue;
+		Me.Settings = objReadValue;
 		MargeDefaultSetting(false, false);
 	end
 	AddLog("設定の読み込みが完了しました", "Info", true, false);
@@ -261,7 +261,7 @@ function Me.UpdateMapInfo()
 			Me.ThisMapInfo.strLv = "";
 		end
 		if Me.ThisMapInfo.IESData.MapType == "Dungeon" then
-			if string.find(string.lower(Me.ThisMapInfo.MapClassName), "indun_") or string.find(string.lower(Me.ThisMapInfo.MapClassName), "mission_") or Me.ThisMapInfo.IESData.Mission == "YES" then
+			if string.find(string.lower(Me.ThisMapInfo.MapClassName), "id_") or string.find(string.lower(Me.ThisMapInfo.MapClassName), "mission_") or Me.ThisMapInfo.IESData.Mission == "YES" then
 				Me.ThisMapInfo.MapSymbol = "{img minimap_indun 14 14}";
 			elseif Me.ThisMapInfo.IESData.EliteMobLimitCount > 0 then
 				Me.ThisMapInfo.MapSymbol = "{img minimap_erosion 14 14}";
@@ -599,7 +599,7 @@ function Me.CustomizeMiniMap()
 	Me.UpdateMapInfo();
 	Me.UpdateFogRevealRate();
 	UpdatelblPCCount();
-	Me.PCCountRemainingTime = 3;
+	Me.PCCountRemainingTime = 3 * Me.BrinkRadix;
 	TOUKIBI_MAPMATE_TIMER_PCCOUNT_START();
 -- MapMate.CustomizeMiniMap()
 end
