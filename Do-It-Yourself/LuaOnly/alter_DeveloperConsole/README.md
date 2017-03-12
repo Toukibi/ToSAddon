@@ -1,6 +1,6 @@
 ﻿# 改造版 Developer Console
 変数展開機能を追加しています。  
-![変数展開をしている所](https://github.com/Toukibi/ToSAddon/blob/ForImage/Do-It-Yourself/LuaOnly/alter_DeveloperConsole/img/main.jpg?raw=true)
+![変数展開をしている所](https://github.com/Toukibi/ToSAddon/blob/ForImage/Do-It-Yourself/LuaOnly/alter_DeveloperConsole/img/main.jpg?raw=true)  
 使い方は次の通り
 
 |コマンド|内容|
