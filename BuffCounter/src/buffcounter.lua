@@ -1,5 +1,5 @@
 local addonName = "BuffCounter";
-local verText = "1.0.0";
+local verText = "1.0.1";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/buffcounter", "/BuffCounter", "/buffc"} -- {"/コマンド1", "/コマンド2", .......};
@@ -403,7 +403,7 @@ function Me.GetPartyBuffCount()
 		for i = 0 , MemberCount - 1 do
 			local pcInfo = MemberList:Element(i);
 			-- CHAT_SYSTEM(string.format("Me:%s  PTM(%s):%s", myInfo:GetMapID(), i, pcInfo:GetMapID()))
-			if myInfo ~= pcInfo and myInfo:GetMapID() == pcInfo:GetMapID() then
+			if myInfo ~= pcInfo and myInfo:GetMapID() == pcInfo:GetMapID() and myInfo:GetChannel() == pcInfo:GetChannel() then
 				if ReturnValue.PTM == nil then
 					ReturnValue.PTM = {};
 					ReturnValue.PTM.CurrentCount = 0;
