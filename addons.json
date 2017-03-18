@@ -45,5 +45,19 @@
             "pc-count",
             "jp"
         ]
+    },
+    {
+        "name" : "Buff Counter",
+        "file" : "buffcounter",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.0",
+        "releaseTag" : "BuffCounter",
+        "unicode" : "⛄",
+        "description" : "上段バフの残り枠数を教えてくれます。  This add-on will tell you the remaining number of upper buffs.  But sorry, this add-on is Japanese-version only.",
+        "tags" : [
+            "ui",
+            "buff",
+            "jp"
+        ]
     }
 ]
