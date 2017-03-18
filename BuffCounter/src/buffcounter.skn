@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skinset name="buffcounterres">
+	<skinlist category="gauges">
+		<skin name="toukibi_gauge_red" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 72 3 7"/>
+			<img name="bgmiddle" imgrect="5 72 63 7"/>
+			<img name="bgright" imgrect="68 72 3 7"/>
+			<img name="barleft" imgrect="2 82 3 7"/>
+			<img name="barmiddle" imgrect="5 82 63 7"/>
+			<img name="barright" imgrect="68 82 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_orange" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 72 3 7"/>
+			<img name="bgmiddle" imgrect="5 72 63 7"/>
+			<img name="bgright" imgrect="68 72 3 7"/>
+			<img name="barleft" imgrect="2 92 3 7"/>
+			<img name="barmiddle" imgrect="5 92 63 7"/>
+			<img name="barright" imgrect="68 92 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_yellow" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 72 3 7"/>
+			<img name="bgmiddle" imgrect="5 72 63 7"/>
+			<img name="bgright" imgrect="68 72 3 7"/>
+			<img name="barleft" imgrect="2 102 3 7"/>
+			<img name="barmiddle" imgrect="5 102 63 7"/>
+			<img name="barright" imgrect="68 102 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_green" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 72 3 7"/>
+			<img name="bgmiddle" imgrect="5 72 63 7"/>
+			<img name="bgright" imgrect="68 72 3 7"/>
+			<img name="barleft" imgrect="2 112 3 7"/>
+			<img name="barmiddle" imgrect="5 112 63 7"/>
+			<img name="barright" imgrect="68 112 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_green2" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 72 3 7"/>
+			<img name="bgmiddle" imgrect="5 72 63 7"/>
+			<img name="bgright" imgrect="68 72 3 7"/>
+			<img name="barleft" imgrect="2 122 3 7"/>
+			<img name="barmiddle" imgrect="5 122 63 7"/>
+			<img name="barright" imgrect="68 122 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_skyblue" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 72 3 7"/>
+			<img name="bgmiddle" imgrect="5 72 63 7"/>
+			<img name="bgright" imgrect="68 72 3 7"/>
+			<img name="barleft" imgrect="2 132 3 7"/>
+			<img name="barmiddle" imgrect="5 132 63 7"/>
+			<img name="barright" imgrect="68 132 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_blue" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 72 3 7"/>
+			<img name="bgmiddle" imgrect="5 72 63 7"/>
+			<img name="bgright" imgrect="68 72 3 7"/>
+			<img name="barleft" imgrect="2 142 3 7"/>
+			<img name="barmiddle" imgrect="5 142 63 7"/>
+			<img name="barright" imgrect="68 142 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_blue_onsky" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 132 3 7"/>
+			<img name="bgmiddle" imgrect="5 132 63 7"/>
+			<img name="bgright" imgrect="68 132 3 7"/>
+			<img name="barleft" imgrect="2 142 3 7"/>
+			<img name="barmiddle" imgrect="5 142 63 7"/>
+			<img name="barright" imgrect="68 142 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_skyblue_ongreen" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 112 3 7"/>
+			<img name="bgmiddle" imgrect="5 112 63 7"/>
+			<img name="bgright" imgrect="68 112 3 7"/>
+			<img name="barleft" imgrect="2 122 3 7"/>
+			<img name="barmiddle" imgrect="5 122 63 7"/>
+			<img name="barright" imgrect="68 122 3 7"/>
+		</skin>
+		<skin name="toukibi_gauge_blue_ongreen" texture="\buffcounter\buffcounterres.tga">
+			<img name="bgleft" imgrect="2 122 3 7"/>
+			<img name="bgmiddle" imgrect="5 122 63 7"/>
+			<img name="bgright" imgrect="68 122 3 7"/>
+			<img name="barleft" imgrect="2 142 3 7"/>
+			<img name="barmiddle" imgrect="5 142 63 7"/>
+			<img name="barright" imgrect="68 142 3 7"/>
+		</skin>
+	</skinlist>
+	<imagelist category="icons">
+		<image name="jokeicon_shield" file="buffcounter\buffcounterres.tga" imgrect="0 0 64 64" />
+		<image name="jokeicon_helmet" file="buffcounter\buffcounterres.tga" imgrect="64 0 64 64" />
+	</imagelist>
+</skinset>
