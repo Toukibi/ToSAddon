@@ -1,8 +1,12 @@
 local addonName = "MapMate";
-local verText = "0.12";
+local verText = "0.15";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
-local SlashCommandList = {"/mapmate", "/MapMate", "/mmate", "/MMate"};
+local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
+local CommandParamList = {
+	reset = {jp = "設定リセット", en = "Reset the all settings."},
+	update = {jp = "表示を更新", en = "The additional information displayed will be updated."}
+};
 local SettingFileName = "setting.json"
 
 _G['ADDONS'] = _G['ADDONS'] or {};
@@ -11,120 +15,399 @@ _G['ADDONS'][autherName][addonName] = _G['ADDONS'][autherName][addonName] or {};
 
 local Me = _G['ADDONS'][autherName][addonName];
 MapMate = Me;
-local DebugMode = false;
+local DebugMode = true;
 
-local floor = math.floor;
-local fmod = math.fmod;
+-- コモンモジュール(の代わり)
+local Toukibi = {
+	CommonResText = {
+		jp = {
+			System = {
+				NoSaveFileName = "設定の保存ファイル名が指定されていません",
+				HasErrorOnSaveSettings = "設定の保存でエラーが発生しました",
+				CompleteSaveSettings = "設定の保存が完了しました"
+			},
+			Help = {
+				Title = string.format("{#333333}%sのパラメータ説明{/}", addonName),
+				Description = string.format("{#92D2A0}%sは次のパラメータで設定を呼び出してください。{/}", addonName),
+				ParamDummy = "[パラメータ]",
+				OrText = "または",
+				EnableTitle = "使用可能なコマンド"
+			}
+		},
+		en = {
+			System = {
+				NoSaveFileName = "The filename of save settings is not specified.",
+				HasErrorOnSaveSettings = "An error occurred while saving the settings.",
+				CompleteSaveSettings = "Saving settings completed."
+			},
+			Help = {
+				Title = string.format("{#333333}Help for %s commands.{/}", addonName),
+				Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName),
+				ParamDummy = "[paramaters]",
+				OrText = "or",
+				EnableTitle = "Available commands"
+			}
+		}
+	},
+	
+	test = function(self, Caption)
+		Caption = Caption or "てすと";
+		CHAT_SYSTEM(tostring(Caption));
+	end,
+
+	GetDefaultLangCode = function(self)
+		if option.GetCurrentCountry() == "Japanese" then
+			return "jp";
+		else
+			return "en";
+		end
+	end,
+
+	GetTableLen = function(self, tbl)
+		local n = 0;
+		for _ in pairs(tbl) do
+			n = n + 1;
+		end
+		return n;
+	end,
+
+	Split = function(self, str, delim)
+		local ReturnValue = {};
+		for match in string.gmatch(str, "[^" .. delim .. "]+") do
+			table.insert(ReturnValue, match);
+		end
+		return ReturnValue;
+	end,
+
+	GetValue = function(self, obj, Key)
+		if obj == nil then return nil end
+		if Key == nil or Key == "" then return obj end
+		local KeyList = self:Split(Key, ".");
+		for i = 1, #KeyList do
+			obj = obj[KeyList[i]];
+			if obj == nil then return nil end
+		end
+		return obj;
+	end,
+
+	GetResData = function(self, TargetRes, Lang, Key)
+		if TargetRes == nil then return nil end
+		--CHAT_SYSTEM(string.format("TargetLang : %s", self:GetValue(TargetRes[Lang], Key)))
+		--CHAT_SYSTEM(string.format("En : %s", self:GetValue(TargetRes["en"], Key)))
+		--CHAT_SYSTEM(string.format("Jp : %s", self:GetValue(TargetRes["jp"], Key)))
+		local CurrentRes = self:GetValue(TargetRes[Lang], Key) or self:GetValue(TargetRes["en"], Key) or self:GetValue(TargetRes["jp"], Key);
+		return CurrentRes;
+	end,
+
+	GetResText = function(self, TargetRes, Lang, Key)
+		local ReturnValue = self:GetResData(TargetRes, Lang, Key);
+		if ReturnValue == nil then return "<No Data!!>" end
+		if type(ReturnValue) == "string" then return ReturnValue end
+		return tostring("tostring ==>" .. ReturnValue);
+	end,
+
+	-- ***** ログ表示関連 *****
+	GetStyledText = function(self, Value, Styles)
+		-- ValueにStylesで与えたスタイルタグを付加した文字列を返します
+		local ReturnValue;
+		if Styles == nil or #Styles == 0 then
+			-- スタイル指定なし
+			ReturnValue = Value;
+		else
+			local TagHeader = ""
+			for i, StyleTag in ipairs(Styles) do
+				TagHeader = TagHeader .. string.format( "{%s}", StyleTag);
+			end
+			ReturnValue = string.format( "%s%s%s", TagHeader, Value, string.rep("{/}", #Styles));
+		end
+		return ReturnValue;
+	end,
+
+	AddLog = function(self, Message, Mode, DisplayAddonName, OnlyDebugMode)
+		if Message == nil then return end
+		Mode = Mode or "Info";
+		if (not DebugMode) and Mode == "Info" then return end
+		if (not DebugMode) and OnlyDebugMode then return end
+		local HeaderText = "";
+		if DisplayAddonName then
+			HeaderText = string.format("[%s]", addonName);
+		end
+		local MsgText = HeaderText .. Message;
+		if Mode == "Info" then
+			MsgText = self:GetStyledText(MsgText, {"#333333"});
+		elseif Mode == "Warning" then
+			MsgText = self:GetStyledText(MsgText, {"#331111"});
+		elseif Mode == "Caution" then
+			MsgText = self:GetStyledText(MsgText, {"#666622"});
+		elseif Mode == "Notice" then
+			MsgText = self:GetStyledText(MsgText, {"#333366"});
+		else
+			-- 何もしない
+		end
+		CHAT_SYSTEM(MsgText);
+	end,
+
+	-- 言語切替
+	ChangeLanguage = function(self, Lang)
+		local msg;
+		if self.CommonResText[Lang] == nil then
+			msg = string.format("Sorry, '%s' does not implement '%s' mode.{nl}Language mode has not been changed from '%s'.", 
+								addonName, Lang, Me.Settings.Lang);
+			self:AddLog(msg, "Warning", true, false)
+			return;
+		end
+		Me.Settings.Lang = Lang;
+		self:SaveTable(Me.SettingFilePathName, Me.Settings);
+		if Me.Settings.Lang == "jp" then
+			msg = "日本語モードに切り替わりました";
+		else
+			msg = string.format("Language mode has been changed to '%s'.", Lang);
+		end
+		self:AddLog(msg, "Notice", true, false);
+	end,
+
+	-- ヘルプテキストを自動生成する
+	ShowHelpText = function(self)
+		local ParamDummyText = "";
+		if SlashCommandList ~= nil and SlashCommandList[1] ~= nil then
+			ParamDummyText = ParamDummyText .. "{#333333}";
+			ParamDummyText = ParamDummyText .. string.format("'%s %s'", SlashCommandList[1], self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.ParamDummy"));
+			if SlashCommandList[2] ~= nil then
+				ParamDummyText = ParamDummyText .. string.format(" %s '%s %s'", self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.OrText"), SlashCommandList[2], self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.ParamDummy"));
+			end
+			ParamDummyText = ParamDummyText .. "{/}{nl}";
+		end
+		local CommandHelpText = "";
+		if CommandParamList ~= nil and self:GetTableLen(CommandParamList) > 0 then
+			CommandHelpText = CommandHelpText .. string.format("{#333333}%s：", self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.EnableTitle"));
+			for ParamName, DescriptionKey in pairs(CommandParamList) do
+				local SpaceCount = 10 - string.len(ParamName);
+				local SpaceText = ""
+				if SpaceCount > 0 then
+					SpaceText = string.rep(" ", SpaceCount)
+				end
+				CommandHelpText = CommandHelpText .. string.format("{nl}%s %s%s:%s", SlashCommandList[1], ParamName, SpaceText, self:GetResText(DescriptionKey, Me.Settings.Lang));
+			end
+			CommandHelpText = CommandHelpText .. "{/}{nl} "
+		end
+		
+		self:AddLog(string.format("%s{nl}%s{nl}%s%s"
+								, self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.Title")
+								, self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.Description")
+								, ParamDummyText
+								, CommandHelpText
+								)
+				  , "None", false, false);
+	end,
+
+	-- ***** 設定読み書き関連 *****
+	SaveTable = function(self, FilePathName, objTable)
+		if FilePathName == nil then
+			self:AddLog(self:GetResText(self.CommonResText, Me.Settings.Lang, "System.NoSaveFileName"), "Warning", true, false);
+		end
+		local objFile, objError = io.open(FilePathName, "w")
+		if objError then
+			self:AddLog(string.format("%s:{nl}%s"
+									, self:GetResText(self.CommonResText, Me.Settings.Lang, "System.HasErrorOnSaveSettings")
+									, tostring(objError)), "Warning", true, false);
+		else
+			local json = require('json');
+			objFile:write(json.encode(objTable));
+			objFile:close();
+			self:AddLog(self:GetResText(self.CommonResText, Me.Settings.Lang, "System.CompleteSaveSettings"), "Info", true, true);
+		end
+	end,
+
+	LoadTable = function(self, FilePathName)
+		local acutil = require("acutil");
+		local objReadValue, objError = acutil.loadJSON(FilePathName);
+		return objReadValue, objError;
+	end,
+
+	-- 既存の値がない場合にデフォルト値をマージする
+	GetValueOrDefault = function(self, Value, DefaultValue, Force)
+		Force = Force or false;
+		if Force or Value == nil then
+			return DefaultValue;
+		else
+			return Value;
+		end
+	end,
+
+	-- ***** コンテキストメニュー関連 *****
+	-- セパレータを挿入
+	MakeCMenuSeparator = function(self, parent, width)
+		width = width or 300;
+		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+	end,
+
+	-- コンテキストメニュー項目を作成
+	MakeCMenuItem = function(self, parent, text, eventscp, icon, checked)
+		local CheckIcon = "";
+		local ImageIcon = "";
+		local eventscp = eventscp or "None";
+		if checked == nil then
+			CheckIcon = "";
+		elseif checked == true then
+			CheckIcon = "{img socket_slot_check 24 24} ";
+		elseif checked == false  then
+			CheckIcon = "{img channel_mark_empty 24 24} ";
+		end
+		if icon == nil then
+			ImageIcon = "";
+		else
+			ImageIcon = string.format("{img %s 24 24} ", icon);
+		end
+		ui.AddContextMenuItem(parent, string.format("%s%s%s", CheckIcon, ImageIcon, text), eventscp);
+	end,
+
+	-- イベントの飛び先を変更するためのプロシージャ
+	SetHook = function(self, hookedFunctionStr, newFunction)
+		if Me.HoockedOrigProc[hookedFunctionStr] == nil then
+			Me.HoockedOrigProc[hookedFunctionStr] = _G[hookedFunctionStr];
+			_G[hookedFunctionStr] = newFunction;
+		else
+			_G[hookedFunctionStr] = newFunction;
+		end
+	end 
+};
+Me.ComLib = Toukibi;
+
+-- テキストリソース
+local ResText = {
+	jp = {
+		Menu = {
+			Title = "{#006666}==== MapMateの設定(接続人数更新) ===={/}"
+		  , TitleNotice = "{#663333}更新機能はサーバーへの通信を行います。{nl}使用は自己責任でお願いします。{/}"
+		  , UpdateNow = "今すぐ更新する"
+		  , AutoUpdateBySeconds = "%s秒毎に自動更新"
+		  , AutoUpdateByMinutes = "%s分毎に自動更新"
+		  , NoAutoUpdate = "自動更新しない"
+		  , ManuallyUpdate = "{img minimap_0_old 20 20}をクリックで手動更新する"
+		  , ContinuousUpdatePrevention = "更新後5秒間は更新しない"
+		  , Close = "閉じる"
+		},
+		System = {
+			ErrorToUseDefaults = "設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。"
+		  , CompleteLoadDefault = "デフォルトの設定の読み込みが完了しました。"
+		  , CompleteLoadSettings = "設定の読み込みが完了しました"
+		  , ExecuteCommands = "コマンド '{#333366}%s{/}' が呼び出されました"
+		  , ResetSettings = "設定をリセットしました。"
+		  , InvalidCommand = "無効なコマンドが呼び出されました"
+		  , AnnounceCommandList = "コマンド一覧を見るには[ %s ? ]を用いてください"
+		},
+		MapInfo = {
+			Title = "のMAP情報"
+		  , ExplorationProgress = "探査率"
+		  , CardLv = "カードLv"
+		  , MaxHate = "最大被ターゲット数"
+		},
+		DeathPenalty = {
+			Title = "デスペナ情報"
+		  , LostGem = "ジェム消失"
+		  , LostSilver = "%s％のシルバーを消失"
+		  , LostCard = "Bossカード消失"
+		  , LostBlessStone = "祝福石消失"
+		  , Other = "その他のペナルティー(%s)"
+		},
+		GetConnectionNumber = {
+			Title = "接続人数"
+		  , Failed = "接続人数の取得に失敗しました"
+		  , Cannot = "接続人数の取れないMapです"
+		  , Closed = "このチャンネルは閉鎖されています"
+		  , StateClosed = "閉鎖"
+		}
+	},
+	en = {
+		Menu = {
+			Title = "{#006666}======= MapMate setting ======={nl}(connection number update){/}"
+		  , TitleNotice = "{#663333}The update function communicates with{nl}the server. Use it at your own risk.{/}"
+		  , UpdateNow = "Update now"
+		  , AutoUpdateWithInterval = function(self, Value,Unit) string.format("%s%s毎に自動更新", Value, Unit) end
+		  , AutoUpdateBySeconds = "Every %ssec. to auto update"
+		  , AutoUpdateByMinutes = "Every %smin. to auto update"
+		  , NoAutoUpdate = "Do not auto-update"
+		  , ManuallyUpdate = "Click on{img minimap_0_old 20 20}to update manually"
+		  , ContinuousUpdatePrevention = "Wait for 5sec. after updating"
+		  , Close = "Close"
+		},
+		System = {
+			ErrorToUseDefaults = "Since an error occurred in setting loading, switch to the default setting."
+		  , CompleteLoadDefault = "Loading of default settings has been completed."
+		  , CompleteLoadSettings = "Loading of setting is completed"
+		  , ExecuteCommands = "Command '{#333366}%s{/}' was called"
+		  , ResetSettings = "The setting was reset."
+		  , InvalidCommand = "Invalid command called"
+		  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
+		},
+		MapInfo = {
+			Title = "Infomation of "
+		  , ExplorationProgress = "Progress of exploration"
+		  , CardLv = "Card Level"
+		  , MaxHate = "Maximum number targeted"
+		},
+		DeathPenalty = {
+			Title = "Additional penalty for character's death"
+		  , LostGem = "Loss of Gems"
+		  , LostSilver = "Loss of %s％ silver"
+		  , LostCard = "Loss of boss-cards"
+		  , LostBlessStone = "Loss of blessed stone"
+		  , Other = "その他のペナルティー(%s)"
+		},
+		GetConnectionNumber = {
+			Title = "Number of people"
+		  , Failed = "Failed to get the number of people"
+		  , Cannot = "Here is a map that cannot get the number of people"
+		  , Closed = "This channel is closed"
+		  , StateClosed = "Closed"
+		}
+	}
+};
+Me.ResText = ResText;
 
 CHAT_SYSTEM("{#333333}[Add-ons]" .. addonName .. verText .. " loaded!{/}");
---CHAT_SYSTEM("{#333333}[DurNoticeMini]コマンド /mmate で耐久表示のON/OFFが切り替えられます{/}");
+--CHAT_SYSTEM("{#333333}[MapMate]コマンド /mmate で表示のON/OFFが切り替えられます{/}");
 
 -- ***** 変数の宣言と設定 *****
 Me.SettingFilePathName = string.format("../addons/%s/%s", addonNameLower, SettingFileName);
-Me.HoockedOrigProc = Me.HoockedOrigProc or {};
 Me.PCCountSafetyCount = 0;
 Me.Loaded = false;
 Me.BrinkRadix = 4;
 
--- ***** ログ表示関連 *****
-local function CreateValueWithStyleCode(Value, Styles)
-	-- ValueにStylesで与えたスタイルタグを付加した文字列を返します
-	local ReturnValue;
-	if Styles == nil or #Styles == 0 then
-		-- スタイル指定なし
-		ReturnValue = Value;
-	else
-		local TagHeader = ""
-		for i, StyleTag in ipairs(Styles) do
-			TagHeader = TagHeader .. string.format( "{%s}", StyleTag);
-		end
-		ReturnValue = string.format( "%s%s%s", TagHeader, Value, string.rep("{/}", #Styles));
-	end
-	return ReturnValue;
-end
 
-local function AddLog(Message, Mode, DisplayAddonName, OnlyDebugMode)
-	if Me.Settings == nil then return end
-	if Message == nil then return end
-	if (not DebugMode) and Mode == "Info" then return end
-	if (not DebugMode) and OnlyDebugMode then return end
-	local HeaderText = "";
-	if DisplayAddonName then
-		HeaderText = string.format("[%s]", addonName);
-	end
-	local MsgText = HeaderText .. Message;
-	if Mode == "Info" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#333333"});
-	elseif Mode == "Warning" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#331111"});
-	elseif Mode == "Caution" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#666622"});
-	elseif Mode == "Notice" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#333366"});
-	else
-		-- 何もしない
-	end
-	CHAT_SYSTEM(MsgText);
-end
-
--- ***** 設定読み書き関連 *****
 -- 設定書き込み
-local function SaveTable(FilePathName, objTable)
-	if FilePathName == nil then
-		AddLog("設定の保存ファイル名が指定されていません", "Warning", true, false);
-	end
-	local objFile, objError = io.open(FilePathName, "w")
-	if objError then
-		AddLog(string.format("設定の保存でエラーが発生しました:{nl}%s", tostring(objError)), "Warning", true, false);
-	else
-		local json = require('json');
-		objFile:write(json.encode(objTable));
-		objFile:close();
-		AddLog("設定の保存が完了しました", "Info", true, true);
-	end
-end
 local function SaveSetting()
-	SaveTable(Me.SettingFilePathName, Me.Settings);
-end
-
--- 既存の値がない場合にデフォルト値をマージする
-local function GetValueOrDefault(Value, DefaultValue, Force)
-	Force = Force or false;
-	if Force or Value == nil then
-		return DefaultValue;
-	else
-		return Value;
-	end
+	Toukibi:SaveTable(Me.SettingFilePathName, Me.Settings);
 end
 
 -- デフォルト設定(ForceがTrueでない場合は、既存の値はそのまま引き継ぐ)
 local function MargeDefaultSetting(Force, DoSave)
-	DoSave = GetValueOrDefault(DoSave, true);
+	DoSave = Toukibi:GetValueOrDefault(DoSave, true);
 	Me.Settings = Me.Settings or {};
-	Me.Settings.DoNothing = GetValueOrDefault(Me.Settings.DoNothing, false, Force);
-	Me.Settings.Movable = GetValueOrDefault(Me.Settings.Movable, false, Force);
-	Me.Settings.Visible = GetValueOrDefault(Me.Settings.Visible, true, Force);
-	Me.Settings.UpdatePCCountInterval = GetValueOrDefault(Me.Settings.UpdatePCCountInterval, nil, Force);
-	Me.Settings.EnableOneClickPCCUpdate = GetValueOrDefault(Me.Settings.EnableOneClickPCCUpdate, false, Force);
-	Me.Settings.UsePCCountSafety = GetValueOrDefault(Me.Settings.UsePCCountSafety, true, Force);
+	Me.Settings.DoNothing = Toukibi:GetValueOrDefault(Me.Settings.DoNothing, false, Force);
+	Me.Settings.Lang = Toukibi:GetValueOrDefault(Me.Settings.Lang, Toukibi:GetDefaultLangCode(), Force);
+	Me.Settings.Movable = Toukibi:GetValueOrDefault(Me.Settings.Movable, false, Force);
+	Me.Settings.Visible = Toukibi:GetValueOrDefault(Me.Settings.Visible, true, Force);
+	Me.Settings.UpdatePCCountInterval = Toukibi:GetValueOrDefault(Me.Settings.UpdatePCCountInterval, nil, Force);
+	Me.Settings.EnableOneClickPCCUpdate = Toukibi:GetValueOrDefault(Me.Settings.EnableOneClickPCCUpdate, false, Force);
+	Me.Settings.UsePCCountSafety = Toukibi:GetValueOrDefault(Me.Settings.UsePCCountSafety, true, Force);
 	if Force then
-		AddLog("デフォルトの設定の読み込みが完了しました。", "Info", true, false);
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
 	end
 	if DoSave then SaveSetting() end
 end
 
 -- 設定読み込み
 local function LoadSetting()
-	local acutil = require("acutil");
-	local objReadValue, objError = acutil.loadJSON(Me.SettingFilePathName);
+	local objReadValue, objError = Toukibi:LoadTable(Me.SettingFilePathName);
 	if objError then
-		AddLog(string.format("設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。{nl}{#331111}%s{/}", tostring(objError)), "Caution", true, false);
+		Toukibi:AddLog(string.format("%s{nl}{#331111}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "System.ErrorToUseDefaults"), tostring(objError)), "Caution", true, false);
 		MargeDefaultSetting(true, false);
 	else
 		Me.Settings = objReadValue;
 		MargeDefaultSetting(false, false);
 	end
-	AddLog("設定の読み込みが完了しました", "Info", true, false);
+	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteLoadSettings"), "Info", true, false);
 end
 
 -- ===== アドオンの内容ここから =====
@@ -163,17 +446,20 @@ local function UpdatelblMapName()
 	else
 		strTemp = string.format("{s14}{ol}%s%s{nl}"
 							 .. "%s%s [%s]{nl}"
-							 .. "  {img journal_map_icon 16 16}探査率:%s{nl}"
-							 .. "  {img icon_item_expcard 16 16}カードLv: %s{nl}"
-							 .. "  {img channel_mark_empty 16 16}最大被ターゲット数: %s{nl}"
+							 .. "  {img journal_map_icon 16 16}%s:%s{nl}"
+							 .. "  {img icon_item_expcard 16 16}%s: %s{nl}"
+							 .. "  {img channel_mark_empty 16 16}%s: %s{nl}"
 							 .. "%s{/}{/}"
 							  , Me.ThisMapInfo.Stars
 							  , Me.ThisMapInfo.strLv
 							  , Me.ThisMapInfo.MapSymbol
 							  , Me.ThisMapInfo.Name
 							  , Me.ThisMapInfo.MapClassName
+							  , Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ExplorationProgress")
 							  , Me.ThisMapInfo.FogRevealRate or ""
+							  , Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.CardLv")
 							  , Me.ThisMapInfo.strExpCardLv
+							  , Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.MaxHate")
 							  , Me.ThisMapInfo.MaxHateCount
 							  , Me.ThisMapInfo.DeathPenaltyText or "");
 	end
@@ -190,7 +476,7 @@ local function UpdatelblFogRevealRate()
 		lblTarget:SetText(string.format("{img journal_map_icon 20 20}{s14}{ol}%s{/}{/}", Me.ThisMapInfo.FogRevealRate));
 		if Me.lblFogRateHideTimer == nil then
 			lblTarget:ShowWindow(1);
-		elseif Me.lblFogRateHideTimer >= 0 and fmod(Me.lblFogRateHideTimer, Me.BrinkRadix) > 0 then
+		elseif Me.lblFogRateHideTimer >= 0 and math.fmod(Me.lblFogRateHideTimer, Me.BrinkRadix) > 0 then
 			lblTarget:ShowWindow(1);
 		else
 			lblTarget:ShowWindow(0);
@@ -211,16 +497,18 @@ local function UpdatelblPCCount()
 	if Me.ThisMapInfo.PCCount == nil then
 		-- 取得失敗
 		strTemp = "--";
-		strTipTemp = "接続人数の取得に失敗しました";
+		strTipTemp = Toukibi:GetResText(ResText, Me.Settings.Lang, "GetConnectionNumber.Failed");
 	elseif Me.ThisMapInfo.PCCount < -1 then
+		-- 取れないMap
 		strTemp = "--";
-		strTipTemp = "接続人数の取れないMapです";
+		strTipTemp = Toukibi:GetResText(ResText, Me.Settings.Lang, "GetConnectionNumber.Cannot");
 	elseif Me.ThisMapInfo.PCCount == -1 then
-		strTemp = "閉鎖";
-		strTipTemp = "このチャンネルは閉鎖されています";
+		-- 閉鎖
+		strTemp = Toukibi:GetResText(ResText, Me.Settings.Lang, "GetConnectionNumber.StateClosed");
+		strTipTemp = Toukibi:GetResText(ResText, Me.Settings.Lang, "GetConnectionNumber.Closed");
 	else
 		strTemp = Me.ThisMapInfo.PCCount;
-		strTipTemp = string.format("接続人数:%s/%s", Me.ThisMapInfo.PCCount, session.serverState.GetMaxPCCount())
+		strTipTemp = string.format("%s:%s/%s", Toukibi:GetResText(ResText, Me.Settings.Lang, "GetConnectionNumber.Title"), Me.ThisMapInfo.PCCount, session.serverState.GetMaxPCCount())
 	end
 	lblTarget:SetText(string.format("{img minimap_0_old 16 16}{s14}{ol}%s{/}{/}", strTemp));
 	lblTarget:SetTextTooltip(string.format("{img minimap_0_old 16 16}{s14}{ol}%s{/}{/}", strTipTemp));
@@ -282,18 +570,18 @@ function Me.UpdateMapInfo()
 	-- デスペナ内容を解析 例:Gem3#Silver5#Card1#Blessstone1
 	local strReadData = string.lower(Me.ThisMapInfo.IESData.DeathPenalty);
 	if strReadData ~= nil and strReadData ~= "" and strReadData ~= "none" then
-		local strTemp = "{#663333}デスペナ情報：";
+		local strTemp = "{#663333}" .. Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.Title") .. "：";
 		for w in string.gmatch(strReadData, "%w+") do
 			if string.find(w, "gem") then
-				strTemp = strTemp .. "{nl}  ジェム消失 Lv." .. string.gsub(w, "gem", "");
+				strTemp = strTemp .. string.format("{nl}  %s Lv.%s", Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostGem"), string.gsub(w, "gem", ""));
 			elseif string.find(w, "silver") then
-				strTemp = strTemp .. "{nl}  " .. string.gsub(w, "silver", "") .. "％のシルバーを消失";
+				strTemp = strTemp .. string.format("{nl}  " .. Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostSilver"), string.gsub(w, "silver", ""));
 			elseif string.find(w, "card") then
-				strTemp = strTemp .. "{nl}  Bossカード消失 Lv." .. string.gsub(w, "card", "");
+				strTemp = strTemp .. string.format("{nl}  %s Lv.%s", Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostCard"), string.gsub(w, "card", ""));
 			elseif string.find(w, "blessstone") then
-				strTemp = strTemp .. "{nl}  祝福石消失 Lv." .. string.gsub(w, "blessstone", "");
+				strTemp = strTemp .. string.format("{nl}  %s Lv.%s", Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostBlessStone"), string.gsub(w, "blessstone", ""));
 			else
-				strTemp = strTemp .. string.format("{nl}  その他のペナルティー(%s)", w)
+				strTemp = strTemp .. string.format("{nl}  %s (%s)", Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.Other"), w)
 			end
 		end
 		strTemp = strTemp .. "{nl}{/}";
@@ -307,7 +595,7 @@ end
 -- Mapの接続人数を更新する
 function Me.UpdatePCCount()
 	if ui.GetFrame("loadingbg") ~= nil then return end
-	if Me.Settings.PCCountSafetyCount ~= nil and Me.Settings.PCCountSafetyCount > 0 then return end
+	if Me.PCCountSafetyCount ~= nil and Me.PCCountSafetyCount > 0 then return end
 	local zoneInsts = session.serverState.GetMap();
 	if zoneInsts == nil then
 		app.RequestChannelTraffics();
@@ -324,7 +612,7 @@ function Me.UpdatePCCount()
 		end
 	end
 	if Me.Settings.UsePCCountSafety then
-		Me.Settings.PCCountSafetyCount = Me.BrinkRadix * 5;
+		Me.PCCountSafetyCount = Me.BrinkRadix * 5;
 	end
 	if Me.Settings.UpdatePCCountInterval ~= nil then
 		Me.PCCountRemainingTime = Me.Settings.UpdatePCCountInterval * Me.BrinkRadix;
@@ -371,8 +659,8 @@ function TOUKIBI_MAPMATE_TIMER_PCCOUNT_TICK(frame)
 			Me.PCCountRemainingTime = Me.PCCountRemainingTime - 1;
 		end
 	end
-	if Me.Settings.PCCountSafetyCount ~= nil and Me.Settings.PCCountSafetyCount > 0 then
-		Me.Settings.PCCountSafetyCount = Me.Settings.PCCountSafetyCount - 1;
+	if Me.PCCountSafetyCount ~= nil and Me.PCCountSafetyCount > 0 then
+		Me.PCCountSafetyCount = Me.PCCountSafetyCount - 1;
 	end
 	local Parent = ui.GetFrame('minimap');
 	local TargetControl = GET_CHILD(Parent, "MapMate_PCCountRemainingTime", "ui::CRichText");
@@ -382,7 +670,7 @@ function TOUKIBI_MAPMATE_TIMER_PCCOUNT_TICK(frame)
 	end
 	if TargetControl ~= nil then
 		local TextColor = "#888888";
-		if Me.Settings.PCCountSafetyCount ~= nil and Me.Settings.PCCountSafetyCount > 0 then
+		if Me.PCCountSafetyCount ~= nil and Me.PCCountSafetyCount > 0 then
 			TextColor = "#FF6666";
 		end
 		TargetControl:SetText(string.format("{%s}{s8}{ol}%s{/}{/}{/}", TextColor, strRemainingTime));
@@ -395,8 +683,8 @@ function TOUKIBI_MAPMATE_TIMER_PCCOUNT_TICK(frame)
 end
 
 function TOUKIBI_MAPMATE_TIMER_PCCOUNT_START()
-	if Me.BrinkRadix == nil or Me.BrinkRadix <= 0 and Me.BrinkRadix > 100 then
-		Me.BrinkRadix = 1;
+	if Me.BrinkRadix == nil or (Me.BrinkRadix <= 0 and Me.BrinkRadix > 100) then
+		Me.BrinkRadix = 4;
 	end
 	Me.timer_pccount:Start(1 / Me.BrinkRadix);
 end
@@ -406,60 +694,55 @@ function TOUKIBI_MAPMATE_TIMER_PCCOUNT_STOP()
 	Me.timer_pccount:Stop();
 end
 
--- ***** コンテキストメニュー関連 *****
--- セパレータを挿入
-local function MakeContextMenuSeparator(parent, width)
-	width = width or 300;
-	ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
-end
-
--- コンテキストメニュー項目を作成
-local function MakeContextMenuItem(parent, text, eventscp, icon, checked)
-	local CheckIcon = "";
-	local ImageIcon = "";
-	local eventscp = eventscp or "None";
-	if checked == nil then
-		CheckIcon = "";
-	elseif checked == true then
-		CheckIcon = "{img socket_slot_check 24 24} ";
-	elseif checked == false  then
-		CheckIcon = "{img channel_mark_empty 24 24} ";
-	end
-	if icon == nil then
-		ImageIcon = "";
-	else
-		ImageIcon = string.format("{img %s 24 24} ", icon);
-	end
-	ui.AddContextMenuItem(parent, string.format("%s%s%s", CheckIcon, ImageIcon, text), eventscp);
-end
-
 -- ***** コンテキストメニューを作成する *****
 
 -- 接続人数更新設定のコンテキストメニュー
 function TOUKIBI_MAPMATE_CONTEXT_MENU_PCCOUNT(frame, ctrl)
-	local Title = "{#006666}==== MapMateの設定(接続人数更新) ===={/}{nl}{#663333}更新機能はサーバーへの通信を行います。{nl}使用は自己責任でお願いします。{/}";
+	local Title = string.format("%s{nl}%s"
+							  , Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title")
+							  , Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.TitleNotice")
+							  );
 	local context = ui.CreateContextMenu("DURMINI_MAIN_RBTN", Title, 0, 0, 320, 0);
-	MakeContextMenuSeparator(context, 300);
-	MakeContextMenuItem(context, "{#FFFF88}今すぐ更新する{/}", "TOUKIBI_MAPMATE_EXEC_PCCUPDATE()", nil, nil);
-	MakeContextMenuSeparator(context, 301);
-	MakeContextMenuItem(context, "10秒毎に自動更新", "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(10)", nil, Me.Settings.UpdatePCCountInterval == 10);
-	MakeContextMenuItem(context, "20秒毎に自動更新", "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(20)", nil, Me.Settings.UpdatePCCountInterval == 20);
-	MakeContextMenuItem(context, "30秒毎に自動更新", "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(30)", nil, Me.Settings.UpdatePCCountInterval == 30);
-	MakeContextMenuItem(context, "1分毎に自動更新", "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(60)", nil, Me.Settings.UpdatePCCountInterval == 60);
-	MakeContextMenuItem(context, "3分毎に自動更新", "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(180)", nil, Me.Settings.UpdatePCCountInterval == 180);
-	MakeContextMenuItem(context, "5分毎に自動更新", "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(300)", nil, Me.Settings.UpdatePCCountInterval == 300);
-	MakeContextMenuItem(context, "{#8888FF}自動更新しない{/}", "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(nil)", nil, Me.Settings.UpdatePCCountInterval == nil);
-	MakeContextMenuSeparator(context, 302);
-	MakeContextMenuItem(context, "{img minimap_0_old 20 20}をクリックで手動更新する", "TOUKIBI_MAPMATE_TOGGLE_ENABLED_ONECLICK_PCCUPDATE()", nil, Me.Settings.EnableOneClickPCCUpdate);
-	MakeContextMenuItem(context, "{#8888FF}更新後5秒間は更新しない{/}", "TOUKIBI_MAPMATE_TOGGLE_PCCUPDATESAFETY()", nil, Me.Settings.UsePCCountSafety);
-	MakeContextMenuSeparator(context, 303);
-	MakeContextMenuItem(context, "{#666666}閉じる{/}");
+	Toukibi:MakeCMenuSeparator(context, 300);
+	Toukibi:MakeCMenuItem(context, string.format("{#FFFF88}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow")), "TOUKIBI_MAPMATE_EXEC_PCCUPDATE()", nil, nil);
+	Toukibi:MakeCMenuSeparator(context, 301);
+	Toukibi:MakeCMenuItem(context, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 10), "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(10)", nil, Me.Settings.UpdatePCCountInterval == 10);
+	Toukibi:MakeCMenuItem(context, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 20), "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(20)", nil, Me.Settings.UpdatePCCountInterval == 20);
+	Toukibi:MakeCMenuItem(context, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 30), "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(30)", nil, Me.Settings.UpdatePCCountInterval == 30);
+	Toukibi:MakeCMenuItem(context, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 1) , "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(60)", nil, Me.Settings.UpdatePCCountInterval == 60);
+	Toukibi:MakeCMenuItem(context, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 3) , "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(180)", nil, Me.Settings.UpdatePCCountInterval == 180);
+	Toukibi:MakeCMenuItem(context, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 5) , "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(300)", nil, Me.Settings.UpdatePCCountInterval == 300);
+	Toukibi:MakeCMenuItem(context, string.format("{#8888FF}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.NoAutoUpdate")), "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(nil)", nil, Me.Settings.UpdatePCCountInterval == nil);
+	Toukibi:MakeCMenuSeparator(context, 302);
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ManuallyUpdate"), "TOUKIBI_MAPMATE_TOGGLEPROP('EnableOneClickPCCUpdate')", nil, Me.Settings.EnableOneClickPCCUpdate);
+	Toukibi:MakeCMenuItem(context, string.format("{#8888FF}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ContinuousUpdatePrevention")), "TOUKIBI_MAPMATE_TOGGLEPROP('UsePCCountSafety')", nil, Me.Settings.UsePCCountSafety);
+	Toukibi:MakeCMenuSeparator(context, 303);
+	Toukibi:MakeCMenuItem(context, string.format("{#666666}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close")));
 	context:Resize(330, context:GetHeight());
 	ui.OpenContextMenu(context);
 	return context;
 end
 
 -- ***** コンテキストメニューのイベント受け *****
+
+function TOUKIBI_MAPMATE_TOGGLEPROP(Name, Value)
+	if Name == nil then return end
+	if Me.Settings == nil then return end
+	if Value == "nil" or type(Value) ~= "boolean" then
+		Me.Settings[Name] = not Me.Settings[Name];
+	else
+		Me.Settings[Name] = Value;
+	end
+	SaveSetting();
+end
+
+function TOUKIBI_MAPMATE_CHANGEPROP(Name, Value)
+	if Name == nil then return end
+	if Me.Settings == nil then return end
+	if Value == "nil" then Value = nil end
+	Me.Settings[Name] = Value
+	SaveSetting();
+end
 
 function TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(value)
 	if Me.Settings == nil then return end
@@ -472,22 +755,6 @@ end
 
 function TOUKIBI_MAPMATE_EXEC_PCCUPDATE()
 	Me.UpdatePCCount();
-end
-
-function TOUKIBI_MAPMATE_TOGGLE_ENABLED_ONECLICK_PCCUPDATE()
-	if Me.Settings == nil then return end
-	Me.Settings.EnableOneClickPCCUpdate = not Me.Settings.EnableOneClickPCCUpdate;
-	SaveSetting();
-end
-
-function TOUKIBI_MAPMATE_TOGGLE_PCCUPDATESAFETY()
-	if Me.Settings == nil then return end
-	if Me.Settings.UsePCCountSafety == nil then
-		Me.Settings.UsePCCountSafety = true
-	else
-		Me.Settings.UsePCCountSafety = not Me.Settings.UsePCCountSafety
-	end
-	SaveSetting();
 end
 
 
@@ -609,15 +876,8 @@ end
 -- ===== ここから先またお決まり文句 =====
 
 -- スラッシュコマンド受取
-
--- 使い方のテキストを出力する
-local function PrintHelpToLog()
-	local HelpMsg = "{#333333}MapMateのパラメータ説明{/}{nl}{#92D2A0}MapMateは次のパラメータで設定を呼び出してください。{/}{nl}{#333333}'/mapmate [パラメータ]' または '/MapMate [パラメータ]'{/}{nl}{#333333}使用可能なコマンド：{nl}/MapMate reset    :設定リセット{nl}/MapMate update   :表示を更新{nl} ";
-	AddLog(HelpMsg, "None", false, false);
-end
-
 function TOUKIBI_MAPMATE_PROCESS_COMMAND(command)
-	AddLog("スラッシュコマンドが呼び出されました", "Info", true, true);
+	Toukibi:AddLog(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.ExecuteCommands"), SlashCommandList[1] .. " " .. table.concat(command, " ")), "Info", true, true);
 	local cmd = ""; 
 	if #command > 0 then 
 		cmd = table.remove(command, 1); 
@@ -628,20 +888,25 @@ function TOUKIBI_MAPMATE_PROCESS_COMMAND(command)
 	if cmd == "reset" then 
 		-- すべてをリセット
 		MargeDefaultSetting(true, true);
-		AddLog("設定をリセットしました。", "Notice", true, false);
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.ResetSettings"), "Notice", true, false);
 		return;
 	elseif cmd == "update" then
 		-- 表示値の更新
 		Me.CustomizeMiniMap();
 		return;
+	elseif cmd == "jp" or cmd == "en" or string.len(cmd) == 2 then
+		-- 言語モードと勘違いした？
+		Me.ComLib:ChangeLanguage(cmd);
+		Me.CustomizeMiniMap()
+		return;
 	elseif cmd ~= nil and cmd ~= "?" and cmd ~= "" then
-		local strError = "無効なコマンドが呼び出されました";
+		local strError = Toukibi:GetResText(ResText, Me.Settings.Lang, "System.InvalidCommand");
 		if #SlashCommandList > 0 then
-			strError = strError .. string.format("{nl}コマンド一覧を見るには[ %s ? ]を用いてください", SlashCommandList[1]);
+			strError = strError .. string.format("{nl}" .. Toukibi:GetResText(ResText, Me.Settings.Lang, "System.AnnounceCommandList"), SlashCommandList[1]);
 		end
-		AddLog(strError, "Warning", true, false);
+		Toukibi:AddLog(strError, "Warning", true, false);
 	end 
-	PrintHelpToLog()
+	Me.ComLib:ShowHelpText()
 end
 
 function TOUKIBI_MAPMATE_BEFORELOADING(frame)
@@ -664,10 +929,12 @@ function Me.MINIMAP_CHAR_UDT_HOOKED(frame, msg, argStr, argNum)
 	Me.UpdateFogRevealRate()
 end
 
+Me.HoockedOrigProc = Me.HoockedOrigProc or {};
 function MAPMATE_ON_INIT(addon, frame)
 	Me.addon = addon;
 	Me.frame = frame;
 
+	-- 設定を読み込む
 	if not Me.Loaded then
 		Me.Loaded = true;
 		LoadSetting();
@@ -680,20 +947,11 @@ function MAPMATE_ON_INIT(addon, frame)
 	addon:RegisterMsg('GAME_START', 'TOUKIBI_MAPMATE_ON_GAME_START');
 	addon:RegisterMsg('START_LOADING', 'TOUKIBI_MAPMATE_BEFORELOADING');
 
-	Me.setHook("MINIMAP_CHAR_UDT", Me.MINIMAP_CHAR_UDT_HOOKED);
+	Toukibi:SetHook("MINIMAP_CHAR_UDT", Me.MINIMAP_CHAR_UDT_HOOKED);
 
+	-- スラッシュコマンドを登録する
 	local acutil = require("acutil");
 	for i = 1, #SlashCommandList do
 		acutil.slashCommand(SlashCommandList[i], TOUKIBI_MAPMATE_PROCESS_COMMAND);
 	end
 end
-
--- イベントの飛び先を変更するためのプロシージャ
-function Me.setHook(hookedFunctionStr, newFunction)
-	if Me.HoockedOrigProc[hookedFunctionStr] == nil then
-		Me.HoockedOrigProc[hookedFunctionStr] = _G[hookedFunctionStr];
-		_G[hookedFunctionStr] = newFunction;
-	else
-		_G[hookedFunctionStr] = newFunction;
-	end
-end 
