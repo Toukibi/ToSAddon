@@ -1,5 +1,5 @@
 local addonName = "ShopHelper";
-local verText = "0.70";
+local verText = "0.72";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 
@@ -12,7 +12,8 @@ Me.HoockedOrigProc = Me.HoockedOrigProc or {};
 Me.BuyHistory = Me.BuyHistory or {};
 Me.SettingFilePathName = string.format("../addons/%s/settings.json", addonNameLower);
 Me.FavoriteFilePathName = string.format("../addons/%s/favorite.json", addonNameLower);
-Me.DebugMode = false;
+Me.CommissionRate = 0.3;
+Me.DebugMode = true;
 Me.IsVillage = nil;
 Me.loaded = false;
 
@@ -96,6 +97,14 @@ end
 --  設定関連
 -- ==================================
 
+function Me.GetValueOrDefault(Value, DefaultValue)
+	if Value == nil then
+		return DefaultValue;
+	else
+		return Value;
+	end
+end
+
 -- デフォルトの設定に戻す
 function Me.SetDefaultSetting(HideMsg)
 	if not HideMsg then
@@ -112,16 +121,16 @@ function Me.SetDefaultSetting(HideMsg)
 		TOUKIBI_SHOPHELPER_ADDLOG(LogMsg, "Warning", true, false);
 	end
 	Me.Settings = Me.Settings or {};
-	Me.Settings.DoNothing = Me.Settings.DoNothing or true;
-	Me.Settings.LangMode = Me.Settings.LangMode or "jp";
-	Me.Settings.ShowMessageLog = Me.Settings.ShowMessageLog or false;
-	Me.Settings.ShowMsgBoxOnBuffShop = Me.Settings.ShowMsgBoxOnBuffShop or true;
-	Me.Settings.UpdateAverage = Me.Settings.UpdateAverage or true;
-	Me.Settings.AddInfoToBaloon = Me.Settings.AddInfoToBaloon or true;
-	Me.Settings.EnableBaloonRightClick = Me.Settings.EnableBaloonRightClick or true;
-	Me.Settings.AverageNCount = Me.Settings.AverageNCount or 30;
-	Me.Settings.RecalcInterval = Me.Settings.RecalcInterval or 60;
-	Me.Settings.IgnoreAwayValue = Me.Settings.IgnoreAwayValue or true;
+	Me.Settings.DoNothing = Me.GetValueOrDefault(Me.Settings.DoNothing, true);
+	Me.Settings.LangMode = Me.GetValueOrDefault(Me.Settings.LangMode, "jp");
+	Me.Settings.ShowMessageLog = Me.GetValueOrDefault(Me.Settings.ShowMessageLog, false);
+	Me.Settings.ShowMsgBoxOnBuffShop = Me.GetValueOrDefault(Me.Settings.ShowMsgBoxOnBuffShop, true);
+	Me.Settings.UpdateAverage = Me.GetValueOrDefault(Me.Settings.UpdateAverage, true);
+	Me.Settings.AddInfoToBaloon = Me.GetValueOrDefault(Me.Settings.AddInfoToBaloon, true);
+	Me.Settings.EnableBaloonRightClick = Me.GetValueOrDefault(Me.Settings.EnableBaloonRightClick, true);
+	Me.Settings.AverageNCount = Me.GetValueOrDefault(Me.Settings.AverageNCount, 30);
+	Me.Settings.RecalcInterval = Me.GetValueOrDefault(Me.Settings.RecalcInterval, 60);
+	Me.Settings.IgnoreAwayValue = Me.GetValueOrDefault(Me.Settings.IgnoreAwayValue, true);
 	Me.SetDefaultPrice(HideMsg);
 end
 
@@ -1105,27 +1114,27 @@ function Me.GetPriceInfo(SkillID)
 	local ReturnValue = {};
 	if SkillID == 40203 then
 		-- ブレス
-		ReturnValue.CostPrice = 400;
+		ReturnValue.CostPrice = math.floor(20 * 10 / (1 - Me.CommissionRate));
 		ReturnValue.MaxLv = 15;
 		ReturnValue.DoAddInfo = true
 	elseif SkillID == 40205 then
 		-- サクラ
-		ReturnValue.CostPrice = 700;
+		ReturnValue.CostPrice = math.floor(35 * 10 / (1 - Me.CommissionRate));
 		ReturnValue.MaxLv = 10;
 		ReturnValue.DoAddInfo = true
 	elseif SkillID == 40201 then
 		-- アスパ
-		ReturnValue.CostPrice = 1000;
+		ReturnValue.CostPrice = math.floor(50 * 10 / (1 - Me.CommissionRate));
 		ReturnValue.MaxLv = 15;
 		ReturnValue.DoAddInfo = true
 	elseif SkillID == 10703 then
 		-- 修理
-		ReturnValue.CostPrice = 160;
+		ReturnValue.CostPrice = math.floor(80 / (1 - Me.CommissionRate));
 		ReturnValue.MaxLv = 15;
 		ReturnValue.DoAddInfo = true
 	elseif SkillID == 21003 then
 		-- ジェムロースティング
-		ReturnValue.CostPrice = 6000;
+		ReturnValue.CostPrice = math.floor(3000 / (1 - Me.CommissionRate));
 		ReturnValue.MaxLv = 10;
 		ReturnValue.DoAddInfo = true
 	end
@@ -1355,10 +1364,12 @@ function Me.ADDTO_SHOPBALOON(title, sellType, handle, skillID, skillLv)
 			objAdditionalIcon:ShowWindow(1); 
 		end
 		if DisplayState <= Me.enmDisplayState.Never then
-			frame:ShowWindow(0);
+			frame:Resize(0, 0);
 		else
-			frame:ShowWindow(1);
+			frame:Resize(300, 100);
 		end
+	else
+		frame:Resize(300, 100);
 	end
 	BasePic:SetEventScript(ui.RBUTTONDOWN, 'TOUKIBI_SHOPHELPER_OPEN_BALOON_CONTEXT_MENU');
 	lvBox:SetEventScript(ui.RBUTTONDOWN, 'TOUKIBI_SHOPHELPER_OPEN_BALOON_CONTEXT_MENU');
@@ -1373,10 +1384,11 @@ function Me.AddInfoToSquireBuff(BaseFrame)
 	if RepairFrame ~= nil then
 		-- 各種パネルの位置を下へ動かす
 		local TargetControl = nil;
-		Me.ChangeControlMargin_Top(RepairFrame:GetChild("TitleSkin"), 94 + 30);
-		Me.ChangeControlMargin_Top(RepairFrame:GetChild("Money"), 102 + 30);
-		Me.ChangeControlMargin_Top(RepairFrame:GetChild("reqitemMoney"), 100 + 30);
-		Me.ChangeControlMargin_Top(RepairFrame:GetChild("selectAllBtn"), 92 + 30);
+		Me.ChangeControlMargin_Top(RepairFrame:GetChild("TitleSkin"), 94 + 20);
+		Me.ChangeControlMargin_Top(RepairFrame:GetChild("Money"), 102 + 20);
+		Me.ChangeControlMargin_Top(RepairFrame:GetChild("reqitemMoney"), 100 + 20);
+		Me.ChangeControlMargin_Top(RepairFrame:GetChild("selectAllBtn"), 135 + 50);
+		Me.ChangeControlMargin_Top(RepairFrame:GetChild("selectEquipedBtn"), 135 + 50);
 
 		TargetControl = RepairFrame:GetChild("repairlistGbox");
 			Me.ChangeControlMargin_Top(TargetControl, 140 + 30 + 30);
