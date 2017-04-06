@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skinset name="toukibi_shophelper_res">
+	<skinlist category="gauges">
+		<skin name="shophelper_red" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 0 3 6"/>
+			<img name="bgmiddle" imgrect="3 0 44 6"/>
+			<img name="bgright" imgrect="47 0 3 6"/>
+			<img name="barleft" imgrect="0 6 3 6"/>
+			<img name="barmiddle" imgrect="3 6 44 6"/>
+			<img name="barright" imgrect="47 6 3 6"/>
+		</skin>
+		<skin name="shophelper_orange" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 0 3 6"/>
+			<img name="bgmiddle" imgrect="3 0 44 6"/>
+			<img name="bgright" imgrect="47 0 3 6"/>
+			<img name="barleft" imgrect="0 12 3 6"/>
+			<img name="barmiddle" imgrect="3 12 44 6"/>
+			<img name="barright" imgrect="47 12 3 6"/>
+		</skin>
+		<skin name="shophelper_yellow" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 0 3 6"/>
+			<img name="bgmiddle" imgrect="3 0 44 6"/>
+			<img name="bgright" imgrect="47 0 3 6"/>
+			<img name="barleft" imgrect="0 18 3 6"/>
+			<img name="barmiddle" imgrect="3 18 44 6"/>
+			<img name="barright" imgrect="47 18 3 6"/>
+		</skin>
+		<skin name="shophelper_green" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 0 3 6"/>
+			<img name="bgmiddle" imgrect="3 0 44 6"/>
+			<img name="bgright" imgrect="47 0 3 6"/>
+			<img name="barleft" imgrect="0 24 3 6"/>
+			<img name="barmiddle" imgrect="3 24 44 6"/>
+			<img name="barright" imgrect="47 24 3 6"/>
+		</skin>
+		<skin name="shophelper_green2" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 0 3 6"/>
+			<img name="bgmiddle" imgrect="3 0 44 6"/>
+			<img name="bgright" imgrect="47 0 3 6"/>
+			<img name="barleft" imgrect="0 30 3 6"/>
+			<img name="barmiddle" imgrect="3 30 44 6"/>
+			<img name="barright" imgrect="47 30 3 6"/>
+		</skin>
+		<skin name="shophelper_skyblue" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 0 3 6"/>
+			<img name="bgmiddle" imgrect="3 0 44 6"/>
+			<img name="bgright" imgrect="47 0 3 6"/>
+			<img name="barleft" imgrect="0 36 3 6"/>
+			<img name="barmiddle" imgrect="3 36 44 6"/>
+			<img name="barright" imgrect="47 36 3 6"/>
+		</skin>
+		<skin name="shophelper_blue" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 0 3 6"/>
+			<img name="bgmiddle" imgrect="3 0 44 6"/>
+			<img name="bgright" imgrect="47 0 3 6"/>
+			<img name="barleft" imgrect="0 42 3 6"/>
+			<img name="barmiddle" imgrect="3 42 44 6"/>
+			<img name="barright" imgrect="47 42 3 6"/>
+		</skin>
+		<skin name="shophelper_blue_onsky" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 36 3 6"/>
+			<img name="bgmiddle" imgrect="3 36 44 6"/>
+			<img name="bgright" imgrect="47 36 3 6"/>
+			<img name="barleft" imgrect="0 42 3 6"/>
+			<img name="barmiddle" imgrect="3 42 44 6"/>
+			<img name="barright" imgrect="47 42 3 6"/>
+		</skin>
+		<skin name="shophelper_skyblue_ongreen" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 24 3 6"/>
+			<img name="bgmiddle" imgrect="3 24 44 6"/>
+			<img name="bgright" imgrect="47 24 3 6"/>
+			<img name="barleft" imgrect="0 36 3 6"/>
+			<img name="barmiddle" imgrect="3 36 44 6"/>
+			<img name="barright" imgrect="47 36 3 6"/>
+		</skin>
+		<skin name="shophelper_blue_ongreen" texture="\skin\shophelper.tga">
+			<img name="bgleft" imgrect="0 30 3 6"/>
+			<img name="bgmiddle" imgrect="3 30 44 6"/>
+			<img name="bgright" imgrect="47 30 3 6"/>
+			<img name="barleft" imgrect="0 42 3 6"/>
+			<img name="barmiddle" imgrect="3 42 44 6"/>
+			<img name="barright" imgrect="47 42 3 6"/>
+		</skin>
+	</skinlist>
+	<imagelist category="icons">
+		<image name="shophelpericon_thumbsup" file="\skin\shophelper.tga" imgrect="80 0 64 64" />
+		<image name="shophelpericon_thumbsup_circle" file="\skin\shophelper.tga" imgrect="80 64 64 64" />
+		<image name="shophelpericon_thumbsdown" file="\skin\shophelper.tga" imgrect="144 0 64 64" />
+		<image name="shophelpericon_thumbsdown_circle" file="\skin\shophelper.tga" imgrect="144 64 64 64" />
+		<image name="shophelpericon_invisible" file="\skin\shophelper.tga" imgrect="80 128 64 64" />
+		<image name="shophelpericon_warning" file="\skin\shophelper.tga" imgrect="144 128 64 64" />
+	</imagelist>
+</skinset>
