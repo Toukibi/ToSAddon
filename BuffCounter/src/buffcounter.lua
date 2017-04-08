@@ -1,8 +1,18 @@
 local addonName = "BuffCounter";
-local verText = "1.0.1";
+local verText = "1.1.0";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
-local SlashCommandList = {"/buffcounter", "/BuffCounter", "/buffc"} -- {"/コマンド1", "/コマンド2", .......};
+local SlashCommandList = {"/buffc", "/buffcounter", "/BuffCounter"} -- {"/コマンド1", "/コマンド2", .......};
+local CommandParamList = {
+	reset = {jp = "設定をリセット", en = "Reset the settings.", kr = "설정을 초기화"}
+  , resetpos = {jp = "位置をリセット", en = "Reset the position.", kr = "위치를 초기화"}
+  , rspos = {jp = "位置をリセット", en = "Reset the position.", kr = "위치를 초기화"}
+  , refresh = {jp = "表示と位置を更新", en = "Update the position and values.", kr = "표시와 설정을 갱신한다"}
+  , update = {jp = "表示を更新", en = "Reset the values.", kr = "표시와 설정을 갱신한다"}
+  , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)", kr = "일본어 모드로 전환하십시오.(Japanese Mode)"}
+  , en = {jp = "Switch to English mode.", en = "Switch to English mode.", kr = "Switch to English mode."}
+  , kr = {jp = "한국어 모드로 변경(Korean Mode)", en = "Switch to Korean mode.(한국어로)", kr = "한국어 모드로 변경"};
+};
 local SettingFileName = "setting.json"
 
 _G['ADDONS'] = _G['ADDONS'] or {};
@@ -13,16 +23,403 @@ local Me = _G['ADDONS'][autherName][addonName];
 BuffCounter = Me;
 local DebugMode = false;
 
-local floor = math.floor;
-local fmod = math.fmod;
+-- ***** 変数の宣言と設定 *****
+Me.SettingFilePathName = string.format("../addons/%s/%s", addonNameLower, SettingFileName);
+Me.Loaded = false;
+
+
+
+-- テキストリソース
+local ResText = {
+	jp = {
+		Menu = {
+			Title = "{#006666}===== Buff Counterの設定 ====={/}"
+		  , UpdateNow = "{#FFFF88}今すぐ更新する{/}"
+		  , FixPosition = "位置を固定する"
+		  , ResetPosition = "位置をリセット"
+		  , Mode_Use = "表示モード：バフ使用数"
+		  , Mode_Left = "表示モード：バフ残り枠"
+		  , Mode_UltraMini = "表示モード：極小表示"
+		  , Back_Deep = "背景：濃い"
+		  , Back_Thin = "背景：薄い"
+		  , Back_None = "背景なし"
+		  , Gauge_Block = "残枠表示：ブロック"
+		  , Gauge_Bar = "残枠表示：棒グラフ"
+		  , Close = "{#666666}閉じる{/}"
+		},
+		Msg = {
+			UpdateFrmaePos = "耐久表示の表示位置をリセットしました"
+		  , EndDragAndSave = "ドラッグ終了。現在位置を保存します。"
+		  , CannotGetHandle = "耐久表示画面の取得に失敗しました"
+		},
+		InFrame = {
+			Myself = "自"
+		  , PTMember = "PT"
+		}
+	},
+	en = {
+		Menu = {
+			Title = "{#006666}===== Settings - Buff Counter - ====={/}"
+		  , UpdateNow = "{#FFFF88}Update now!{/}"
+		  , FixPosition = "Fix position"
+		  , ResetPosition = "Reset position"
+		  , Mode_Use = "Mode: Buff Using Count"
+		  , Mode_Left = "Mode: Vacant frames on Buff"
+		  , Mode_UltraMini = "Mode: Ultra mini size"
+		  , Back_Deep = "Background: Deep"
+		  , Back_Thin = "Background: Thin"
+		  , Back_None = "Background: None"
+		  , Gauge_Block = "Gauge style: Blocks"
+		  , Gauge_Bar = "Gauge style: Continuous"
+		  , Close = "{#666666}Close{/}"
+		},
+		Msg = {
+			UpdateFrmaePos = "耐久表示の表示位置をリセットしました"
+		  , EndDragAndSave = "ドラッグ終了。現在位置を保存します。"
+		  , CannotGetHandle = "耐久表示画面の取得に失敗しました"
+		},
+		InFrame = {
+			Myself = "T"
+		  , PTMember = "S"
+		}
+	},
+	kr = {
+		Menu = {
+			Title = "{#006666}===== Buff Counter의 설정 ====={/}"
+		  , UpdateNow = "{#FFFF88}지금 당장 갱신한다{/}"
+		  , FixPosition = "위치를 저장한다"
+		  , ResetPosition = "위치를 리셋"
+		  , Mode_Use = "표시모드：버프사용수"
+		  , Mode_Left = "표시모드：버프남은수"
+		  , Mode_UltraMini = "표시모드：최소화표시"
+		  , Back_Deep = "배경：진하게"
+		  , Back_Thin = "배경：연하게"
+		  , Back_None = "배경없음"
+		  , Gauge_Block = "테두리표시：블록"
+		  , Gauge_Bar = "테두리표시：막대그래프"
+		  , Close = "{#666666}닫는다{/}"
+		},
+		Msg = {
+			UpdateFrmaePos = "내구도 표시의 표시위치를 리셋했습니다"
+		  , EndDragAndSave = "드래그 종료. 현재 위치를 저장합니다."
+		  , CannotGetHandle = "화면의 핸들을 취득하지 못했습니다"
+		},
+		InFrame = {
+			Myself = "나"
+		  , PTMember = "파티"
+		}
+	}
+};
+Me.ResText = ResText;
+
+-- コモンモジュール(の代わり)
+local Toukibi = {
+	CommonResText = {
+		jp = {
+			System = {
+				NoSaveFileName = "設定の保存ファイル名が指定されていません"
+			  , HasErrorOnSaveSettings = "設定の保存でエラーが発生しました"
+			  , CompleteSaveSettings = "設定の保存が完了しました"
+			  , ErrorToUseDefaults = "設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。"
+			  , CompleteLoadDefault = "デフォルトの設定の読み込みが完了しました。"
+			  , CompleteLoadSettings = "設定の読み込みが完了しました"
+			},
+			Command = {
+				ExecuteCommands = "コマンド '{#333366}%s{/}' が呼び出されました"
+			  , ResetSettings = "設定をリセットしました。"
+			  , InvalidCommand = "無効なコマンドが呼び出されました"
+			  , AnnounceCommandList = "コマンド一覧を見るには[ %s ? ]を用いてください"
+				},
+			Help = {
+				Title = string.format("{#333333}%sのパラメータ説明{/}", addonName)
+			  , Description = string.format("{#92D2A0}%sは次のパラメータで設定を呼び出してください。{/}", addonName)
+			  , ParamDummy = "[パラメータ]"
+			  , OrText = "または"
+			  , EnableTitle = "使用可能なコマンド"
+			}
+		},
+		en = {
+			System = {
+				NoSaveFileName = "The filename of save settings is not specified.",
+				HasErrorOnSaveSettings = "An error occurred while saving the settings.",
+				CompleteSaveSettings = "Saving settings completed."
+			},
+			Command = {
+				ExecuteCommands = "Command '{#333366}%s{/}' was called"
+			  , ResetSettings = "The setting was reset."
+			  , InvalidCommand = "Invalid command called"
+			  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
+				},
+			Help = {
+				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
+			  , Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName)
+			  , ParamDummy = "[paramaters]"
+			  , OrText = "or"
+			  , EnableTitle = "Available commands"
+			}
+		},
+		kr = {
+			System = {
+				NoSaveFileName = "설정의 저장파일명이 지정되지 않았습니다"
+			  , HasErrorOnSaveSettings = "설정 저장중 에러가 발생했습니다"
+			  , CompleteSaveSettings = "설정 저장이 완료되었습니다"
+			  , ErrorToUseDefaults = "설정 불러오기에 에러가 발생했으므로 기본 설정을 사용합니다"
+			  , CompleteLoadDefault = "기본 설정 불러오기가 완료되었습니다"
+			  , CompleteLoadSettings = "설정을 불러들였습니다"
+			},
+			Command = {
+				ExecuteCommands = "명령 '{#333366}%s{/}' 를 불러왔습니다"
+			  , ResetSettings = "설정을 초기화하였습니다"
+			  , InvalidCommand = "무효한 명령을 불러왔습니다"
+			  , AnnounceCommandList = "명령일람을 보려면[ %s ? ]를 사용해주세요"
+				},
+			Help = {
+				Title = string.format("{#333333}%s의 패러미터 설명{/}", addonName)
+			  , Description = string.format("{#92D2A0}%s는 다음 패러미터로 설정을 불러와주세요{/}", addonName)
+			  , ParamDummy = "[패러미터]"
+			  , OrText = "또는"
+			  , EnableTitle = "사용가능한 명령"
+			}
+		}
+	},
+	
+	Log = function(self, Caption)
+		if Caption == nil then Caption = "Test Printing" end
+		Caption = tostring(Caption) or "Test Printing";
+		CHAT_SYSTEM(tostring(Caption));
+	end,
+
+	GetDefaultLangCode = function(self)
+		if option.GetCurrentCountry() == "Japanese" then
+			return "jp";
+		elseif option.GetCurrentCountry() == "Korean" then
+			return "kr";
+		else
+			return "en";
+		end
+	end,
+
+	GetTableLen = function(self, tbl)
+		local n = 0;
+		for _ in pairs(tbl) do
+			n = n + 1;
+		end
+		return n;
+	end,
+
+	Split = function(self, str, delim)
+		local ReturnValue = {};
+		for match in string.gmatch(str, "[^" .. delim .. "]+") do
+			table.insert(ReturnValue, match);
+		end
+		return ReturnValue;
+	end,
+
+	GetValue = function(self, obj, Key)
+		if obj == nil then return nil end
+		if Key == nil or Key == "" then return obj end
+		local KeyList = self:Split(Key, ".");
+		for i = 1, #KeyList do
+			local index = KeyList[i]
+			obj = obj[index];
+			if obj == nil then return nil end
+		end
+		return obj;
+	end,
+
+	GetResData = function(self, TargetRes, Lang, Key)
+		if TargetRes == nil then return nil end
+		--CHAT_SYSTEM(string.format("TargetLang : %s", self:GetValue(TargetRes[Lang], Key)))
+		--CHAT_SYSTEM(string.format("En : %s", self:GetValue(TargetRes["en"], Key)))
+		--CHAT_SYSTEM(string.format("Jp : %s", self:GetValue(TargetRes["jp"], Key)))
+		local CurrentRes = self:GetValue(TargetRes[Lang], Key) or self:GetValue(TargetRes["en"], Key) or self:GetValue(TargetRes["jp"], Key);
+		return CurrentRes;
+	end,
+
+	GetResText = function(self, TargetRes, Lang, Key)
+		local ReturnValue = self:GetResData(TargetRes, Lang, Key);
+		if ReturnValue == nil then return "<No Data!!>" end
+		if type(ReturnValue) == "string" then return ReturnValue end
+		return tostring("tostring ==>" .. ReturnValue);
+	end,
+
+	-- ***** ログ表示関連 *****
+	GetStyledText = function(self, Value, Styles)
+		-- ValueにStylesで与えたスタイルタグを付加した文字列を返します
+		local ReturnValue;
+		if Styles == nil or #Styles == 0 then
+			-- スタイル指定なし
+			ReturnValue = Value;
+		else
+			local TagHeader = ""
+			for i, StyleTag in ipairs(Styles) do
+				TagHeader = TagHeader .. string.format( "{%s}", StyleTag);
+			end
+			ReturnValue = string.format( "%s%s%s", TagHeader, Value, string.rep("{/}", #Styles));
+		end
+		return ReturnValue;
+	end,
+
+	AddLog = function(self, Message, Mode, DisplayAddonName, OnlyDebugMode)
+		if Message == nil then return end
+		Mode = Mode or "Info";
+		if (not DebugMode) and Mode == "Info" then return end
+		if (not DebugMode) and OnlyDebugMode then return end
+		local HeaderText = "";
+		if DisplayAddonName then
+			HeaderText = string.format("[%s]", addonName);
+		end
+		local MsgText = HeaderText .. Message;
+		if Mode == "Info" then
+			MsgText = self:GetStyledText(MsgText, {"#333333"});
+		elseif Mode == "Warning" then
+			MsgText = self:GetStyledText(MsgText, {"#331111"});
+		elseif Mode == "Caution" then
+			MsgText = self:GetStyledText(MsgText, {"#666622"});
+		elseif Mode == "Notice" then
+			MsgText = self:GetStyledText(MsgText, {"#333366"});
+		else
+			-- 何もしない
+		end
+		CHAT_SYSTEM(MsgText);
+	end,
+
+	-- 言語切替
+	ChangeLanguage = function(self, Lang)
+		local msg;
+		if self.CommonResText[Lang] == nil then
+			msg = string.format("Sorry, '%s' does not implement '%s' mode.{nl}Language mode has not been changed from '%s'.", 
+								addonName, Lang, Me.Settings.Lang);
+			self:AddLog(msg, "Warning", true, false)
+			return;
+		end
+		Me.Settings.Lang = Lang;
+		self:SaveTable(Me.SettingFilePathName, Me.Settings);
+		if Me.Settings.Lang == "jp" then
+			msg = "日本語モードに切り替わりました";
+		else
+			msg = string.format("Language mode has been changed to '%s'.", Lang);
+		end
+		self:AddLog(msg, "Notice", true, false);
+	end,
+
+	-- ヘルプテキストを自動生成する
+	ShowHelpText = function(self)
+		local ParamDummyText = "";
+		if SlashCommandList ~= nil and SlashCommandList[1] ~= nil then
+			ParamDummyText = ParamDummyText .. "{#333333}";
+			ParamDummyText = ParamDummyText .. string.format("'%s %s'", SlashCommandList[1], self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.ParamDummy"));
+			if SlashCommandList[2] ~= nil then
+				ParamDummyText = ParamDummyText .. string.format(" %s '%s %s'", self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.OrText"), SlashCommandList[2], self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.ParamDummy"));
+			end
+			ParamDummyText = ParamDummyText .. "{/}{nl}";
+		end
+		local CommandHelpText = "";
+		if CommandParamList ~= nil and self:GetTableLen(CommandParamList) > 0 then
+			CommandHelpText = CommandHelpText .. string.format("{#333333}%s: ", self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.EnableTitle"));
+			for ParamName, DescriptionKey in pairs(CommandParamList) do
+				local SpaceCount = 10 - string.len(ParamName);
+				local SpaceText = ""
+				if SpaceCount > 0 then
+					SpaceText = string.rep(" ", SpaceCount)
+				end
+				CommandHelpText = CommandHelpText .. string.format("{nl}%s %s%s:%s", SlashCommandList[1], ParamName, SpaceText, self:GetResText(DescriptionKey, Me.Settings.Lang));
+			end
+			CommandHelpText = CommandHelpText .. "{/}{nl} "
+		end
+		
+		self:AddLog(string.format("%s{nl}%s{nl}%s%s"
+								, self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.Title")
+								, self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.Description")
+								, ParamDummyText
+								, CommandHelpText
+								)
+				  , "None", false, false);
+	end,
+
+	-- ***** 設定読み書き関連 *****
+	SaveTable = function(self, FilePathName, objTable)
+		if FilePathName == nil then
+			self:AddLog(self:GetResText(self.CommonResText, Me.Settings.Lang, "System.NoSaveFileName"), "Warning", true, false);
+		end
+		local objFile, objError = io.open(FilePathName, "w")
+		if objError then
+			self:AddLog(string.format("%s:{nl}%s"
+									, self:GetResText(self.CommonResText, Me.Settings.Lang, "System.HasErrorOnSaveSettings")
+									, tostring(objError)), "Warning", true, false);
+		else
+			local json = require('json');
+			objFile:write(json.encode(objTable));
+			objFile:close();
+			self:AddLog(self:GetResText(self.CommonResText, Me.Settings.Lang, "System.CompleteSaveSettings"), "Info", true, true);
+		end
+	end,
+
+	LoadTable = function(self, FilePathName)
+		local acutil = require("acutil");
+		local objReadValue, objError = acutil.loadJSON(FilePathName);
+		return objReadValue, objError;
+	end,
+
+	-- 既存の値がない場合にデフォルト値をマージする
+	GetValueOrDefault = function(self, Value, DefaultValue, Force)
+		Force = Force or false;
+		if Force or Value == nil then
+			return DefaultValue;
+		else
+			return Value;
+		end
+	end,
+
+	-- ***** コンテキストメニュー関連 *****
+	-- セパレータを挿入
+	MakeCMenuSeparator = function(self, parent, width)
+		width = width or 300;
+		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+	end,
+
+	-- コンテキストメニュー項目を作成
+	MakeCMenuItem = function(self, parent, text, eventscp, icon, checked)
+		local CheckIcon = "";
+		local ImageIcon = "";
+		local eventscp = eventscp or "None";
+		if checked == nil then
+			CheckIcon = "";
+		elseif checked == true then
+			CheckIcon = "{img socket_slot_check 24 24} ";
+		elseif checked == false  then
+			CheckIcon = "{img channel_mark_empty 24 24} ";
+		end
+		if icon == nil then
+			ImageIcon = "";
+		else
+			ImageIcon = string.format("{img %s 24 24} ", icon);
+		end
+		ui.AddContextMenuItem(parent, string.format("%s%s%s", CheckIcon, ImageIcon, text), eventscp);
+	end,
+
+	-- イベントの飛び先を変更するためのプロシージャ
+	SetHook = function(self, hookedFunctionStr, newFunction)
+		if Me.HoockedOrigProc[hookedFunctionStr] == nil then
+			Me.HoockedOrigProc[hookedFunctionStr] = _G[hookedFunctionStr];
+			_G[hookedFunctionStr] = newFunction;
+		else
+			_G[hookedFunctionStr] = newFunction;
+		end
+	end 
+};
+Me.ComLib = Toukibi;
+local function log(value)
+	Toukibi:Log(value);
+end
+
 
 CHAT_SYSTEM("{#333333}[Add-ons]" .. addonName .. verText .. " loaded!{/}");
 --CHAT_SYSTEM("{#333333}[Buff Counter]コマンド /buffc で表示のON/OFFが切り替えられます{/}");
 
+
+
 -- ***** 変数の宣言と設定 *****
-Me.SettingFilePathName = string.format("../addons/%s/%s", addonNameLower, SettingFileName);
-Me.HoockedOrigProc = Me.HoockedOrigProc or {};
-Me.Loaded = false;
 
 Me.BuffPrintInfo = {
 --	 [100] = {arg = "arg1", fmt = "%s"}, --サクラメント
@@ -44,111 +441,66 @@ Me.BuffPrintInfo = {
 	[4532] = {arg = "arg1", fmt = "%s"} --チームLv
 };
 
--- ***** ログ表示関連 *****
-local function CreateValueWithStyleCode(Value, Styles)
-	-- ValueにStylesで与えたスタイルタグを付加した文字列を返します
-	local ReturnValue;
-	if Styles == nil or #Styles == 0 then
-		-- スタイル指定なし
-		ReturnValue = Value;
-	else
-		local TagHeader = ""
-		for i, StyleTag in ipairs(Styles) do
-			TagHeader = TagHeader .. string.format( "{%s}", StyleTag);
-		end
-		ReturnValue = string.format( "%s%s%s", TagHeader, Value, string.rep("{/}", #Styles));
-	end
-	return ReturnValue;
-end
+-- ==================================
+--  設定関連
+-- ==================================
 
-local function AddLog(Message, Mode, DisplayAddonName, OnlyDebugMode)
-	if Me.Settings == nil then return end
-	if Message == nil then return end
-	if (not DebugMode) and Mode == "Info" then return end
-	if (not DebugMode) and OnlyDebugMode then return end
-	local HeaderText = "";
-	if DisplayAddonName then
-		HeaderText = string.format("[%s]", addonName);
-	end
-	local MsgText = HeaderText .. Message;
-	if Mode == "Info" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#333333"});
-	elseif Mode == "Warning" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#331111"});
-	elseif Mode == "Caution" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#666622"});
-	elseif Mode == "Notice" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#333366"});
-	else
-		-- 何もしない
-	end
-	CHAT_SYSTEM(MsgText);
-end
-
--- ***** 設定読み書き関連 *****
--- 設定書き込み
-local function SaveTable(FilePathName, objTable)
-	if FilePathName == nil then
-		AddLog("設定の保存ファイル名が指定されていません", "Warning", true, false);
-	end
-	local objFile, objError = io.open(FilePathName, "w")
-	if objError then
-		AddLog(string.format("設定の保存でエラーが発生しました:{nl}%s", tostring(objError)), "Warning", true, false);
-	else
-		local json = require('json');
-		objFile:write(json.encode(objTable));
-		objFile:close();
-		AddLog("設定の保存が完了しました", "Info", true, true);
-	end
-end
 local function SaveSetting()
-	SaveTable(Me.SettingFilePathName, Me.Settings);
+	Toukibi:SaveTable(Me.SettingFilePathName, Me.Settings);
 end
 
--- 既存の値がない場合にデフォルト値をマージする
-local function GetValueOrDefault(Value, DefaultValue, Force)
-	Force = Force or false;
-	if Force or Value == nil then
-		return DefaultValue;
-	else
-		return Value;
-	end
+function Me.Save()
+	SaveSetting()
 end
 
 -- デフォルト設定(ForceがTrueでない場合は、既存の値はそのまま引き継ぐ)
 local function MargeDefaultSetting(Force, DoSave)
-	DoSave = GetValueOrDefault(DoSave, true);
+	DoSave = Toukibi:GetValueOrDefault(DoSave, true);
 	Me.Settings = Me.Settings or {};
-	Me.Settings.PosX = GetValueOrDefault(Me.Settings.PosX, nil, Force);
-	Me.Settings.PosY = GetValueOrDefault(Me.Settings.PosY, nil, Force);
-	Me.Settings.Movable = GetValueOrDefault(Me.Settings.Movable, false, Force);
-	Me.Settings.Visible = GetValueOrDefault(Me.Settings.Visible, true, Force);
-	Me.Settings.DisplayGauge = GetValueOrDefault(Me.Settings.DisplayGauge, true, Force);
-	Me.Settings.GaugeStyle = GetValueOrDefault(Me.Settings.GaugeStyle, "block", Force); --block/continuous
-	Me.Settings.DisplayMode = GetValueOrDefault(Me.Settings.DisplayMode, "left", Force); --use/left/ultramini
-	Me.Settings.SkinName = GetValueOrDefault(Me.Settings.SkinName, "systemmenu_vertical", Force); --None/chat_window/systemmenu_vertical
+
+	Me.Settings.DoNothing	= Toukibi:GetValueOrDefault(Me.Settings.DoNothing	, false, Force);
+	Me.Settings.Lang		= Toukibi:GetValueOrDefault(Me.Settings.Lang		, Toukibi:GetDefaultLangCode(), Force);
+	Me.Settings.PosX		= Toukibi:GetValueOrDefault(Me.Settings.PosX		, nil, Force);
+	Me.Settings.PosY		= Toukibi:GetValueOrDefault(Me.Settings.PosY		, nil, Force);
+	Me.Settings.Movable		= Toukibi:GetValueOrDefault(Me.Settings.Movable		, false, Force);
+	Me.Settings.Visible		= Toukibi:GetValueOrDefault(Me.Settings.Visible		, true, Force);
+	Me.Settings.DisplayGauge= Toukibi:GetValueOrDefault(Me.Settings.DisplayGauge, true, Force);
+	Me.Settings.GaugeStyle	= Toukibi:GetValueOrDefault(Me.Settings.GaugeStyle	, "block", Force); --block/continuous
+	Me.Settings.DisplayMode	= Toukibi:GetValueOrDefault(Me.Settings.DisplayMode	, "left", Force); --use/left/ultramini
+	Me.Settings.SkinName	= Toukibi:GetValueOrDefault(Me.Settings.SkinName	, "None", Force); --None/chat_window/systemmenu_vertical
+
 	if Force then
-		AddLog("デフォルトの設定の読み込みが完了しました。", "Info", true, false);
+		Toukibi:AddLog(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
 	end
 	if DoSave then SaveSetting() end
 end
 
 -- 設定読み込み
 local function LoadSetting()
-	local acutil = require("acutil");
-	local objReadValue, objError = acutil.loadJSON(Me.SettingFilePathName);
+	local objReadValue, objError = Toukibi:LoadTable(Me.SettingFilePathName);
 	if objError then
-		AddLog(string.format("設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。{nl}{#331111}%s{/}", tostring(objError)), "Caution", true, false);
+		local CurrentLang = "en"
+		if Me.Settings == nil then
+			CurrentLang = Toukibi:GetDefaultLangCode() or CurrentLang;
+		else
+			CurrentLang = Me.Settings.Lang or CurrentLang;
+		end
+		Toukibi:AddLog(string.format("%s{nl}{#331111}%s{/}", Toukibi:GetResText(Toukibi.CommonResText, CurrentLang, "System.ErrorToUseDefaults"), tostring(objError)), "Caution", true, false);
 		MargeDefaultSetting(true, false);
 	else
 		Me.Settings = objReadValue;
 		MargeDefaultSetting(false, false);
 	end
-	AddLog("設定の読み込みが完了しました", "Info", true, false);
+	Toukibi:AddLog(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "System.CompleteLoadSettings"), "Info", true, false);
+end
+
+function Me.Load()
+	LoadSetting()
 end
 
 -- ===== アドオンの内容ここから =====
 
+-- 残り時間を見やすく加工する
 local function GetTimeEx(Sec)
 	local timeTxt = "";
 	local d, h, m, s = GET_DHMS(math.floor(Sec));
@@ -166,8 +518,8 @@ local function GetTimeEx(Sec)
 	return "{#FFFF00}{ol}{s12}" .. timeTxt .. "{/}{/}{/}";
 end
 
+-- バフの右下にレベルなど付加情報を書き込む
 local function WriteBuffParam()
-
 	for RowNo = 0 , 1 do -- 0:上段バフ /1:下段バフ /2:デバフ
 		if s_buff_ui["slotcount"][RowNo] ~= nil and s_buff_ui["slotcount"][RowNo] >= 0 then
 
@@ -194,12 +546,11 @@ local function WriteBuffParam()
 						lblParam:EnableHitTest(0);
 						--色見本 #06FAE9 結構いい感じ、だけどちょっと暗い
 						--色見本 #6AFCF2 結構いい感じ、だけどちょっと薄い
-
 						lblParam:SetText(string.format("{#38FBEE}{ol}{s11}" .. DrawInfo.fmt .. "{/}{/}{/}",buff[DrawInfo.arg]));
 						lblParam:ShowWindow(1);
 						pnlBack:Resize(lblParam:GetWidth() + 1, lblParam:GetHeight());
 						pnlBack:ShowWindow(1);
-						-- CHAT_SYSTEM(string.format("{#AAAAAA}{ol}{s11}" .. DrawInfo.fmt .. "{/}{/}{/}",buff[DrawInfo.arg]))
+						-- log(string.format("{#AAAAAA}{ol}{s11}" .. DrawInfo.fmt .. "{/}{/}{/}",buff[DrawInfo.arg]))
 					else
 						local pnlBack = GET_CHILD(CurrentSlot, "TOUKIBI_pnlBack", "ui::CGroupBox");
 						if pnlBack ~= nil then
@@ -216,9 +567,10 @@ local function WriteBuffParam()
 	end
 end
 
+-- バフの残り時間を書き込む
 function Me.UpdateBuffTimeText(handle, buff_ui)
 	local updated = 0;
-	-- CHAT_SYSTEM("てすと")
+	-- log("てすと")
 	for RowNo = 0 , buff_ui["buff_group_cnt"] do -- 0:上段バフ /1:下段バフ /2:デバフ
 		if buff_ui["slotcount"][RowNo] ~= nil and buff_ui["slotcount"][RowNo] >= 0 then
     		for ColNo = 0,  buff_ui["slotcount"][RowNo] - 1 do
@@ -289,6 +641,7 @@ function Me.DrawParam()
 	WriteBuffParam()
 end
 
+-- バフの数を取得する
 local function GetMyBuffCount()
 	local ReturnValue = {};
 
@@ -308,6 +661,7 @@ local function GetMyBuffCount()
 		if buffCls.ApplyLimitCountBuff == "YES" then
 			ReturnValue.CurrentCount = ReturnValue.CurrentCount + 1;
 		end
+		-- 上段バフの上限をプラスする
 		if buff.buffID == 70002 then
 			-- トークン
 			Additional = Additional + 1;
@@ -315,10 +669,10 @@ local function GetMyBuffCount()
 			-- ダイノ
 			ReturnValue.DainoLv = buff.arg1;
 		elseif buff.buffID == 147 then
-			-- ブレッシング
---			AddLog(string.format("%s(Lv.%s):%s", buffCls.Name, buff.arg1, buff.arg2), "Info", false, false);
+			-- ブレッシング(デバッグ用)
+--			Toukibi:AddLog(string.format("%s(Lv.%s):%s", buffCls.Name, buff.arg1, buff.arg2), "Info", false, false);
 		end
--- CHAT_SYSTEM(string.format("[%s]%s : %s, %s, %s", buff.buffID, buffCls.Name, buff.arg1, buff.arg2, buff.arg3, buff.arg4, buff.arg5))
+-- log(string.format("[%s]%s : %s, %s, %s", buff.buffID, buffCls.Name, buff.arg1, buff.arg2, buff.arg3, buff.arg4, buff.arg5))
 	end
 	-- バフ+1のアビリティの有無を調べる
 	if GetAbility(GetMyPCObject(), "AddBuffCount") ~= nil then
@@ -361,11 +715,11 @@ function GetPTMBuffCount(handle)
 			-- ダイノ
 			ReturnValue.DainoLv = buff.arg1;
 		end
---CHAT_SYSTEM(string.format("[%s]%s : %s, %s, %s", buff.buffID, buffCls.Name, buff.arg1, buff.arg2, buff.arg3, buff.arg4, buff.arg5))
+--log(string.format("[%s]%s : %s, %s, %s", buff.buffID, buffCls.Name, buff.arg1, buff.arg2, buff.arg3, buff.arg4, buff.arg5))
 	end
 	-- JOBランクを取得する
 	local cid = info.GetCID(ReturnValue.handle);
---CHAT_SYSTEM("CID : " .. cid)
+--log("CID : " .. cid)
 	if cid ~= nil and cid ~= "0" then
 		local OtherPCInfo = session.otherPC.GetByStrCID(cid);
 		if OtherPCInfo ~= nil then
@@ -377,7 +731,7 @@ function GetPTMBuffCount(handle)
 			ReturnValue.Succeed = true;
 		else
 			ReturnValue.Rank = nil;
-			--CHAT_SYSTEM("キャラ情報の取得に失敗")
+			--log("キャラ情報の取得に失敗")
 		end
 	end
 	ReturnValue.UpperBuffLimit = ReturnValue.MaxBuffCountBase + ReturnValue.MaxBuffAdditional;
@@ -385,7 +739,7 @@ function GetPTMBuffCount(handle)
 	if ReturnValue.DainoLv > 0 then
 		ReturnValue.LeftCount = ReturnValue.LeftCount + ReturnValue.DainoLv + 1
 	end
-	-- CHAT_SYSTEM(string.format("%s/%s", ReturnValue.UpperBuffCount, ReturnValue.MaxBuffCountBase + ReturnValue.MaxBuffAdditional))
+	-- log(string.format("%s/%s", ReturnValue.UpperBuffCount, ReturnValue.MaxBuffCountBase + ReturnValue.MaxBuffAdditional))
 	return ReturnValue;
 end
 
@@ -402,7 +756,7 @@ function Me.GetPartyBuffCount()
 		-- 0:PTを組んでいない  1:自分しかいないPT
 		for i = 0 , MemberCount - 1 do
 			local pcInfo = MemberList:Element(i);
-			-- CHAT_SYSTEM(string.format("Me:%s  PTM(%s):%s", myInfo:GetMapID(), i, pcInfo:GetMapID()))
+			-- log(string.format("Me:%s  PTM(%s):%s", myInfo:GetMapID(), i, pcInfo:GetMapID()))
 			if myInfo ~= pcInfo and myInfo:GetMapID() == pcInfo:GetMapID() and myInfo:GetChannel() == pcInfo:GetChannel() then
 				if ReturnValue.PTM == nil then
 					ReturnValue.PTM = {};
@@ -421,7 +775,7 @@ function Me.GetPartyBuffCount()
 			end
 		end
 	end
---	CHAT_SYSTEM(string.format("自分:%s/%s   PTM:%s/%s", ReturnValue.Self.CurrentCount, ReturnValue.Self.LimitCount + ReturnValue.Self.DainoLv, ReturnValue.PTM.CurrentCount, ReturnValue.PTM.LimitCount + ReturnValue.PTM.DainoLv))
+--	log(string.format("自分:%s/%s   PTM:%s/%s", ReturnValue.Self.CurrentCount, ReturnValue.Self.LimitCount + ReturnValue.Self.DainoLv, ReturnValue.PTM.CurrentCount, ReturnValue.PTM.LimitCount + ReturnValue.PTM.DainoLv))
 	return ReturnValue;
 end
 
@@ -519,8 +873,8 @@ local function UpdateMainFrame()
 		pnlBase:Resize(80, 43);
 		TopFrame:Resize(80, 43);
 	end
-	lblBuffSelf:SetText(GetCountText("自", Me.Settings.DisplayMode, BuffData.Self));
-	lblBuffPTM:SetText(GetCountText("PT", Me.Settings.DisplayMode, BuffData.PTM));
+	lblBuffSelf:SetText(GetCountText(Toukibi:GetResText(ResText, Me.Settings.Lang, "InFrame.Myself"), Me.Settings.DisplayMode, BuffData.Self));
+	lblBuffPTM:SetText(GetCountText(Toukibi:GetResText(ResText, Me.Settings.Lang, "InFrame.PTMember"), Me.Settings.DisplayMode, BuffData.PTM));
 	-- ゲージを更新する
 	local CurrentData = BuffData.Self;
 	if BuffData.PTM ~= nil and BuffData.Self.LeftCount > BuffData.PTM.LeftCount then
@@ -548,43 +902,40 @@ local function UpdateMainFrame()
 	else
 		objGauge:ShowWindow(0)
 
-		local GaugeText = "{ol}{s7}";
+		local GaugeText = "";
+		local DotImage = "{img dot_green 8 8}"
+		local SeparatorImage = "{img channel_mark_empty 4 8}"
 		local TotalCount = 0;
-		local GaugeTextColor = "{#33FF33}"
 		if intValue >= intMaxValue - 1 then
-			GaugeColor = "{#FF1100}";
+			DotImage = "{img dot_red 8 8}"
 		elseif intValue >= intMaxValue - 3 then
-			GaugeColor = "{#FF4400}";
+			DotImage = "{img dot_orange 8 8}"
 		elseif intValue * 10 >= intMaxValue * 7 then
-			GaugeColor = "{#FFEE00}";
+			DotImage = "{img dot_yellow 8 8}"
 		else
-			GaugeColor = "{#33FF33}";
+			DotImage = "{img dot_green 8 8}"
 		end
-		GaugeText = GaugeText .. GaugeColor
 		for i = 1, intValue do
-			GaugeText = GaugeText .. "●";
+			GaugeText = GaugeText .. DotImage;
 			TotalCount = TotalCount + 1;
-			if fmod(TotalCount, 5) == 0 then
-				GaugeText = GaugeText .. " ";
+			if math.fmod(TotalCount, 5) == 0 then
+				GaugeText = GaugeText .. SeparatorImage;
 			end
 		end
-		GaugeText = GaugeText .. "{/}{#060606}"
 		for i = TotalCount + 1, intMaxValue - AddByDaino do
-			GaugeText = GaugeText .. "●";
+			GaugeText = GaugeText .. "{img dot_dark 8 8}";
 			TotalCount = TotalCount + 1;
-			if fmod(TotalCount, 5) == 0 then
-				GaugeText = GaugeText .. " ";
+			if math.fmod(TotalCount, 5) == 0 then
+				GaugeText = GaugeText .. SeparatorImage;
 			end
 		end
-		GaugeText = GaugeText .. "{/}{#060633}"
 		for i =  TotalCount + 1, intMaxValue do
-			GaugeText = GaugeText .. "●";
+			GaugeText = GaugeText .. "{img dot_darkblue 8 8}";
 			TotalCount = TotalCount + 1;
-			if fmod(TotalCount, 5) == 0 then
-				GaugeText = GaugeText .. " ";
+			if math.fmod(TotalCount, 5) == 0 then
+				GaugeText = GaugeText .. SeparatorImage;
 			end
 		end
-		GaugeText = GaugeText .. "{/}{/}{/}";
 
 		lblGauge:SetText(GaugeText);
 		lblGauge:ShowWindow(1);
@@ -628,26 +979,31 @@ end
 
 -- コンテキストメニューを作成する
 function TOUKIBI_BUFFCOUNTER_CONTEXT_MENU(frame, ctrl)
-	local Title = "{#006666}===== Buff Counterの設定 ====={/}";
-	local context = ui.CreateContextMenu("BUFFCOUNTER_MAIN_RBTN", Title, 0, 0, 180, 0);
-	MakeContextMenuItem(context, "{#FFFF88}今すぐ更新する{/}", "TOUKIBI_BUFFCOUNTER_UPDATE()");
-	MakeContextMenuSeparator(context, 240);
-	MakeContextMenuItem(context, "位置を固定する", "TOUKIBI_BUFFCOUNTER_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
-	MakeContextMenuItem(context, "位置をリセット", "TOUKIBI_BUFFCOUNTER_RESETPOS()");
-	MakeContextMenuSeparator(context, 240.1);
-	MakeContextMenuItem(context, "表示モード：バフ使用数", "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'use')", nil, (Me.Settings.DisplayMode == "use"));
-	MakeContextMenuItem(context, "表示モード：バフ残り枠", "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'left')", nil, (Me.Settings.DisplayMode == "left"));
-	MakeContextMenuItem(context, "表示モード：極小表示", "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'ultramini')", nil, (Me.Settings.DisplayMode == "ultramini"));
-	MakeContextMenuSeparator(context, 240.2);
-	MakeContextMenuItem(context, "背景：濃い", "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'systemmenu_vertical')", nil, (Me.Settings.SkinName == "systemmenu_vertical"));
-	MakeContextMenuItem(context, "背景：薄い", "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'chat_window')", nil, (Me.Settings.SkinName == "chat_window"));
-	MakeContextMenuItem(context, "背景なし", "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'None')", nil, (Me.Settings.SkinName == "None"));
-	MakeContextMenuSeparator(context, 240.3);
-	MakeContextMenuItem(context, "残枠表示：ブロック", "TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'block')", nil, (Me.Settings.GaugeStyle == "block"));
-	MakeContextMenuItem(context, "残枠表示：棒グラフ", "TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'continuous')", nil, (Me.Settings.GaugeStyle == "continuous"));
-	MakeContextMenuSeparator(context, 240.4);
-	MakeContextMenuItem(context, "{#666666}閉じる{/}");
-	context:Resize(250, context:GetHeight());
+	local context = ui.CreateContextMenu("BUFFCOUNTER_MAIN_RBTN"
+										, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title")
+										, 0, 0, 180, 0);
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_BUFFCOUNTER_UPDATE()");
+	MakeContextMenuSeparator(context, 300);
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.FixPosition"), "TOUKIBI_BUFFCOUNTER_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_BUFFCOUNTER_RESETPOS()");
+	MakeContextMenuSeparator(context, 300.1);
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Use"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'use')", nil, (Me.Settings.DisplayMode == "use"));
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Left"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'left')", nil, (Me.Settings.DisplayMode == "left"));
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_UltraMini"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'ultramini')", nil, (Me.Settings.DisplayMode == "ultramini"));
+	MakeContextMenuSeparator(context, 300.2);
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Deep"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'systemmenu_vertical')", nil, (Me.Settings.SkinName == "systemmenu_vertical"));
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Thin"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'chat_window')", nil, (Me.Settings.SkinName == "chat_window"));
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_None"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'None')", nil, (Me.Settings.SkinName == "None"));
+	MakeContextMenuSeparator(context, 300.3);
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Block"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'block')", nil, (Me.Settings.GaugeStyle == "block"));
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Bar"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'continuous')", nil, (Me.Settings.GaugeStyle == "continuous"));
+	MakeContextMenuSeparator(context, 300.4);
+	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
+	if Me.Settings.Lang == "en" then
+		context:Resize(330, context:GetHeight());
+	else
+		context:Resize(250, context:GetHeight());
+	end
 	ui.OpenContextMenu(context);
 	return context;
 end
@@ -667,7 +1023,7 @@ function TOUKIBI_BUFFCOUNTER_RESETPOS()
 	Me.Settings.PosY = nil;
 	Me.UpdatePos();
 	SaveSetting();
-	AddLog("耐久表示の表示位置をリセットしました", "Info", true, false);
+	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.UpdateFrmaePos"), "Info", true, false);
 end
 
 function TOUKIBI_BUFFCOUNTER_CHANGEPROP(Name, Value)
@@ -711,7 +1067,7 @@ function TOUKIBI_BUFFCOUNTER_END_DRAG()
 	Me.Settings.PosX = Me.frame:GetX();
 	Me.Settings.PosY = Me.frame:GetY();
 	SaveSetting();
-	AddLog("ドラッグ終了。現在位置を保存します。", "Info", true, true);
+	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.EndDragAndSave"), "Info", true, true);
 end
 
 function TOUKIBI_BUFFCOUNTER_ON_GAME_START()
@@ -750,7 +1106,7 @@ function Me.Show(Value)
 	if Value == nil or Value == 0 or Value == 1 then
 		local BaseFrame = Me.frame;
 		if BaseFrame == nil then
-			CHAT_SYSTEM("画面のハンドルが取得できませんでした");
+			log(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.CannotGetHandle"));
 			return;
 		end
 		if Value == nil then
@@ -764,20 +1120,26 @@ function Me.Show(Value)
 	end 
 end
 
+function TOUKIBI_BUFFCOUNTER_TIMER_UPDATE_TICK()
+	if ui.GetFrame("loadingbg") ~= nil then return end
+	Me.Update();
+end
+
+function TOUKIBI_BUFFCOUNTER_TIMER_PCCOUNT_START()
+	Me.timer_update:Start(5);
+end
+
+function TOUKIBI_BUFFCOUNTER_TIMER_PCCOUNT_STOP()
+	Me.timer_update:Stop();
+end
+
 -- ===== アドオンの内容ここまで =====
 
 -- ===== ここから先またお決まり文句 =====
 
 -- スラッシュコマンド受取
-
--- 使い方のテキストを出力する
-local function PrintHelpToLog()
-	local HelpMsg = "{#333333}Buff Counterのパラメータ説明{/}{nl}{#92D2A0}Buff Counterは次のパラメータで設定を呼び出してください。{/}{nl}{#333333}'/buffc [パラメータ]' または '/buffcounter [パラメータ]'{/}{nl}{#333366}パラメータなしで呼び出された場合は表示画面のON/OFFが切り替わります。(例： /buffc ){/}{nl}{#333333}使用可能なコマンド：{nl}/buffc reset    :設定リセット{nl}/buffc resetpos :耐久値表示画面の位置をリセット{nl}/buffc rspos    :  〃{nl}/buffc refresh  :位置・表示を更新{nl}/buffc update   :耐久値表示を更新{nl}/buffc ?        :このヘルプを表示{nl} ";
-	AddLog(HelpMsg, "None", false, false);
-end
-
 function TOUKIBI_BUFFCOUNTER_PROCESS_COMMAND(command)
-	AddLog("スラッシュコマンドが呼び出されました", "Info", true, true);
+	Toukibi:AddLog(string.format(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "Command.ExecuteCommands"), SlashCommandList[1] .. " " .. table.concat(command, " ")), "Info", true, true);
 	local cmd = ""; 
 	if #command > 0 then 
 		cmd = table.remove(command, 1); 
@@ -788,6 +1150,7 @@ function TOUKIBI_BUFFCOUNTER_PROCESS_COMMAND(command)
 	if cmd == "reset" then 
 		-- すべてをリセット
 		MargeDefaultSetting(true, true);
+		TOUKIBI_BUFFCOUNTER_UPDATE_ALL();
 		return;
 	elseif cmd == "resetpos" or cmd == "rspos" then 
 		-- 位置をリセット
@@ -797,9 +1160,6 @@ function TOUKIBI_BUFFCOUNTER_PROCESS_COMMAND(command)
 		-- プログラムをリセット
 		TOUKIBI_BUFFCOUNTER_UPDATE_ALL();
 		return;
-	-- elseif cmd == "showme" then
-	-- 	GetMyBuffCount();
-	-- 	return;
 	elseif cmd == "update" then
 		-- 表示値の更新
 		Me.Update();
@@ -807,14 +1167,20 @@ function TOUKIBI_BUFFCOUNTER_PROCESS_COMMAND(command)
 	-- elseif cmd == "joke" then
 	-- 	--Me.Joke(true);
 	-- 	return;
+	elseif cmd == "jp" or cmd == "ja" or cmd == "en" or string.len(cmd) == 2 then
+		if cmd == "ja" then cmd = "jp" end
+		-- 言語モードと勘違いした？
+		Toukibi:ChangeLanguage(cmd);
+		TOUKIBI_BUFFCOUNTER_UPDATE_ALL();
+		return;
 	elseif cmd ~= "?" then
-		local strError = "無効なコマンドが呼び出されました";
+		local strError = Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "Command.InvalidCommand");
 		if #SlashCommandList > 0 then
-			strError = strError .. string.format("{nl}コマンド一覧を見るには[ %s ? ]を用いてください", SlashCommandList[1]);
+			strError = strError .. string.format("{nl}" .. Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "Command.AnnounceCommandList"), SlashCommandList[1]);
 		end
-		AddLog(strError, "Warning", true, false);
+		Toukibi:AddLog(strError, "Warning", true, false);
 	end 
-	PrintHelpToLog()
+	Me.ComLib:ShowHelpText()
 end
 
 function Me.BUFF_TIME_UPDATE_HOOKED(handle, buff_ui)
@@ -827,6 +1193,7 @@ function Me.BUFF_TIME_UPDATE_HOOKED(handle, buff_ui)
 	end
 end
 
+Me.HoockedOrigProc = Me.HoockedOrigProc or {};
 function BUFFCOUNTER_ON_INIT(addon, frame)
 	Me.addon = addon;
 	Me.frame = frame;
@@ -846,6 +1213,8 @@ function BUFFCOUNTER_ON_INIT(addon, frame)
 	addon:RegisterMsg("TOKEN_STATE", "TOUKIBI_BUFFCOUNTER_TOKEN_ON_MSG");
 	Me.setHook("BUFF_TIME_UPDATE", Me.BUFF_TIME_UPDATE_HOOKED);
 
+	Me.timer_update = GET_CHILD(Me.frame, "timer_update", "ui::CAddOnTimer");
+	Me.timer_update:SetUpdateScript("TOUKIBI_BUFFCOUNTER_TIMER_UPDATE_TICK");
 
 	local acutil = require("acutil");
 	for i = 1, #SlashCommandList do
@@ -859,6 +1228,7 @@ function BUFFCOUNTER_ON_INIT(addon, frame)
 	frame:SetEventScript(ui.RBUTTONDOWN, 'TOUKIBI_BUFFCOUNTER_CONTEXT_MENU');
 	Me.IsDragging = false;
 	-- Me.Joke(OSRandom(1, 100) < 5)
+	TOUKIBI_BUFFCOUNTER_TIMER_PCCOUNT_START()
 end
 
 -- イベントの飛び先を変更するためのプロシージャ

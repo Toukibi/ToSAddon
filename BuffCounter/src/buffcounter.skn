@@ -85,5 +85,11 @@
 	<imagelist category="icons">
 		<image name="jokeicon_shield" file="buffcounter\buffcounterres.tga" imgrect="0 0 64 64" />
 		<image name="jokeicon_helmet" file="buffcounter\buffcounterres.tga" imgrect="64 0 64 64" />
+		<image name="dot_green" file="buffcounter\buffcounterres.tga" imgrect="128 0 16 16" />
+		<image name="dot_red" file="buffcounter\buffcounterres.tga" imgrect="144 0 16 16" />
+		<image name="dot_orange" file="buffcounter\buffcounterres.tga" imgrect="160 0 16 16" />
+		<image name="dot_yellow" file="buffcounter\buffcounterres.tga" imgrect="176 0 16 16" />
+		<image name="dot_dark" file="buffcounter\buffcounterres.tga" imgrect="128 16 16 16" />
+		<image name="dot_darkblue" file="buffcounter\buffcounterres.tga" imgrect="144 16 16 16" />
 	</imagelist>
 </skinset>

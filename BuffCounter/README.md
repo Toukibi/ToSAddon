@@ -28,6 +28,9 @@ Description of [English Version is Here](#description-of-english-version).
 |/buffc refresh|位置・表示を更新|
 |/buffc update|耐久値表示を更新|
 |/buffc ?|チャットログにヘルプを表示|
+|/buffc jp<br>/buffc ja|日本語モードに切り替え|
+|/buffc en|英語モードに切り替え|
+|/buffc kr|韓国語モードに切り替え|
 
 ### 5.導入方法
 このアドオンは、アドオンマネージャJPに登録しています。  
@@ -36,7 +39,7 @@ Description of [English Version is Here](#description-of-english-version).
 ---
 ## Description of English Version 
   
-**Notice**: This add-on is **Japanese version only**. It will be possible to use it in the intuition without English translation, but the sentences inside are all written in Japanese.  
+**Notice**: From Ver.1.10, this add-on  implements **English mode**. 
 ### 1. What is this?
 This add-on will tell you the remaining number of upper buffs.  
 (In addition, the remaining time of the token is displayed in the buff field)  
@@ -63,6 +66,9 @@ Please call the following command. **`/mapmate`** or **`/MapMate`**
 |/buffc refresh|The durability value displayed will be updated.|
 |/buffc update|The durability value displayed will be updated.|
 |/buffc ?|Display the help-text to chat-log|
+|/buffc jp<br>/buffc ja|Switch to Japanese mode.|
+|/buffc en|Switch to English mode.|
+|/buffc kr|Switch to Korean mode.|
 
 ### 5. How to install？
 This add-on is registered in Add-on Manager JP.  
