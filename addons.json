@@ -51,10 +51,10 @@
         "name" : "Buff Counter",
         "file" : "buffcounter",
         "extension" : "ipf",
-        "fileVersion" : "v1.1.0",
+        "fileVersion" : "v1.1.1",
         "releaseTag" : "BuffCounter",
         "unicode" : "⛄",
-        "description" : "上段バフの残り枠数を教えてくれます。  This add-on will tell you the remaining number of upper buffs.  But sorry, this add-on is Japanese-version only.",
+        "description" : "上段バフの残り枠数を教えてくれます。  This add-on will tell you the remaining number of upper buffs.",
         "tags" : [
             "ui",
             "buff",
