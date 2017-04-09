@@ -4,7 +4,7 @@
 	<input moveable="true" moveintitlebar="false" hittestframe="true" hittest="true"/>
 	<layer layerlevel="61"/>
 	<draw drawframe="false" drawtitlebarframe="false" drawtitlebar="false"/>
-	<option closebutton="false" hideable="false"/>
+	<option visible="true" alwaysVisible="true" closebutton="false" hideable="false" autoopen="true"/>
 	<script OpenScp="TOUKIBI_DURMINI_UPDATE_ALL" LBtnUpScp="TOUKIBI_DURMINI_END_DRAG" RBtnDwScp="TOUKIBI_DURMINI_CONTEXT_MENU"/>
 	<controls>
 		<groupbox name="pnlBase" rect="0 0 144 17" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false" skin="systemmenu_vertical"/>

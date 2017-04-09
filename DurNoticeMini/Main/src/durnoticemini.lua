@@ -1,20 +1,29 @@
 local addonName = "DurNoticeMini";
-local verText = "1.00";
+local verText = "1.10";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
+local SlashCommandList = {"/durmini", "/DurMini", "/Durmini", "/durMini"};
+local CommandParamList = {
+	reset = {jp = "設定をリセット", en = "Reset the settings.", kr = "설정을 초기화"}
+  , resetpos = {jp = "位置をリセット", en = "Reset the position.", kr = "위치를 초기화"}
+  , rspos = {jp = "位置をリセット", en = "Reset the position.", kr = "위치를 초기화"}
+  , refresh = {jp = "表示と位置を更新", en = "Update the position and values.", kr = "표시와 설정을 갱신한다"}
+  , update = {jp = "表示を更新", en = "Reset the values.", kr = "표시와 설정을 갱신한다"}
+  , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)", kr = "일본어 모드로 전환하십시오.(Japanese Mode)"}
+  , en = {jp = "Switch to English mode.", en = "Switch to English mode.", kr = "Switch to English mode."}
+  , kr = {jp = "한국어 모드로 변경(Korean Mode)", en = "Switch to Korean mode.(한국어로)", kr = "한국어 모드로 변경"}
+  , joke = {jp = "？？？", en = "???", kr = "???"}
+};
+local SettingFileName = "setting.json"
 
 _G['ADDONS'] = _G['ADDONS'] or {};
 _G['ADDONS'][autherName] = _G['ADDONS'][autherName] or {};
 _G['ADDONS'][autherName][addonName] = _G['ADDONS'][autherName][addonName] or {};
 
 local Me = _G['ADDONS'][autherName][addonName];
+Me.SettingFilePathName = string.format("../addons/%s/%s", addonNameLower, SettingFileName);
 DurMini = Me;
-local DebugMode = true;
-
-local floor = math.floor;
-
-CHAT_SYSTEM("{#333333}[Add-ons]" .. addonName .. verText .. " loaded!{/}");
-CHAT_SYSTEM("{#333333}[DurNoticeMini]コマンド /durmini で耐久表示のON/OFFが切り替えられます{/}");
+local DebugMode = false;
 
 -- ***** 変数の宣言と設定 *****
 Me.SettingFilePathName = string.format("../addons/%s/settings.json", addonNameLower);
@@ -22,104 +31,461 @@ local eqTypes = {"RH", "LH", "SHIRT", "GLOVES", "PANTS", "BOOTS", "RING1", "RING
 local eqDurData = {}
 Me.Loaded = false;
 
--- ***** ログ表示関連 *****
-local function CreateValueWithStyleCode(Value, Styles)
-	-- ValueにStylesで与えたスタイルタグを付加した文字列を返します
-	local ReturnValue;
-	if Styles == nil or #Styles == 0 then
-		-- スタイル指定なし
-		ReturnValue = Value;
-	else
-		local TagHeader = ""
-		for i, StyleTag in ipairs(Styles) do
-			TagHeader = TagHeader .. string.format( "{%s}", StyleTag);
+-- テキストリソース
+local ResText = {
+	jp = {
+		Menu = {
+			Title = "{#006666}===== DurNotice Miniの設定 ====={/}"
+		  , UpdateNow = "{#FFFF88}今すぐ更新する{/}"
+		  , LockPosition = "位置を固定する"
+		  , ResetPosition = "位置をリセット"
+		  , Close = "{#666666}閉じる{/}"
+		},
+		Msg = {
+			UpdateFrmaePos = "耐久表示の表示位置をリセットしました"
+		  , EndDragAndSave = "ドラッグ終了。現在位置を保存します。"
+		  , CannotGetHandle = "耐久表示画面の取得に失敗しました"
+		},
+		InFrame = {
+			Myself = "自"
+		  , PTMember = "PT"
+		},
+		System = {
+			InitMsg = "コマンド /durmini で表示のON/OFFが切り替えられます"
+		}
+	},
+	en = {
+		Menu = {
+			Title = "{#006666}=== Settings - DurNotice Mini - ==={/}"
+		  , UpdateNow = "{#FFFF88}Update now!{/}"
+		  , LockPosition = "Lock position"
+		  , ResetPosition = "Reset position"
+		  , Close = "{#666666}Close{/}"
+		},
+		Msg = {
+			UpdateFrmaePos = "Display position was reset"
+		  , EndDragAndSave = "Dragging ends. Save the current position."
+		  , CannotGetHandle = "Failed to get the display screen"
+		},
+		InFrame = {
+			Myself = "T"
+		  , PTMember = "S"
+		},
+		System = {
+			InitMsg = 'With command "/durmini", you can toggle display ON/OFF'
+		}
+	},
+	kr = {
+		Menu = {
+			Title = "{#006666}=== DurNotice Mini의 설정 ==={/}"
+		  , UpdateNow = "{#FFFF88}지금 당장 갱신한다{/}"
+		  , LockPosition = "위치를 저장한다"
+		  , ResetPosition = "위치를 리셋"
+		  , Close = "{#666666}닫는다{/}"
+		},
+		Msg = {
+			UpdateFrmaePos = "표시위치를 리셋했습니다"
+		  , EndDragAndSave = "드래그 종료. 현재 위치를 저장합니다."
+		  , CannotGetHandle = "화면의 핸들을 취득하지 못했습니다"
+		},
+		InFrame = {
+			Myself = "나"
+		  , PTMember = "파티"
+		}
+	}
+};
+Me.ResText = ResText;
+
+-- コモンモジュール(の代わり)
+local Toukibi = {
+	CommonResText = {
+		jp = {
+			System = {
+				NoSaveFileName = "設定の保存ファイル名が指定されていません"
+			  , HasErrorOnSaveSettings = "設定の保存でエラーが発生しました"
+			  , CompleteSaveSettings = "設定の保存が完了しました"
+			  , ErrorToUseDefaults = "設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。"
+			  , CompleteLoadDefault = "デフォルトの設定の読み込みが完了しました。"
+			  , CompleteLoadSettings = "設定の読み込みが完了しました"
+			},
+			Command = {
+				ExecuteCommands = "コマンド '{#333366}%s{/}' が呼び出されました"
+			  , ResetSettings = "設定をリセットしました。"
+			  , InvalidCommand = "無効なコマンドが呼び出されました"
+			  , AnnounceCommandList = "コマンド一覧を見るには[ %s ? ]を用いてください"
+				},
+			Help = {
+				Title = string.format("{#333333}%sのパラメータ説明{/}", addonName)
+			  , Description = string.format("{#92D2A0}%sは次のパラメータで設定を呼び出してください。{/}", addonName)
+			  , ParamDummy = "[パラメータ]"
+			  , OrText = "または"
+			  , EnableTitle = "使用可能なコマンド"
+			}
+		},
+		en = {
+			System = {
+				InitMsg = "[Add-ons]" .. addonName .. verText .. " loaded!"
+			  , NoSaveFileName = "The filename of save settings is not specified."
+			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
+			  , CompleteSaveSettings = "Saving settings completed."
+			  , ErrorToUseDefaults = "Change to use default setting because of an error occurred while loading the settings."
+			  , CompleteLoadDefault = "An error occurred while loading the default settings."
+			  , CompleteLoadSettings = "Loading settings completed."
+			},
+			Command = {
+				ExecuteCommands = "Command '{#333366}%s{/}' was called"
+			  , ResetSettings = "The setting was reset."
+			  , InvalidCommand = "Invalid command called"
+			  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
+				},
+			Help = {
+				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
+			  , Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName)
+			  , ParamDummy = "[paramaters]"
+			  , OrText = "or"
+			  , EnableTitle = "Available commands"
+			}
+		},
+		kr = {
+			System = {
+				NoSaveFileName = "설정의 저장파일명이 지정되지 않았습니다"
+			  , HasErrorOnSaveSettings = "설정 저장중 에러가 발생했습니다"
+			  , CompleteSaveSettings = "설정 저장이 완료되었습니다"
+			  , ErrorToUseDefaults = "설정 불러오기에 에러가 발생했으므로 기본 설정을 사용합니다"
+			  , CompleteLoadDefault = "기본 설정 불러오기가 완료되었습니다"
+			  , CompleteLoadSettings = "설정을 불러들였습니다"
+			},
+			Command = {
+				ExecuteCommands = "명령 '{#333366}%s{/}' 를 불러왔습니다"
+			  , ResetSettings = "설정을 초기화하였습니다"
+			  , InvalidCommand = "무효한 명령을 불러왔습니다"
+			  , AnnounceCommandList = "명령일람을 보려면[ %s ? ]를 사용해주세요"
+				},
+			Help = {
+				Title = string.format("{#333333}%s의 패러미터 설명{/}", addonName)
+			  , Description = string.format("{#92D2A0}%s는 다음 패러미터로 설정을 불러와주세요{/}", addonName)
+			  , ParamDummy = "[패러미터]"
+			  , OrText = "또는"
+			  , EnableTitle = "사용가능한 명령"
+			}
+		}
+	},
+	
+	Log = function(self, Caption)
+		if Caption == nil then Caption = "Test Printing" end
+		Caption = tostring(Caption) or "Test Printing";
+		CHAT_SYSTEM(tostring(Caption));
+	end,
+
+	GetDefaultLangCode = function(self)
+		if option.GetCurrentCountry() == "Japanese" then
+			return "jp";
+		elseif option.GetCurrentCountry() == "Korean" then
+			return "kr";
+		else
+			return "en";
 		end
-		ReturnValue = string.format( "%s%s%s", TagHeader, Value, string.rep("{/}", #Styles));
-	end
-	return ReturnValue;
+	end,
+
+	GetTableLen = function(self, tbl)
+		local n = 0;
+		for _ in pairs(tbl) do
+			n = n + 1;
+		end
+		return n;
+	end,
+
+	Split = function(self, str, delim)
+		local ReturnValue = {};
+		for match in string.gmatch(str, "[^" .. delim .. "]+") do
+			table.insert(ReturnValue, match);
+		end
+		return ReturnValue;
+	end,
+
+	GetValue = function(self, obj, Key)
+		if obj == nil then return nil end
+		if Key == nil or Key == "" then return obj end
+		local KeyList = self:Split(Key, ".");
+		for i = 1, #KeyList do
+			local index = KeyList[i]
+			obj = obj[index];
+			if obj == nil then return nil end
+		end
+		return obj;
+	end,
+
+	GetResData = function(self, TargetRes, Lang, Key)
+		if TargetRes == nil then return nil end
+		--CHAT_SYSTEM(string.format("TargetLang : %s", self:GetValue(TargetRes[Lang], Key)))
+		--CHAT_SYSTEM(string.format("En : %s", self:GetValue(TargetRes["en"], Key)))
+		--CHAT_SYSTEM(string.format("Jp : %s", self:GetValue(TargetRes["jp"], Key)))
+		local CurrentRes = self:GetValue(TargetRes[Lang], Key) or self:GetValue(TargetRes["en"], Key) or self:GetValue(TargetRes["jp"], Key);
+		return CurrentRes;
+	end,
+
+	GetResText = function(self, TargetRes, Lang, Key)
+		local ReturnValue = self:GetResData(TargetRes, Lang, Key);
+		if ReturnValue == nil then return "<No Data!!>" end
+		if type(ReturnValue) == "string" then return ReturnValue end
+		return tostring("tostring ==>" .. ReturnValue);
+	end,
+
+	-- ***** ログ表示関連 *****
+	GetStyledText = function(self, Value, Styles)
+		-- ValueにStylesで与えたスタイルタグを付加した文字列を返します
+		local ReturnValue;
+		if Styles == nil or #Styles == 0 then
+			-- スタイル指定なし
+			ReturnValue = Value;
+		else
+			local TagHeader = ""
+			for i, StyleTag in ipairs(Styles) do
+				TagHeader = TagHeader .. string.format( "{%s}", StyleTag);
+			end
+			ReturnValue = string.format( "%s%s%s", TagHeader, Value, string.rep("{/}", #Styles));
+		end
+		return ReturnValue;
+	end,
+
+	AddLog = function(self, Message, Mode, DisplayAddonName, OnlyDebugMode)
+		if Message == nil then return end
+		Mode = Mode or "Info";
+		if (not DebugMode) and Mode == "Info" then return end
+		if (not DebugMode) and OnlyDebugMode then return end
+		local HeaderText = "";
+		if DisplayAddonName then
+			HeaderText = string.format("[%s]", addonName);
+		end
+		local MsgText = HeaderText .. Message;
+		if Mode == "Info" then
+			MsgText = self:GetStyledText(MsgText, {"#333333"});
+		elseif Mode == "Warning" then
+			MsgText = self:GetStyledText(MsgText, {"#331111"});
+		elseif Mode == "Caution" then
+			MsgText = self:GetStyledText(MsgText, {"#666622"});
+		elseif Mode == "Notice" then
+			MsgText = self:GetStyledText(MsgText, {"#333366"});
+		else
+			-- 何もしない
+		end
+		CHAT_SYSTEM(MsgText);
+	end,
+
+	-- 言語切替
+	ChangeLanguage = function(self, Lang)
+		local msg;
+		if self.CommonResText[Lang] == nil then
+			msg = string.format("Sorry, '%s' does not implement '%s' mode.{nl}Language mode has not been changed from '%s'.", 
+								addonName, Lang, Me.Settings.Lang);
+			self:AddLog(msg, "Warning", true, false)
+			return;
+		end
+		Me.Settings.Lang = Lang;
+		self:SaveTable(Me.SettingFilePathName, Me.Settings);
+		if Me.Settings.Lang == "jp" then
+			msg = "日本語モードに切り替わりました";
+		else
+			msg = string.format("Language mode has been changed to '%s'.", Lang);
+		end
+		self:AddLog(msg, "Notice", true, false);
+	end,
+
+	-- ヘルプテキストを自動生成する
+	ShowHelpText = function(self)
+		local ParamDummyText = "";
+		if SlashCommandList ~= nil and SlashCommandList[1] ~= nil then
+			ParamDummyText = ParamDummyText .. "{#333333}";
+			ParamDummyText = ParamDummyText .. string.format("'%s %s'", SlashCommandList[1], self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.ParamDummy"));
+			if SlashCommandList[2] ~= nil then
+				ParamDummyText = ParamDummyText .. string.format(" %s '%s %s'", self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.OrText"), SlashCommandList[2], self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.ParamDummy"));
+			end
+			ParamDummyText = ParamDummyText .. "{/}{nl}";
+		end
+		local CommandHelpText = "";
+		if CommandParamList ~= nil and self:GetTableLen(CommandParamList) > 0 then
+			CommandHelpText = CommandHelpText .. string.format("{#333333}%s: ", self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.EnableTitle"));
+			for ParamName, DescriptionKey in pairs(CommandParamList) do
+				local SpaceCount = 10 - string.len(ParamName);
+				local SpaceText = ""
+				if SpaceCount > 0 then
+					SpaceText = string.rep(" ", SpaceCount)
+				end
+				CommandHelpText = CommandHelpText .. string.format("{nl}%s %s%s:%s", SlashCommandList[1], ParamName, SpaceText, self:GetResText(DescriptionKey, Me.Settings.Lang));
+			end
+			CommandHelpText = CommandHelpText .. "{/}{nl} "
+		end
+		
+		self:AddLog(string.format("%s{nl}%s{nl}%s%s"
+								, self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.Title")
+								, self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.Description")
+								, ParamDummyText
+								, CommandHelpText
+								)
+				  , "None", false, false);
+	end,
+
+	-- ***** 設定読み書き関連 *****
+	SaveTable = function(self, FilePathName, objTable)
+		if FilePathName == nil then
+			self:AddLog(self:GetResText(self.CommonResText, Me.Settings.Lang, "System.NoSaveFileName"), "Warning", true, false);
+		end
+		local objFile, objError = io.open(FilePathName, "w")
+		if objError then
+			self:AddLog(string.format("%s:{nl}%s"
+									, self:GetResText(self.CommonResText, Me.Settings.Lang, "System.HasErrorOnSaveSettings")
+									, tostring(objError)), "Warning", true, false);
+		else
+			local json = require('json');
+			objFile:write(json.encode(objTable));
+			objFile:close();
+			self:AddLog(self:GetResText(self.CommonResText, Me.Settings.Lang, "System.CompleteSaveSettings"), "Info", true, true);
+		end
+	end,
+
+	LoadTable = function(self, FilePathName)
+		local acutil = require("acutil");
+		local objReadValue, objError = acutil.loadJSON(FilePathName);
+		return objReadValue, objError;
+	end,
+
+	-- 既存の値がない場合にデフォルト値をマージする
+	GetValueOrDefault = function(self, Value, DefaultValue, Force)
+		Force = Force or false;
+		if Force or Value == nil then
+			return DefaultValue;
+		else
+			return Value;
+		end
+	end,
+
+	-- ***** コンテキストメニュー関連 *****
+	-- セパレータを挿入
+	MakeCMenuSeparator = function(self, parent, width)
+		width = width or 300;
+		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+	end,
+
+	-- コンテキストメニュー項目を作成
+	MakeCMenuItem = function(self, parent, text, eventscp, icon, checked)
+		local CheckIcon = "";
+		local ImageIcon = "";
+		local eventscp = eventscp or "None";
+		if checked == nil then
+			CheckIcon = "";
+		elseif checked == true then
+			CheckIcon = "{img socket_slot_check 24 24} ";
+		elseif checked == false  then
+			CheckIcon = "{img channel_mark_empty 24 24} ";
+		end
+		if icon == nil then
+			ImageIcon = "";
+		else
+			ImageIcon = string.format("{img %s 24 24} ", icon);
+		end
+		ui.AddContextMenuItem(parent, string.format("%s%s%s", CheckIcon, ImageIcon, text), eventscp);
+	end,
+	-- コンテキストメニュー項目を作成(中間にチェックがあるタイプ)
+	MakeCMenuItemHasCheckInTheMiddle = function(self, parent, textBefore, textAfter, eventscp, icon, checked)
+		textBefore = textBefore or "";
+		textAfter = textAfter or "";
+		local CheckIcon = "";
+		local ImageIcon = "";
+		local eventscp = eventscp or "None";
+		if checked == nil then
+			CheckIcon = "";
+		elseif checked == true then
+			CheckIcon = "{img socket_slot_check 24 24}";
+		elseif checked == false  then
+			CheckIcon = "{img channel_mark_empty 24 24}";
+		end
+		if icon == nil then
+			ImageIcon = "";
+		else
+			ImageIcon = string.format("{img %s 24 24} ", icon);
+		end
+		ui.AddContextMenuItem(parent, string.format("%s%s%s%s", ImageIcon, textBefore, CheckIcon, textAfter), eventscp);
+	end,
+
+	-- イベントの飛び先を変更するためのプロシージャ
+	SetHook = function(self, hookedFunctionStr, newFunction)
+		if Me.HoockedOrigProc[hookedFunctionStr] == nil then
+			Me.HoockedOrigProc[hookedFunctionStr] = _G[hookedFunctionStr];
+			_G[hookedFunctionStr] = newFunction;
+		else
+			_G[hookedFunctionStr] = newFunction;
+		end
+	end 
+};
+Me.ComLib = Toukibi;
+local function log(value)
+	Toukibi:Log(value);
 end
 
-local function AddLog(Message, Mode, DisplayAddonName, OnlyDebugMode)
-	if Me.Settings == nil then return end
-	if Message == nil then return end
-	if (not DebugMode) and Mode == "Info" then return end
-	if (not DebugMode) and OnlyDebugMode then return end
-	local HeaderText = "";
-	if DisplayAddonName then
-		HeaderText = string.format("[%s]", addonName);
-	end
-	local MsgText = HeaderText .. Message;
-	if Mode == "Info" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#333333"});
-	elseif Mode == "Warning" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#331111"});
-	elseif Mode == "Caution" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#666622"});
-	elseif Mode == "Notice" then
-		MsgText = CreateValueWithStyleCode(MsgText, {"#333366"});
+
+local function ShowInitializeMessage()
+	local CurrentLang = "en"
+	if Me.Settings == nil then
+		CurrentLang = Toukibi:GetDefaultLangCode() or CurrentLang;
 	else
-		-- 何もしない
+		CurrentLang = Me.Settings.Lang or CurrentLang;
 	end
-	CHAT_SYSTEM(MsgText);
-end
 
--- ***** 設定読み書き関連 *****
+	CHAT_SYSTEM(string.format("{#333333}%s{/}", Toukibi:GetResText(Toukibi.CommonResText, CurrentLang, "System.InitMsg")))
+	CHAT_SYSTEM(string.format("{#333366}[%s]%s{/}", addonName, Toukibi:GetResText(ResText, CurrentLang, "System.InitMsg")))
+end
+ShowInitializeMessage();
+
+-- ==================================
+--  設定関連
+-- ==================================
+
 -- 設定書き込み
-local function SaveTable(FilePathName, objTable)
-	if FilePathName == nil then
-		AddLog("設定の保存ファイル名が指定されていません", "Warning", true, false);
-	end
-	local objFile, objError = io.open(FilePathName, "w")
-	if objError then
-		AddLog(string.format("設定の保存でエラーが発生しました:{nl}%s", tostring(objError)), "Warning", true, false);
-	else
-		local json = require('json');
-		objFile:write(json.encode(objTable));
-		objFile:close();
-		AddLog("設定の保存が完了しました", "Info", true, true);
-	end
-end
 local function SaveSetting()
-	SaveTable(Me.SettingFilePathName, Me.Settings);
+	Toukibi:SaveTable(Me.SettingFilePathName, Me.Settings);
 end
-
--- 既存の値がない場合にデフォルト値をマージする
-local function GetValueOrDefault(Value, DefaultValue, Force)
-	Force = Force or false;
-	if Force or Value == nil then
-		return DefaultValue;
-	else
-		return Value;
-	end
+function Me.Save()
+	SaveSetting()
 end
 
 -- デフォルト設定(ForceがTrueでない場合は、既存の値はそのまま引き継ぐ)
 local function MargeDefaultSetting(Force, DoSave)
-	DoSave = GetValueOrDefault(DoSave, true);
+	DoSave = Toukibi:GetValueOrDefault(DoSave, true);
 	Me.Settings = Me.Settings or {};
-	Me.Settings.PosX = GetValueOrDefault(Me.Settings.PosX, nil, Force);
-	Me.Settings.PosY = GetValueOrDefault(Me.Settings.PosY, nil, Force);
-	Me.Settings.Movable = GetValueOrDefault(Me.Settings.Movable, false, Force);
-	Me.Settings.Visible = GetValueOrDefault(Me.Settings.Visible, true, Force);
-	Me.Settings.DisplayGauge = GetValueOrDefault(Me.Settings.DisplayGauge, true, Force);
+
+	Me.Settings.DoNothing	= Toukibi:GetValueOrDefault(Me.Settings.DoNothing	, false, Force);
+	Me.Settings.Lang		= Toukibi:GetValueOrDefault(Me.Settings.Lang		, Toukibi:GetDefaultLangCode(), Force);
+	Me.Settings.PosX		= Toukibi:GetValueOrDefault(Me.Settings.PosX		, nil, Force);
+	Me.Settings.PosY		= Toukibi:GetValueOrDefault(Me.Settings.PosY		, nil, Force);
+	Me.Settings.Movable		= Toukibi:GetValueOrDefault(Me.Settings.Movable		, false, Force);
+	Me.Settings.Visible		= Toukibi:GetValueOrDefault(Me.Settings.Visible		, true, Force);
+	Me.Settings.DisplayGauge= Toukibi:GetValueOrDefault(Me.Settings.DisplayGauge, true, Force);
 	if Force then
-		AddLog("デフォルトの設定の読み込みが完了しました。", "Info", true, false);
+		Toukibi:AddLog(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
 	end
 	if DoSave then SaveSetting() end
 end
 
 -- 設定読み込み
 local function LoadSetting()
-	local acutil = require("acutil");
-	local objReadValue, objError = acutil.loadJSON(Me.SettingFilePathName);
+	local objReadValue, objError = Toukibi:LoadTable(Me.SettingFilePathName);
 	if objError then
-		AddLog(string.format("設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。{nl}{#331111}%s{/}", tostring(objError)), "Caution", true, false);
+		local CurrentLang = "en"
+		if Me.Settings == nil then
+			CurrentLang = Toukibi:GetDefaultLangCode() or CurrentLang;
+		else
+			CurrentLang = Me.Settings.Lang or CurrentLang;
+		end
+		Toukibi:AddLog(string.format("%s{nl}{#331111}%s{/}", Toukibi:GetResText(Toukibi.CommonResText, CurrentLang, "System.ErrorToUseDefaults"), tostring(objError)), "Caution", true, false);
 		MargeDefaultSetting(true, false);
 	else
-		Settings = objReadValue;
+		Me.Settings = objReadValue;
 		MargeDefaultSetting(false, false);
 	end
-	AddLog("設定の読み込みが完了しました", "Info", true, false);
+	Toukibi:AddLog(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "System.CompleteLoadSettings"), "Info", true, false);
+end
+function Me.Load()
+	LoadSetting()
 end
 
 -- ===== 基本機能 =====
@@ -127,7 +493,7 @@ end
 -- 引数にTrueを設定するとピコハンと安全ヘルメットの絵に変わる。ただそれだけ
 function Me.Joke(value)
 	value = value or false;
-	local TopFrame = Me.frame;
+	local TopFrame = ui.GetFrame("durnoticemini");
 	local pnlBase = GET_CHILD(TopFrame, "pnlBase", "ui::CGroupBox");
 	local Pic1 = GET_CHILD(pnlBase, "Pic1", "ui::CPicture");
 	local Pic2 = GET_CHILD(pnlBase, "Pic2", "ui::CPicture");
@@ -198,7 +564,7 @@ local function GetMinimumDur()
 		if ReturnValue[i].EqTypeName == nil then
 			ReturnValue[i].DurText = "--";
 		else
-			ReturnValue[i].DurText = floor(ReturnValue[i].Dur / 100);
+			ReturnValue[i].DurText = math.floor(ReturnValue[i].Dur / 100);
 		end
 	end
 	return ReturnValue;
@@ -208,7 +574,7 @@ end
 local function UpdateMainFrame()
 	local MinDur = GetMinimumDur();
 
-	local TopFrame = Me.frame;
+	local TopFrame = ui.GetFrame("durnoticemini");
 	local pnlBase = GET_CHILD(TopFrame, "pnlBase", "ui::CGroupBox");
 	for i = 1, 2 do
 		local lblDur = GET_CHILD(pnlBase, "Dur" .. i, "ui::CRichText");
@@ -233,41 +599,18 @@ local function UpdateMainFrame()
 	end
 end
 
--- ***** コンテキストメニュー周り *****
--- セパレータを挿入
-local function MakeContextMenuSeparator(parent, width)
-	width = width or 300;
-	ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
-end
-
--- コンテキストメニュー項目を作成
-local function MakeContextMenuItem(parent, text, eventscp, icon, checked)
-	local CheckIcon = "";
-	local ImageIcon = "";
-	local eventscp = eventscp or "None";
-	if checked == nil then
-		CheckIcon = "";
-	elseif checked == true then
-		CheckIcon = "{img socket_slot_check 24 24} ";
-	elseif checked == false  then
-		CheckIcon = "{img channel_mark_empty 24 24} "
-	end
-	if icon == nil then
-		ImageIcon = "";
-	else
-		ImageIcon = string.format("{img %s 24 24} ", icon);
-	end
-	ui.AddContextMenuItem(parent, string.format("%s%s%s", CheckIcon, ImageIcon, text), eventscp);
-end
-
 -- コンテキストメニューを作成する
 function TOUKIBI_DURMINI_CONTEXT_MENU(frame, ctrl)
-	local Title = "{#006666}====== DurNotice Miniの設定 ======{/}";
-	local context = ui.CreateContextMenu("DURMINI_MAIN_RBTN", Title, 0, 0, 180, 0);
-	MakeContextMenuItem(context, "位置を固定する", "TOUKIBI_DURMINI_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
-	MakeContextMenuSeparator(context, 240);
-	MakeContextMenuItem(context, "位置をリセット", "TOUKIBI_DURMINI_RESETPOS()");
-	MakeContextMenuItem(context, "{#666666}閉じる{/}");
+	local context = ui.CreateContextMenu("DURMINI_MAIN_RBTN"
+										, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title")
+										, 0, 0, 180, 0);
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_DURMINI_UPDATE()");
+	Toukibi:MakeCMenuSeparator(context, 240);
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.LockPosition"), "TOUKIBI_DURMINI_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_DURMINI_RESETPOS()");
+	Toukibi:MakeCMenuSeparator(context, 240.1);
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
+	context:Resize(270, context:GetHeight());
 	ui.OpenContextMenu(context);
 	return context;
 end
@@ -277,8 +620,11 @@ end
 function TOUKIBI_DURMINI_CHANGE_MOVABLE()
 	if Me.Settings == nil then return end
 	Me.Settings.Movable = not Me.Settings.Movable;
-	Me.frame:EnableMove(Me.Settings.Movable and 1 or 0);
-	SaveSetting();
+	local objFrame = ui.GetFrame("durnoticemini")
+	if objFrame ~= nil then
+		objFrame:EnableMove(Me.Settings.Movable and 1 or 0);
+		SaveSetting();
+	end
 end
 
 function TOUKIBI_DURMINI_RESETPOS()
@@ -287,7 +633,7 @@ function TOUKIBI_DURMINI_RESETPOS()
 	Me.Settings.PosY = nil;
 	Me.UpdatePos();
 	SaveSetting();
-	AddLog("耐久表示の表示位置をリセットしました", "Info", true, false);
+	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.UpdateFrmaePos"), "Info", true, false);
 end
 
 -- ***** その他イベント受取 *****
@@ -299,10 +645,12 @@ end
 function TOUKIBI_DURMINI_END_DRAG()
 	Me.IsDragging = false;
 	if not Me.Settings.Movable then return end
-	Me.Settings.PosX = Me.frame:GetX();
-	Me.Settings.PosY = Me.frame:GetY();
+	local objFrame = ui.GetFrame("durnoticemini")
+	if objFrame == nil then return end
+	Me.Settings.PosX = objFrame:GetX();
+	Me.Settings.PosY = objFrame:GetY();
 	SaveSetting();
-	AddLog("ドラッグ終了。現在位置を保存します。", "Info", true, true);
+	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.EndDragAndSave"), "Info", true, true);
 end
 
 function TOUKIBI_DURMINI_ON_GAME_START()
@@ -330,7 +678,7 @@ end
 
 -- [DevConsole呼出可] 表示位置を更新する
 function Me.UpdatePos()
-	local TopFrame = Me.frame;
+	local TopFrame = ui.GetFrame("durnoticemini");
 	if TopFrame == nil then return end
 	if Me.Settings == nil or Me.Settings.PosX == nil or Me.Settings.PosY == nil then
 		-- デフォルト設定(ステータス表示にドッキング)
@@ -346,9 +694,9 @@ end
 -- [DevConsole呼出可] 表示/非表示を切り替える(1:表示 0:非表示 nil:トグル)
 function Me.Show(value)
 	if value == nil or value == 0 or value == 1 then
-		local BaseFrame = Me.frame;
+		local BaseFrame = ui.GetFrame("durnoticemini");
 		if BaseFrame == nil then
-			CHAT_SYSTEM("設定画面のハンドルが取得できませんでした");
+			log(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.CannotGetHandle"));
 			return;
 		end
 		if value == nil then
@@ -370,7 +718,7 @@ end
 
 -- スラッシュコマンド受取
 function TOUKIBI_DURMINI_PROCESS_COMMAND(command)
-	AddLog("TOUKIBI_DURMINI_PROCESS_COMMANDが呼び出されました", "Info", true, true);
+	Toukibi:AddLog(string.format(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "Command.ExecuteCommands"), SlashCommandList[1] .. " " .. table.concat(command, " ")), "Info", true, true);
 	local cmd = ""; 
 	if #command > 0 then 
 		cmd = table.remove(command, 1); 
@@ -397,10 +745,20 @@ function TOUKIBI_DURMINI_PROCESS_COMMAND(command)
 	elseif cmd == "joke" then
 		Me.Joke(true);
 		return;
+	elseif cmd == "jp" or cmd == "ja" or cmd == "en" or string.len(cmd) == 2 then
+		if cmd == "ja" then cmd = "jp" end
+		-- 言語モードと勘違いした？
+		Toukibi:ChangeLanguage(cmd);
+		TOUKIBI_DURMINI_UPDATE_ALL();
+		return;
 	elseif cmd ~= "?" then
-		AddLog("無効なコマンドが呼び出されました{nl}コマンド一覧を見るには[ /durmini ? ]を用いてください", "Warning", true, false);
+		local strError = Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "Command.InvalidCommand");
+		if #SlashCommandList > 0 then
+			strError = strError .. string.format("{nl}" .. Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "Command.AnnounceCommandList"), SlashCommandList[1]);
+		end
+		Toukibi:AddLog(strError, "Warning", true, false);
 	end 
-	PrintHelpToLog()
+	Me.ComLib:ShowHelpText()
 end
 
 function DURNOTICEMINI_ON_INIT(addon, frame)
@@ -414,16 +772,15 @@ function DURNOTICEMINI_ON_INIT(addon, frame)
 	addon:RegisterMsg('GAME_START', 'TOUKIBI_DURMINI_ON_GAME_START');
 
 	local acutil = require("acutil");
-	acutil.slashCommand("/DurMini", TOUKIBI_DURMINI_PROCESS_COMMAND);
-	acutil.slashCommand("/Durmini", TOUKIBI_DURMINI_PROCESS_COMMAND);
-	acutil.slashCommand("/durMini", TOUKIBI_DURMINI_PROCESS_COMMAND);
-	acutil.slashCommand("/durmini", TOUKIBI_DURMINI_PROCESS_COMMAND);
+	for i = 1, #SlashCommandList do
+		acutil.slashCommand(SlashCommandList[i], TOUKIBI_DURMINI_PROCESS_COMMAND);
+	end
 
 	if not Me.Loaded then
 		Me.Loaded = true;
 		LoadSetting();
 	end
-	Me.frame:EnableMove(Me.Settings.Movable and 1 or 0);
+	ui.GetFrame("durnoticemini"):EnableMove(Me.Settings.Movable and 1 or 0);
 	Me.Show(1);
 	Me.Update();
 	Me.UpdatePos()
