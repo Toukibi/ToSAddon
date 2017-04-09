@@ -1,5 +1,5 @@
 local addonName = "BuffCounter";
-local verText = "1.1.1";
+local verText = "1.1.3";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/buffc", "/buffcounter", "/BuffCounter"} -- {"/コマンド1", "/コマンド2", .......};
@@ -89,9 +89,9 @@ local ResText = {
 		  , Close = "{#666666}Close{/}"
 		},
 		Msg = {
-			UpdateFrmaePos = "耐久表示の表示位置をリセットしました"
-		  , EndDragAndSave = "ドラッグ終了。現在位置を保存します。"
-		  , CannotGetHandle = "耐久表示画面の取得に失敗しました"
+			UpdateFrmaePos = "Display position was reset"
+		  , EndDragAndSave = "Dragging ends. Save the current position."
+		  , CannotGetHandle = "Failed to get the display screen"
 		},
 		InFrame = {
 			Myself = "T"
@@ -890,7 +890,7 @@ end
 
 local function UpdateMainFrame()
 	local BuffData = Me.GetPartyBuffCount();
-	local TopFrame = Me.frame;
+	local TopFrame = ui.GetFrame("buffcounter");
 	local pnlBase = GET_CHILD(TopFrame, "pnlBase", "ui::CControlSet");
 	if Me.Settings.SkinName ~= nil then
 		pnlBase:SetSkinName(Me.Settings.SkinName);
@@ -1006,7 +1006,7 @@ local function UpdateMainFrame()
 		end
 	end
 
-	Me.frame:Invalidate()
+	TopFrame:Invalidate()
 end
 
 -- ***** コンテキストメニュー周り *****
@@ -1096,8 +1096,11 @@ end
 function TOUKIBI_BUFFCOUNTER_CHANGE_MOVABLE()
 	if Me.Settings == nil then return end
 	Me.Settings.Movable = not Me.Settings.Movable;
-	Me.frame:EnableMove(Me.Settings.Movable and 1 or 0);
-	SaveSetting();
+	local objFrame = ui.GetFrame("buffcounter")
+	if objFrame ~= nil then
+		objFrame:EnableMove(Me.Settings.Movable and 1 or 0);
+		SaveSetting();
+	end
 end
 
 function TOUKIBI_BUFFCOUNTER_RESETPOS()
@@ -1147,8 +1150,10 @@ end
 function TOUKIBI_BUFFCOUNTER_END_DRAG()
 	Me.IsDragging = false;
 	if not Me.Settings.Movable then return end
-	Me.Settings.PosX = Me.frame:GetX();
-	Me.Settings.PosY = Me.frame:GetY();
+	local objFrame = ui.GetFrame("buffcounter")
+	if objFrame == nil then return end
+	Me.Settings.PosX = objFrame:GetX();
+	Me.Settings.PosY = objFrame:GetY();
 	SaveSetting();
 	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.EndDragAndSave"), "Info", true, true);
 end
@@ -1175,7 +1180,7 @@ end
 
 -- [DevConsole呼出可] 表示位置を更新する
 function Me.UpdatePos()
-	local TopFrame = Me.frame;
+	local TopFrame = ui.GetFrame("buffcounter");
 	if TopFrame == nil then return end
 	if Me.Settings == nil or Me.Settings.PosX == nil or Me.Settings.PosY == nil then
 		TopFrame:SetPos(450, 30);
@@ -1187,7 +1192,7 @@ end
 -- [DevConsole呼出可] 表示/非表示を切り替える(1:表示 0:非表示 nil:トグル)
 function Me.Show(Value)
 	if Value == nil or Value == 0 or Value == 1 then
-		local BaseFrame = Me.frame;
+		local BaseFrame = ui.GetFrame("buffcounter");
 		if BaseFrame == nil then
 			log(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.CannotGetHandle"));
 			return;
@@ -1303,7 +1308,7 @@ function BUFFCOUNTER_ON_INIT(addon, frame)
 	Me.setHook("BUFF_TIME_UPDATE", Me.BUFF_TIME_UPDATE_HOOKED);
 	Me.setHook("ICON_USE", Me.ICON_USE_HOOKED);
 
-	Me.timer_update = GET_CHILD(Me.frame, "timer_update", "ui::CAddOnTimer");
+	Me.timer_update = GET_CHILD(ui.GetFrame("buffcounter"), "timer_update", "ui::CAddOnTimer");
 	Me.timer_update:SetUpdateScript("TOUKIBI_BUFFCOUNTER_TIMER_UPDATE_TICK");
 
 	local acutil = require("acutil");
@@ -1311,7 +1316,7 @@ function BUFFCOUNTER_ON_INIT(addon, frame)
 		acutil.slashCommand(SlashCommandList[i], TOUKIBI_BUFFCOUNTER_PROCESS_COMMAND);
 	end
 
-	Me.frame:EnableMove(Me.Settings.Movable and 1 or 0);
+	ui.GetFrame("buffcounter"):EnableMove(Me.Settings.Movable and 1 or 0);
 	Me.Show(1);
 	-- Me.Update();
 	Me.UpdatePos()
