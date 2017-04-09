@@ -1,6 +1,7 @@
 ﻿
 # Buff Counter
 Description of [English Version is Here](#description-of-english-version).
+
 ### 1.これは何？
 上段バフの残り枠数を教えてくれます。  
 (ついでにトークンの残り時間をバフ欄に表示します)  
@@ -44,7 +45,7 @@ Description of [English Version is Here](#description-of-english-version).
 This add-on will tell you the remaining number of upper buffs.  
 (In addition, the remaining time of the token is displayed in the buff field)  
 ![Image of Buff-Counter](https://github.com/Toukibi/ToSAddon/blob/ForImage/BuffCounter/img/topimage.png?raw=true)  
-### 2.What can this be?
+### 2.Features
 * Add the following items.
   * Remaining number of upper buff
   * Remaining time of token
@@ -61,6 +62,7 @@ Please call the following command. **`/mapmate`** or **`/MapMate`**
 
 |Paramater|What happens result|
 |---|---|
+|/buffc|Toggle visible.|
 |/buffc reset|Reset the all settings.|
 |/buffc resetpos<br>/buffc rspos|Reset the position of this add-on.|
 |/buffc refresh|The durability value displayed will be updated.|

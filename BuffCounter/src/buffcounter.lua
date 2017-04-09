@@ -1,5 +1,5 @@
 local addonName = "BuffCounter";
-local verText = "1.1.0";
+local verText = "1.1.1";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/buffc", "/buffcounter", "/BuffCounter"} -- {"/コマンド1", "/コマンド2", .......};
@@ -37,14 +37,20 @@ local ResText = {
 		  , UpdateNow = "{#FFFF88}今すぐ更新する{/}"
 		  , FixPosition = "位置を固定する"
 		  , ResetPosition = "位置をリセット"
-		  , Mode_Use = "表示モード：バフ使用数"
-		  , Mode_Left = "表示モード：バフ残り枠"
-		  , Mode_UltraMini = "表示モード：極小表示"
-		  , Back_Deep = "背景：濃い"
-		  , Back_Thin = "背景：薄い"
-		  , Back_None = "背景なし"
-		  , Gauge_Block = "残枠表示：ブロック"
-		  , Gauge_Bar = "残枠表示：棒グラフ"
+		  , Mode_Title = "表示モード："
+		  , Mode_Space = "            "
+		  , Mode_Use = "バフ使用数"
+		  , Mode_Left = "バフ残り枠"
+		  , Mode_UltraMini = "極小表示"
+		  , Back_Title = "背景：      "
+		  , Back_Space = "            "
+		  , Back_Deep = "濃い"
+		  , Back_Thin = "薄い"
+		  , Back_None = "なし"
+		  , Gauge_Title = "残枠表示：  "
+		  , Gauge_Space = "            "
+		  , Gauge_Block = "ブロック"
+		  , Gauge_Bar = "棒グラフ"
 		  , Close = "{#666666}閉じる{/}"
 		},
 		Msg = {
@@ -55,22 +61,31 @@ local ResText = {
 		InFrame = {
 			Myself = "自"
 		  , PTMember = "PT"
+		},
+		System = {
+			InitMsg = "コマンド /buffc で表示のON/OFFが切り替えられます"
 		}
 	},
 	en = {
 		Menu = {
 			Title = "{#006666}===== Settings - Buff Counter - ====={/}"
 		  , UpdateNow = "{#FFFF88}Update now!{/}"
-		  , FixPosition = "Fix position"
+		  , FixPosition = "Lock position"
 		  , ResetPosition = "Reset position"
-		  , Mode_Use = "Mode: Buff Using Count"
-		  , Mode_Left = "Mode: Vacant frames on Buff"
-		  , Mode_UltraMini = "Mode: Ultra mini size"
-		  , Back_Deep = "Background: Deep"
-		  , Back_Thin = "Background: Thin"
-		  , Back_None = "Background: None"
-		  , Gauge_Block = "Gauge style: Blocks"
-		  , Gauge_Bar = "Gauge style: Continuous"
+		  , Mode_Title = "Mode:             "
+		  , Mode_Space = "                        "
+		  , Mode_Use = "Buff Using Count"
+		  , Mode_Left = "Vacant frames on Buff"
+		  , Mode_UltraMini = "Ultra mini size"
+		  , Back_Title = "Background: "
+		  , Back_Space = "                         "
+		  , Back_Deep = "Deep"
+		  , Back_Thin = "Thin"
+		  , Back_None = "None"
+		  , Gauge_Title = "Gauge style:  "
+		  , Gauge_Space = "                        "
+		  , Gauge_Block = "Blocks"
+		  , Gauge_Bar = "Continuous"
 		  , Close = "{#666666}Close{/}"
 		},
 		Msg = {
@@ -81,6 +96,9 @@ local ResText = {
 		InFrame = {
 			Myself = "T"
 		  , PTMember = "S"
+		},
+		System = {
+			InitMsg = 'With command "/buffc", you can toggle display ON/OFF'
 		}
 	},
 	kr = {
@@ -89,14 +107,20 @@ local ResText = {
 		  , UpdateNow = "{#FFFF88}지금 당장 갱신한다{/}"
 		  , FixPosition = "위치를 저장한다"
 		  , ResetPosition = "위치를 리셋"
-		  , Mode_Use = "표시모드：버프사용수"
-		  , Mode_Left = "표시모드：버프남은수"
-		  , Mode_UltraMini = "표시모드：최소화표시"
-		  , Back_Deep = "배경：진하게"
-		  , Back_Thin = "배경：연하게"
-		  , Back_None = "배경없음"
-		  , Gauge_Block = "테두리표시：블록"
-		  , Gauge_Bar = "테두리표시：막대그래프"
+		  , Mode_Title = "표시모드：   "
+		  , Mode_Space = "                      "
+		  , Mode_Use = "버프사용수"
+		  , Mode_Left = "버프남은수"
+		  , Mode_UltraMini = "최소화표시"
+		  , Back_Title = "배경：          "
+		  , Back_Space = "                      "
+		  , Back_Deep = "진하게"
+		  , Back_Thin = "연하게"
+		  , Back_None = "없음"
+		  , Gauge_Title = "테두리표시："
+		  , Gauge_Space = "                      "
+		  , Gauge_Block = "블록"
+		  , Gauge_Bar = "막대그래프"
 		  , Close = "{#666666}닫는다{/}"
 		},
 		Msg = {
@@ -107,6 +131,9 @@ local ResText = {
 		InFrame = {
 			Myself = "나"
 		  , PTMember = "파티"
+		},
+		System = {
+			InitMsg = nil
 		}
 	}
 };
@@ -140,9 +167,13 @@ local Toukibi = {
 		},
 		en = {
 			System = {
-				NoSaveFileName = "The filename of save settings is not specified.",
-				HasErrorOnSaveSettings = "An error occurred while saving the settings.",
-				CompleteSaveSettings = "Saving settings completed."
+				InitMsg = "[Add-ons]" .. addonName .. verText .. " loaded!"
+			  , NoSaveFileName = "The filename of save settings is not specified."
+			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
+			  , CompleteSaveSettings = "Saving settings completed."
+			  , ErrorToUseDefaults = "Change to use default setting because of an error occurred while loading the settings."
+			  , CompleteLoadDefault = "An error occurred while loading the default settings."
+			  , CompleteLoadSettings = "Loading settings completed."
 			},
 			Command = {
 				ExecuteCommands = "Command '{#333366}%s{/}' was called"
@@ -397,6 +428,27 @@ local Toukibi = {
 		end
 		ui.AddContextMenuItem(parent, string.format("%s%s%s", CheckIcon, ImageIcon, text), eventscp);
 	end,
+	-- コンテキストメニュー項目を作成(中間にチェックがあるタイプ)
+	MakeCMenuItemHasCheckInTheMiddle = function(self, parent, textBefore, textAfter, eventscp, icon, checked)
+		textBefore = textBefore or "";
+		textAfter = textAfter or "";
+		local CheckIcon = "";
+		local ImageIcon = "";
+		local eventscp = eventscp or "None";
+		if checked == nil then
+			CheckIcon = "";
+		elseif checked == true then
+			CheckIcon = "{img socket_slot_check 24 24}";
+		elseif checked == false  then
+			CheckIcon = "{img channel_mark_empty 24 24}";
+		end
+		if icon == nil then
+			ImageIcon = "";
+		else
+			ImageIcon = string.format("{img %s 24 24} ", icon);
+		end
+		ui.AddContextMenuItem(parent, string.format("%s%s%s%s", ImageIcon, textBefore, CheckIcon, textAfter), eventscp);
+	end,
 
 	-- イベントの飛び先を変更するためのプロシージャ
 	SetHook = function(self, hookedFunctionStr, newFunction)
@@ -413,11 +465,18 @@ local function log(value)
 	Toukibi:Log(value);
 end
 
+local function ShowInitializeMessage()
+	local CurrentLang = "en"
+	if Me.Settings == nil then
+		CurrentLang = Toukibi:GetDefaultLangCode() or CurrentLang;
+	else
+		CurrentLang = Me.Settings.Lang or CurrentLang;
+	end
 
-CHAT_SYSTEM("{#333333}[Add-ons]" .. addonName .. verText .. " loaded!{/}");
---CHAT_SYSTEM("{#333333}[Buff Counter]コマンド /buffc で表示のON/OFFが切り替えられます{/}");
-
-
+	CHAT_SYSTEM(string.format("{#333333}%s{/}", Toukibi:GetResText(Toukibi.CommonResText, CurrentLang, "System.InitMsg")))
+	CHAT_SYSTEM(string.format("{#333366}[%s]%s{/}", addonName, Toukibi:GetResText(ResText, CurrentLang, "System.InitMsg")))
+end
+ShowInitializeMessage()
 
 -- ***** 変数の宣言と設定 *****
 
@@ -847,9 +906,9 @@ local function UpdateMainFrame()
 
 	if Me.Settings.DisplayMode == "left" then
 		lblBuffSelf:Resize(36, 20);
-		lblBuffSelf:SetMargin(2, 7, 0, 0);
+		lblBuffSelf:SetMargin(2, 9, 0, 0);
 		lblBuffPTM:Resize(36, 20);
-		lblBuffPTM:SetMargin(40, 7, 0, 0);
+		lblBuffPTM:SetMargin(40, 9, 0, 0);
 		objGauge:ShowWindow(1);
 		objGauge:SetMargin(5, 2, 0, 0);
 		pnlBase:Resize(80, 27);
@@ -865,9 +924,9 @@ local function UpdateMainFrame()
 		TopFrame:Resize(24, 63);
 	else
 		lblBuffSelf:Resize(96, 20);
-		lblBuffSelf:SetMargin(2, 7, 0, 0);
+		lblBuffSelf:SetMargin(2, 9, 0, 0);
 		lblBuffPTM:Resize(96, 20);
-		lblBuffPTM:SetMargin(2, 23, 0, 0);
+		lblBuffPTM:SetMargin(2, 25, 0, 0);
 		objGauge:ShowWindow(1);
 		objGauge:SetMargin(5, 2, 0, 0);
 		pnlBase:Resize(80, 43);
@@ -910,7 +969,7 @@ local function UpdateMainFrame()
 			DotImage = "{img dot_red 8 8}"
 		elseif intValue >= intMaxValue - 3 then
 			DotImage = "{img dot_orange 8 8}"
-		elseif intValue * 10 >= intMaxValue * 7 then
+		elseif intValue * 10 >= intMaxValue * 3 then
 			DotImage = "{img dot_yellow 8 8}"
 		else
 			DotImage = "{img dot_green 8 8}"
@@ -982,23 +1041,47 @@ function TOUKIBI_BUFFCOUNTER_CONTEXT_MENU(frame, ctrl)
 	local context = ui.CreateContextMenu("BUFFCOUNTER_MAIN_RBTN"
 										, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title")
 										, 0, 0, 180, 0);
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_BUFFCOUNTER_UPDATE()");
-	MakeContextMenuSeparator(context, 300);
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.FixPosition"), "TOUKIBI_BUFFCOUNTER_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_BUFFCOUNTER_RESETPOS()");
-	MakeContextMenuSeparator(context, 300.1);
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Use"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'use')", nil, (Me.Settings.DisplayMode == "use"));
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Left"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'left')", nil, (Me.Settings.DisplayMode == "left"));
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_UltraMini"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'ultramini')", nil, (Me.Settings.DisplayMode == "ultramini"));
-	MakeContextMenuSeparator(context, 300.2);
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Deep"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'systemmenu_vertical')", nil, (Me.Settings.SkinName == "systemmenu_vertical"));
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Thin"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'chat_window')", nil, (Me.Settings.SkinName == "chat_window"));
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_None"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'None')", nil, (Me.Settings.SkinName == "None"));
-	MakeContextMenuSeparator(context, 300.3);
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Block"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'block')", nil, (Me.Settings.GaugeStyle == "block"));
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Bar"), "TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'continuous')", nil, (Me.Settings.GaugeStyle == "continuous"));
-	MakeContextMenuSeparator(context, 300.4);
-	MakeContextMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_BUFFCOUNTER_UPDATE()");
+	Toukibi:MakeCMenuSeparator(context, 300);
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.FixPosition"), "TOUKIBI_BUFFCOUNTER_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_BUFFCOUNTER_RESETPOS()", nil, false);
+	Toukibi:MakeCMenuSeparator(context, 300.1);
+	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Title"), 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Use"), 
+											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'use')", nil, (Me.Settings.DisplayMode == "use"));
+	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Space"), 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Left"), 
+											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'left')", nil, (Me.Settings.DisplayMode == "left"));
+	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Space"), 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_UltraMini"), 
+											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'ultramini')", nil, (Me.Settings.DisplayMode == "ultramini"));
+	Toukibi:MakeCMenuSeparator(context, 300.2);
+	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Title"), 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Deep"), 
+											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'systemmenu_vertical')", nil, (Me.Settings.SkinName == "systemmenu_vertical"));
+	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Space"), 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Thin"), 
+											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'chat_window')", nil, (Me.Settings.SkinName == "chat_window"));
+	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Space"), 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_None"), 
+											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'None')", nil, (Me.Settings.SkinName == "None"));
+	Toukibi:MakeCMenuSeparator(context, 300.3);
+	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Title"), 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Block"), 
+											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'block')", nil, (Me.Settings.GaugeStyle == "block"));
+	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Space"), 
+											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Bar"), 
+											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'continuous')", nil, (Me.Settings.GaugeStyle == "continuous"));
+	Toukibi:MakeCMenuSeparator(context, 300.4);
+	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	if Me.Settings.Lang == "en" then
 		context:Resize(330, context:GetHeight());
 	else
@@ -1193,6 +1276,12 @@ function Me.BUFF_TIME_UPDATE_HOOKED(handle, buff_ui)
 	end
 end
 
+function Me.ICON_USE_HOOKED(object, reAction)
+	Me.HoockedOrigProc["ICON_USE"](object, reAction);
+	if ui.GetFrame("loadingbg") ~= nil then return end
+	ReserveScript("TOUKIBI_BUFFCOUNTER_UPDATE()", 0.3);
+end
+
 Me.HoockedOrigProc = Me.HoockedOrigProc or {};
 function BUFFCOUNTER_ON_INIT(addon, frame)
 	Me.addon = addon;
@@ -1212,6 +1301,7 @@ function BUFFCOUNTER_ON_INIT(addon, frame)
 	addon:RegisterMsg('GAME_START', 'TOUKIBI_BUFFCOUNTER_ON_GAME_START');
 	addon:RegisterMsg("TOKEN_STATE", "TOUKIBI_BUFFCOUNTER_TOKEN_ON_MSG");
 	Me.setHook("BUFF_TIME_UPDATE", Me.BUFF_TIME_UPDATE_HOOKED);
+	Me.setHook("ICON_USE", Me.ICON_USE_HOOKED);
 
 	Me.timer_update = GET_CHILD(Me.frame, "timer_update", "ui::CAddOnTimer");
 	Me.timer_update:SetUpdateScript("TOUKIBI_BUFFCOUNTER_TIMER_UPDATE_TICK");

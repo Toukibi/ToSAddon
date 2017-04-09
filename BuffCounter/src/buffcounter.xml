@@ -4,16 +4,16 @@
 	<input moveable="true" moveintitlebar="false" hittestframe="true" hittest="true"/>
 	<layer layerlevel="61"/>
 	<draw drawframe="false" drawtitlebarframe="false" drawtitlebar="false"/>
-	<option closebutton="false" hideable="false"/>
+	<option visible="true" alwaysVisible="true" closebutton="false" hideable="false" autoopen="true"/>
 	<script OpenScp="TOUKIBI_BUFFCOUNTER_UPDATE_ALL" LBtnUpScp="TOUKIBI_BUFFCOUNTER_END_DRAG" RBtnDwScp="TOUKIBI_BUFFCOUNTER_CONTEXT_MENU"/>
 	<controls>
 		<groupbox name="pnlBase" rect="0 0 100 65" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false" skin="systemmenu_vertical"/>
 		<richtext name="lblGauge" parent="pnlBase" rect="0 0 90 8" margin="2 1 0 0" layout_gravity="left top" 
 		caption="" textalign="left center" resizebytext="true" hittest="false"/>
 		<richtext name="lblBuffSelf" parent="pnlBase" rect="0 0 96 16" margin="2 16 0 0" layout_gravity="left top" 
-		caption="{#AAAAAA}{ol}{s14}自:{#333333}--{/}{/}{/}{/}" textalign="left bottom" resizebytext="true" hittest="false"/>
+		caption="{#AAAAAA}{ol}{s14}自:{#333333}--{/}{/}{/}{/}" textalign="left center" resizebytext="true" hittest="false"/>
 		<richtext name="lblBuffPTM" parent="pnlBase" rect="0 0 96 16" margin="2 32 0 0" layout_gravity="left top" 
-		caption="{#333333}{ol}{s14}PT:--{/}{/}{/}" textalign="left bottom" resizebytext="true" hittest="false"/>
+		caption="{#333333}{ol}{s14}PT:--{/}{/}{/}" textalign="left center" resizebytext="true" hittest="false"/>
 		<gauge name="Gauge1" parent="pnlBase" rect="0 0 69 7" margin="24 6 0 0" skin="toukibi_gauge_blue" inverse="false" point="0" layout_gravity="left top" hittest="false"/>
 		<timer name="timer_update" rect="0 0 10 10"/>
 	</controls>
