@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.15";
+local verText = "0.16";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
@@ -15,7 +15,7 @@ _G['ADDONS'][autherName][addonName] = _G['ADDONS'][autherName][addonName] or {};
 
 local Me = _G['ADDONS'][autherName][addonName];
 MapMate = Me;
-local DebugMode = true;
+local DebugMode = false;
 
 -- コモンモジュール(の代わり)
 local Toukibi = {
@@ -401,8 +401,16 @@ end
 local function LoadSetting()
 	local objReadValue, objError = Toukibi:LoadTable(Me.SettingFilePathName);
 	if objError then
-		MargeDefaultSetting(true, true);
-		Toukibi:AddLog(string.format("%s{nl}{#331111}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "System.ErrorToUseDefaults"), tostring(objError)), "Caution", true, false);
+
+		local CurrentLang = "en"
+		if Me.Settings == nil then
+			CurrentLang = Toukibi:GetDefaultLangCode() or CurrentLang;
+		else
+			CurrentLang = Me.Settings.Lang or CurrentLang;
+		end
+		Toukibi:AddLog(string.format("%s{nl}{#331111}%s{/}", Toukibi:GetResText(ResText, CurrentLang, "System.ErrorToUseDefaults"), tostring(objError)), "Caution", true, false);
+		MargeDefaultSetting(true, false);
+
 	else
 		Me.Settings = objReadValue;
 		MargeDefaultSetting(false, false);
@@ -412,7 +420,55 @@ end
 
 -- ===== アドオンの内容ここから =====
 
+local function CreateToolButton(Parent, Name, left, top, width, height, Icon, StateIcon, Spray)
+	local DefSize = 32;
+	left = left or 0;
+	top = top or 0;
+	width = width or DefSize;
+	height = height or DefSize;
+	local pnlBase = tolua.cast(Parent:CreateOrGetControl("groupbox", Name, left, top, width, height), "ui::CGroupBox");
+	pnlBase:SetGravity(ui.LEFT, ui.TOP);
+	-- pnlBase:Resize(pRect.width , pRect.height);
+	pnlBase:SetSkinName("chat_window");
+	pnlBase:EnableScrollBar(0);
+	pnlBase:EnableHitTest(1);
+	pnlBase:ShowWindow(1);
 
+	local picBase = tolua.cast(pnlBase:CreateOrGetControl("picture", "picBase", 0, 0, width, height), "ui::CPicture");
+	picBase:SetGravity(ui.LEFT, ui.TOP);
+	picBase:EnableHitTest(0);
+	picBase:SetEnableStretch(1);
+	picBase:SetImage(Icon);
+	picBase:ShowWindow(1);
+
+	return pnlBase
+end
+
+function Me.UpdateFrame()
+	local ParentWidth = 32;
+	local height = 32 + 1;
+	local FrameMiniMap = ui.GetFrame('minimap');
+	local MyFrame = ui.GetFrame('mapmate');
+
+	MyFrame:Resize(ParentWidth , height * 8);
+	MyFrame:SetMargin(0, FrameMiniMap:GetMargin().top, 1, 0);
+	local pnlBase = tolua.cast(MyFrame:CreateOrGetControl("groupbox", "pnlInput", 0, 8, ParentWidth , height * 8), 
+							   "ui::CGroupBox");
+	
+	pnlBase:SetGravity(ui.RIGHT, ui.TOP);
+	pnlBase:SetMargin(0, 0, 0, 0);
+	pnlBase:Resize(ParentWidth , height * 8);
+	pnlBase:SetSkinName("chat_window");
+	pnlBase:EnableScrollBar(0);
+	pnlBase:EnableHitTest(1);
+
+	-- アイコン案
+	-- expert_info_gauge_image :ちょっとしょぼい
+	CreateToolButton(pnlBase, "btnMOB"		, 0, height * 0, nil, nil, "icon_state_medium")
+	CreateToolButton(pnlBase, "btnQuest"	, 0, height * 1, nil, nil, "minimap_1_SUB")
+	CreateToolButton(pnlBase, "btnNPC"		, 0, height * 2, nil, nil, "minimap_0")
+	CreateToolButton(pnlBase, "btnConnect"	, 0, height * 3, nil, nil, "minimap_goddess")
+end
 
 
 
@@ -592,6 +648,60 @@ function Me.UpdateMapInfo()
 	UpdatelblMapName();
 end
 
+-- NPC情報
+function Me.GetMapNPCInfo(MapClassName)
+	-- session.GetMapNPCState(session.GetMapName()):FindAndGet(GenType)
+	-- で会ったかどうかがわかる(0：まだ　それ以外：話した・開けた事がある)
+
+
+	if ui.GetFrame("loadingbg") ~= nil then return nil end
+	MapClassName = MapClassName or session.GetMapName();
+
+	local MapInfo = {};
+	MapInfo.ClassName = MapClassName;
+	local myColls = session.GetMySession():GetCollection();
+	-- MapInfo.Collection = 
+	MapInfo.NpcState = session.GetMapNPCState(MapInfo.ClassName);
+	MapInfo.Property = geMapTable.GetMapProp(MapInfo.ClassName);
+	
+	MapInfo.ClassList, MapInfo.ClassCount = GetClassList("GenType_" .. MapInfo.ClassName);
+	MapInfo.MonGens = MapInfo.Property.mongens;
+	if MapInfo.MonGens == nil then return MapInfo end
+
+	local NoMeetNPC = {};
+	local cnt = MapInfo.MonGens:Count();
+	for i = 0 , cnt - 1 do 
+		local MonProp = MapInfo.MonGens:Element(i);
+		local IESData_GenType = GetClassByIndexFromList(MapInfo.ClassList, i);
+
+-- CHAT_SYSTEM(i .. ":" .. MonProp:GetName() .. ":" .. g.mapNpcState:FindAndGet(MonProp.GenType));
+		-- if string.find(string.lower(MonProp:GetDialog()),"treasurebox") then
+		if IESData_GenType.Faction == "Neutral" and IESData_GenType.Minimap > 0 then
+			CHAT_SYSTEM(string.format("[%s](%s) %s", IESData_GenType.GenType, MapInfo.NpcState:FindAndGet(IESData_GenType.GenType), IESData_GenType.Name))
+			if MapInfo.NpcState:FindAndGet(IESData_GenType.GenType) == 0 then
+				table.insert(NoMeetNPC, {
+					Name = IESData_GenType.Name
+				  , NpcState = MapInfo.NpcState:FindAndGet(IESData_GenType.GenType)
+				  , ClassID = IESData_GenType.ClassID
+				  , ClassName = IESData_GenType.ClassType
+				  , GenType = IESData_GenType.GenType
+				  , Hide = IESData_GenType.Hide
+				  , Dialog = IESData_GenType.Dialog
+				  , ArgStr1 = IESData_GenType.ArgStr1
+				  , ArgStr2 = IESData_GenType.ArgStr2
+				  , ArgStr3 = IESData_GenType.ArgStr3
+				});
+			end
+		end
+	end
+	return NoMeetNPC;
+	-- return MapInfo
+end
+
+-- モンスター情報
+function Me.GetMapMonsterInfo()
+
+end
 -- Mapの接続人数を更新する
 function Me.UpdatePCCount()
 	if ui.GetFrame("loadingbg") ~= nil then return end
@@ -853,9 +963,10 @@ local function ChangeMiniMapControl()
 	TargetControl:SetTextByKey("hour", " ");
 	TargetControl:SetTextByKey("hour", strTemp);
 
-	Me.frame:SetGravity(ui.RIGHT, ui.TOP);
-	Me.frame:SetMargin(0, Parent:GetMargin().top, 4, 0);
-	Me.frame:ShowWindow(1);
+	local MyFrame = ui.GetFrame("mapmate")
+	MyFrame:SetGravity(ui.RIGHT, ui.TOP);
+	MyFrame:SetMargin(0, Parent:GetMargin().top, 4, 0);
+	MyFrame:ShowWindow(1);
 
 end
 
@@ -941,7 +1052,7 @@ function MAPMATE_ON_INIT(addon, frame)
 	end
 	if Me.Settings.DoNothing then return end
 
-	Me.timer_pccount = GET_CHILD(Me.frame, "timer_pccount", "ui::CAddOnTimer");
+	Me.timer_pccount = GET_CHILD(ui.GetFrame("mapmate"), "timer_pccount", "ui::CAddOnTimer");
 	Me.timer_pccount:SetUpdateScript("TOUKIBI_MAPMATE_TIMER_PCCOUNT_TICK");
 	-- イベントを登録する
 	addon:RegisterMsg('GAME_START', 'TOUKIBI_MAPMATE_ON_GAME_START');
