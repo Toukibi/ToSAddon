@@ -401,8 +401,8 @@ end
 local function LoadSetting()
 	local objReadValue, objError = Toukibi:LoadTable(Me.SettingFilePathName);
 	if objError then
+		MargeDefaultSetting(true, true);
 		Toukibi:AddLog(string.format("%s{nl}{#331111}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "System.ErrorToUseDefaults"), tostring(objError)), "Caution", true, false);
-		MargeDefaultSetting(true, false);
 	else
 		Me.Settings = objReadValue;
 		MargeDefaultSetting(false, false);
