@@ -48,7 +48,7 @@ This addon will tell you the minimum durability of your equipment, This will hel
 This addon is a miniaturized version of durability value viewer '[**Dur Notice**](https://github.com/mythzeal)' made by '[**zealot**](https://github.com/mythzeal/tos_addon/tree/master/DurNotice)  
 It will be possible to use it in the intuition without English translation, but the sentences inside are all written in Japanese.  
   
-### Features
+### Features.
 * Displays the minimum durability of your equipment.  
 ![alt text](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/mainparts_en.png?raw=true "Image of main frame")
 * Displays the durability as a bar with a colour gradient from 0 - 200%  
@@ -59,16 +59,12 @@ It will be possible to use it in the intuition without English translation, but 
 ### Installation Instructions.
 Install via the Addon Manager. Leave bug reports and other issues on my Github page.
 
-### List of additional right-click menu.
-* Settings for the location of this addon  
-    The menu will display by right-clicking on the frame of this addon.
-
 ### Settings.
 Settings can be accessed by Right Clicking on Buff Counter, and via these Slash Commands.  
 
 |Paramater|Description|
 |---|---|
-|/DurMini|Toggle visible|
+|/DurMini|Toggle visibility|
 |/DurMini reset|Reset the all settings|
 |/DurMini resetpos|Reset the location of this add-on|
 |/DurMini update|Update The durability value displayed will be updated|
