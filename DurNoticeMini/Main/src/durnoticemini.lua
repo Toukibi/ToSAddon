@@ -1,5 +1,5 @@
 local addonName = "DurNoticeMini";
-local verText = "1.10";
+local verText = "1.11";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/durmini", "/DurMini", "/Durmini", "/durMini"};
@@ -632,6 +632,11 @@ function TOUKIBI_DURMINI_RESETPOS()
 	Me.Settings.PosX = nil;
 	Me.Settings.PosY = nil;
 	Me.UpdatePos();
+	local objFrame = ui.GetFrame("durnoticemini")
+	if objFrame ~= nil then
+		Me.Settings.PosX = objFrame:GetX();
+		Me.Settings.PosY = objFrame:GetY();
+	end
 	SaveSetting();
 	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.UpdateFrmaePos"), "Info", true, false);
 end
