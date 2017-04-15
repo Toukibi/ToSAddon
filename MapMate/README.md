@@ -21,6 +21,8 @@ Description of [English Version is Here](#description-of-english-version).
     * マップ名
     * 接続人数表示部
     * 次回更新のカウントダウン表示
+1. 時計の表示に関するメニュー  
+    時刻の欄を右クリックすると表示されます
 
 ### 4.使用可能なコマンド一覧
 基本のコマンドは **`/mapmate`** または **`/mmate`** です  
@@ -46,11 +48,11 @@ Description of [English Version is Here](#description-of-english-version).
   
 **Notice**: This add-on has **English display mode**.  
 You can switch to English display mode by using command **`/mmate en`**  
-### 1. What is this?
+### What is this?
 This add-on makes map display a lot convenient.  
 (Currently it only displays additional information in the mini map)  
 ![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_EnMiniMap.jpg?raw=true)
-### 2.What can this be?
+### Features.
 * Add the following items to the mini map.
   * Map name
   * The rank of current map. (Number of star marks)
@@ -62,13 +64,18 @@ This add-on makes map display a lot convenient.
 
 ### 3. List of additional right-click menu
 1. Settings for automatic updates of connected persons  
-    You can see it by right clicking on the following place.
+    You can access by right clicking on the following place.
     * Display area of the map name
     * Display area of the connected persons count
     * Display area of the next update countdown time
+1. Settings for clock style  
+    You can access by right clicking on the clock
 
-### 4. List of Command paramaters
-Please call the following command. **`/mapmate`** or **`/mmate`**  
+### Installation Instructions.
+Install via the Addon Manager. Leave bug reports and other issues on my Github page.
+
+### Settings.
+Settings can be accessed by Right Clicking on minimap information and clock, and via these Slash Commands.
 
 |Paramater|What happens result|
 |---|---|
@@ -81,7 +88,3 @@ Please call the following command. **`/mapmate`** or **`/mmate`**
 
 <span style="color:red;">**In order to use language other than English and Japanese**</span>:  
 In order to use **Other Language** mode, you need to **add a text resource to the program source**.
-
-### 5. How to install？
-This add-on is registered in Add-on Manager JP.  
-Therefore, please install using the Add-on Manager JP.
