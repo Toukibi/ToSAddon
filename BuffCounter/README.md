@@ -25,9 +25,9 @@ Description of [English Version is Here](#description-of-english-version).
 |---|---|
 |/buffc|メイン画面の表示/非表示を切り替え|
 |/buffc reset|設定リセット|
-|/buffc resetpos<br>/buffc rspos|耐久値表示画面の位置をリセット|
+|/buffc resetpos<br>/buffc rspos|表示位置をリセット|
 |/buffc refresh|位置・表示を更新|
-|/buffc update|耐久値表示を更新|
+|/buffc update|表示を更新|
 |/buffc ?|チャットログにヘルプを表示|
 |/buffc jp<br>/buffc ja|日本語モードに切り替え|
 |/buffc en|英語モードに切り替え|
@@ -40,38 +40,37 @@ Description of [English Version is Here](#description-of-english-version).
 ---
 ## Description of English Version 
   
-**Notice**: From Ver.1.10, this add-on  implements **English mode**. 
-### 1. What is this?
-This add-on will tell you the remaining number of upper buffs.  
-(In addition, the remaining time of the token is displayed in the buff field)  
-![Image of Buff-Counter](https://github.com/Toukibi/ToSAddon/blob/ForImage/BuffCounter/img/topimage.png?raw=true)  
-### 2.Features
-* Add the following items.
-  * Remaining number of upper buff
-  * Remaining time of token
-  * Parameters such as skill level of some skills  
-  
-The parameter display of the skill is limited to those that have a significant meaning in knowing because the screen is shown as clearly as possible.
+**Notice**: From Ver.1.10, this add-on  implements **English mode**.   
+To switch to English mode, Use the command **`/buffc en`**
 
-### 3. List of additional right-click menu
+### What is this?
+This addon will show you the remaining number of Top Row Buff Slots left.  
+![Image of Buff-Counter](https://github.com/Toukibi/ToSAddon/blob/ForImage/BuffCounter/img/topimage.png?raw=true)  
+### Features.
+* Display the number of Top Row Buff Slots left as a Continuous Bar or Blocks
+* Display the number of Top Row Buffs Slots left numerically
+* Days Remaining on your TP Token
+* Other stats of buffs (I.E Blessing's Damage , Team Lodge Level, Amount of spells Divine Might Effects.(Show the level only, cannnot update used count) )
+
+### Installation Instructions.
+Install via the Addon Manager. Leave bug reports and other issues on my Github page.  
+
+### 3. List of additional right click menu.
 1. The operation of Buff-Counter  
     Right-click on the Buff-Counter frame to display it
 
-### 4. List of Command paramaters
-Please call the following command. **`/mapmate`** or **`/MapMate`**  
+### Settings.
+Settings can be accessed by Right Clicking on Buff Counter, and via these Slash Commands.
 
-|Paramater|What happens result|
+|Commands|Description|
 |---|---|
-|/buffc|Toggle visible.|
-|/buffc reset|Reset the all settings.|
-|/buffc resetpos<br>/buffc rspos|Reset the position of this add-on.|
-|/buffc refresh|The durability value displayed will be updated.|
-|/buffc update|The durability value displayed will be updated.|
-|/buffc ?|Display the help-text to chat-log|
-|/buffc jp<br>/buffc ja|Switch to Japanese mode.|
-|/buffc en|Switch to English mode.|
-|/buffc kr|Switch to Korean mode.|
+|/buffc|Toggle visibility|
+|/buffc reset|Reset the all settings|
+|/buffc resetpos<br>/buffc rspos|Reset the position of this add-on|
+|/buffc update|The Buff Counter displayed will be updated|
+|/buffc refresh|Update the Buff Counter and move to where it should be|
+|/buffc ?|Display the help text in the chatlog|
+|/buffc jp<br>/buffc ja|Switch to Japanese mode|
+|/buffc en|Switch to English mode|
+|/buffc kr|Switch to Korean mode|
 
-### 5. How to install？
-This add-on is registered in Add-on Manager JP.  
-Therefore, please install using the Add-on Manager JP.
