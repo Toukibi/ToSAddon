@@ -525,6 +525,7 @@ end
 local function LoadSetting()
 	local objReadValue, objError = Toukibi:LoadTable(Me.SettingFilePathName);
 	if objError then
+
 		local CurrentLang = "en"
 		if Me.Settings == nil then
 			CurrentLang = Toukibi:GetDefaultLangCode() or CurrentLang;
@@ -533,6 +534,7 @@ local function LoadSetting()
 		end
 		Toukibi:AddLog(string.format("%s{nl}{#331111}%s{/}", Toukibi:GetResText(ResText, CurrentLang, "System.ErrorToUseDefaults"), tostring(objError)), "Caution", true, false);
 		MargeDefaultSetting(true, false);
+
 	else
 		Me.Settings = objReadValue;
 		MargeDefaultSetting(false, false);
