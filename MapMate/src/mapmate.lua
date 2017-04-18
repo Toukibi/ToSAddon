@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.17";
+local verText = "0.70";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
@@ -60,6 +60,17 @@ local ResText = {
 		  , ExplorationProgress = "探査率"
 		  , CardLv = "カードLv"
 		  , MaxHate = "最大被ターゲット数"
+		  , TBox = "宝箱"
+		  , ListTitleFormat = "{#66FF66}%s{/}{s24} {/}"
+		  , List_NoMeetStatue = "まだ会っていない女神像の一覧"
+		  , List_NoMeetNPC = "まだ会っていないNPCの一覧"
+		  , List_ClosedTBox = "まだ開けていない宝箱の一覧"
+		  , List_Mob = "生息モンスター一覧"
+		  , List_Quest = "残っているクエスト一覧"
+		  , MobInfoFormat = "{nl}{s20}    {/}{s14}%s :{s16}%s匹{/}{/}"
+		  , RespawnTimeFormat = "{s16}{#66AA33}%s湧き{/}{/}{#333333}%s{/}"
+		  , Respawn_WholeArea = "(全域)"
+		  , Respawn_SpotArea = "(局地)"
 		},
 		DeathPenalty = {
 			Title = "デスペナ情報"
@@ -78,6 +89,12 @@ local ResText = {
 		},
 		Other = {
 			PercentChar = "％"
+		  , Opened = "開封済"
+		  , Registed = "登録済"
+		  , Hour = "時間"
+		  , Minutes = "分"
+		  , Seconds = "秒"
+		  , Soon = "即"
 		}
 	},
 	en = {
@@ -121,6 +138,17 @@ local ResText = {
 		  , ExplorationProgress = "Progress of exploration"
 		  , CardLv = "Card Level"
 		  , MaxHate = "Aggro Limit"
+		  , TBox = "Treasure Box"
+		  , ListTitleFormat = "{#66FF66}%s{/}{s24} {/}"
+		  , List_NoMeetStatue = "List of statues that have not yet met"
+		  , List_NoMeetNPC = "List of NPCs that have not met yet"
+		  , List_ClosedTBox = "List of treasure boxes that is not open yet"
+		  , List_Mob = "Monster List"
+		  , List_Quest = "List of remaining quests"
+		  , MobInfoFormat = "{nl}{s20}    {/}%s : %s"
+		  , RespawnTimeFormat = "{s16}{#333333}Respawn Time:{/}{#66AA33}{b}%s{/} {/}{#333333}%s{/}{/}"
+		  , Respawn_WholeArea = "(Whole Area)"
+		  , Respawn_SpotArea = "(Spot)"
 		},
 		DeathPenalty = {
 			Title = "Additional penalty for character's death"
@@ -139,6 +167,12 @@ local ResText = {
 		},
 		Other = {
 			PercentChar = "%"
+		  , Opened = "Opened"
+		  , Registed = "Registed"
+		  , Hour = "Hour"
+		  , Minutes = "Min."
+		  , Seconds = "Sec."
+		  , Soon = "Soon"
 		}
 	}
 };
@@ -542,16 +576,42 @@ end
 
 -- ===== アドオンの内容ここから =====
 
-local function CreateToolButton(Parent, Name, left, top, width, height, Icon, StateIcon, Spray)
+-- バッジを作る
+local function CreateMiniBadge(parentCtrl, noticeName, point)
+	--point = point * 100
+	if parentCtrl == nil then return end
+
+	local notice = parentCtrl:GetChild(noticeName .. "notice");
+	local noticeText = parentCtrl:GetChild(noticeName .. "noticetext");
+
+	if point > 0 then
+		notice:ShowWindow(1);
+		noticeText:ShowWindow(1);
+		noticeText:SetText('{ol}{s11}' .. tostring(point) .. "{/}{/}");
+		if point >= 10 and point < 100 then
+			notice:Resize(0, 0, 24, 19);
+		elseif point >= 100 and point < 1000 then
+			notice:Resize(0, 0, 30, 19);
+		else
+			notice:Resize(0, 0, 18, 19);
+		end
+	elseif point == 0 then
+		notice:ShowWindow(0);
+		noticeText:ShowWindow(0);
+	end
+end
+
+local function CreateToolButton(Parent, Name, left, top, width, height, Icon, NoticeNum)
 	local DefSize = 28;
 	left = left or 0;
 	top = top or 0;
 	width = width or DefSize;
 	height = height or DefSize;
-	local pnlBase = tolua.cast(Parent:CreateOrGetControl("groupbox", Name, left, top, width, height), "ui::CGroupBox");
+	local pnlBase = tolua.cast(Parent:CreateOrGetControl("groupbox", Name, left, top, 32, 32), "ui::CGroupBox");
 	pnlBase:SetGravity(ui.LEFT, ui.TOP);
 	-- pnlBase:Resize(pRect.width , pRect.height);
 	pnlBase:SetSkinName("chat_window");
+	--pnlBase:SetSkinName("None");
 	pnlBase:EnableScrollBar(0);
 	pnlBase:EnableHitTest(1);
 	pnlBase:ShowWindow(1);
@@ -563,30 +623,49 @@ local function CreateToolButton(Parent, Name, left, top, width, height, Icon, St
 	picBase:SetImage(Icon);
 	picBase:ShowWindow(1);
 
+	if NoticeNum ~= nil and type(NoticeNum) == "number" then
+		local pnlNoticeBase = tolua.cast(pnlBase:CreateOrGetControl("groupbox", Name .. "notice", 0, 0, 20, 20), "ui::CGroupBox");
+		pnlNoticeBase:SetGravity(ui.RIGHT, ui.BOTTOM);
+		-- pnlNoticeBase:Resize(pRect.width , pRect.height);
+		pnlNoticeBase:SetSkinName("digitnotice_bg");
+		pnlNoticeBase:SetMargin(0, 0, 0, 0);
+		pnlNoticeBase:EnableScrollBar(0);
+		pnlNoticeBase:EnableHitTest(0);
+		pnlNoticeBase:ShowWindow(1);
+		local objNoticeText = tolua.cast(pnlBase:CreateOrGetControl("richtext", Name .. "noticetext", 0, 0, 20, 20), "ui::CRichText");
+		objNoticeText:SetGravity(ui.RIGHT, ui.BOTTOM);
+		objNoticeText:SetTextAlign("left", "center");
+		objNoticeText:SetMargin(0, 0, 3, 1);
+		objNoticeText:EnableHitTest(0);
+		objNoticeText:ShowWindow(1);
+
+		CreateMiniBadge(pnlBase, Name, NoticeNum)
+	end
+
 	return pnlBase
 end
 
 local function GetPopTimeText(value)
 	value = tonumber(value)
 	if value < 1000 then
-		return "即";
+		return Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Soon");
 	end
 	local ReturnValue = "";
 	local ContainsHour = false;
 	if value >= 1000 * 60 * 60 then
-		ReturnValue = ReturnValue .. math.floor(value / 60 / 60 / 1000) .. "時間";
+		ReturnValue = ReturnValue .. math.floor(value / 60 / 60 / 1000) .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Hour");
 		ContainsHour = true;
 	end
 	value = value % (60 * 60 * 1000)
 	if value >= 1000 * 60 then
-		ReturnValue = ReturnValue .. math.floor(value / 60 / 1000) .. "分";
+		ReturnValue = ReturnValue .. math.floor(value / 60 / 1000) .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Minutes");
 	end
 	if ContainsHour then
 		return ReturnValue;
 	end
 	value = value % (60 * 1000)
 	if value >= 1000 then
-		ReturnValue = ReturnValue .. math.floor(value / 1000) .. "秒";
+		ReturnValue = ReturnValue .. math.floor(value / 1000) .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Seconds");
 	end
 	return ReturnValue;
 end
@@ -595,7 +674,6 @@ function Me.UpdateFrame()
 	local NPCInfo = Me.GetMapNPCInfo()
 	local MobInfo = Me.GetMapMonsterInfo()
 	local QuestInfo = Me.GetMapQuestInfo()
-
 	local ParentWidth = 32;
 	local height = ParentWidth + 2;
 	local FrameMiniMap = ui.GetFrame('minimap');
@@ -609,7 +687,8 @@ function Me.UpdateFrame()
 	pnlBase:SetGravity(ui.RIGHT, ui.TOP);
 	pnlBase:SetMargin(0, 0, 0, 0);
 	pnlBase:Resize(ParentWidth , height * 8);
-	pnlBase:SetSkinName("chat_window");
+	--pnlBase:SetSkinName("chat_window");
+	pnlBase:SetSkinName("None");
 	pnlBase:EnableScrollBar(0);
 	pnlBase:EnableHitTest(1);
 
@@ -623,7 +702,7 @@ function Me.UpdateFrame()
 	--[[
 	-- 女神像
 	ToDisplayCount = 0;
-	ToolTipText = "{#66FF66}まだ会っていない女神像の一覧{/}{s24} {/}"
+	ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_NoMeetStatue"));
 	for i,value in ipairs(NPCInfo) do
 		if value.NpcState == 0 and value.Type == "Statue" then
 			ToDisplayCount = ToDisplayCount + 1;
@@ -639,22 +718,33 @@ function Me.UpdateFrame()
 
 	-- Mob
 	ToDisplayCount = 0;
-	ToolTipText = "{#66FF66}生息モンスター一覧{/}{s24} {/}"
+	ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_Mob"));
 	for name, value in pairs(MobInfo) do
 		if value.Name ~= "None" then
 			ToDisplayCount = ToDisplayCount + 1;
-			ToolTipText = ToolTipText .. string.format("{nl}{s32} {/}Lv.%s  %s  (%s/%s)", value.Lv, value.Name, value.KillCount, value.KillRequired);
-		--view(value)
+			ToolTipText = ToolTipText .. string.format("{nl}{s18}{#AAAAAA}%s{/}{/}  {s14}{#888888}Lv.%s{/}{/}{s12}{#666666}  (%s/%s){/}{/}{s32} {/}", value.Name, value.Lv, value.KillCount, value.KillRequired);
 			for PopTime, PopData in pairs(value.PopData) do
 				if true then
 					if PopData[1] > 0 then
-						ToolTipText = ToolTipText .. string.format("{nl}{s20}    {/}%s : %s%s", string.format("%s湧き(全域)", GetPopTimeText(PopTime)), PopData[1], "匹")
+						ToolTipText = ToolTipText .. string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.MobInfoFormat")
+																 , string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.RespawnTimeFormat")
+																 				,GetPopTimeText(PopTime)
+																				,Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.Respawn_WholeArea"))
+																 , PopData[1])
 					end
 					if PopData[2] > 0 then
-						ToolTipText = ToolTipText .. string.format("{nl}{s20}    {/}%s : %s%s", string.format("%s湧き(局地)", GetPopTimeText(PopTime)), PopData[2], "匹")
+						ToolTipText = ToolTipText .. string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.MobInfoFormat")
+																 , string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.RespawnTimeFormat")
+																 				,GetPopTimeText(PopTime)
+																				,Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.Respawn_SpotArea"))
+																 , PopData[2])
 					end
 				else
-					ToolTipText = ToolTipText .. string.format("{nl}{s20}    {/}%s : %s%s", string.format("%s湧き", GetPopTimeText(PopTime)), PopData[0], "匹")
+						ToolTipText = ToolTipText .. string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.MobInfoFormat")
+																 , string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.RespawnTimeFormat")
+																 				,GetPopTimeText(PopTime)
+																				,"")
+																 , PopData[0])
 				end
 			end
 		end
@@ -668,13 +758,13 @@ function Me.UpdateFrame()
 
 	-- クエスト
 	ToDisplayCount = 0;
-	ToolTipText = "{#66FF66}残っているクエスト一覧{/}{s24} {/}"
+	ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_Quest"));
 	for i,value in ipairs(QuestInfo) do
 		ToDisplayCount = ToDisplayCount + 1;
 		ToolTipText = ToolTipText .. "{nl}{s28} {/}" .. value
 	end
 	if ToDisplayCount > 0 then
-		objButton = CreateToolButton(pnlBase, "btnQuest", 0, height * ButtonCount, nil, nil, "minimap_1_SUB")
+		objButton = CreateToolButton(pnlBase, "btnQuest", 0, height * ButtonCount, nil, nil, "minimap_1_SUB", ToDisplayCount)
 		objButton:SetGravity(ui.CENTER_HORZ, ui.TOP);
 		objButton:SetTextTooltip(ToolTipText)
 		ButtonCount = ButtonCount + 1
@@ -682,15 +772,15 @@ function Me.UpdateFrame()
 
 	-- NPC
 	ToDisplayCount = 0;
-	ToolTipText = "{#66FF66}まだ会っていないNPCの一覧{/}{s24} {/}"
+	ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_NoMeetNPC"));
 	for i,value in ipairs(NPCInfo) do
 		if value.NpcState == 0 and value.Type == "NPC" then
 			ToDisplayCount = ToDisplayCount + 1;
-			ToolTipText = ToolTipText .. "{nl}{s28} {/}{img minimap_0 20 20} " .. value.Name
+			ToolTipText = ToolTipText .. string.format("{nl}{s28} {/}{img %s 20 20} %s",value.Icon ,value.Name);
 		end
 	end
 	if ToDisplayCount > 0 then
-		objButton = CreateToolButton(pnlBase, "btnNPC", 0, height * ButtonCount, nil, nil, "minimap_0")
+		objButton = CreateToolButton(pnlBase, "btnNPC", 0, height * ButtonCount, nil, nil, "minimap_0", ToDisplayCount)
 		objButton:SetGravity(ui.CENTER_HORZ, ui.TOP);
 		objButton:SetTextTooltip(ToolTipText)
 		ButtonCount = ButtonCount + 1
@@ -698,7 +788,7 @@ function Me.UpdateFrame()
 
 	-- 宝箱
 	ToDisplayCount = 0;
-	ToolTipText = "{#66FF66}まだ開けていない宝箱の一覧{/}{s24} {/}"
+	ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_ClosedTBox"));
 	local CollBoxOpened = true
 	for i,value in ipairs(NPCInfo) do
 		local IconText = "compen_btn"
@@ -717,7 +807,7 @@ function Me.UpdateFrame()
 						ToDisplayCount = ToDisplayCount + 1;
 					else
 						ForeColor = "#333333"
-						InsideItemText = "(登録済)" .. InsideItemText
+						InsideItemText = string.format("(%s)%s", Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Registed"), InsideItemText);
 					end
 				else
 					ToDisplayCount = ToDisplayCount + 1;
@@ -746,7 +836,7 @@ function Me.UpdateFrame()
 
 
 end
-
+-- 宝箱の情報を取得する
 local function GetBoxInfo(value)
 	local ReturnValue = {};
 	local InsideData = Toukibi:Split(value.ArgStr2, ":");
@@ -767,7 +857,7 @@ local function GetBoxInfo(value)
 				-- 登録済
 				ReturnValue.Registed = true;
 				ReturnValue.Icon = "jour_compen_off";
-				ReturnValue.OpenStateText = " (登録済)"
+				ReturnValue.OpenStateText = string.format(" (%s)", Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Registed"));
 			end
 		end
 	else
@@ -779,49 +869,52 @@ local function GetBoxInfo(value)
 		ReturnValue.IsOpened = true;
 		ReturnValue.Icon = "M_message_open";
 		if ReturnValue.OpenStateText == "" then
-			ReturnValue.OpenStateText = " (開封済)"
+			ReturnValue.OpenStateText = string.format(" (%s)", Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Opened"));
 		end
 	end
 	ReturnValue.TextColor = "#44FFFF"
 	if ReturnValue.Lv > 1 then
 		ReturnValue.TextColor = "#FF8888";
 	end
-	view(ReturnValue)
 	return ReturnValue;
 end
 
-local function AddMMapIcon(Parent, X, Y, Name, Icon)
-	local objPic = tolua.cast(Parent:CreateOrGetControl("picture", "Toukibi_".. Name, X, Y, 24, 24), "ui::CPicture"); 
+-- Mapにアイコンを追加する
+local function AddMMapIcon(Parent, X, Y, Name, Icon, Size)
+	Size = Size or 24;
+	local objPic = tolua.cast(Parent:CreateOrGetControl("picture", "Toukibi_".. Name, X, Y, Size, Size), "ui::CPicture"); 
 	objPic:EnableHitTest(0);
 	objPic:ShowWindow(1);
 	objPic:SetImage(Icon);
 	objPic:SetEnableStretch(1);
 	return objPic;
 end
-
-local function AddRegistedIcon(Parent, X, Y, Name)
-	local objPic = tolua.cast(Parent:CreateOrGetControl("picture", "Toukibi_".. Name, X - 4, Y - 8, 24 * 1.5, 24 * 1.5), "ui::CPicture");
+-- アイコンに重ねるようにチェックマークを追加する
+local function AddRegistedIcon(Parent, X, Y, Name, Size)
+	Size = Size or 24;
+	local objPic = tolua.cast(Parent:CreateOrGetControl("picture", "Toukibi_".. Name, X - 4, Y - 8, Size * 1.5, Size * 1.5), "ui::CPicture");
 	objPic:EnableHitTest(0);
 	objPic:SetImage("socket_slot_check");
 	objPic:SetEnableStretch(1);
 	objPic:ShowWindow(1);
 	return objPic;
 end
-
-local function AddFakeIcon(Parent, X, Y, Name)
-	local objPic = tolua.cast(Parent:CreateOrGetControl("picture", "Toukibi_".. Name, X + 24 / 6, Y + 24 / 6, 24 * 1.2, 24 * 1.2), "ui::CPicture");
+-- アイコンに重ねるように警告マークを追加する
+local function AddFakeIcon(Parent, X, Y, Name, Size)
+	Size = Size or 24;
+	local objPic = tolua.cast(Parent:CreateOrGetControl("picture", "Toukibi_".. Name, X + Size / 6, Y + Size / 6, Size * 1.2, Size * 1.2), "ui::CPicture");
 	objPic:EnableHitTest(0);
 	objPic:SetImage("NOTICE_Dm_!");
 	objPic:SetEnableStretch(1);
 	objPic:ShowWindow(1);
 	return objPic;
 end
-
+-- アイコンの上に宝箱のレベルを表示する
 local function AddBoxLevel(Parent, X, Y, Name, Level, IsOpened, TextColor)
 	local objText = tolua.cast(Parent:CreateOrGetControl('richtext', "Toukibi_".. Name, X - 8, Y - 24 + 4, 40, 20), "ui::CRichText");
 	local OpenStateText = ""
 	if IsOpened then
-		OpenStateText = " 開封済"
+		OpenStateText = Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Opened")
 	end
 	objText:SetTextAlign("center", "bottom"); 
 	objText:SetText("{@st42b}{s12}{" .. TextColor .. "}Lv." .. Level .. "{nl}" ..OpenStateText .. "{/}");
@@ -830,40 +923,99 @@ local function AddBoxLevel(Parent, X, Y, Name, Level, IsOpened, TextColor)
 	objText:ShowWindow(1);
 	return objText;
 end
-
-function Me.DrawMMapIconEx()
+-- 指定したオブジェクトの上にアイコンを描画する
+local function DrawIconToObjEx(objTarget, Zoom)
 	-- 対象フレームを取得する
-	local Parent = ui.GetFrame('minimap');
-	local npcList = Parent:GetChild('npclist')
-	DESTROY_CHILD_BYNAME(npcList, "Toukibi_");
-	local mapZoom = math.abs((GET_MINIMAPSIZE() + 100) / 100); 
+	DESTROY_CHILD_BYNAME(objTarget, "Toukibi_");
 	local NPCInfo = Me.GetMapNPCInfo()
 	for i,value in ipairs(NPCInfo) do
 		if value.Type == "Box" then
 			local BoxInfo = GetBoxInfo(value)
-			local XC = math.ceil((value.X + 10) * mapZoom) - 12;
-			local YC = math.ceil((value.Y - 8) * mapZoom) - 12;
+			local XC = math.ceil((value.X + 10) * Zoom) - 12;
+			local YC = math.ceil((value.Y - 8) * Zoom) - 12;
 	-- log(string.format("%s (%s, %s)", value.Name, XC, YC))
-			local objBoxIcon = AddMMapIcon(npcList, XC, YC, "BoxIcon_" .. i, BoxInfo.Icon);
+			local objBoxIcon = AddMMapIcon(objTarget, XC, YC, "BoxIcon_" .. i, BoxInfo.Icon);
 			if BoxInfo.IsCollection then
 				if BoxInfo.Registed then
-					AddRegistedIcon(npcList, XC, YC, "BoxIcon_Additional_" .. i)
+					AddRegistedIcon(objTarget, XC, YC, "BoxIcon_Additional_" .. i)
 				end
 			else
-				AddBoxLevel(npcList, XC, YC, "BoxIcon_BoxLv_" .. i, BoxInfo.Lv, BoxInfo.IsOpened, BoxInfo.TextColor)
+				AddBoxLevel(objTarget, XC, YC, "BoxIcon_BoxLv_" .. i, BoxInfo.Lv, BoxInfo.IsOpened, BoxInfo.TextColor)
 			end
 			objBoxIcon:SetTooltipType("texthelp");
 			objBoxIcon:EnableHitTest(1);
-			objBoxIcon:SetTooltipArg(string.format("{@st42b}{%s}宝箱 Lv.%s%s{nl}%s"
+			objBoxIcon:SetTooltipArg(string.format("{@st42b}{%s}%s Lv.%s%s{nl}%s"
 												 , BoxInfo.TextColor
+												 , Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.TBox")
 												 , BoxInfo.Lv
 												 , BoxInfo.OpenStateText
 												 , BoxInfo.Inside));
+		elseif value.Type == "NPC" and value.NpcState == 0 then
+			-- まだ会っていないNPC
+			local XC = math.ceil((value.X) * Zoom) - 12;
+			local YC = math.ceil((value.Y) * Zoom) - 12;
+			local objNPCIcon = AddMMapIcon(objTarget, XC, YC, "NPCIcon_" .. i, value.Icon, 30);
+			objNPCIcon:SetTooltipType("texthelp");
+			objNPCIcon:SetAlpha(50);
+			objNPCIcon:EnableHitTest(1);
+			objNPCIcon:SetTooltipArg(value.Name);
+		end
+	end
+end
+
+-- ミニマップにアイコンを追加する
+function Me.DrawMiniMapIconEx()
+	-- 対象フレームを取得する
+	local Parent = ui.GetFrame('minimap');
+	local npcList = Parent:GetChild('npclist')
+	local mapZoom = math.abs((GET_MINIMAPSIZE() + 100) / 100); 
+	DrawIconToObjEx(npcList, mapZoom)
+
+	--メインマップにアイコンを追加
+	Parent = ui.GetFrame('map');
+	local MainMap = Parent:GetChild('map')
+	DrawIconToObjEx(MainMap, 1)
+end
+
+-- マップとミニマップにFogを描く
+function Me.DrawFog(frame)
+	frame = frame or ui.GetFrame('map');
+	local mapPic = GET_CHILD(frame, "map", 'ui::CPicture');
+	HIDE_CHILD_BYNAME(mapPic, "Toukibi_Fog_");
+	local offsetX = mapPic:GetOffsetX();
+	local offsetY = mapPic:GetOffsetY();
+
+	local mapZoom = math.abs((GET_MINIMAPSIZE() + 100) / 100);
+	if frame == ui.GetFrame("map") then
+		mapZoom = 1;
+	end
+
+	local list = session.GetMapFogList(session.GetMapName());
+	local cnt = list:Count();
+	for i = 0 , cnt - 1 do
+		local tile = list:PtrAt(i);
+
+		if tile.revealed == 0 then
+			local name = string.format("Toukibi_Fog_%d", i);
+			local tilePosX = (tile.x * mapZoom)-- + offsetX;
+			local tilePosY = (tile.y * mapZoom)-- + offsetY;
+			local tileWidth = math.ceil(tile.w * mapZoom);
+			local tileHeight = math.ceil(tile.h * mapZoom);
+			local pic = mapPic:CreateOrGetControl("picture", name, tilePosX, tilePosY, tileWidth, tileHeight);
+			tolua.cast(pic, "ui::CPicture");
+			pic:ShowWindow(1);
+			pic:SetImage("fullred");
+			pic:SetEnableStretch(1);
+			pic:SetAlpha(30);
+			pic:EnableHitTest(0);
+			if tile.selected == 1 then
+				pic:ShowWindow(0);
+			end
 		end
 	end
 
+	frame:Invalidate();
 end
-
 
 
 
@@ -915,6 +1067,7 @@ local function UpdatelblMapName()
 	lblTarget:SetTooltipArg(strTemp);
 end
 
+-- 探索率を求める
 local function UpdatelblFogRevealRate()
 	local Parent = ui.GetFrame('minimap');
 	if Parent == nil then return end
@@ -935,6 +1088,7 @@ local function UpdatelblFogRevealRate()
 	UpdatelblMapName()
 end
 
+-- 接続人数を取得する
 local function UpdatelblPCCount()
 	local Parent = ui.GetFrame('minimap');
 	if Parent == nil then return end
@@ -1066,7 +1220,7 @@ function Me.GetMapNPCInfo(MapClassName)
 		local IESData_GenType = GetClassByIndexFromList(MapInfo.ClassList, i);
 	-- log(i .. ":" .. MonProp:GetName() .. ":" .. g.mapNpcState:FindAndGet(MonProp.GenType));
 		-- if string.find(string.lower(MonProp:GetDialog()),"treasurebox") then
-		if (IESData_GenType.Faction == "Neutral" and IESData_GenType.Minimap > 0) or string.find(string.lower(IESData_GenType.ClassType),"treasure.*box") then
+		if (IESData_GenType.Faction == "Neutral" and IESData_GenType.Minimap > 0 and string.find(string.lower(IESData_GenType.ClassType),"hidden") == nil and string.find(string.lower(IESData_GenType.ClassType),"trigger") == nil and string.find(string.lower(IESData_GenType.Name),"visible") == nil) or string.find(string.lower(IESData_GenType.ClassType),"treasure.*box") then
 			local NPCType = "NPC"
 			if string.find(string.lower(IESData_GenType.ClassType),"statue_*") then
 				NPCType = "Statue"
@@ -1134,13 +1288,19 @@ function Me.GetMapMonsterInfo(MapClassName)
 	for i = 0 , cnt - 1 do 
 		local MonProp = MapInfo.MonGens:Element(i);
 		local IESData_GenType = GetClassByIndexFromList(MapInfo.ClassList, i);
-	-- log(i .. ":" .. MonProp:GetName() .. ":" .. g.mapNpcState:FindAndGet(MonProp.GenType));
-		-- if string.find(string.lower(MonProp:GetDialog()),"treasurebox") then
 		if IESData_GenType.Faction == "Monster" and string.find(string.lower(IESData_GenType.ClassType),"hidden") == nil and string.find(string.lower(IESData_GenType.ClassType),"trigger") == nil then
 			local MobClass = GetClass("Monster", IESData_GenType.ClassType)
-	-- log(string.format("[%s] Lv.%s %s", IESData_GenType.GenType, MobClass.Level, MobClass.Name))
 			if MobList[IESData_GenType.ClassType] == nil then
 				local wiki = GetWikiByName(MobClass.Journal);
+				local pKillCount = 0;
+				if wiki ~= nil then
+					pKillCount =GetWikiIntProp(wiki, "KillCount")
+				end
+				local pRequired = 0;
+				if GetClass('Journal_monkill_reward', MobClass.Journal) ~= nil then
+					pRequired = GetClass('Journal_monkill_reward', MobClass.Journal).Count1
+				end
+	--log(string.format("[%s] Lv.%s %s (%s)", IESData_GenType.GenType, MobClass.Level, MobClass.Name, IESData_GenType.ClassType))
 				MobList[IESData_GenType.ClassType] = {
 					Name = MobClass.Name
 					, Lv = MobClass.Level
@@ -1149,8 +1309,8 @@ function Me.GetMapMonsterInfo(MapClassName)
 					, ArgStr1 = IESData_GenType.ArgStr1
 					, ArgStr2 = IESData_GenType.ArgStr2
 					, ArgStr3 = IESData_GenType.ArgStr3
-					, KillCount = GetWikiIntProp(wiki, "KillCount") or 0
-					, KillRequired = GetClass('Journal_monkill_reward', MobClass.Journal).Count1
+					, KillCount = pKillCount
+					, KillRequired = pRequired
 				};
 				local killCount = GetWikiIntProp(wiki, "KillCount");
 			end
@@ -1169,10 +1329,11 @@ function Me.GetMapMonsterInfo(MapClassName)
 			MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)][AreaType] = MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)][AreaType] + IESData_GenType.MaxPop
 		end
 	end
-	-- view(MobList)
+	--view(MobList)
 	return MobList
 end
 
+-- クエスト情報
 function Me.GetMapQuestInfo(MapClassName)
 	MapClassName = MapClassName or session.GetMapName();
 	local QuestInfo = {};
@@ -1180,7 +1341,7 @@ function Me.GetMapQuestInfo(MapClassName)
 	local questClsList, questCnt = GetClassList('QuestProgressCheck');
 	for index = 0, questCnt-1 do
 		local questIES = GetClassByIndexFromList(questClsList, index);
-		if questIES.StartMap == MapClassName and questIES.PossibleUI_Notify ~= 'NO' and questIES.QuestMode ~= 'MAIN' and questIES.QuestMode ~= 'KEYITEM' and questIES.Level ~= 9999 and questIES.Lvup ~= -9999 and questIES.QuestStartMode ~= 'NPCENTER_HIDE' then
+		if questIES.StartMap == MapClassName and questIES.PossibleUI_Notify ~= 'NO' and questIES.QuestMode ~= 'KEYITEM' and questIES.Level ~= 9999 and questIES.Lvup ~= -9999 and questIES.QuestStartMode ~= 'NPCENTER_HIDE' then
 			local result = SCR_QUEST_CHECK_C(pc, questIES.ClassName)
 			if result == "POSSIBLE" then
 				local ColorStyle = "@st70_s"
@@ -1360,6 +1521,7 @@ function TOUKIBI_MAPMATE_CONTEXT_MENU_PCCOUNT(frame, ctrl)
 	return context;
 end
 
+-- 時計設定のコンテキストメニュー
 function TOUKIBI_MAPMATE_CONTEXT_MENU_CLOCK(frame, ctrl)
 	local Title = Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.Title");
 	local context = ui.CreateContextMenu("DURMINI_MAIN_RBTN", Title, 0, 0, 320, 0);
@@ -1544,6 +1706,9 @@ local function ChangeMiniMapControl()
 	MyFrame:SetMargin(0, Parent:GetMargin().top, 4, 0);
 	MyFrame:ShowWindow(1);
 
+	local MapNameFrame = ui.GetFrame("mapareatext");
+	MapNameFrame:ShowWindow(1 - Parent:IsVisible());
+
 end
 
 function Me.CustomizeMiniMap()
@@ -1558,7 +1723,9 @@ function Me.CustomizeMiniMap()
 -- MapMate.CustomizeMiniMap()
 	--ReserveScript("TOUKIBI_MAPMATE_UPDATE_MAINFRAME()", 0.5);
 	Me.UpdateClock();
-	Me.DrawMMapIconEx()
+	Me.DrawFog(ui.GetFrame('map'))
+	Me.DrawFog(ui.GetFrame('minimap'))
+	Me.DrawMiniMapIconEx()
 	Me.UpdateFrame()
 end
 
@@ -1587,6 +1754,7 @@ function TOUKIBI_MAPMATE_PROCESS_COMMAND(command)
 		return;
 	elseif cmd == "jp" or cmd == "en" or string.len(cmd) == 2 then
 		-- 言語モードと勘違いした？
+		if cmd == "ja" then cmd = "jp" end
 		Me.ComLib:ChangeLanguage(cmd);
 		Me.CustomizeMiniMap()
 		return;
@@ -1614,7 +1782,7 @@ function TOUKIBI_MAPMATE_UPDATE_ALL(frame)
 end
 
 function TOUKIBI_MAPMATE_UPDATE_MAINFRAME(frame)
-	Me.DrawMMapIconEx()
+	Me.DrawMiniMapIconEx()
 	Me.UpdateFrame()
 end
 
@@ -1623,11 +1791,34 @@ function Me.MINIMAP_CHAR_UDT_HOOKED(frame, msg, argStr, argNum)
 	--CHAT_SYSTEM("MINIMAP_CHAR_UDT_HOOKED")
 	if ui.GetFrame("loadingbg") ~= nil then return end
 	Me.UpdateFogRevealRate()
+	Me.DrawFog(ui.GetFrame('map'))
+	Me.DrawFog(ui.GetFrame('minimap'))
 end
 
 function Me.UPDATE_MINIMAP_HOOKED(frame, isFirst)
 	Me.HoockedOrigProc["UPDATE_MINIMAP"](frame, isFirst);
-	Me.DrawMMapIconEx()
+	Me.DrawMiniMapIconEx()
+end
+
+function Me.MAP_OPEN_HOOKED(frame)
+	Me.HoockedOrigProc["MAP_OPEN"](frame);
+	Me.DrawFog(ui.GetFrame('map'))
+end
+
+function Me.TARGETINFO_ON_MSG_HOOKED(frame, msg, argStr, argNum)
+	Me.HoockedOrigProc["TARGETINFO_ON_MSG"](frame, msg, argStr, argNum);
+	log("TARGETINFO_ON_MSG")
+	if frame == nil then
+		log("nil")
+		return;
+	end
+	log(frame:GetName())
+end
+
+function Me.TGTINFO_TARGET_SET_HOOKED(frame, msg, argStr, argNum)
+	Me.HoockedOrigProc["TGTINFO_TARGET_SET"](frame, msg, argStr, argNum);
+	log("TGTINFO_TARGET_SET")
+	log(argStr)
 end
 
 local function GetTimeTipString(Title, pHour, pMin, UseAMPM)
@@ -1745,11 +1936,12 @@ function MAPMATE_ON_INIT(addon, frame)
 	addon:RegisterMsg('GET_NEW_QUEST', 'TOUKIBI_MAPMATE_UPDATE_MAINFRAME');
 	addon:RegisterMsg('NPC_STATE_UPDATE', 'TOUKIBI_MAPMATE_UPDATE_MAINFRAME');
 
-
-
 	Toukibi:SetHook("MINIMAP_CHAR_UDT", Me.MINIMAP_CHAR_UDT_HOOKED);
 	Toukibi:SetHook("TIEM_ON_MSG", Me.TIEM_ON_MSG_HOOKED);
 	Toukibi:SetHook("UPDATE_MINIMAP", Me.UPDATE_MINIMAP_HOOKED); 
+	Toukibi:SetHook("MAP_OPEN", Me.MAP_OPEN_HOOKED);
+	--Toukibi:SetHook("TARGETINFO_ON_MSG", Me.TARGETINFO_ON_MSG_HOOKED);
+	--Toukibi:SetHook("TGTINFO_TARGET_SET", Me.TGTINFO_TARGET_SET_HOOKED);
 
 	-- スラッシュコマンドを登録する
 	local acutil = require("acutil");
