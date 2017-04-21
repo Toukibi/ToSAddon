@@ -12,8 +12,16 @@ Description of [English Version is Here](#description-of-english-version).
   * 推奨レベル
   * 探索率
   * 接続人数(要、右クリックメニューで設定)
+  * <span style="color:red;">[New] </span>宝箱とその状態
+  * <span style="color:red;">[New] </span>まだ会っていないNPC
+  * <span style="color:red;">[New] </span>まだ行っていない区域(MapFogViewerの機能)
 * ミニマップのボタンや表示を小さくして情報を見やすくしています
 * そのマップのデスペナ情報を表示(マップ名のツールチップに表示)
+* ミニマップの右側に次の項目を追加表示します
+  * <span style="color:red;">[New] </span>モンスターの種類と生息数
+  * <span style="color:red;">[New] </span>まだ会っていないNPCのリスト
+  * <span style="color:red;">[New] </span>まだ開始していないクエスト一覧
+  * <span style="color:red;">[New] </span>まだ開けていない宝箱の一覧
 
 ### 3.追加された右クリックメニューの一覧
 1. 接続人数の自動更新に関するメニュー  
@@ -51,7 +59,7 @@ You can switch to English display mode by using command **`/mmate en`**
 ### What is this?
 This add-on makes map display a lot convenient.  
 (Currently it only displays additional information in the mini map)  
-![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_EnMiniMap.jpg?raw=true)
+![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap2_en.jpg?raw=true)
 ### Features.
 * Add the following items to the mini map.
   * Map name
@@ -59,8 +67,16 @@ This add-on makes map display a lot convenient.
   * Recommended level
   * Search progress
   * Number of connected people (required, set with right click menu)
+  * <span style="color:red;">[New] </span>Treasure Chest and its state
+  * <span style="color:red;">[New] </span>NPC that has not met yet
+  * <span style="color:red;">[New] </span>Area not yet done (MapFogViewer function)
 * Reduces the mini-map buttons and displays to make information easier to see.
 * Display Death-penalty-information of the map. (displayed on tooltip of map name)
+* The following items are added to the right of the mini map
+  * <span style="color:red;">[New] </span>Monster list and population
+  * <span style="color:red;">[New] </span>List of NPCs that has not met yet
+  * <span style="color:red;">[New] </span>List of the remaining quest
+  * <span style="color:red;">[New] </span>List of the treasure chest
 
 ### 3. List of additional right-click menu
 1. Settings for automatic updates of connected persons  
@@ -88,3 +104,23 @@ Settings can be accessed by Right Clicking on minimap information and clock, and
 
 <span style="color:red;">**In order to use language other than English and Japanese**</span>:  
 In order to use **Other Language** mode, you need to **add a text resource to the program source**.
+
+### Images
+
+##### List of the enemies that live in that map
+![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MobList_en.jpg?raw=true)
+
+##### List of NPCs that has not met yet
+![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/NpcList_en.jpg?raw=true)
+
+##### List of the remaining quest
+![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/QuestList_en.jpg?raw=true)
+
+##### List of the treasure chest
+![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/BoxList_en.jpg?raw=true)
+
+##### Main right click menu
+![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/cMenuMain_en.jpg?raw=true)
+
+##### Right click menu for clock
+![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/cMenuTime_en.jpg?raw=true)
