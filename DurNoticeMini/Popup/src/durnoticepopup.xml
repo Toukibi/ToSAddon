@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="durnoticepopup" x="0" y="0" width="200" height="500">
+	<frame fasthide="true" layout_gravity="left top" margin="300 150 0 0"/>
+	<input moveable="true" moveintitlebar="false" hittestframe="true" hittest="true" resize="false"/>
+	<layer layerlevel="90"/>
+	<draw drawframe="true" drawtitlebarframe="false" drawtitlebar="false"/>
+	<skin frameskin="tooltip1"/>
+	<option visible="true" alwaysVisible="true" closebutton="false" hideable="false" autoopen="true"/>
+	<sound opensound="win_open" closesound="win_close"/>
+	<script OpenScp="TOUKIBI_DURPOPUP_OPEN" LBtnUpScp="TOUKIBI_DURPOPUP_END_DRAG" lostFocusScp="TOUKIBI_DURPOPUP_LOSTFOCUS" MouseMoveScp="TOUKIBI_DURPOPUP_ADDDURATION"/>
+	<controls>
+		<richtext name="title" rect="0 0 120 24" margin="20 8 0 0" layout_gravity="left top" hittest="false" caption="{@st66b}装備耐久一覧{/}"/>
+		<groupbox name="pnlBase" rect="0 0 190 10" margin="0 30 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<!--
+		<button name="close" rect="0 0 20 20" margin="0 4 4 0" layout_gravity="right top" LBtnUpArgNum="" LBtnUpScp="TOUKIBI_DURPOPUP_CALLCLOSE" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" caption="" clicksound="button_click_big" image="btn_close" oversound="button_over" texttooltip="{@st59}Close{/}"/>
+		-->
+	</controls>
+</uiframe>

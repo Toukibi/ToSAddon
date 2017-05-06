@@ -1,5 +1,5 @@
 local addonName = "DurNoticeMini";
-local verText = "1.11";
+local verText = "1.20";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/durmini", "/DurMini", "/Durmini", "/durMini"};
@@ -658,6 +658,14 @@ function TOUKIBI_DURMINI_END_DRAG()
 	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Msg.EndDragAndSave"), "Info", true, true);
 end
 
+function TOUKIBI_DURMINI_LOSTFOCUS()
+	TOUKIBI_DURPOPUP_LOSTFOCUS()
+end
+
+function TOUKIBI_DURMINI_MOUSEMOVE()
+	TOUKIBI_DURPOPUP_CALLPOPUP()
+end
+
 function TOUKIBI_DURMINI_ON_GAME_START()
 	-- GAME_STARTイベント時ではheadsupdisplayフレームの移動が完了していないみたいなので0.5秒待ってみる
 	ReserveScript("TOUKIBI_DURMINI_UPDATE_ALL()", 0.5);
@@ -715,12 +723,6 @@ function Me.Show(value)
 	end 
 end
 
--- 使い方のテキストを出力する
-local function PrintHelpToLog()
-	local HelpMsg = "{#333333}Dur Notice Miniのパラメータ説明{/}{nl}{#92D2A0}Dur Notice Miniは次のパラメータで設定を呼び出してください。{/}{nl}{#333333}'/durmini [パラメータ]' または '/DurMini [パラメータ]'{/}{nl}{#333366}パラメータなしで呼び出された場合は耐久値表示画面のON/OFFが切り替わります。(例： /DurMini ){/}{nl}{#333333}使用可能なコマンド：{nl}/DurMini reset    :設定リセット{nl}/DurMini resetpos :耐久値表示画面の位置をリセット{nl}/DurMini rspos    :  〃{nl}/DurMini refresh  :位置・表示を更新{nl}/DurMini update   :耐久値表示を更新{nl}/DurMini ?        :このヘルプを表示{nl}/DurMini joke     :？？？{/}{nl} ";
-	AddLog(HelpMsg, "None", false, false);
-end
-
 -- スラッシュコマンド受取
 function TOUKIBI_DURMINI_PROCESS_COMMAND(command)
 	Toukibi:AddLog(string.format(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "Command.ExecuteCommands"), SlashCommandList[1] .. " " .. table.concat(command, " ")), "Info", true, true);
@@ -767,9 +769,6 @@ function TOUKIBI_DURMINI_PROCESS_COMMAND(command)
 end
 
 function DURNOTICEMINI_ON_INIT(addon, frame)
-	Me.addon = addon;
-	Me.frame = frame
-
 	addon:RegisterMsg('UPDATE_ITEM_REPAIR', 'TOUKIBI_DURMINI_UPDATE');
 	addon:RegisterMsg('ITEM_PROP_UPDATE', 'TOUKIBI_DURMINI_UPDATE');
 	addon:RegisterMsg('EQUIP_ITEM_LIST_GET', 'TOUKIBI_DURMINI_UPDATE');
@@ -792,6 +791,9 @@ function DURNOTICEMINI_ON_INIT(addon, frame)
 	frame:SetEventScript(ui.RBUTTONDOWN, 'TOUKIBI_DURMINI_CONTEXT_MENU');
 	Me.IsDragging = false;
 	Me.Joke(OSRandom(1, 100) < 5)
+
+	frame:SetEventScript(ui.MOUSEMOVE, "TOUKIBI_DURMINI_MOUSEMOVE");
+
 end
 
 

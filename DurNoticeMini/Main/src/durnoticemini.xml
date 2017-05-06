@@ -5,7 +5,7 @@
 	<layer layerlevel="61"/>
 	<draw drawframe="false" drawtitlebarframe="false" drawtitlebar="false"/>
 	<option visible="true" alwaysVisible="true" closebutton="false" hideable="false" autoopen="true"/>
-	<script OpenScp="TOUKIBI_DURMINI_UPDATE_ALL" LBtnUpScp="TOUKIBI_DURMINI_END_DRAG" RBtnDwScp="TOUKIBI_DURMINI_CONTEXT_MENU"/>
+	<script OpenScp="TOUKIBI_DURMINI_UPDATE_ALL" LBtnUpScp="TOUKIBI_DURMINI_END_DRAG" RBtnDwScp="TOUKIBI_DURMINI_CONTEXT_MENU" lostFocusScp="TOUKIBI_DURMINI_LOSTFOCUS" MouseMoveScp="TOUKIBI_DURMINI_MOUSEMOVE"/>
 	<controls>
 		<groupbox name="pnlBase" rect="0 0 144 17" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false" skin="systemmenu_vertical"/>
 		<picture name="Pic1" parent="pnlBase" rect="0 0 16 16" margin="1 0 0 0" layout_gravity="left center" changecursor="false" hittest="false" image="mon_info_melee" stretch="true"/>
