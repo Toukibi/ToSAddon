@@ -38,7 +38,7 @@
         "name" : "Map Mate",
         "file" : "mapmate",
         "extension" : "ipf",
-        "fileVersion" : "v0.8.3",
+        "fileVersion" : "v0.8.4",
         "releaseTag" : "MapMate",
         "unicode" : "⛄",
         "description" : "マップ表示を色々便利にしてくれます。 This add-on makes map display a lot convenient.",
