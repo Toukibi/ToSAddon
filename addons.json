@@ -65,5 +65,20 @@
             "en",
             "kr"
         ]
+    },
+    {
+        "name" : "Remaining Counter",
+        "file" : "remainingcounter",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.0",
+        "releaseTag" : "RemainingCounter",
+        "unicode" : "⛄",
+        "description" : "アイテムを使用するスキルの場合、クイックスロットの右下に残り回数を表示します。  For skills that use items, this add-on display the remaining number in the lower right of Quick Slot.",
+        "tags" : [
+            "ui",
+            "remaining number",
+            "jp",
+            "en"
+        ]
     }
 ]
