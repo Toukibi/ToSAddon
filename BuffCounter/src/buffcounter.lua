@@ -1,5 +1,5 @@
 local addonName = "BuffCounter";
-local verText = "1.1.3";
+local verText = "1.15";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/buffc", "/buffcounter", "/BuffCounter"} -- {"/コマンド1", "/コマンド2", .......};
@@ -483,7 +483,7 @@ ShowInitializeMessage()
 Me.BuffPrintInfo = {
 --	 [100] = {arg = "arg1", fmt = "%s"}, --サクラメント
 --	 [146] = {arg = "arg1", fmt = "%s"}, --アスパ
-	 [147] = {arg = "arg2", fmt = "+%s"}, --ブレス
+	 [147] = {arg = "custom", fmt = "+%s"}, --ブレス
 	[3016] = {arg = "arg1", fmt = "%s"}, --ダイノ
 	 [114] = {arg = "arg1", fmt = "%s"}, --リバイブ
 	 [144] = {arg = "arg1", fmt = "%s"}, --ディバインマイト
@@ -499,6 +499,16 @@ Me.BuffPrintInfo = {
 	[1019] = {arg = "arg1", fmt = "%s"}, --カウンタースペル
 	[4532] = {arg = "arg1", fmt = "%s"} --チームLv
 };
+
+-- Customに設定したバフの表示値を返す
+local function GetCustomeBuffValue(buff)
+	local ReturnValue = 0;
+	if buff.buffID == 147 then
+		ReturnValue = 55 + ((buff.arg1 - 1) * 25) + ((buff.arg1 / 5) * (buff.arg4 ^ 0.9));
+		ReturnValue = math.floor(ReturnValue * (1 + buff.arg5 * 0.01));
+	end
+	return ReturnValue;
+end
 
 -- ==================================
 --  設定関連
@@ -605,7 +615,11 @@ local function WriteBuffParam()
 						lblParam:EnableHitTest(0);
 						--色見本 #06FAE9 結構いい感じ、だけどちょっと暗い
 						--色見本 #6AFCF2 結構いい感じ、だけどちょっと薄い
-						lblParam:SetText(string.format("{#38FBEE}{ol}{s11}" .. DrawInfo.fmt .. "{/}{/}{/}",buff[DrawInfo.arg]));
+						if DrawInfo.arg == "custom" then
+							lblParam:SetText(string.format("{#38FBEE}{ol}{s11}" .. DrawInfo.fmt .. "{/}{/}{/}", GetCustomeBuffValue(buff)));
+						else
+							lblParam:SetText(string.format("{#38FBEE}{ol}{s11}" .. DrawInfo.fmt .. "{/}{/}{/}", buff[DrawInfo.arg]));
+						end
 						lblParam:ShowWindow(1);
 						pnlBack:Resize(lblParam:GetWidth() + 1, lblParam:GetHeight());
 						pnlBack:ShowWindow(1);
