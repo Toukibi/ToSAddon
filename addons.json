@@ -3,7 +3,7 @@
         "name" : "Shop Helper",
         "file" : "shophelper",
         "extension" : "ipf",
-        "fileVersion" : "v0.8.1",
+        "fileVersion" : "v0.8.2",
         "releaseTag" : "ShopHelper",
         "unicode" : "⛄",
         "description" : "街などで開かれている露店の価格が高いか安いかをコメントしてくれます。This add-on will tell you whether the price of buff/repair/etc. is expensive or cheap.",
@@ -38,10 +38,10 @@
         "name" : "Map Mate",
         "file" : "mapmate",
         "extension" : "ipf",
-        "fileVersion" : "v0.8.1",
+        "fileVersion" : "v0.8.4",
         "releaseTag" : "MapMate",
         "unicode" : "⛄",
-        "description" : "マップ表示を色々便利にしてくれます。(現在はミニマップに追加情報を表示するだけ) This add-on makes map display a lot convenient. (Currently it only displays additional information in the mini map)",
+        "description" : "マップ表示を色々便利にしてくれます。 This add-on makes map display a lot convenient.",
         "tags" : [
             "ui",
             "map",
@@ -54,7 +54,7 @@
         "name" : "Buff Counter",
         "file" : "buffcounter",
         "extension" : "ipf",
-        "fileVersion" : "v1.1.3",
+        "fileVersion" : "v1.1.5",
         "releaseTag" : "BuffCounter",
         "unicode" : "⛄",
         "description" : "上段バフの残り枠数を教えてくれます。  This add-on will tell you the remaining number of upper buffs.",
@@ -64,6 +64,21 @@
             "jp",
             "en",
             "kr"
+        ]
+    },
+    {
+        "name" : "Remaining Counter",
+        "file" : "remainingcounter",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.0",
+        "releaseTag" : "RemainingCounter",
+        "unicode" : "⛄",
+        "description" : "アイテムを使用するスキルの場合、クイックスロットの右下に残り回数を表示します。  For skills that use items, this add-on display the remaining number in the lower right of Quick Slot.",
+        "tags" : [
+            "ui",
+            "remaining number",
+            "jp",
+            "en"
         ]
     }
 ]
