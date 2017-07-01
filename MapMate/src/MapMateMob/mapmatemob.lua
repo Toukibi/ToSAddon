@@ -1,5 +1,5 @@
 local addonName = "MapMateMob";
-local verText = "1.01";
+local verText = "1.03";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mmob", "/MMob"} -- {"/コマンド1", "/コマンド2", .......};
@@ -15,6 +15,7 @@ _G['ADDONS'][autherName][addonName] = _G['ADDONS'][autherName][addonName] or {};
 local Me = _G['ADDONS'][autherName][addonName];
 local MyParent = _G['ADDONS'][autherName].MapMate;
 MMob = Me;
+Me.MobInfo = nil;
 local DebugMode = false;
 
 -- テキストリソース
@@ -587,7 +588,7 @@ function CreateMobPanel(Parent, MobData, Index, Top)
 	local MinHeight = 90;
 	Top = Top or (MinHeight * (Index - 1));
 
-	local pnlBase = tolua.cast(Parent:CreateOrGetControl("controlset", "pnlMob_" .. Index, 
+	local pnlBase = tolua.cast(Parent:CreateOrGetControl("controlset", "pnlMob_" .. MobData.ClassName, 
 																0, Top, width, MinHeight), 
 									"ui::CControlSet");
 
@@ -725,13 +726,47 @@ function CreateMobPanel(Parent, MobData, Index, Top)
 end
 
 
+function Me.UpdateOnlyMobCount(MobClassName)
+	if Me.MobInfo == nil then
+		Me.MobInfo = MyParent.GetMapMonsterInfo()
+	end
+	local BaseFrame = ui.GetFrame("mapmatemob");
+	if BaseFrame == nil then return end
+	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlBase");
+	local TargetParent = GET_CHILD(BodyGBox, "pnlMob_" .. MobClassName);
+	if TargetParent ~= nil then
+		for name, value in pairs(Me.MobInfo) do
+			if value.ClassName == MobClassName then
+				local txtMobKillCount = GET_CHILD(TargetParent, "mobKillCount", "ui::CRichText");
+				if txtMobKillCount ~= nil then
+					local wiki = GetWikiByName(value.JournalID);
+					local pKillCount = 0;
+					if wiki ~= nil then
+						pKillCount =GetWikiIntProp(wiki, "KillCount")
+					end
+					local pRequired = 0;
+					if GetClass('Journal_monkill_reward', value.JournalID) ~= nil then
+						pRequired = GetClass('Journal_monkill_reward', value.JournalID).Count1
+					end
 
+					local TextColor = "#333333"
+					if pKillCount >= pRequired then
+						TextColor = "#4444FF"
+					end
+					txtMobKillCount:SetText(Toukibi:GetStyledText(string.format("[%s/%s]", pKillCount, pRequired), {TextColor, "s12", "b"}));
+				end
+			end
+		end
+	else
+		--log("対象発見できず  " .. "pnlMob_" .. MobClassName)
+	end
+end
 
 
 
 function Me.UpdateMobList()
 	if MyParent == nil then return false end
-	local MobInfo = MyParent.GetMapMonsterInfo()
+	Me.MobInfo = MyParent.GetMapMonsterInfo()
 	--view(MobInfo)
 	local BaseFrame = ui.GetFrame("mapmatemob");
 	if BaseFrame == nil then return end
@@ -749,7 +784,7 @@ function Me.UpdateMobList()
 	Me.CurrentMobCount = 0
 	if BodyGBox ~= nil then
 		local NowIndex = 1
-		for name, value in pairs(MobInfo) do
+		for name, value in pairs(Me.MobInfo) do
 			NowTop = NowTop + CreateMobPanel(BodyGBox, value, NowIndex, NowTop);
 			NowIndex = NowIndex + 1;
 			Me.CurrentMobCount = Me.CurrentMobCount + 1;
@@ -835,7 +870,10 @@ end
 -- ***** その他のイベント受け *****
 
 function TOUKIBI_MAPMATEMOB_COUNTCHANGE(frame, msg, str, type)
-	Me.Update()	
+	local wikiCls = GetClassByType("Wiki", type);
+	if wikiCls.Category ~= "Map" then
+		Me.UpdateOnlyMobCount(wikiCls.ClassName)
+	end
 end
 
 function TOUKIBI_MAPMATEMOB_OPEN()
@@ -966,7 +1004,7 @@ function MAPMATEMOB_ON_INIT(addon, frame)
 		Me.Loaded = true;
 		LoadSetting();
 	end
-	--if Me.Settings.DoNothing then return end
+	--if true or Me.Settings.DoNothing then return end
 
 	--[[
 	--タイマーを使う場合
@@ -976,8 +1014,6 @@ function MAPMATEMOB_ON_INIT(addon, frame)
 
 	-- イベントを登録する
 	addon:RegisterMsg('WIKI_PROP_UPDATE', 'TOUKIBI_MAPMATEMOB_COUNTCHANGE');
-
-	--Toukibi:SetHook("MAP_OPEN", Me.MAP_OPEN_HOOKED);
 
 	--Me.Settings.FloatMode = false;
 	local BaseFrame = ui.GetFrame("mapmatemob")
