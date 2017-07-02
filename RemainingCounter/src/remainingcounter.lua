@@ -1,5 +1,5 @@
 local addonName = "RemainingCounter";
-local verText = "1.00";
+local verText = "1.01";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"rmcnt", "remcount"} -- {"/コマンド1", "/コマンド2", .......};
@@ -420,8 +420,6 @@ local function MargeDefaultSetting(Force, DoSave)
 	Me.Settings = Me.Settings or {};
 	Me.Settings.DoNothing = Toukibi:GetValueOrDefault(Me.Settings.DoNothing, false, Force);
 	Me.Settings.Lang = Toukibi:GetValueOrDefault(Me.Settings.Lang, Toukibi:GetDefaultLangCode(), Force);
-	Me.Settings.Movable = Toukibi:GetValueOrDefault(Me.Settings.Movable, false, Force);
-	Me.Settings.Visible = Toukibi:GetValueOrDefault(Me.Settings.Visible, true, Force);
 
 
 
@@ -443,7 +441,7 @@ local function LoadSetting()
 			CurrentLang = Me.Settings.Lang or CurrentLang;
 		end
 		Toukibi:AddLog(string.format("%s{nl}{#331111}%s{/}", Toukibi:GetResText(ResText, CurrentLang, "System.ErrorToUseDefaults"), tostring(objError)), "Caution", true, false);
-		MargeDefaultSetting(true, false);
+		MargeDefaultSetting(true, true);
 	else
 		Me.Settings = objReadValue;
 		MargeDefaultSetting(false, false);
@@ -454,26 +452,28 @@ end
 -- ===== アドオンの内容ここから =====
 local function UpdateSlotInfo(objSlot)
 	local objIcon = objSlot:GetIcon();
-	local SlotInfo = objIcon:GetInfo();
-	if SlotInfo.category == "Skill" then
-		local objSkill = GetClassByType("Skill", SlotInfo.type);
-		if objSkill.SpendItemBaseCount > 0 and objSkill.SpendItem ~= nil and objSkill.SpendItem ~= "None" then
-			local SpendItemInfo = GetClass("Item", objSkill.SpendItem);
-			--log(string.format("%sはアイテム[%s]を%s個使うスキルです", objSkill.Name, SpendItemInfo.Name, objSkill.SpendItemBaseCount))
-			local InvenItemInfo = session.GetInvItemByName(objSkill.SpendItem);
-			local RemainingCount = 0;
-			if InvenItemInfo ~= nil and InvenItemInfo.count > 0 then
-				RemainingCount = math.floor(InvenItemInfo.count / objSkill.SpendItemBaseCount)
+	if objIcon ~= nil then
+		local SlotInfo = objIcon:GetInfo();
+		if SlotInfo.category == "Skill" then
+			local objSkill = GetClassByType("Skill", SlotInfo.type);
+			if objSkill.SpendItemBaseCount > 0 and objSkill.SpendItem ~= nil and objSkill.SpendItem ~= "None" then
+				local SpendItemInfo = GetClass("Item", objSkill.SpendItem);
+		--log(string.format("%sはアイテム[%s]を%s個使うスキルです", objSkill.Name, SpendItemInfo.Name, objSkill.SpendItemBaseCount))
+				local InvenItemInfo = session.GetInvItemByName(objSkill.SpendItem);
+				local RemainingCount = 0;
+				if InvenItemInfo ~= nil and InvenItemInfo.count > 0 then
+					RemainingCount = math.floor(InvenItemInfo.count / objSkill.SpendItemBaseCount)
+				end
+				local YOffset = 1
+				if objSkill.OverHeatGroup ~= "None" then
+					YOffset = -10
+				end
+				objIcon:SetText(Toukibi:GetStyledText(RemainingCount, {"s16", "ol", "b", }), 'None', 'right', 'bottom', -2, YOffset);
+			else
+				objIcon:ClearText();
 			end
-			local YOffset = 1
-			if objSkill.OverHeatGroup ~= "None" then
-				YOffset = -10
-			end
-			objIcon:SetText(Toukibi:GetStyledText(RemainingCount, {"s16", "ol", "b", }), 'None', 'right', 'bottom', -2, YOffset);
-		else
-			objIcon:ClearText();
+			objSlot:Invalidate();
 		end
-		objSlot:Invalidate();
 	end
 end
 
@@ -486,7 +486,7 @@ end
 
 function Me.Update()
 	for i = 1, MAX_QUICKSLOT_CNT do
-		UpdateSlotInfo(i);
+		UpdateSlotInfoByIndex(i);
 	end
 end
 
@@ -554,7 +554,6 @@ function REMAININGCOUNTER_ON_INIT(addon, frame)
 		LoadSetting();
 	end
 	if Me.Settings.DoNothing then return end
-
 	--[[
 	--タイマーを使う場合
 	Me.timer_main = GET_CHILD(ui.GetFrame("mapmate"), "timer_main", "ui::CAddOnTimer");
