@@ -1,6 +1,6 @@
 ﻿
 # Map Mate
-Description of [English Version is Here](#description-of-english-version).
+Scroll down for [English Version](#description-of-english-version) description.
 ### 1.これは何？
 マップ表示を色々便利にしてくれます。  
 (現在はミニマップに追加情報を表示するだけ)  
