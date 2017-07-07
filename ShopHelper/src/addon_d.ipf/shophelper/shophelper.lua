@@ -404,10 +404,10 @@ local Toukibi = {
 			  , CompleteLoadSettings = "Loading settings completed."
 			},
 			Command = {
-				ExecuteCommands = "Command '{#333366}%s{/}' was called"
+				ExecuteCommands = "Command '{#333366}%s{/}' was called."
 			  , ResetSettings = "The setting was reset."
-			  , InvalidCommand = "Invalid command called"
-			  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
+			  , InvalidCommand = "Invalid command called."
+			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 				},
 			Help = {
 				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
