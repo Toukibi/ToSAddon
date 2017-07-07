@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uiframe name="mapmate" x="0" y="0" width="10" height="10">
-	<frame fasthide="true" layout_gravity="left top"/>
-	<input moveable="false" hittestframe="false"/>
-	<layer layerlevel="10"/>
-	<draw drawframe="false" drawtitlebarframe="false" drawtitlebar="false"/>
+<uiframe name="mapmatemob" x="0" y="0" width="270" height="500">
+	<frame fasthide="true" layout_gravity="right top" margin="0 350 30 0"/>
+	<input moveable="true" moveintitlebar="false" hittestframe="true" hittest="true" resize="false"/>
+	<layer layerlevel="93"/>
+	<draw drawframe="true" drawtitlebarframe="false" drawtitlebar="false"/>
+	<skin frameskin="tooltip1"/>
 	<option visible="true" alwaysVisible="true" closebutton="false" hideable="false" autoopen="true"/>
-<controls>
-	<timer name="timer_pccount" rect="0 0 10 10"/>
-</controls>
+	<sound opensound="win_open" closesound="win_close"/>
+	<script OpenScp="TOUKIBI_MAPMATEMOB_OPEN" LBtnUpScp="TOUKIBI_MAPMATEMOB_END_DRAG" lostFocusScp="TOUKIBI_MAPMATEMOB_LOSTFOCUS"/>
+	<controls>
+		<richtext name="title" rect="0 0 120 24" margin="20 8 0 0" layout_gravity="left top" hittest="false" caption="{@st66b}MOB一覧{/}"/>
+		<groupbox name="pnlBase" rect="0 0 260 570" margin="0 30 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" savescroll="true" scrollbar="true"/>
+		<button name="close" rect="0 0 20 20" margin="0 4 4 0" layout_gravity="right top" LBtnUpArgNum="" LBtnUpScp="TOUKIBI_MAPMATEMOB_CALLCLOSE" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" caption="" clicksound="button_click_big" image="btn_close" oversound="button_over" texttooltip="{@st59}Close{/}"/>
+	</controls>
 </uiframe>
