@@ -1,13 +1,14 @@
 local addonName = "ShopHelper";
-local verText = "0.80";
+local verText = "0.82";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/sh", "/shophelper", "/shelper", "/ShopHelper"};
 local CommandParamList = {
-	reset = {jp = "価格の平均値設定をリセット", en = "Reset the paramaters of price average settings."}
-  , resetall = {jp = "すべての設定をリセット", en = "Reset the all settings."}
-  , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)"}
-  , en = {jp = "Switch to English mode.", en = "Switch to English mode."};
+	reset = {jp = "価格の平均値設定をリセット", en = "Reset the paramaters of price average settings.", kr = "가격의 평균값 설정을 초기화"}
+  , resetall = {jp = "すべての設定をリセット", en = "Reset all settings.", kr = "모든 설정을 초기화"}
+  , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)", kr = "일본어 모드로 전환하십시오.(Japanese Mode)"}
+  , en = {jp = "Switch to English mode.", en = "Switch to English mode.", kr = "Switch to English mode."}
+  , kr = {jp = "韓国語モードに切り替え (한국어로)", en = "Switch to Korean mode.(한국어로)", kr = "한국어 모드로 변경"};
 };
 local SettingFileName = "setting.json"
 local FavoriteFileName = "favorite.json"
@@ -80,9 +81,10 @@ local ResText = {
 		  , Empty = "予想外のパターン(バグ)"
 		  , SaveTo = "保存先:"
 		  , PriceRadix = "基数"
-		  , UnknownSkillID = "スキルID[%s]"
+		  , UnknownSkillID = "不明なスキル  (スキルID:[%s])"
 		  , RuralCharge = "郊外割増 +"
 		  , SelectAll = "全体選択"
+		  , Percent = "％"
 		},
 		Log = {
 			ResetConfig = "設定がリセットされました"
@@ -98,8 +100,11 @@ local ResText = {
 		  , IsSuburbMsg = "支払金額%ssですが、ここは郊外なので郊外割増の%ssを差し引いた金額%ssで記録します。"
 		  , IsBelowCostMsg = "この価格は原価割れしているため、平均値推移に原価を記録します。"
 		  , IsFartherValueMsg = "この価格は平均値からあまりに離れているため、平均値推移を更新しません。"
+		  , SaveAsFartherLimitValue = "この価格は平均値からあまりに離れているため、離れ値の限界(%ss)で記録します。"
 		  , IsShorterInterval = "まだ%d秒しか経過していないため、平均価格の更新は行いません。(設定待機時間:%d秒)"
 		  , LoadTextResource = "文字情報の読み込みが完了しました"
+		  , MsgAlreadyBuffed = 'すでに "%s" バフは有効です。{nl}購入をキャンセルしました。'
+		  , InitMsg = '"/sh"コマンドで設定画面を開くことができます。'
 		},
 		Option = {
 			Zone = {
@@ -122,12 +127,17 @@ local ResText = {
 		  , ShowMsgBoxOnBuffShop = "バフ購入時の確認メッセージを表示しない"
 		  , AddInfoToBaloon = "露店の看板に情報を追記する"
 		  , EnableBaloonRightClick = "露店の看板の右クリックを有効にする"
+		  , EnableHideNames = "Altキーを押している間プレイヤー名を表示しない"
 		  , UpdateAverage = "平均値を更新する"
 		  , AverageWeight = "移動平均の重み"
 		  , AverageWeightUnit = ":"
 		  , AverageUpdateInterval = "次の更新までの待機時間"
 		  , AverageUpdateIntervalUnit = "秒"
-		  , NoUpdateIfFartherValue = "値が平均から離れすぎているときは更新しない"
+		  , FartherValueTitle = "平均値から遠すぎる露店価格の扱い"
+		  , FartherValueNone = "そのままの価格を記録する"
+		  , FartherValueLimit = "遠すぎると判定する境界値で記録する"
+		  , FartherValueIgnore = "記録しない"
+		  , SaveAsCostIfBelow = "原価割れの場合は原価の値で記録する"
 		},
 		BtnText = {
 			lblBuy = "{@st41}購入{/}"
@@ -162,16 +172,16 @@ local ResText = {
 		  , General = "%s's stalls"
 		},
 		ComDic = {
-			CostPrice = "Cost price"
-		  , AveragePrice = "Average price"
+			CostPrice = "Cost"
+		  , AveragePrice = "Avg."
 		  , CurrentPrice = "Current price"
 		  , BelowCost = "Below cost"
 		  , AtCost = "At cost price"
 		  , NearCost = "Near cost price"
 		  , GoodValue = "Good value"
 		  , WithinAverage = "Within Average price range"
-		  , ALittleExpensive = "Is't it a little expensive?"
-		  , Expensive = "Expensive"
+		  , ALittleExpensive = "Isn't a little expensive?"
+		  , Expensive = "Expensive!"
 		  , RipOff = "Rip-off!"
 		  , Empty = "Out of implementation(Bugs?)"
 		  , SaveTo = "Storage destination:"
@@ -179,10 +189,11 @@ local ResText = {
 		  , UnknownSkillID = "Unknown Skill-ID [%s]"
 		  , RuralCharge = "In the suburbs, raise the price"
 		  , SelectAll = "Select All"
+		  , Percent = "%"
 		},
 		Log = {
 			ResetConfig = "Configuration was resetted."
-		  , ResetAveragePrice = "Data of average-prices was resetted."
+		  , ResetAveragePrice = "Average Price Reset."
 		  , CallLoadSetting = "[Me.LoadSetting] was called"
 		  , CallSaveSetting = "[Me.SaveSetting] was called"
 		  , UseDefaultSetting = "Since [Me.Setting] does not exist, use the default settings."
@@ -193,9 +204,12 @@ local ResText = {
 		  , UpdateAveragePrice = "The average price of %s has been updated to %s"
 		  , IsSuburbMsg = "The payment amount is %ss, but since it is a suburb, minus a suburban charge of %ss. So, recorded at the amount of %ss."
 		  , IsBelowCostMsg = "As this price is broken down, Recorded the cost in the average value transition."
-		  , IsFartherValueMsg = "Since this price is too far from the average value, the average value transition was not updated."
-		  , IsShorterInterval = "Since only %d seconds have elapsed, the average price was not renewed. (Standby time setting: %d seconds)"
+		  , IsFartherValueMsg = "Since this price is too far from the average, price average unaltered."
+		  , SaveAsFartherLimitValue = "Since this price is too far from the average, records the threshold values of the limit (% ss)."
+		  , IsShorterInterval = "Since only %d seconds have elapsed, price average unaltered. (Standby time setting: %d seconds)"
 		  , LoadTextResource = "Reading of character information is completed."
+		  , MsgAlreadyBuffed = 'Buff "%s" is already brought.{nl}Purchase was canceled.'
+		  , InitMsg = 'With command "/sh", you can display Options.'
 		},
 		Option = {
 			Zone = {
@@ -203,7 +217,7 @@ local ResText = {
 			  , NearCost = "Near cost"
 			  , GoodValue = "Good value"
 			  , WithinAverage = "Within Average"
-			  , ALittleExpensive = "a little expensive"
+			  , ALittleExpensive = "A little expensive"
 			  , Expensive = "Expensive"
 			  , RipOff = "Rip-off!"
 			}
@@ -218,16 +232,21 @@ local ResText = {
 		  , ShowMsgBoxOnBuffShop = "Disable confirmation messages when buying buffs"
 		  , AddInfoToBaloon = "Enable Additional draws to the sign board"
 		  , EnableBaloonRightClick = "Enable right-click-menus of sign board"
+		  , EnableHideNames = "Hide the player name while holding down the Alt key"
 		  , UpdateAverage = "Update the average price"
 		  , AverageWeight = "The weight of the moving average"
 		  , AverageWeightUnit = " to "
 		  , AverageUpdateInterval = "Interval to next update"
 		  , AverageUpdateIntervalUnit = "seconds"
-		  , NoUpdateIfFartherValue = "Disable update when the price is too far from the average"
+		  , FartherValueTitle = "How to record stalls prices too far from average"
+		  , FartherValueNone = "Record the price as it is"
+		  , FartherValueLimit = "Record with boundary value to be judged too far"
+		  , FartherValueIgnore = "Do not record"
+		  , SaveAsCostIfBelow = "In the case of below cost, record it with the value of cost"
 		},
 		BtnText = {
 			lblBuy = "{@st41}Buy{/}"
-		  , lblOngoing = "{@st41}{#FFAA33}Currently ongoing{/}{/}"
+		  , lblOngoing = "{@st41}{#FFAA33}Already Buffed{/}{/}"
 		  , lblWarning = "{@st41}{#FF3333}Not regret?{/}{/}"
 		  , lblSelectByDur = "Select by durability value"
 		},
@@ -239,6 +258,110 @@ local ResText = {
 			DurabilityLeft = "Select only those below the durability"
 		  , ShowDurGauge = "Display durability gauge"
 		  , ShowDurValue = "Display durability value"
+		}
+	},
+	kr = {
+		Menu = {
+			Title = "{#006666}==== %s ===={/}"
+		  , Favorite = "즐겨찾기"
+		  , AsNormal = "표시 없음"
+		  , Hate = "쓰기 싫다"
+		  , NeverShow = "보기도 싫다"
+		  , LikeYou = "좋아요"
+		  , Close = "닫기"
+		},
+		ShopName = {
+			SquireBuff = "%s 의 수리상점"
+		  , GemRoasting = "%s의 젬로스팅 상점"
+		  , AppraisalPC = "%s 의 감정상점"
+		  , General = "%s 의 노점"
+		},
+		ComDic = {
+			CostPrice = "원가"
+		  , AveragePrice = "평균"
+		  , CurrentPrice = "가격"
+		  , BelowCost = "원가이하"
+		  , AtCost = "원가판매"
+		  , NearCost = "거의원가"
+		  , GoodValue = "이득"
+		  , WithinAverage = "평균값"
+		  , ALittleExpensive = "좀 비싸다?"
+		  , Expensive = "이거 비싼데요"
+		  , RipOff = "완전 비싸!!"
+		  , Empty = "예상외의 패턴(버그)"
+		  , SaveTo = "저장소:"
+		  , PriceRadix = "기수"
+		  , UnknownSkillID = "스킬ID[%s]"
+		  , RuralCharge = "마을밖 할증 +"
+		  , SelectAll = "전체선택"
+		  , Percent = "%"
+		},
+		Log = {
+			ResetConfig = "설정이 초기화되었습니다"
+		  , ResetAveragePrice = "평균가격이 초기화되었습니다"
+		  , CallLoadSetting = "Me.LoadSetting를 불러왔습니다"
+		  , CallSaveSetting = "Me.SaveSetting를 불러왔습니다"
+		  , UseDefaultSetting = "Me.Setting가 존재하지 않으므로 기본 설정을 불러옵니다"
+		  , CannotGetSettingFrameHandle = "설정 화면의 메뉴를 취득하지 못했습니다"
+		  , InitializeMe = "프로그램을 초기화합니다"
+		  , RedrawAllShopBaloon = "모든 노점의 말풍선을 재표시합니다"
+		  , BuySomething = "%s의%s를%ss로 받았습니다"
+		  , UpdateAveragePrice = "%s의 평균가격을 %s로 갱신했습니다"
+		  , IsSuburbMsg = "내야할 금액은%ss이지만, 여기는 마을밖이므로 마을밖할증%ss를 뺀 금액%ss으로 기록합니다"
+		  , IsBelowCostMsg = "이 가격은 원가이하라서, 평균값수치에 원가로 기록합니다"
+		  , IsFartherValueMsg = "이 가격은 평균값에서 너무 떨어져있어서, 평균값수치에 갱신하지 않습니다"
+		  , SaveAsFartherLimitValue = nil
+		  , IsShorterInterval = "아직%d초밖에 지나지 않아서, 평균가격의 설정을 할수 없습니다(설정대기시간:%d초)"
+		  , LoadTextResource = "문자정보 읽어들이기가 완료했습니다"
+		  , InitMsg = nil
+		},
+		Option = {
+			Zone = {
+				BelowCost = "원가이하"
+			  , NearCost = "거의원가"
+			  , GoodValue = "이득"
+			  , WithinAverage = "평균값"
+			  , ALittleExpensive = "좀 비싸다?"
+			  , Expensive = "비싸"
+			  , RipOff = "완전 비싸"
+			}
+		  , SettingFrameTitle = "Shop Helper의 설정"
+		  , Save = "저장"
+		  , CloseMe = "닫기"
+		  , TabGeneralSetting = "기본설정"
+		  , TabAverageSetting = "평균가격설정"
+		  , TabHowToUse = "사용방법"
+		  , GeneralSetting = "전반적인 설정"
+		  , ShowMessageLog = "로그를 표시한다"
+		  , ShowMsgBoxOnBuffShop = "버프상점 구매시 확인메세지를 표시하지않는다"
+		  , AddInfoToBaloon = "노점의 간판에 정보를 추가한다"
+		  , EnableBaloonRightClick = "노점의 간판의 우클릭을 유효하게한다"
+		  , EnableHideNames = "Alt 키를 누르고있는 동안 플레이어를 표시하지"
+		  , UpdateAverage = "평균값을 갱신한다"
+		  , AverageWeight = "이동 평균 무게"
+		  , AverageWeightUnit = ":"
+		  , AverageUpdateInterval = "다음 갱신까지 대기시간"
+		  , AverageUpdateIntervalUnit = "초"
+		  , FartherValueTitle = nil
+		  , FartherValueNone = nil
+		  , FartherValueLimit = nil
+		  , FartherValueIgnore = nil
+		  , SaveAsCostIfBelow = nil
+		},
+		BtnText = {
+			lblBuy = "{@st41}구입{/}"
+		  , lblOngoing = "{@st41}{#FFAA33}버프지속중{/}{/}"
+		  , lblWarning = "{img NOTICE_Dm_! 32 32}{@st41}{#FF3333}비싼데?{/}{/}"
+		  , lblSelectByDur = "잔여내구도로 선택"
+		},
+		WarnMsg = {
+			Title = "가격 확인"
+		  , Body = "{#111111}이 상품은{s24}{b}{ol}{#FF0000}완전 비싼{/}{/}{/}{/}데요,{nl}그래도 구입하겠습니까?{/}"
+		},
+		Other = {
+			DurabilityLeft = "다음의 내구도를 밑도는 것만 선택"
+		  , ShowDurGauge = "내구도의 게이지를 표시한다"
+		  , ShowDurValue = "내구도의 수치를 표시한다"
 		}
 	}
 };
@@ -263,18 +386,22 @@ local Toukibi = {
 			  , AnnounceCommandList = "コマンド一覧を見るには[ %s ? ]を用いてください"
 				},
 			Help = {
-				Title = string.format("{#333333}%sのパラメータ説明{/}", addonName),
-				Description = string.format("{#92D2A0}%sは次のパラメータで設定を呼び出してください。{/}", addonName),
-				ParamDummy = "[パラメータ]",
-				OrText = "または",
-				EnableTitle = "使用可能なコマンド"
+				Title = string.format("{#333333}%sのパラメータ説明{/}", addonName)
+			  , Description = string.format("{#92D2A0}%sは次のパラメータで設定を呼び出してください。{/}", addonName)
+			  , ParamDummy = "[パラメータ]"
+			  , OrText = "または"
+			  , EnableTitle = "使用可能なコマンド"
 			}
 		},
 		en = {
 			System = {
-				NoSaveFileName = "The filename of save settings is not specified.",
-				HasErrorOnSaveSettings = "An error occurred while saving the settings.",
-				CompleteSaveSettings = "Saving settings completed."
+				InitMsg = "[Add-ons]" .. addonName .. verText .. " loaded!"
+			  , NoSaveFileName = "The filename of save settings is not specified."
+			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
+			  , CompleteSaveSettings = "Saving settings completed."
+			  , ErrorToUseDefaults = "Change to use default setting because of an error occurred while loading the settings."
+			  , CompleteLoadDefault = "An error occurred while loading the default settings."
+			  , CompleteLoadSettings = "Loading settings completed."
 			},
 			Command = {
 				ExecuteCommands = "Command '{#333366}%s{/}' was called"
@@ -283,11 +410,34 @@ local Toukibi = {
 			  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
 				},
 			Help = {
-				Title = string.format("{#333333}Help for %s commands.{/}", addonName),
-				Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName),
-				ParamDummy = "[paramaters]",
-				OrText = "or",
-				EnableTitle = "Available commands"
+				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
+			  , Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName)
+			  , ParamDummy = "[paramaters]"
+			  , OrText = "or"
+			  , EnableTitle = "Available commands"
+			}
+		},
+		kr = {
+			System = {
+				NoSaveFileName = "설정의 저장파일명이 지정되지 않았습니다"
+			  , HasErrorOnSaveSettings = "설정 저장중 에러가 발생했습니다"
+			  , CompleteSaveSettings = "설정 저장이 완료되었습니다"
+			  , ErrorToUseDefaults = "설정 불러오기에 에러가 발생했으므로 기본 설정을 사용합니다"
+			  , CompleteLoadDefault = "기본 설정 불러오기가 완료되었습니다"
+			  , CompleteLoadSettings = "설정을 불러들였습니다"
+			},
+			Command = {
+				ExecuteCommands = "명령 '{#333366}%s{/}' 를 불러왔습니다"
+			  , ResetSettings = "설정을 초기화하였습니다"
+			  , InvalidCommand = "무효한 명령을 불러왔습니다"
+			  , AnnounceCommandList = "명령일람을 보려면[ %s ? ]를 사용해주세요"
+				},
+			Help = {
+				Title = string.format("{#333333}%s의 패러미터 설명{/}", addonName)
+			  , Description = string.format("{#92D2A0}%s는 다음 패러미터로 설정을 불러와주세요{/}", addonName)
+			  , ParamDummy = "[패러미터]"
+			  , OrText = "또는"
+			  , EnableTitle = "사용가능한 명령"
 			}
 		}
 	},
@@ -301,6 +451,8 @@ local Toukibi = {
 	GetDefaultLangCode = function(self)
 		if option.GetCurrentCountry() == "Japanese" then
 			return "jp";
+		elseif option.GetCurrentCountry() == "Korean" then
+			return "kr";
 		else
 			return "en";
 		end
@@ -717,32 +869,32 @@ local LibPrice = {
 		local ReturnValue = {};
 		if SkillID == 40203 then
 			-- ブレス
-			ReturnValue.CostPrice = math.floor(20 * 10 / (1 - Me.CommissionRate));
+			ReturnValue.CostPrice = math.ceil(20 * 10 / (1 - Me.CommissionRate));
 			ReturnValue.MaxLv = 15;
 			ReturnValue.DoAddInfo = true
 		elseif SkillID == 40205 then
 			-- サクラ
-			ReturnValue.CostPrice = math.floor(35 * 10 / (1 - Me.CommissionRate));
+			ReturnValue.CostPrice = math.ceil(35 * 10 / (1 - Me.CommissionRate));
 			ReturnValue.MaxLv = 10;
 			ReturnValue.DoAddInfo = true
 		elseif SkillID == 40201 then
 			-- アスパ
-			ReturnValue.CostPrice = math.floor(50 * 10 / (1 - Me.CommissionRate));
+			ReturnValue.CostPrice = math.ceil(50 * 10 / (1 - Me.CommissionRate));
 			ReturnValue.MaxLv = 15;
 			ReturnValue.DoAddInfo = true
 		elseif SkillID == 10703 then
 			-- 修理
-			ReturnValue.CostPrice = math.floor(80 / (1 - Me.CommissionRate));
+			ReturnValue.CostPrice = math.ceil(80 / (1 - Me.CommissionRate));
 			ReturnValue.MaxLv = 15;
 			ReturnValue.DoAddInfo = true
 		elseif SkillID == 21003 then
 			-- ジェムロースティング
-			ReturnValue.CostPrice = math.floor(3000 / (1 - Me.CommissionRate));
+			ReturnValue.CostPrice = math.ceil(3000 / (1 - Me.CommissionRate));
 			ReturnValue.MaxLv = 10;
 			ReturnValue.DoAddInfo = true
 		elseif SkillID == 31501 then
 			-- 鑑定
-			ReturnValue.CostPrice = math.floor(100 / (1 - Me.CommissionRate));
+			ReturnValue.CostPrice = math.ceil(100 / (1 - Me.CommissionRate));
 			ReturnValue.MaxLv = 5;
 			ReturnValue.DoAddInfo = true
 		end
@@ -884,11 +1036,11 @@ local LibPrice = {
 		elseif Price >= PriceInfo.AverageWithCharge * 1.8 then
 			-- 異常に高い2
 			ReturnValue.ImpressionValue = "RipOff"
-			CustomFormat.Price = {"img NOTICE_Dm_! 26 26", "@st41b", "#FF0000"};
+			CustomFormat.Price = {"@st41b", "#FF0000"};
 		elseif Price >= PriceInfo.AverageWithCharge + PriceInfo.Span * 100 then
 			-- 異常に高い1
 			ReturnValue.ImpressionValue = "RipOff"
-			CustomFormat.Price = {"img NOTICE_Dm_! 26 26", "@st41b", "#FF0000"};
+			CustomFormat.Price = {"@st41b", "#FF0000"};
 		else
 			ReturnValue.ImpressionValue = "Expensive"
 			CustomFormat.Price = {"@st41b", "#FF3333"};
@@ -1029,14 +1181,29 @@ local LibPrice = {
 								   ), "Notice", true, true);
 					LatestPrice = LatestPrice - Me.Settings.AverageData[tostring(skillID)].Suburb
 				end
-				if Me.Settings.IgnoreAwayValue then
+				if Me.Settings.IgnoreAwayValue ~= "None" then
 					local PriceInfo = self:GetPriceInfo(skillID);
 					if PriceInfo.DoAddInfo and LatestPrice < PriceInfo.CostPrice then
-						Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.IsBelowCostMsg"), "Notice", true, false);
-						LatestPrice = PriceInfo.CostPrice;
+						-- 原価割れ
+						if Me.Settings.SaveAsCostIfBelow then
+							Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.IsBelowCostMsg"), "Notice", true, false);
+							LatestPrice = PriceInfo.CostPrice;
+						end
 					elseif PriceInfo.DoAddInfo and math.abs(LatestPrice - PriceInfo.AveragePrice) > PriceInfo.Span * 30 then
-						Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.IsFartherValueMsg"), "Notice", true, false);
-						return;
+						-- 外れ値
+						if Me.Settings.IgnoreAwayValue == "Ignore" then
+							-- 無視する
+							Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.IsFartherValueMsg"), "Notice", true, false);
+							return;
+						elseif LatestPrice - PriceInfo.AveragePrice > PriceInfo.Span * 30 then
+							-- 高い方の離れ値の場合離れ値の上限を記録する
+							LatestPrice = PriceInfo.CostPrice;
+							Toukibi:AddLog(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.SaveAsFartherLimitValue"), LatestPrice), "Notice", true, false);
+						elseif LatestPrice - PriceInfo.AveragePrice < PriceInfo.Span * -30 then
+							-- 低いい方の離れ値の場合離れ値の下限を記録する
+							LatestPrice = PriceInfo.CostPrice;
+							Toukibi:AddLog(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.SaveAsFartherLimitValue"), LatestPrice), "Notice", true, false);
+						end
 					end
 				end
 				Me.Settings.AverageData[tostring(skillID)].Price = (Me.Settings.AverageData[tostring(skillID)].Price * (Me.Settings.AverageNCount - 1) + LatestPrice) / Me.Settings.AverageNCount
@@ -1059,6 +1226,22 @@ local LibPrice = {
 
 }
 Me.LibPrice = LibPrice;
+
+
+
+
+local function ShowInitializeMessage()
+	local CurrentLang = "en"
+	if Me.Settings == nil then
+		CurrentLang = Toukibi:GetDefaultLangCode() or CurrentLang;
+	else
+		CurrentLang = Me.Settings.Lang or CurrentLang;
+	end
+
+	CHAT_SYSTEM(string.format("{#333333}%s{/}", Toukibi:GetResText(Toukibi.CommonResText, CurrentLang, "System.InitMsg")))
+	CHAT_SYSTEM(string.format("{#333366}[%s]%s{/}", addonName, Toukibi:GetResText(ResText, CurrentLang, "Log.InitMsg")))
+end
+-- ShowInitializeMessage()
 
 -- ==================================
 --      個別のプログラムここから
@@ -1121,9 +1304,11 @@ local function MargeDefaultSetting(Force, DoSave)
 	Me.Settings.UpdateAverage			= Toukibi:GetValueOrDefault(Me.Settings.UpdateAverage		, true, Force);
 	Me.Settings.AddInfoToBaloon			= Toukibi:GetValueOrDefault(Me.Settings.AddInfoToBaloon		, true, Force);
 	Me.Settings.EnableBaloonRightClick	= Toukibi:GetValueOrDefault(Me.Settings.EnableBaloonRightClick, true, Force);
+	Me.Settings.EnableHideNames			= Toukibi:GetValueOrDefault(Me.Settings.EnableHideNames		, true, Force);
 	Me.Settings.AverageNCount			= Toukibi:GetValueOrDefault(Me.Settings.AverageNCount		, 30, Force);
 	Me.Settings.RecalcInterval			= Toukibi:GetValueOrDefault(Me.Settings.RecalcInterval		, 60, Force);
-	Me.Settings.IgnoreAwayValue			= Toukibi:GetValueOrDefault(Me.Settings.IgnoreAwayValue		, true, Force);
+	Me.Settings.IgnoreAwayValue			= Toukibi:GetValueOrDefault(Me.Settings.IgnoreAwayValue		, "Limit", Force);
+	Me.Settings.SaveAsCostIfBelow		= Toukibi:GetValueOrDefault(Me.Settings.SaveAsCostIfBelow	, true, Force);
 	Me.Settings.Repair_SelectByDur		= Toukibi:GetValueOrDefault(Me.Settings.Repair_SelectByDur	, true, Force);
 	Me.Settings.Repair_DurValue			= Toukibi:GetValueOrDefault(Me.Settings.Repair_DurValue		, 3, Force);
 	Me.Settings.Repair_ShowDurGauge		= Toukibi:GetValueOrDefault(Me.Settings.Repair_ShowDurGauge	, true, Force);
@@ -1343,7 +1528,11 @@ function Me.AddInfoToBuffSellerSlot(BaseFrame, info)
 												, info.level));
 
 		local lblPrice = BaseFrame:GetChild("price")
-		lblPrice:SetTextByKey("value", PriceTextData.PriceText);
+		local WarnIcon = ""
+		if PriceTextData.ImpressionValue == "RipOff" then
+			WarnIcon = "{img NOTICE_Dm_! 26 26}"
+		end
+		lblPrice:SetTextByKey("value", WarnIcon .. PriceTextData.PriceText);
 		lblPrice:SetTextTooltip(PriceTextData.ToolTipText);
 
 		-- ボタンを上へ動かす
@@ -1399,38 +1588,13 @@ function Me.btnBuyBuffAutosell_Click(ctrlSet, btn)
 	-- 飛び先も自前で偽装する(価格情報が欲しいため)
 	local strscp = string.format("TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(%d, %d, %d, %d, %d, %d)", frame:GetUserIValue("HANDLE"), index, cnt, sellType, itemInfo.classID, itemInfo.price);
 	if DoAlart then
+
 		-- 価格データを作り直す(本当はポインター的な手法で渡したかった)
-		local BuffPriceInfo = Me.GetPriceInfo(itemInfo.classID);
-		local PriceTextData = Me.GetPriceText(itemInfo.price, BuffPriceInfo);
-		local objSkill = GetClassByType("Skill", itemInfo.classID);
+		--local BuffPriceInfo = LibPrice:GetPriceInfo(itemInfo.classID);
+		--local PriceTextData = LibPrice:GetPriceText(itemInfo.price, BuffPriceInfo);
+		--local objSkill = GetClassByType("Skill", itemInfo.classID);
 
-		local msg_title = string.format("%s  {s40}{b}{ol}{#CC0808}%s{/}{/}{/}{/}  %s"
-									  , "{img NOTICE_Dm_! 56 56}{/}"
-									  , Me.ResText[Me.Settings.Lang].data.WarningMsg.title
-									  , "{img NOTICE_Dm_! 56 56}{/}");
-
-		local msg_body = string.format(Me.ResText[Me.Settings.Lang].data.WarningMsg.body);
-		
-		local msg_skillinfo = string.format("{img icon_%s 60 60}{/}  %s Lv.%s"
-										  , objSkill.Icon
-										  , objSkill.Name
-										  , string.format("{@st41}{#%s}%d{/}{/}"
-														, Me.GetBuffLvColor(itemInfo.level, BuffPriceInfo.MaxLv)
-														, itemInfo.level
-														)
-											);
-
-		local msg_priceinfo = string.format("%s:%s {#111111}(%s){/}{nl} {nl}{#111111}{s16}%s{/}{/}"
-										  , Me.ResText[Me.Settings.Lang].data.CurrentPrice
-										  , PriceTextData.PriceText
-										  , PriceTextData.ImpressionText
-										  , PriceTextData.ToolTipText);
-
-		local msg = string.format("%s{nl} {nl}%s{nl} {nl} {nl}%s{nl} {nl}%s"
-								, msg_title
-								, msg_body
-								, msg_skillinfo
-								, msg_priceinfo);
+		local msg = LibPrice:MakeWarningMsg(itemInfo.classID, itemInfo.level, itemInfo.price)
 		
 		ui.MsgBox(msg, strscp, "None");
 	else
@@ -1452,9 +1616,9 @@ function TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(handle, index, cnt, sellType, skillID,
 		if objSkill ~= nil then
 			objSkillName = objSkill.Name;
 		else
-			objSkillName = string.format(Me.ResText[Me.Settings.Lang].data.UnknownSkillID, skillID);
+			objSkillName = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.UnknownSkillID"), skillID);
 		end
-		ui.MsgBox(string.format(Me.ResText[Me.Settings.Lang].data.IsGoingMsg, objSkillName))
+		ui.MsgBox(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.MsgAlreadyBuffed"), objSkillName))
 		return;
 	end
 	-- 最終使用時間を記憶する
@@ -1527,10 +1691,15 @@ function Me.AddInfoToSquireBuff(BaseFrame)
 								   , string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "ShopName.SquireBuff"), OwnerFamilyName)
 					 				)
 					 , 40, 120, 420, 20, 16);
+		local WarnIcon = ""
+		if PriceTextData.ImpressionValue == "RipOff" then
+			WarnIcon = "{img NOTICE_Dm_! 26 26}"
+		end
 		local lblPrice = ToukibiUI:AddRichText(BaseFrame
 									  , "ShopHelper_lblPriceInfo"
-									  , string.format("%s：%s  %s (%s)"
+									  , string.format("%s:%s%s  %s (%s)"
 													, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
+													, WarnIcon
 													, PriceTextData.PriceText
 													, PriceTextData.ImpressionText
 													, PriceTextData.ComparsionText)
@@ -1551,7 +1720,7 @@ function Me.AddInfoToSquireBuff(BaseFrame)
 		sldDur:SetMaxSlideLevel(12);
 		sldDur:SetLevel(Me.Settings.Repair_DurValue);
 		local lblDurValue = ToukibiUI:AddRichText(RepairFrame , "ShopHelper_lblDurValue"
-							, Me.Settings.Repair_DurValue * 10 .. "％"
+							, Me.Settings.Repair_DurValue * 10 .. Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.Percent")
 							, 0, 0, 60, 20, 16);
 		lblDurValue:SetGravity(ui.RIGHT, ui.TOP);
 		ToukibiUI:SetMargin(lblDurValue, 0, 778, 160, 0);
@@ -1697,7 +1866,7 @@ function TOUKIBI_SHOPHELPER_REPAIRSETTING_CHANGED(frame, ctrl, text, number)
 		local ReadValue;
 		ReadValue = ToukibiUI:GetSliderValueByName(RepairFrame, "ShopHelper_sldDur")
 	--	log(tostring(ReadValue))
-		GET_CHILD(RepairFrame, "ShopHelper_lblDurValue", "ui::CRichText"):SetText(string.format("{@st66}%s％{/}",ReadValue * 10));
+		GET_CHILD(RepairFrame, "ShopHelper_lblDurValue", "ui::CRichText"):SetText(string.format("{@st66}%s%s{/}", ReadValue * 10, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.Percent")));
 		Me.Settings.Repair_DurValue = ReadValue;
 		ReadValue = ToukibiUI:GetChecked(GET_CHILD(RepairFrame, "ShopHelper_chkShowDurGauge", "ui::CCheckBox"));
 		Me.Settings.Repair_ShowDurGauge = ReadValue;
@@ -1815,10 +1984,15 @@ function Me.AddInfoToGemRoasting(BaseFrame)
 								   , string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "ShopName.GemRoasting"), OwnerFamilyName)
 					 				)
 					 , 40, 120, 420, 20, 16);
+		local WarnIcon = ""
+		if PriceTextData.ImpressionValue == "RipOff" then
+			WarnIcon = "{img NOTICE_Dm_! 26 26}"
+		end
 		local lblPrice = ToukibiUI:AddRichText(BaseFrame
 									  , "lblPriceInfo"
-									  , string.format("%s：%s  %s (%s)"
+									  , string.format("%s:%s%s  %s (%s)"
 													, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
+													, WarnIcon
 													, PriceTextData.PriceText
 													, PriceTextData.ImpressionText
 													, PriceTextData.ComparsionText)
@@ -1900,10 +2074,15 @@ function Me.AddInfoToAppraisalPC(BaseFrame)
 								   , string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "ShopName.AppraisalPC"), OwnerFamilyName)
 					 				)
 					 , 40, 120, 420, 20, 16);
+		local WarnIcon = ""
+		if PriceTextData.ImpressionValue == "RipOff" then
+			WarnIcon = "{img NOTICE_Dm_! 26 26}"
+		end
 		local lblPrice = ToukibiUI:AddRichText(BaseFrame
 									  , "ShopHelper_lblPriceInfo"
-									  , string.format("%s：%s  %s (%s)"
+									  , string.format("%s:%s%s  %s (%s)"
 													, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
+													, WarnIcon
 													, PriceTextData.PriceText
 													, PriceTextData.ImpressionText
 													, PriceTextData.ComparsionText)
@@ -1985,7 +2164,7 @@ end
 
 -- 全プレイヤーの名前を隠す
 function TOUKIBI_SHOPHELPER_HIDE_PLAYERS()
-	if keyboard.IsPressed(KEY_ALT) == 1 then
+	if keyboard.IsPressed(KEY_ALT) == 1 and Me.Settings.EnableHideNames then
 		-- Altキーが押されている間はキャラクター情報を非表示にする
 		local selectedObjects, selectedObjectsCount = SelectObject(GetMyPCObject(), 1000000, "ALL");
 		for i = 1, selectedObjectsCount do
@@ -2020,10 +2199,6 @@ function TOUKIBI_SHOPHELPER_HIDE_PLAYERS()
 end
 
 
-
-function Me.Test()
-
-end
 
 
 -- ===========================
@@ -2266,7 +2441,7 @@ local LibPriceCtrl = {
 		local nameControl = pnlPriceBase:CreateOrGetControl("richtext", "name", left, textMarginTOP, nameWidth, 24);
 		nameControl:SetGravity(ui.LEFT, ui.TOP);
 		nameControl:EnableHitTest(0);
-		nameControl:SetText("{@st66b}スキル名がありませんでした{/}");
+		nameControl:SetText("{@st66b}Cannot get the skill name{/}");
 		left = left + nameWidth;
 
 		local objSkill = GetClassByType("Skill", SkillID);
@@ -2366,16 +2541,26 @@ function Me.InitSettingValue(BaseFrame)
 	local CurrentRadio = GET_CHILD(LangGBox, "lang_en", "ui::CRadioButton");
 	if Me.Settings.Lang == "jp" then
 		CurrentRadio = GET_CHILD(LangGBox, "lang_jp", "ui::CRadioButton");
+	elseif Me.Settings.Lang == "kr" then
+		CurrentRadio = GET_CHILD(LangGBox, "lang_kr", "ui::CRadioButton");
 	end
 	CurrentRadio:Select()
 	ToukibiUI:SetCheckedByName(OptionGBox, "ShowMessageLog", Me.Settings.ShowMessageLog);
 	ToukibiUI:SetCheckedByName(OptionGBox, "ShowMsgBoxOnBuffShop", not Me.Settings.ShowMsgBoxOnBuffShop);
 	ToukibiUI:SetCheckedByName(OptionGBox, "AddInfoToBaloon", Me.Settings.AddInfoToBaloon);
 	ToukibiUI:SetCheckedByName(OptionGBox, "EnableBaloonRightClick", Me.Settings.EnableBaloonRightClick);
+	ToukibiUI:SetCheckedByName(OptionGBox, "EnableHideNames", Me.Settings.EnableHideNames);
 	ToukibiUI:SetCheckedByName(OptionGBox, "UpdateAverage", Me.Settings.UpdateAverage);
 	ToukibiUI:SetSliderValue(OptionGBox, "AverageNCount", "AverageNCount_text", math.floor(Me.Settings.AverageNCount / 10), Me.Settings.AverageNCount);
 	ToukibiUI:SetSliderValue(OptionGBox, "RecalcInterval", "RecalcInterval_text", math.floor(Me.Settings.RecalcInterval / 10), Me.Settings.RecalcInterval);
-	ToukibiUI:SetCheckedByName(OptionGBox, "NoUpdateIfFarther", Me.Settings.IgnoreAwayValue);
+	CurrentRadio = GET_CHILD(OptionGBox, "FartherValue_Limit", "ui::CRadioButton");
+	if Me.Settings.IgnoreAwayValue == "None" then
+		CurrentRadio = GET_CHILD(OptionGBox, "FartherValue_None", "ui::CRadioButton");
+	elseif Me.Settings.IgnoreAwayValue == "Ignore" then
+		CurrentRadio = GET_CHILD(OptionGBox, "FartherValue_Ignore", "ui::CRadioButton");
+	end
+	CurrentRadio:Select()
+	ToukibiUI:SetCheckedByName(OptionGBox, "SaveAsCostIfBelow", Me.Settings.SaveAsCostIfBelow);
 
 	PriceGBox:RemoveAllChild();
 	LibPriceCtrl:CreateCtrl(PriceGBox, 40203, 1);
@@ -2412,6 +2597,8 @@ function Me.InitSettingText(BaseFrame, LangMode)
 						  Toukibi:GetResText(ResText, LangMode, "Option.AddInfoToBaloon"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "EnableBaloonRightClick", "ui::CCheckBox"), 
 						  Toukibi:GetResText(ResText, LangMode, "Option.EnableBaloonRightClick"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "EnableHideNames", "ui::CCheckBox"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.EnableHideNames"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "UpdateAverage", "ui::CCheckBox"), 
 						  Toukibi:GetResText(ResText, LangMode, "Option.UpdateAverage"), {"@st66b"});
 
@@ -2421,8 +2608,16 @@ function Me.InitSettingText(BaseFrame, LangMode)
 		local TargetControl = GET_CHILD(TargetGBox, "RecalcInterval_text", "ui::CRichText");
 		ToukibiUI:SetTextByKey(TargetControl, "opCaption", Toukibi:GetResText(ResText, LangMode, "Option.AverageUpdateInterval"));
 		ToukibiUI:SetTextByKey(TargetControl, "opUnit", Toukibi:GetResText(ResText, LangMode, "Option.AverageUpdateIntervalUnit"));
-		ToukibiUI:SetText(GET_CHILD(TargetGBox, "NoUpdateIfFarther", "ui::CCheckBox"), 
-						  Toukibi:GetResText(ResText, LangMode, "Option.NoUpdateIfFartherValue"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "FartherValue_title", "ui::CRichText"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.FartherValueTitle"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "FartherValue_None", "ui::CRadioButton"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.FartherValueNone"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "FartherValue_Limit", "ui::CRadioButton"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.FartherValueLimit"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "FartherValue_Ignore", "ui::CRadioButton"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.FartherValueIgnore"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "SaveAsCostIfBelow", "ui::CCheckBox"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.SaveAsCostIfBelow"), {"@st66b"});
 	end
 	TargetGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlPrice");
 	local cnt = TargetGBox:GetChildCount();
@@ -2500,6 +2695,7 @@ function Me.ExecSetting()
 	Me.Settings.ShowMsgBoxOnBuffShop = not ToukibiUI:GetCheckedByName(ModeGBox, "ShowMsgBoxOnBuffShop");
 	Me.Settings.AddInfoToBaloon = ToukibiUI:GetCheckedByName(ModeGBox, "AddInfoToBaloon");
 	Me.Settings.EnableBaloonRightClick = ToukibiUI:GetCheckedByName(ModeGBox, "EnableBaloonRightClick");
+	Me.Settings.EnableHideNames = ToukibiUI:GetCheckedByName(ModeGBox, "EnableHideNames");
 	Me.Settings.UpdateAverage = ToukibiUI:GetCheckedByName(ModeGBox, "UpdateAverage");
 	local intValue;
 	intValue = ToukibiUI:GetSliderValueByName(ModeGBox, "AverageNCount");
@@ -2510,7 +2706,8 @@ function Me.ExecSetting()
 	if intValue ~= nil then
 		Me.Settings.RecalcInterval = intValue * 10
 	end
-	Me.Settings.IgnoreAwayValue = ToukibiUI:GetCheckedByName(ModeGBox, "NoUpdateIfFarther");
+	Me.Settings.SaveAsCostIfBelow = ToukibiUI:GetCheckedByName(ModeGBox, "SaveAsCostIfBelow");
+	Me.Settings.IgnoreAwayValue = ToukibiUI:GetSelectedRadioValue(ModeGBox:GetChild("FartherValue_None"));
 
 	local PriceGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlPrice");
 	if PriceGBox ~= nil then
@@ -2748,7 +2945,7 @@ function SHOPHELPER_ON_INIT(addon, frame)
 	Me.HiddenFrameList = Me.HiddenFrameList or {};
 	-- 読み込み完了処理を記述
 	if not Me.loaded then
-		session.ui.GetChatMsg():AddSystemMsg("[Add-ons]" .. addonName .. verText .. " loaded!", true);
+		session.ui.GetChatMsg():AddSystemMsg("{#333333}[Add-ons]" .. addonName .. verText .. " loaded!{/}", true);
 	end
 	Me.loaded = true;
 end
@@ -2759,6 +2956,7 @@ function Me.RefreshMe()
 
 	-- 設定を読み込む
 	if not Me.Loaded then
+		ShowInitializeMessage();
 		Me.Loaded = true;
 		LoadSetting();
 	end
@@ -2778,6 +2976,6 @@ function Me.RefreshMe()
 	for i = 1, #SlashCommandList do
 		acutil.slashCommand(SlashCommandList[i], TOUKIBI_SHOPHELPER_PROCESS_COMMAND);
 	end
-	Toukibi:AddLog("Refresh処理が完了しました", "Info", true, true);
+--	Toukibi:AddLog("Refresh処理が完了しました", "Info", true, true);
 	
 end
