@@ -4,7 +4,7 @@ local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
 local CommandParamList = {
-	reset = {jp = "設定リセット", en = "Reset the all settings."},
+	reset = {jp = "設定リセット", en = "Reset all settings.", br = "},
 	update = {jp = "表示を更新", en = "The additional information displayed will be updated."}
 };
 local SettingFileName = "setting.json"
@@ -139,7 +139,7 @@ local ResText = {
 		  , AnnounceCommandList = "Please use [ %s ? ] to see the command list"
 		},
 		MapInfo = {
-			Title = "Infomation of "
+			Title = "Information of "
 		  , ExplorationProgress = "Exploration progress"
 		  , CardLv = "Card Level"
 		  , MaxHate = "Aggro Limit"
