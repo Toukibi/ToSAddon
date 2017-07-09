@@ -136,7 +136,7 @@ local ResText = {
 		  , ExecuteCommands = "Command '{#333366}%s{/}' was called."
 		  , ResetSettings = "Settings resetted."
 		  , InvalidCommand = "Invalid command called."
-		  , AnnounceCommandList = "Please use [ %s ? ] to see the command list"
+		  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 		},
 		MapInfo = {
 			Title = "Information of "
@@ -224,7 +224,7 @@ local Toukibi = {
 				ExecuteCommands = "Command '{#333366}%s{/}' was called"
 			  , ResetSettings = "Settings have been reset."
 			  , InvalidCommand = "Invalid command called."
-			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list"
+			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 				},
 			Help = {
 				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
