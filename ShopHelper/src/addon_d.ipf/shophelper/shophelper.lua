@@ -192,7 +192,7 @@ local ResText = {
 		  , Percent = "%"
 		},
 		Log = {
-			ResetConfig = "Configuration was resetted."
+			ResetConfig = "Configuration was reset."
 		  , ResetAveragePrice = "Average price reset."
 		  , CallLoadSetting = "[Me.LoadSetting] was called"
 		  , CallSaveSetting = "[Me.SaveSetting] was called"
@@ -405,7 +405,7 @@ local Toukibi = {
 			},
 			Command = {
 				ExecuteCommands = "Command '{#333366}%s{/}' was called."
-			  , ResetSettings = "Settings reseted."
+			  , ResetSettings = "Settings reset."
 			  , InvalidCommand = "Invalid command called."
 			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 				},
