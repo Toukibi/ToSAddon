@@ -398,16 +398,16 @@ local Toukibi = {
 				InitMsg = "[Add-ons]" .. addonName .. verText .. " loaded!"
 			  , NoSaveFileName = "The filename of save settings is not specified."
 			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
-			  , CompleteSaveSettings = "Saving settings completed."
+			  , CompleteSaveSettings = "Settings saved."
 			  , ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
-			  , CompleteLoadDefault = "An error occurred while loading the default settings."
-			  , CompleteLoadSettings = "Loading settings completed."
+			  , CompleteLoadDefault = "Default settings loaded."
+			  , CompleteLoadSettings = "Settings loaded!"
 			},
 			Command = {
-				ExecuteCommands = "Command '{#333366}%s{/}' was called"
-			  , ResetSettings = "The setting was reset."
-			  , InvalidCommand = "Invalid command called"
-			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list"
+				ExecuteCommands = "Command '{#333366}%s{/}' was called."
+			  , ResetSettings = "Settings reseted."
+			  , InvalidCommand = "Invalid command called."
+			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 				},
 			Help = {
 				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
