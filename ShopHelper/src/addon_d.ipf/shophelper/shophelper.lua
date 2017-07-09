@@ -4,7 +4,7 @@ local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/sh", "/shophelper", "/shelper", "/ShopHelper"};
 local CommandParamList = {
-	reset = {jp = "価格の平均値設定をリセット", en = "Reset the paramaters of price average settings.", kr = "가격의 평균값 설정을 초기화"}
+	reset = {jp = "価格の平均値設定をリセット", en = "Reset the paramaters of average price settings.", kr = "가격의 평균값 설정을 초기화"}
   , resetall = {jp = "すべての設定をリセット", en = "Reset all settings.", kr = "모든 설정을 초기화"}
   , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)", kr = "일본어 모드로 전환하십시오.(Japanese Mode)"}
   , en = {jp = "Switch to English mode.", en = "Switch to English mode.", kr = "Switch to English mode."}
@@ -160,7 +160,7 @@ local ResText = {
 			Title = "{#006666}==== %s ===={/}"
 		  , Favorite = "It's my Favorite!!"
 		  , AsNormal = "As normal."
-		  , Hate = "I do not want to use."
+		  , Hate = "I don't want to use."
 		  , NeverShow = "Never show it!!"
 		  , LikeYou = "Like!"
 		  , Close = "Close"
@@ -179,7 +179,7 @@ local ResText = {
 		  , AtCost = "At cost price"
 		  , NearCost = "Near cost price"
 		  , GoodValue = "Good value"
-		  , WithinAverage = "Within Average price range"
+		  , WithinAverage = "Within average price range"
 		  , ALittleExpensive = "Isn't a little expensive?"
 		  , Expensive = "Expensive!"
 		  , RipOff = "Rip-off!"
@@ -193,7 +193,7 @@ local ResText = {
 		},
 		Log = {
 			ResetConfig = "Configuration was resetted."
-		  , ResetAveragePrice = "Average Price Reset."
+		  , ResetAveragePrice = "Average price reset."
 		  , CallLoadSetting = "[Me.LoadSetting] was called"
 		  , CallSaveSetting = "[Me.SaveSetting] was called"
 		  , UseDefaultSetting = "Since [Me.Setting] does not exist, use the default settings."
@@ -203,13 +203,13 @@ local ResText = {
 		  , BuySomething = "Received %s's %s in %ss."
 		  , UpdateAveragePrice = "The average price of %s has been updated to %s"
 		  , IsSuburbMsg = "The payment amount is %ss, but since it is a suburb, minus a suburban charge of %ss. So, recorded at the amount of %ss."
-		  , IsBelowCostMsg = "As this price is broken down, Recorded the cost in the average value transition."
+		  , IsBelowCostMsg = "As this price is broken down, recorded the cost in the average value transition."
 		  , IsFartherValueMsg = "Since this price is too far from the average, price average unaltered."
 		  , SaveAsFartherLimitValue = "Since this price is too far from the average, records the threshold values of the limit (% ss)."
 		  , IsShorterInterval = "Since only %d seconds have elapsed, price average unaltered. (Standby time setting: %d seconds)"
 		  , LoadTextResource = "Reading of character information is completed."
-		  , MsgAlreadyBuffed = 'Buff "%s" is already brought.{nl}Purchase was canceled.'
-		  , InitMsg = 'With command "/sh", you can display Options.'
+		  , MsgAlreadyBuffed = 'Buff "%s" already applied.{nl}Purchase was canceled.'
+		  , InitMsg = 'With command "/sh", you can display options.'
 		},
 		Option = {
 			Zone = {
@@ -231,7 +231,7 @@ local ResText = {
 		  , ShowMessageLog = "Enable log display to chat log"
 		  , ShowMsgBoxOnBuffShop = "Disable confirmation messages when buying buffs"
 		  , AddInfoToBaloon = "Enable Additional draws to the sign board"
-		  , EnableBaloonRightClick = "Enable right-click-menus of sign board"
+		  , EnableBaloonRightClick = "Enable right-click menus of sign board"
 		  , EnableHideNames = "Hide the player name while holding down the Alt key"
 		  , UpdateAverage = "Update the average price"
 		  , AverageWeight = "The weight of the moving average"
@@ -247,7 +247,7 @@ local ResText = {
 		BtnText = {
 			lblBuy = "{@st41}Buy{/}"
 		  , lblOngoing = "{@st41}{#FFAA33}Already Buffed{/}{/}"
-		  , lblWarning = "{@st41}{#FF3333}Not regret?{/}{/}"
+		  , lblWarning = "{@st41}{#FF3333}Are you sure?{/}{/}"
 		  , lblSelectByDur = "Select by durability value"
 		},
 		WarnMsg = {
@@ -399,7 +399,7 @@ local Toukibi = {
 			  , NoSaveFileName = "The filename of save settings is not specified."
 			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
 			  , CompleteSaveSettings = "Saving settings completed."
-			  , ErrorToUseDefaults = "Change to use default setting because of an error occurred while loading the settings."
+			  , ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
 			  , CompleteLoadDefault = "An error occurred while loading the default settings."
 			  , CompleteLoadSettings = "Loading settings completed."
 			},
@@ -407,14 +407,14 @@ local Toukibi = {
 				ExecuteCommands = "Command '{#333366}%s{/}' was called"
 			  , ResetSettings = "The setting was reset."
 			  , InvalidCommand = "Invalid command called"
-			  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
+			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list"
 				},
 			Help = {
 				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
 			  , Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName)
 			  , ParamDummy = "[paramaters]"
 			  , OrText = "or"
-			  , EnableTitle = "Available commands"
+			  , EnableTitle = "Commands available"
 			}
 		},
 		kr = {
@@ -547,7 +547,7 @@ local Toukibi = {
 	ChangeLanguage = function(self, Lang)
 		local msg;
 		if self.CommonResText[Lang] == nil then
-			msg = string.format("Sorry, '%s' does not implement '%s' mode.{nl}Language mode has not been changed from '%s'.", 
+			msg = string.format("Sorry, '%s' doesn't have implemented '%s' mode yet.{nl}Language mode has not been changed from '%s'.", 
 								addonName, Lang, Me.Settings.Lang);
 			self:AddLog(msg, "Warning", true, false)
 			return;
