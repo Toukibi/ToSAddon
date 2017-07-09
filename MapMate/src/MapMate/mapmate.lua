@@ -130,12 +130,12 @@ local ResText = {
 		  , DisplaySec = "Show Sec.(Local time only)"
 		},
 		System = {
-			ErrorToUseDefaults = "Since an error occurred in setting loading, switch to the default setting."
-		  , CompleteLoadDefault = "Default settings was loaded."
+			ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
+		  , CompleteLoadDefault = "Default settings loaded."
 		  , CompleteLoadSettings = "Settings loaded!"
-		  , ExecuteCommands = "Command '{#333366}%s{/}' was called"
-		  , ResetSettings = "Setting reseted."
-		  , InvalidCommand = "Invalid command called"
+		  , ExecuteCommands = "Command '{#333366}%s{/}' was called."
+		  , ResetSettings = "Settings resetted."
+		  , InvalidCommand = "Invalid command called."
 		  , AnnounceCommandList = "Please use [ %s ? ] to see the command list"
 		},
 		MapInfo = {
@@ -215,15 +215,15 @@ local Toukibi = {
 				InitMsg = "[Add-ons]" .. addonName .. verText .. " loaded!"
 			  , NoSaveFileName = "Save settings filename is not specified."
 			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
-			  , CompleteSaveSettings = "Saving settings completed."
-			  , ErrorToUseDefaults = "Change to use default setting because of an error occurred while loading the settings."
-			  , CompleteLoadDefault = "An error occurred while loading the default settings."
-			  , CompleteLoadSettings = "Loading settings completed."
+			  , CompleteSaveSettings = "Settings saved."
+			  , ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
+			  , CompleteLoadDefault = "Default settings loaded."
+			  , CompleteLoadSettings = "Settings loaded!"
 			},
 			Command = {
 				ExecuteCommands = "Command '{#333366}%s{/}' was called"
-			  , ResetSettings = "Setting have been reset."
-			  , InvalidCommand = "Invalid command called"
+			  , ResetSettings = "Settings have been reset."
+			  , InvalidCommand = "Invalid command called."
 			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list"
 				},
 			Help = {
