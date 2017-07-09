@@ -95,7 +95,7 @@ local ResText = {
 		  , CompleteLoadDefault = "Default settings loaded."
 		  , CompleteLoadSettings = "Settings loaded!"
 		  , ExecuteCommands = "Command '{#333366}%s{/}' was called."
-		  , ResetSettings = "Settings reseted."
+		  , ResetSettings = "Settings reset."
 		  , InvalidCommand = "Invalid command called."
 		  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 		},
