@@ -91,8 +91,8 @@ local ResText = {
 		  , Close = "Close"
 		},
 		System = {
-			ErrorToUseDefaults = "Since an error occurred in settings loading, default settings will be loaded."
-		  , CompleteLoadDefault = "Default settings have been loaded."
+			ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
+		  , CompleteLoadDefault = "Default settings loaded."
 		  , CompleteLoadSettings = "Settings loaded!"
 		  , ExecuteCommands = "Command '{#333366}%s{/}' was called."
 		  , ResetSettings = "Settings reseted."
@@ -177,15 +177,15 @@ local Toukibi = {
 			  , NoSaveFileName = "The filename of save settings is not specified."
 			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
 			  , CompleteSaveSettings = "Settings saved."
-			  , ErrorToUseDefaults = "Changed to default settings because an error occurred while loading the settings."
-			  , CompleteLoadDefault = "An error occurred while loading the default settings."
+			  , ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
+			  , CompleteLoadDefault = "Default settings loaded."
 			  , CompleteLoadSettings = "Settings loaded."
 			},
 			Command = {
-				ExecuteCommands = "Command '{#333366}%s{/}' was called"
-			  , ResetSettings = "Settings was reset."
-			  , InvalidCommand = "Invalid command called"
-			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list"
+				ExecuteCommands = "Command '{#333366}%s{/}' was called."
+			  , ResetSettings = "Settings have been reset."
+			  , InvalidCommand = "Invalid command called."
+			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 				},
 			Help = {
 				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
