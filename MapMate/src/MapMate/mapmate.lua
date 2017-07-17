@@ -4,7 +4,7 @@ local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
 local CommandParamList = {
-	reset = {jp = "設定リセット", en = "Reset the all settings."},
+	reset = {jp = "設定リセット", en = "Reset all settings."},
 	update = {jp = "表示を更新", en = "The additional information displayed will be updated."}
 };
 local SettingFileName = "setting.json"
@@ -112,6 +112,7 @@ local ResText = {
 		  , NoAutoUpdate = "Never"
 		  , ManuallyUpdate = "Click on{img minimap_0_old 20 20}to update manually"
 		  , ContinuousUpdatePrevention = "Wait for 5sec. after updating"
+		  , ShowMapNameOutside = "Show map info outside minimap"
 		  , Close = "Close"
 		},
 		ClockMenu = {
@@ -129,27 +130,27 @@ local ResText = {
 		  , DisplaySec = "Show Sec.(Local time only)"
 		},
 		System = {
-			ErrorToUseDefaults = "Since an error occurred in setting loading, switch to the default setting."
-		  , CompleteLoadDefault = "Loading of default settings has been completed."
-		  , CompleteLoadSettings = "Loading of setting is completed"
-		  , ExecuteCommands = "Command '{#333366}%s{/}' was called"
-		  , ResetSettings = "The setting was reset."
-		  , InvalidCommand = "Invalid command called"
-		  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
+			ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
+		  , CompleteLoadDefault = "Default settings loaded."
+		  , CompleteLoadSettings = "Settings loaded!"
+		  , ExecuteCommands = "Command '{#333366}%s{/}' was called."
+		  , ResetSettings = "Settings resetted."
+		  , InvalidCommand = "Invalid command called."
+		  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 		},
 		MapInfo = {
-			Title = "Infomation of "
-		  , ExplorationProgress = "Progress of exploration"
+			Title = "Information of "
+		  , ExplorationProgress = "Exploration progress"
 		  , CardLv = "Card Level"
 		  , MaxHate = "Aggro Limit"
 		  , TBox = "Treasure Box"
 		  , ListTitleFormat = "{#66FF66}%s{/}{s24} {/}"
-		  , List_NoMeetStatue = "List of statues that have not yet met"
-		  , List_NoMeetNPC = "List of NPCs that have not met yet"
-		  , List_ClosedTBox = "List of treasure boxes that is not open yet"
+		  , List_NoMeetStatue = "List of statues not yet met"
+		  , List_NoMeetNPC = "List of NPCs not met yet"
+		  , List_ClosedTBox = "List of treasure boxes"
 		  , List_Mob = "Monster List"
 		  , List_Quest = "List of remaining quests"
-		  , List_Collection = "List of collection item"
+		  , List_Collection = "List of collection items:"
 		  , MobInfoFormat = "{nl}{s20}    {/}%s : %s"
 		  , RespawnTimeFormat = "{s16}{#333333}Respawn Time:{/}{#66AA33}{b}%s{/} {/}{#333333}%s{/}{/}"
 		  , Respawn_WholeArea = "(Whole Area)"
@@ -164,16 +165,16 @@ local ResText = {
 		  , Other = "Other items(%s)"
 		},
 		GetConnectionNumber = {
-			Title = "Number of people"
-		  , Failed = "Failed to get the number of people"
-		  , Cannot = "Here is a map that cannot get the number of people"
+			Title = "Current players"
+		  , Failed = "Failed to get players amount"
+		  , Cannot = "Unable to get players amount in this map"
 		  , Closed = "This channel is closed"
 		  , StateClosed = "Closed"
 		},
 		Other = {
 			PercentChar = "%"
 		  , Opened = "Opened"
-		  , Registed = "Registed"
+		  , Registed = "Registered"
 		  , Hour = "Hour"
 		  , Minutes = "Min."
 		  , Seconds = "Sec."
@@ -212,25 +213,25 @@ local Toukibi = {
 		en = {
 			System = {
 				InitMsg = "[Add-ons]" .. addonName .. verText .. " loaded!"
-			  , NoSaveFileName = "The filename of save settings is not specified."
+			  , NoSaveFileName = "Save settings filename is not specified."
 			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
-			  , CompleteSaveSettings = "Saving settings completed."
-			  , ErrorToUseDefaults = "Change to use default setting because of an error occurred while loading the settings."
-			  , CompleteLoadDefault = "An error occurred while loading the default settings."
-			  , CompleteLoadSettings = "Loading settings completed."
+			  , CompleteSaveSettings = "Settings saved."
+			  , ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
+			  , CompleteLoadDefault = "Default settings loaded."
+			  , CompleteLoadSettings = "Settings loaded!"
 			},
 			Command = {
 				ExecuteCommands = "Command '{#333366}%s{/}' was called"
-			  , ResetSettings = "The setting was reset."
-			  , InvalidCommand = "Invalid command called"
-			  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
+			  , ResetSettings = "Settings have been reset."
+			  , InvalidCommand = "Invalid command called."
+			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
 				},
 			Help = {
 				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
 			  , Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName)
 			  , ParamDummy = "[paramaters]"
 			  , OrText = "or"
-			  , EnableTitle = "Available commands"
+			  , EnableTitle = "Commands available"
 			}
 		},
 		kr = {
@@ -363,7 +364,7 @@ local Toukibi = {
 	ChangeLanguage = function(self, Lang)
 		local msg;
 		if self.CommonResText[Lang] == nil then
-			msg = string.format("Sorry, '%s' does not implement '%s' mode.{nl}Language mode has not been changed from '%s'.", 
+			msg = string.format("Sorry, '%s' haven't implemented '%s' mode yet.{nl}Language mode has not been changed from '%s'.", 
 								addonName, Lang, Me.Settings.Lang);
 			self:AddLog(msg, "Warning", true, false)
 			return;

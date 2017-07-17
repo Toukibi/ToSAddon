@@ -1,0 +1,19 @@
+reset = {jp = "設定リセット", en = "Reset all settings."},
+ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
+CompleteLoadDefault = "Default settings loaded." - Is this supposed to be an error msg?
+CompleteLoadSettings = "Settings loaded!"
+ExecuteCommands = "Command '{#333366}%s{/}' was called."
+ResetSettings = "Settings reset."
+InvalidCommand = "Invalid command called."
+AnnounceCommandList = "Please use [ %s ? ] to see the command list."
+NoSaveFileName = "Save settings filename is not specified."
+HasErrorOnSaveSettings = "An error occurred while saving the settings."
+CompleteSaveSettings = "Settings saved."
+ResetSettings = "Settings have been reset."
+Title = string.format("{#333333}Help for %s commands.{/}", addonName)
+Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName)
+ParamDummy = "[paramaters]"
+OrText = "or"
+EnableTitle = "Commands available"
+msg = string.format("Sorry, '%s' haven't implemented '%s' mode yet.{nl}Language mode has not been changed from '%s'."
+msg = string.format("Language mode has been changed to '%s'.", Lang);
