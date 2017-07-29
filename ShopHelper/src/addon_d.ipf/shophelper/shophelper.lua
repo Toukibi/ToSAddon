@@ -595,10 +595,10 @@ local Toukibi = {
 			return "jp";
 		elseif option.GetCurrentCountry() == "Korean" then
 			return "kr";
-		elseif option.GetCurrentCountry() == "English" then
-			return "en";
-		else
+		elseif option.GetCurrentCountry() == "Portuguese" then
 			return "br";
+		else
+			return "en";
 		end
 	end,
 
