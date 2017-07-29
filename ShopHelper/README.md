@@ -2,8 +2,7 @@
 
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
 
-Description of [English Version is Here](#description-of-english-version).  
-**Notice**: This add-on is **under construction**. So, This add-on does not implement English display mode yet.  
+Scroll down for [English Version](#description-of-english-version) description.
 
 ---
 ## Description of Japanese Version 
@@ -11,47 +10,78 @@ Description of [English Version is Here](#description-of-english-version).
 街などで開かれている露店の価格が高いか安いかをコメントしてくれます。  
 ![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/repair_jp.png?raw=true "Image of stall of item repair")
 ![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/buff_jp.png?raw=true "Image of stall of buff")
+![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true "Image of option screen")
 
-#### 1.できること
+#### できること
 * 原価を表示し、原価との比較結果を表示
 * 平均値との比較(まだ実装していないため、作者の独断と偏見の平均値が入っています)
 * 高いか安いかを一言メモと色で知らせます
 * 異常に高い値段には警告マークを付与します
+* 平均値は移動平均を使用することができます
+* Altキーを押している間だけプレイヤーを非表示にします
+* 気に入った露店にはマークを、気に入らない露店は非表示にできます
+* 気に入った露店に「いいね」が簡単にできます
 
+#### 使用可能なコマンド一覧
+基本のコマンドは **`/sh`** または **`/shophelper`** です  
 
+|コマンド|効果|
+|---|---|
+|/sh|設定画面を開く|
+|/sh reset|平均値をリセット|
+|/sh resetall|平均値と設定をリセット|
+|/sh jp|日本語に切り替え|
+|/sh en|英語に切り替え|
+|/sh kr|韓国語に切り替え|
+|/sh br|ポルトガル語に切り替え|
+|/sh xx|xx に英語2文字を入れる<br>その言語に切り替え|
+|/sh ?|チャットログにヘルプを表示|
 
-#### 2.導入方法？
-まだ作成中のためアドオンマネージャには登録していません。  
-ipfフォルダー内にあるファイルをダウンロードし、各自で配置してください。
+**英語と日本語以外を使うには**：  
+他の言語モードを使えるようにするには、該当する言語のテキストリソースをプログラムソースに追記する必要があります。
 
-#### 3.余力があったら...
-* 移動平均を求めて評価させます (実装中)
-* Altキーを押している間だけプレイヤーを非表示にします (技術調査中)
-* 「いいね」/「ブロック」をした人の露店看板を細工します (実装中)
-* 他の露店の種類にも同様なコメントを掲載します (技術調査中)
+#### 導入方法
+このアドオンは、アドオンマネージャJPに登録しています。  
+アドオンマネージャJPを用いて導入してください  
 
 ---
 ## Description of English Version 
 #### What is this?
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
-Sorry. I cannot prepare the English version images yet.
-#### What can this be?
+![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/repair_en.jpg?raw=true "Image of stall of item repair")
+![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/buff_en.jpg?raw=true "Image of stall of buff")
+![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_en2.jpg?raw=true "Image of option screen")
+
+#### Features.
 * Display cost of shop items and display comparison result with cost
-* Comparison with average value (Since it has not yet been implemented, this version compare it with the average of author's experience and intuition.)
+* Comparison with average value.
 * Tell you whether it is expensive or cheap by colord text.
-* Give a warning mark to abnormally high prices such as fraud stalls.
+* You add marks to your favorite stalls and you can hide the signboards that you do not like.
+![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/signboards_en.png?raw=true "Image of signboard")
+* You can easily "like you" to your favorite stalls.  
+![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/contextmenu_en.jpg?raw=true "Image of right-click menu")
+* Give a warning mark to abnormally high prices such as fraud stalls.  
+![alt text](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ripoff_en.png?raw=true "Image of warning for rip-off")
+* Average price can use moving average.
+* While holding down the Alt key, you can hide the names of other characters. (useful when choosing NPC in crowded)
 
+#### Installation Instructions.
+Install via the Addon Manager. Leave bug reports and other issues on my Github page.
 
+#### Settings.
+Settings can be accessed by Slash Command **`/sh`**, and via these Slash Commands.
 
-#### How to install？
-Sorry, this add-on is under construction. So, I still not regist this add-on to the add-on manager.  
-Please download the files in the [ipf] folder and place them yourself.
+|Paramater|What happens result|
+|---|---|
+|/sh|Display options|
+|/sh reset|Reset the average price settings.|
+|/sh resetall|Reset the all settings.|
+|/sh jp|Switch to Japanese mode.|
+|/sh en|Switch to English mode.|
+|/sh kr|Switch to Korean mode.|
+|/sh br|Switch to Portuguese mode.|
+|/sh xx|Insert two English letters in xx<br>(ccTLD or language code recommended)<br>Switch to Other Language mode.|
+|/sh ?|Display the help-text to chat-log.|
 
-#### If there is more time, motivation, willpower, and so on ...
-Under mounting
-* Evaluate by moving average
-* In the case that the stall's vender was a "like" / "block" person,it add a mark to the signboard.
-
-Under investigation
-* Hide the player only while pressing the Alt key.
-* Similar comments will be posted to other stalls types.
+<span style="color:red;">**In order to use language other than English and Japanese**</span>:  
+In order to use **Other Language** mode, you need to **add a text resource to the program source**.

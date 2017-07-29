@@ -9,7 +9,7 @@
 	<sound opensound="sys_popup_open_1" closesound="character_item_window_close"/>
 	<script OpenScp="TOUKIBI_SHOPHELPER_OPEN_SETTING" CloseScp="TOUKIBI_SHOPHELPER_CLOSE_SETTING"/>
 	<controls>
-		<groupbox name="pnlMain" rect="0 0 650 710" margin="0 30 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" savescroll="true" scrollbar="false" skin="test_frame_low"/>
+		<groupbox name="pnlMain" rect="0 0 650 710" margin="0 30 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" savescroll="true" scrollbar="true" skin="test_frame_low"/>
 		<groupbox name="pipwin_top" rect="0 0 650 60" margin="0 0 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false" skin="test_frame_top"/>
 		<richtext name="title" rect="0 0 200 80" margin="0 16 0 0" layout_gravity="center top" caption="{@st43}Shop Helperの設定{/}" textalign="left top" hittest="false"/>
 		<button name="close" rect="0 0 44 44" margin="0 19 28 0" layout_gravity="right top" image="testclose_button"
@@ -17,36 +17,40 @@
 		clicksound="button_click_big" oversound="button_over" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover"/>
 
 		<tab name="ShopHelperSettingTab" parent="pnlMain" rect="0 0 600 40" layout_gravity="left top" LBtnDownScp="TOUKIBI_SHOPHELPER_TAB_LMOUSEDOWN" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" clicksound="inven_arrange" fixwidth="false" itemspc="0" oversound="button_cursor_over_2" skin="tab2" margin="20 35 0 0"/>
-		<tabitem name="TabPage1" parent="ShopHelperSettingTab" caption="{@st66b}基本設定{/}" width="180" layout_gravity="left top"/>
-		<tabitem name="TabPage2" parent="ShopHelperSettingTab" caption="{@st66b}平均価格設定{/}" width="180" layout_gravity="left top"/>
+		<tabitem name="TabPage1" parent="ShopHelperSettingTab" caption="{@st66b}基本設定{/}" width="120" layout_gravity="left top"/>
+		<tabitem name="TabPage2" parent="ShopHelperSettingTab" caption="{@st66b}平均価格設定{/}" width="120" layout_gravity="left top"/>
+		<tabitem name="TabPage3" parent="ShopHelperSettingTab" caption="{@st66b}Language(言語){/}" width="120" layout_gravity="left top"/>
 
-		<groupbox name="pnlLang" parent="pnlMain" rect="0 0 640 65" margin="0 80 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="true" scrollbar="false"/>
+		<groupbox name="pnlLang" parent="pnlMain" rect="0 0 640 540" margin="0 80 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
 		<richtext name="lang_title" parent="pnlLang" rect="0 0 120 24" margin="20 0 0 0" layout_gravity="left top" caption="{@st43}Language (言語){/}"/>
-		<radiobutton name="lang_jp" parent="pnlLang" rect="0 0 200 24" margin="40 35 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}Japanese(日本語){/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
-		<radiobutton name="lang_en" parent="pnlLang" rect="0 0 200 24" margin="250 35 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}English{/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
-		<radiobutton name="lang_kr" parent="pnlLang" rect="0 0 200 24" margin="400 35 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}Korean(한국어){/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+		<radiobutton name="lang_jp" parent="pnlLang" rect="0 0 200 24" margin="40 40 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}Japanese(日本語){/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+		<radiobutton name="lang_en" parent="pnlLang" rect="0 0 200 24" margin="40 75 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}English{/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+		<radiobutton name="lang_kr" parent="pnlLang" rect="0 0 200 24" margin="40 110 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}Korean(한국어){/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+		<radiobutton name="lang_br" parent="pnlLang" rect="0 0 200 24" margin="40 145 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_SHOPHELPER_CHANGE_LANGMODE" caption="{@st66b}Português{/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+		<richtext name="lang_thanks" parent="pnlLang" rect="0 0 540 80" margin="0 0 40 20" layout_gravity="right bottom" textalign="left bottom" hittest="false" caption="{@st66b}Special thanks for better translation.{nl}{s9} {nl}{/}    Questionguy663{nl}    xZeroW{/}"/>
 
-		<groupbox name="pnlOption" parent="pnlMain" rect="0 0 640 420" margin="0 145 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="true" scrollbar="false"/>
+		<groupbox name="pnlOption" parent="pnlMain" rect="0 0 640 540" margin="0 80 0 0" layout_gravity="center top" draw="false" hittestbox="true" resizebyparent="false" resizebyresolution="false" scrollbar="true"/>
 		<richtext name="option_title" parent="pnlOption" rect="0 0 120 24" margin="20 0 0 0" layout_gravity="left top" caption="{@st43}動作設定{/}"/>
 		<checkbox name="ShowMessageLog" parent="pnlOption" rect="0 0 120 30" margin="40 40 0 0" layout_gravity="left top" ConfigName="ShowMessageLog" caption="{@st66b}ログを表示する{/}" clicksound="button_click_big" oversound="button_over"/>
 		<checkbox name="ShowMsgBoxOnBuffShop" parent="pnlOption" rect="0 0 120 30" margin="40 70 0 0" layout_gravity="left top" ConfigName="ShowMsgBoxOnBuffShop" caption="{@st66b}バフ購入時の確認メッセージをスキップする{/}" clicksound="button_click_big" oversound="button_over"/>
 		<checkbox name="AddInfoToBaloon" parent="pnlOption" rect="0 0 120 30" margin="40 100 0 0" layout_gravity="left top" ConfigName="AddInfoToBaloon" caption="{@st66b}露店の看板に追記する{/}" clicksound="button_click_big" oversound="button_over"/>
 		<checkbox name="EnableBaloonRightClick" parent="pnlOption" rect="0 0 120 30" margin="40 130 0 0" layout_gravity="left top" ConfigName="EnableBaloonRightClick" caption="{@st66b}露店の看板の右クリックを有効にする{/}" clicksound="button_click_big" oversound="button_over"/>
 		<checkbox name="EnableHideNames" parent="pnlOption" rect="0 0 120 30" margin="40 160 0 0" layout_gravity="left top" ConfigName="EnableHideNames" caption="{@st66b}Altキーを押している間プレイヤー名を表示しない{/}" clicksound="button_click_big" oversound="button_over"/>
+		<richtext name="AlreadyBuffed_title" parent="pnlOption" rect="0 0 120 24" margin="40 200 0 0" layout_gravity="left top" caption="{@st66b}バフ購入時にバフが残っていた場合の処理{/}"/>
+		<radiobutton name="AlreadyBuffed_Abort" parent="pnlOption" rect="0 0 500 24" margin="100 225 0 0" layout_gravity="left top" caption="{@st66b}購入を中止する{/}" clicksound="button_click_big" group="AlreadyBuffed" oversound="button_over"/>
+		<radiobutton name="AlreadyBuffed_Refresh" parent="pnlOption" rect="0 0 500 24" margin="100 250 0 0" layout_gravity="left top" caption="{@st66b}現在のバフを解除して更新する{/}" clicksound="button_click_big" group="AlreadyBuffed" oversound="button_over"/>
+		<radiobutton name="AlreadyBuffed_None" parent="pnlOption" rect="0 0 500 24" margin="100 275 0 0" layout_gravity="left top" caption="{@st66b}何もしない{/}" clicksound="button_click_big" group="AlreadyBuffed" oversound="button_over"/>
 
-		<checkbox name="UpdateAverage" parent="pnlOption" rect="0 0 120 30" margin="40 190 0 0" layout_gravity="left top" ConfigName="UpdateAverage" caption="{@st66b}平均値を更新する{/}" clicksound="button_click_big" oversound="button_over"/>	
-		<richtext name="AverageNCount_text" parent="pnlOption" rect="0 0 120 24" margin="100 226 0 0" layout_gravity="left top" format="{@st66b}%s：(%s%s1){/}" param1="opCaption" param2="opValue" param3="opUnit"/>
-		<richtext name="RecalcInterval_text" parent="pnlOption" rect="0 0 120 24" margin="100 276 0 0" layout_gravity="left top" format="{@st66b}%s：(%s%s){/}" param1="opCaption" param2="opValue" param3="opUnit"/>
-		<slidebar name="AverageNCount" parent="pnlOption" rect="0 0 300 20" margin="100 245 0 0" layout_gravity="left top" SlideScp="TOUKIBI_SHOPHELPER_SLIDER_CHANGED" clicksound="button_click_big_2" maxlevel="20" minlevel="1" oversound="button_over" skin="slidebar"/>
-		<slidebar name="RecalcInterval" parent="pnlOption" rect="0 0 300 20" margin="100 295 0 0" layout_gravity="left top" SlideScp="TOUKIBI_SHOPHELPER_SLIDER_CHANGED" clicksound="button_click_big_2" maxlevel="12" minlevel="1" oversound="button_over" skin="slidebar"/>
-		<richtext name="FartherValue_title" parent="pnlOption" rect="0 0 120 24" margin="70 330 0 0" layout_gravity="left top" caption="{@st66b}平均値から遠い露店価格の扱い{/}"/>
-		<radiobutton name="FartherValue_None" parent="pnlOption" rect="0 0 500 24" margin="100 355 0 0" layout_gravity="left top" caption="{@st66b}そのままの価格を記録する{/}" clicksound="button_click_big" group="FartherValue" oversound="button_over"/>
-		<radiobutton name="FartherValue_Limit" parent="pnlOption" rect="0 0 500 24" margin="100 380 0 0" layout_gravity="left top" caption="{@st66b}離れ値の上下限の価格を記録する{/}" clicksound="button_click_big" group="FartherValue" oversound="button_over"/>
-		<radiobutton name="FartherValue_Ignore" parent="pnlOption" rect="0 0 500 24" margin="100 405 0 0" layout_gravity="left top" caption="{@st66b}記録しない{/}" clicksound="button_click_big" group="FartherValue" oversound="button_over"/>
-
-
-
-		<checkbox name="SaveAsCostIfBelow" parent="pnlOption" rect="0 0 120 30" margin="70 430 0 0" layout_gravity="left top" ConfigName="NoUpdateIfFarther" caption="{@st66b}原価割れしている場合は原価を記録する{/}" clicksound="button_click_big" oversound="button_over"/>	
+		<checkbox name="UpdateAverage" parent="pnlOption" rect="0 0 120 30" margin="40 310 0 0" layout_gravity="left top" ConfigName="UpdateAverage" caption="{@st66b}平均値を更新する{/}" clicksound="button_click_big" oversound="button_over"/>	
+		<richtext name="AverageNCount_text" parent="pnlOption" rect="0 0 120 24" margin="100 346 0 0" layout_gravity="left top" format="{@st66b}%s : (%s%s1){/}" param1="opCaption" param2="opValue" param3="opUnit"/>
+		<richtext name="RecalcInterval_text" parent="pnlOption" rect="0 0 120 24" margin="100 396 0 0" layout_gravity="left top" format="{@st66b}%s : (%s%s){/}" param1="opCaption" param2="opValue" param3="opUnit"/>
+		<slidebar name="AverageNCount" parent="pnlOption" rect="0 0 300 20" margin="100 365 0 0" layout_gravity="left top" SlideScp="TOUKIBI_SHOPHELPER_SLIDER_CHANGED" clicksound="button_click_big_2" maxlevel="20" minlevel="1" oversound="button_over" skin="slidebar"/>
+		<slidebar name="RecalcInterval" parent="pnlOption" rect="0 0 300 20" margin="100 415 0 0" layout_gravity="left top" SlideScp="TOUKIBI_SHOPHELPER_SLIDER_CHANGED" clicksound="button_click_big_2" maxlevel="12" minlevel="1" oversound="button_over" skin="slidebar"/>
+		<richtext name="FartherValue_title" parent="pnlOption" rect="0 0 120 24" margin="70 450 0 0" layout_gravity="left top" caption="{@st66b}平均値から遠い露店価格の扱い{/}"/>
+		<radiobutton name="FartherValue_None" parent="pnlOption" rect="0 0 500 24" margin="100 475 0 0" layout_gravity="left top" caption="{@st66b}そのままの価格を記録する{/}" clicksound="button_click_big" group="FartherValue" oversound="button_over"/>
+		<radiobutton name="FartherValue_Limit" parent="pnlOption" rect="0 0 500 24" margin="100 500 0 0" layout_gravity="left top" caption="{@st66b}離れ値の上下限の価格を記録する{/}" clicksound="button_click_big" group="FartherValue" oversound="button_over"/>
+		<radiobutton name="FartherValue_Ignore" parent="pnlOption" rect="0 0 500 24" margin="100 525 0 0" layout_gravity="left top" caption="{@st66b}記録しない{/}" clicksound="button_click_big" group="FartherValue" oversound="button_over"/>
+		<checkbox name="SaveAsCostIfBelow" parent="pnlOption" rect="0 0 120 30" margin="70 550 0 0" layout_gravity="left top" ConfigName="NoUpdateIfFarther" caption="{@st66b}原価割れしている場合は原価を記録する{/}" clicksound="button_click_big" oversound="button_over"/>	
 
 		<groupbox name="pnlPrice" parent="pnlMain" rect="0 0 640 540" margin="-5 80 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" savescroll="true" scrollbar="true" skin="pipwin_low"/>
 		<!--コードによりここへ価格設定コントロールが入ります-->

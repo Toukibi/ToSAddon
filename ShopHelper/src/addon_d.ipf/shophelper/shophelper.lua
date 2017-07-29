@@ -1,14 +1,15 @@
 local addonName = "ShopHelper";
-local verText = "0.82";
+local verText = "0.83";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/sh", "/shophelper", "/shelper", "/ShopHelper"};
 local CommandParamList = {
 	reset = {jp = "価格の平均値設定をリセット", en = "Reset the paramaters of average price settings.", kr = "가격의 평균값 설정을 초기화"}
   , resetall = {jp = "すべての設定をリセット", en = "Reset all settings.", kr = "모든 설정을 초기화"}
-  , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)", kr = "일본어 모드로 전환하십시오.(Japanese Mode)"}
-  , en = {jp = "Switch to English mode.", en = "Switch to English mode.", kr = "Switch to English mode."}
-  , kr = {jp = "韓国語モードに切り替え (한국어로)", en = "Switch to Korean mode.(한국어로)", kr = "한국어 모드로 변경"};
+  , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)", kr = "일본어 모드로 전환하십시오.(Japanese Mode)", br = "Trocar para japonês(Japanese Mode)"}
+  , en = {jp = "英語モードに切り替え(Switch to English mode.)", en = "Switch to English mode.", kr = "Switch to English mode.", br = "Switch to English mode.(Trocar para Inglês)"}
+  , kr = {jp = "韓国語モードに切り替え (한국어로)", en = "Switch to Korean mode.(한국어로)", kr = "한국어 모드로 변경", br = "Trocar para coreano"}
+  , br = {jp = "ポルトガル語モードに切り替え (Trocar para português.)", en = "Switch to Portuguese mode.(Trocar para português.)", kr = "포르투갈어 모드로 전환(Trocar para português.)", br = "Trocar para português."};
 };
 local SettingFileName = "setting.json"
 local FavoriteFileName = "favorite.json"
@@ -79,7 +80,6 @@ local ResText = {
 		  , Expensive = "高いと思います"
 		  , RipOff = "異常に高額!!"
 		  , Empty = "予想外のパターン(バグ)"
-		  , SaveTo = "保存先:"
 		  , PriceRadix = "基数"
 		  , UnknownSkillID = "不明なスキル  (スキルID:[%s])"
 		  , RuralCharge = "郊外割増 +"
@@ -138,6 +138,10 @@ local ResText = {
 		  , FartherValueLimit = "遠すぎると判定する境界値で記録する"
 		  , FartherValueIgnore = "記録しない"
 		  , SaveAsCostIfBelow = "原価割れの場合は原価の値で記録する"
+		  , AlreadyBuffedTitle = "バフ購入時にバフが残っていた場合の処理"
+		  , AlreadyBuffedAbort = "購入を中止する"
+		  , AlreadyBuffedRefresh = "現在のバフを解除して更新する"
+		  , AlreadyBuffedNone = "何もしない"
 		},
 		BtnText = {
 			lblBuy = "{@st41}購入{/}"
@@ -184,7 +188,6 @@ local ResText = {
 		  , Expensive = "Expensive!"
 		  , RipOff = "Rip-off!"
 		  , Empty = "Out of implementation(Bugs?)"
-		  , SaveTo = "Storage destination:"
 		  , PriceRadix = "Radix"
 		  , UnknownSkillID = "Unknown Skill-ID [%s]"
 		  , RuralCharge = "In the suburbs, raise the price"
@@ -243,6 +246,10 @@ local ResText = {
 		  , FartherValueLimit = "Record with boundary value to be judged too far"
 		  , FartherValueIgnore = "Do not record"
 		  , SaveAsCostIfBelow = "In the case of below cost, record it with the value of cost"
+		  , AlreadyBuffedTitle = "If buying buff is ongoing"
+		  , AlreadyBuffedAbort = "Abort buying"
+		  , AlreadyBuffedRefresh = "Release the current buff and update"
+		  , AlreadyBuffedNone = "Perform standard operation"
 		},
 		BtnText = {
 			lblBuy = "{@st41}Buy{/}"
@@ -289,7 +296,6 @@ local ResText = {
 		  , Expensive = "이거 비싼데요"
 		  , RipOff = "완전 비싸!!"
 		  , Empty = "예상외의 패턴(버그)"
-		  , SaveTo = "저장소:"
 		  , PriceRadix = "기수"
 		  , UnknownSkillID = "스킬ID[%s]"
 		  , RuralCharge = "마을밖 할증 +"
@@ -347,6 +353,10 @@ local ResText = {
 		  , FartherValueLimit = nil
 		  , FartherValueIgnore = nil
 		  , SaveAsCostIfBelow = nil
+		  , AlreadyBuffedTitle = "버프 구입시 버프가 남아 있던 경우의 처리"
+		  , AlreadyBuffedAbort = "구매를 중단"
+		  , AlreadyBuffedRefresh = "현재 버프를 해제하고 업데이트"
+		  , AlreadyBuffedNone = "표준 동작을 수행"
 		},
 		BtnText = {
 			lblBuy = "{@st41}구입{/}"
@@ -362,6 +372,114 @@ local ResText = {
 			DurabilityLeft = "다음의 내구도를 밑도는 것만 선택"
 		  , ShowDurGauge = "내구도의 게이지를 표시한다"
 		  , ShowDurValue = "내구도의 수치를 표시한다"
+		}
+	},
+	br = {
+		Menu = {
+			Title = "{#006666}==== %s ===={/}"
+		  , Favorite = "Meu favorito!"
+		  , AsNormal = "Normal."
+		  , Hate = "Odeio."
+		  , NeverShow = "Nunca mostrar."
+		  , LikeYou = "Gostei."
+		  , Close = "Fechar"
+		},
+		ShopName = {
+			SquireBuff = "Loja de reparo de %s"
+		  , GemRoasting = "Loja de polimento de %s"
+		  , AppraisalPC = "Loja de apreciação de %s"
+		  , General = "Loja de %s"
+		},
+		ComDic = {
+			CostPrice = "Custo"
+		  , AveragePrice = "Média"
+		  , CurrentPrice = "Preço atual"
+		  , BelowCost = "Abaixo do custo"
+		  , AtCost = "A preço de custo"
+		  , NearCost = "Próximo do custo"
+		  , GoodValue = "Bom valor"
+		  , WithinAverage = "Na média"
+		  , ALittleExpensive = "Acima da média"
+		  , Expensive = "Caro!"
+		  , RipOff = "Absurdo!"
+		  , Empty = "Não implementado(Bugs?)"
+		  , PriceRadix = "Radix"
+		  , UnknownSkillID = "Unknown Skill-ID [%s]"
+		  , RuralCharge = "No subúrbio, aumente o preço"
+		  , SelectAll = "Selecionar todos"
+		  , Percent = "%"
+		},
+		Log = {
+			ResetConfig = "Configurações redefinidas."
+		  , ResetAveragePrice = "Preços médio redefinidos."
+		  , CallLoadSetting = "[Me.LoadSetting] foi chamado"
+		  , CallSaveSetting = "[Me.SaveSetting] foi chamado"
+		  , UseDefaultSetting = "[Me.Setting] não existe, usando configurações padrão."
+		  , CannotGetSettingFrameHandle = "Falha ao abrir menu de configurações."
+		  , InitializeMe = "ShopHelper add-on inicializado."
+		  , RedrawAllShopBaloon = "Placas de lojas foram atualizadas"
+		  , BuySomething = "Recebeu de %s's %s em %ss."
+		  , UpdateAveragePrice = "O preço médio de %s foi atualizado para %s"
+		  , IsSuburbMsg = "O preço é %ss, já que está no subúrbio, menos a taxa do subúrbio de %ss. Então, valor salvo de %ss."
+		  , IsBelowCostMsg = "Como o preço está abaixo, o preço foi salvo na média."
+		  , IsFartherValueMsg = "Já que o preço está muito longe da média, o valor da média não foi alterado."
+		  , SaveAsFartherLimitValue = "Já que o preço está muito longe da média, o preço limite foi salvo (% ss)."
+		  , IsShorterInterval = "Se passaram apenas %d segundos, preço médio não alterado. (Intervalo de tempo: %d segundos)"
+		  , LoadTextResource = "Leitura das informações completado."
+		  , MsgAlreadyBuffed = 'Buff "%s" já aplicado.{nl}Compra foi cancelada.'
+		  , InitMsg = 'Use o comando "/sh", para ver as opções.'
+		},
+		Option = {
+			Zone = {
+				BelowCost = "Abaixo do custo"
+			  , NearCost = "Próximo do custo"
+			  , GoodValue = "Bom valor"
+			  , WithinAverage = "Na média"
+			  , ALittleExpensive = "Acima da média"
+			  , Expensive = "Caro!"
+			  , RipOff = "Absurdo!"
+			}
+		  , SettingFrameTitle = "-Shop Helper-  Configurações"
+		  , Save = "Salvar"
+		  , CloseMe = "Fechar"
+		  , TabGeneralSetting = "Geral"
+		  , TabAverageSetting = "Médias"
+		  , TabHowToUse = "Como usar"
+		  , GeneralSetting = "Configurações gerais"
+		  , ShowMessageLog = "Mostrar log no chat"
+		  , ShowMsgBoxOnBuffShop = "Desativar mensagem de confirmação ao comprar buffs"
+		  , AddInfoToBaloon = "Ativar efeitos visuais nas lojas"
+		  , EnableBaloonRightClick = "Ativar menu(botão direito) ao clicar em lojas"
+		  , EnableHideNames = "Esconder nome do jogador enquanto Alt estiver pressionada"
+		  , UpdateAverage = "Atualizar média de preços"
+		  , AverageWeight = "Peso variável da média"
+		  , AverageWeightUnit = " para "
+		  , AverageUpdateInterval = "Intervalo de atualização"
+		  , AverageUpdateIntervalUnit = "segundos"
+		  , FartherValueTitle = "Como salvar os preços longe da média"
+		  , FartherValueNone = "Salvar o preço como está"
+		  , FartherValueLimit = "Salvar com valor limite para ser julgado muito longe"
+		  , FartherValueIgnore = "Não salvar"
+		  , SaveAsCostIfBelow = "No caso de abaixo do custo, salvar com o valor do custo"
+		  , AlreadyBuffedTitle = "Se comprar buff está em andamento"
+		  , AlreadyBuffedAbort = "Cancelar a compra"
+		  , AlreadyBuffedRefresh = "Solte o buff atual e atualize"
+		  , AlreadyBuffedNone = "O padrão de comportamento"
+		},
+		BtnText = {
+			lblBuy = "{@st41}Comprar{/}"
+		  , lblOngoing = "{@st41}{#FFAA33}Já buffado{/}{/}"
+		  , lblWarning = "{@st41}{#FF3333}Tem certeza?{/}{/}"
+		  , lblSelectByDur = "Selecione o valor da durabilidadeSelect by durability value"
+		},
+		WarnMsg = {
+			Title = "Alerta!"
+		  , Body = "{#111111}Este item está {nl}{s24}{b}{ol}{#FF0000}absurdamente caro{/}{/}{/}{/}.{nl}Tem certeza disso?{/}"
+		},
+		Other = {
+			DurabilityLeft = "Selecionar apenas abaixo dessa durabilidade"
+		  , ShowDurGauge = "Mostrar barra de durabilidade"
+		  , ShowDurValue = "Mostrar valor da durabilidade"
 		}
 	}
 };
@@ -439,6 +557,30 @@ local Toukibi = {
 			  , OrText = "또는"
 			  , EnableTitle = "사용가능한 명령"
 			}
+		},
+		br = {
+			System = {
+				InitMsg = "[Add-ons]" .. addonName .. verText .. " carregado!"
+			  , NoSaveFileName = "Arquivo de configurações não especificado."
+			  , HasErrorOnSaveSettings = "Erro ocorreu ao salvar as configurações."
+			  , CompleteSaveSettings = "Configurações salvas."
+			  , ErrorToUseDefaults = "Usando configurações padrão porque um erro ocorreu ao salvar as configurações."
+			  , CompleteLoadDefault = "Configurações padrão carregadas."
+			  , CompleteLoadSettings = "Configurações carregadas!"
+			},
+			Command = {
+				ExecuteCommands = "Comando '{#333366}%s{/}' foi chamado."
+			  , ResetSettings = "Configurações reiniciadas."
+			  , InvalidCommand = "Comando inválido"
+			  , AnnounceCommandList = "Use [ %s ? ] para ver a lista de comandos."
+				},
+			Help = {
+				Title = string.format("{#333333}Ajuda para comandos do %s.{/}", addonName)
+			  , Description = string.format("{#92D2A0}Para alterar as configurações do '%s', use o seguinte comando:{/}", addonName)
+			  , ParamDummy = "[paramaters]"
+			  , OrText = "ou"
+			  , EnableTitle = "Comandos disponíveis"
+			}
 		}
 	},
 	
@@ -453,8 +595,10 @@ local Toukibi = {
 			return "jp";
 		elseif option.GetCurrentCountry() == "Korean" then
 			return "kr";
-		else
+		elseif option.GetCurrentCountry() == "English" then
 			return "en";
+		else
+			return "br";
 		end
 	end,
 
@@ -491,7 +635,8 @@ local Toukibi = {
 		--CHAT_SYSTEM(string.format("TargetLang : %s", self:GetValue(TargetRes[Lang], Key)))
 		--CHAT_SYSTEM(string.format("En : %s", self:GetValue(TargetRes["en"], Key)))
 		--CHAT_SYSTEM(string.format("Jp : %s", self:GetValue(TargetRes["jp"], Key)))
-		local CurrentRes = self:GetValue(TargetRes[Lang], Key) or self:GetValue(TargetRes["en"], Key) or self:GetValue(TargetRes["jp"], Key);
+		--CHAT_SYSTEM(string.format("Br : %s", self:GetValue(TargetRes["br"], Key)))
+		local CurrentRes = self:GetValue(TargetRes[Lang], Key) or self:GetValue(TargetRes["en"], Key) or self:GetValue(TargetRes["jp"], Key) or self:GetValue(TargetRes["br"], Key);
 		return CurrentRes;
 	end,
 
@@ -575,7 +720,7 @@ local Toukibi = {
 		end
 		local CommandHelpText = "";
 		if CommandParamList ~= nil and self:GetTableLen(CommandParamList) > 0 then
-			CommandHelpText = CommandHelpText .. string.format("{#333333}%s：", self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.EnableTitle"));
+			CommandHelpText = CommandHelpText .. string.format("{#333333}%s : ", self:GetResText(self.CommonResText, Me.Settings.Lang, "Help.EnableTitle"));
 			for ParamName, DescriptionKey in pairs(CommandParamList) do
 				local SpaceCount = 10 - string.len(ParamName);
 				local SpaceText = ""
@@ -1313,6 +1458,7 @@ local function MargeDefaultSetting(Force, DoSave)
 	Me.Settings.Repair_DurValue			= Toukibi:GetValueOrDefault(Me.Settings.Repair_DurValue		, 3, Force);
 	Me.Settings.Repair_ShowDurGauge		= Toukibi:GetValueOrDefault(Me.Settings.Repair_ShowDurGauge	, true, Force);
 	Me.Settings.Repair_ShowDurValue		= Toukibi:GetValueOrDefault(Me.Settings.Repair_ShowDurValue	, false, Force);
+	Me.Settings.IfAlreadyBuffed			= Toukibi:GetValueOrDefault(Me.Settings.IfAlreadyBuffed		, "Abort", Force);
 	if Force then
 		Toukibi:AddLog(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
 	end
@@ -1496,17 +1642,22 @@ end
 --            バフ屋関連
 -- ================================
 
--- 指定したバフがかかっているかをチェックする
-function Me.BuffIsOngoing(SkillID)
+local function GetBuffID(SkillID)
 	local dicBuffID = {};
 	dicBuffID[40203] = 147; -- ブレス
 	dicBuffID[40205] = 100; -- サクラ
 	dicBuffID[40201] = 146; -- アスパ
+	return dicBuffID[SkillID];
+end
+
+-- 指定したバフがかかっているかをチェックする
+function Me.BuffIsOngoing(SkillID)
+	local CurrentBuffID = GetBuffID(SkillID);
 	local handle = session.GetMyHandle();
 	local buffCount = info.GetBuffCount(handle);
 	for i = 0, buffCount - 1 do
 		local buff = info.GetBuffIndexed(handle, i);
-		if buff ~= nil and buff.buffID == dicBuffID[SkillID] then
+		if buff ~= nil and buff.buffID == CurrentBuffID then
 			return true;
 		end
 	end
@@ -1611,15 +1762,23 @@ end
 function TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(handle, index, cnt, sellType, skillID, Price)
 	-- すでにバフがかかっている場合はメッセージを出して強制的に処理中止する
 	if Me.BuffIsOngoing(skillID) then
-		local objSkill = GetClassByType("Skill", skillID);
-		local objSkillName;
-		if objSkill ~= nil then
-			objSkillName = objSkill.Name;
-		else
-			objSkillName = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.UnknownSkillID"), skillID);
+		if Me.Settings.IfAlreadyBuffed == "Abort" then
+			-- 中断
+			local objSkill = GetClassByType("Skill", skillID);
+			local objSkillName;
+			if objSkill ~= nil then
+				objSkillName = objSkill.Name;
+			else
+				objSkillName = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.UnknownSkillID"), skillID);
+			end
+			ui.MsgBox(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.MsgAlreadyBuffed"), objSkillName))
+			return;
+		elseif Me.Settings.IfAlreadyBuffed == "Refresh" then
+			-- 更新する(現在のバフを消去する)
+			if BuffID ~= nil then
+				packet.ReqRemoveBuff(GetBuffID(skillID));
+			end
 		end
-		ui.MsgBox(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.MsgAlreadyBuffed"), objSkillName))
-		return;
 	end
 	-- 最終使用時間を記憶する
 	Me.LibPrice:UpdateAverage(handle, skillID, Price)
@@ -2543,13 +2702,24 @@ function Me.InitSettingValue(BaseFrame)
 		CurrentRadio = GET_CHILD(LangGBox, "lang_jp", "ui::CRadioButton");
 	elseif Me.Settings.Lang == "kr" then
 		CurrentRadio = GET_CHILD(LangGBox, "lang_kr", "ui::CRadioButton");
+	elseif Me.Settings.Lang == "br" then
+		CurrentRadio = GET_CHILD(LangGBox, "lang_br", "ui::CRadioButton");
 	end
 	CurrentRadio:Select()
+
 	ToukibiUI:SetCheckedByName(OptionGBox, "ShowMessageLog", Me.Settings.ShowMessageLog);
 	ToukibiUI:SetCheckedByName(OptionGBox, "ShowMsgBoxOnBuffShop", not Me.Settings.ShowMsgBoxOnBuffShop);
 	ToukibiUI:SetCheckedByName(OptionGBox, "AddInfoToBaloon", Me.Settings.AddInfoToBaloon);
 	ToukibiUI:SetCheckedByName(OptionGBox, "EnableBaloonRightClick", Me.Settings.EnableBaloonRightClick);
 	ToukibiUI:SetCheckedByName(OptionGBox, "EnableHideNames", Me.Settings.EnableHideNames);
+	CurrentRadio = GET_CHILD(OptionGBox, "AlreadyBuffed_None", "ui::CRadioButton");
+	if Me.Settings.IfAlreadyBuffed == "Abort" then
+		CurrentRadio = GET_CHILD(OptionGBox, "AlreadyBuffed_Abort", "ui::CRadioButton");
+	elseif Me.Settings.IfAlreadyBuffed == "Refresh" then
+		CurrentRadio = GET_CHILD(OptionGBox, "AlreadyBuffed_Refresh", "ui::CRadioButton");
+	end
+	CurrentRadio:Select()
+
 	ToukibiUI:SetCheckedByName(OptionGBox, "UpdateAverage", Me.Settings.UpdateAverage);
 	ToukibiUI:SetSliderValue(OptionGBox, "AverageNCount", "AverageNCount_text", math.floor(Me.Settings.AverageNCount / 10), Me.Settings.AverageNCount);
 	ToukibiUI:SetSliderValue(OptionGBox, "RecalcInterval", "RecalcInterval_text", math.floor(Me.Settings.RecalcInterval / 10), Me.Settings.RecalcInterval);
@@ -2570,6 +2740,7 @@ function Me.InitSettingValue(BaseFrame)
 	LibPriceCtrl:CreateCtrl(PriceGBox, 21003, 5);
 	LibPriceCtrl:CreateCtrl(PriceGBox, 31501, 6);
 
+
 end
 
 function Me.InitSettingText(BaseFrame, LangMode)
@@ -2582,8 +2753,9 @@ function Me.InitSettingText(BaseFrame, LangMode)
 					  Toukibi:GetResText(ResText, LangMode, "Option.SettingFrameTitle"), {"@st43"});
 	local objTab = GET_CHILD(BodyGBox, "ShopHelperSettingTab", "ui::CTabControl");
 	if objTab ~= nil then
-		objTab:ChangeCaption(0, Toukibi:GetStyledText(Toukibi:GetResText(ResText, LangMode, "Option.TabGeneralSetting"), {"@st66b"}));
-		objTab:ChangeCaption(1, Toukibi:GetStyledText(Toukibi:GetResText(ResText, LangMode, "Option.TabAverageSetting"), {"@st66b"}));
+		objTab:ChangeCaption(0, Toukibi:GetStyledText("  " .. Toukibi:GetResText(ResText, LangMode, "Option.TabGeneralSetting") .. "  ", {"@st66b"}));
+		objTab:ChangeCaption(1, Toukibi:GetStyledText("  " .. Toukibi:GetResText(ResText, LangMode, "Option.TabAverageSetting") .. "  ", {"@st66b"}));
+		objTab:ChangeCaption(2, Toukibi:GetStyledText("  Language(言語)  ", {"@st66b"}));
 	end
 	local TargetGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlOption");
 	if TargetGBox ~= nil then
@@ -2601,6 +2773,14 @@ function Me.InitSettingText(BaseFrame, LangMode)
 						  Toukibi:GetResText(ResText, LangMode, "Option.EnableHideNames"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "UpdateAverage", "ui::CCheckBox"), 
 						  Toukibi:GetResText(ResText, LangMode, "Option.UpdateAverage"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "AlreadyBuffed_title", "ui::CRichText"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.AlreadyBuffedTitle"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "AlreadyBuffed_Abort", "ui::CRichText"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.AlreadyBuffedAbort"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "AlreadyBuffed_Refresh", "ui::CRichText"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.AlreadyBuffedRefresh"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "AlreadyBuffed_None", "ui::CRichText"), 
+						  Toukibi:GetResText(ResText, LangMode, "Option.AlreadyBuffedNone"), {"@st66b"});
 
 		local TargetControl = GET_CHILD(TargetGBox, "AverageNCount_text", "ui::CRichText");
 		ToukibiUI:SetTextByKey(TargetControl, "opCaption", Toukibi:GetResText(ResText, LangMode, "Option.AverageWeight"));
@@ -2644,7 +2824,7 @@ end
 function Me.ChangeActiveTab(frame, SelectedIndex)
 	if frame == nil then return end
 	SelectedIndex = SelectedIndex or 0;
-	GET_CHILD_GROUPBOX(frame, "pnlLang"  ):ShowWindow((0 == SelectedIndex) and 1 or 0);
+	GET_CHILD_GROUPBOX(frame, "pnlLang"  ):ShowWindow((2 == SelectedIndex) and 1 or 0);
 	GET_CHILD_GROUPBOX(frame, "pnlOption"):ShowWindow((0 == SelectedIndex) and 1 or 0);
 	GET_CHILD_GROUPBOX(frame, "pnlPrice" ):ShowWindow((1 == SelectedIndex) and 1 or 0);
 end
@@ -2696,6 +2876,8 @@ function Me.ExecSetting()
 	Me.Settings.AddInfoToBaloon = ToukibiUI:GetCheckedByName(ModeGBox, "AddInfoToBaloon");
 	Me.Settings.EnableBaloonRightClick = ToukibiUI:GetCheckedByName(ModeGBox, "EnableBaloonRightClick");
 	Me.Settings.EnableHideNames = ToukibiUI:GetCheckedByName(ModeGBox, "EnableHideNames");
+	Me.Settings.IfAlreadyBuffed = ToukibiUI:GetSelectedRadioValue(ModeGBox:GetChild("AlreadyBuffed_None"));
+	
 	Me.Settings.UpdateAverage = ToukibiUI:GetCheckedByName(ModeGBox, "UpdateAverage");
 	local intValue;
 	intValue = ToukibiUI:GetSliderValueByName(ModeGBox, "AverageNCount");
