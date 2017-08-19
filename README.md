@@ -1,7 +1,7 @@
 ## Notice：
-The author is not currently working in ToS.  
+<span style="color:#FF0000;">The author is not currently working in ToS.  
 Therefore, basically these add-ons will not be updated.  
-現在、作者はToSを引退しているため、基本的にアドオンの更新をする予定はありません。
+現在、作者はToSを引退しているため、基本的にアドオンの更新をする予定はありません。</span>
 
 # Add-ons for Tree of Savior - Tree of Saviorアドオン集
 「あったらちょっと便利だな」と思う小道具を気まぐれに作成しています。    
