@@ -10,7 +10,7 @@ I am not good at English. I frequently translate English into different nuances.
 So, I would appreciate it if you could told me the correct translation when you see an unnatural English translation  
 
 
-## [BuffCounter Ver. 1.16 (  JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
+## [BuffCounter Ver. 1.16 ( JP / EN / KR )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the remaining number of upper buffs.  
 (In addition, the remaining time of the token is displayed in the buff field)  
@@ -19,7 +19,7 @@ This add-on will tell you the remaining number of upper buffs.
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
-## [Map Mate Ver. 0.85 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
+## [Map Mate Ver. 0.85 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
 マップ表示を色々便利にしてくれます。 (現在はミニマップに追加情報を表示するだけ)  
 This add-on makes map display a lot convenient. (Currently it only displays additional information in the mini map)  
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
@@ -28,3 +28,9 @@ This add-on makes map display a lot convenient. (Currently it only displays addi
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
+## [Tooltip Helper Ver. 1.00 (Rebuild by Toukibi)( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
+Tooltip Helperはツールチップに追加の情報を表示するためのアドオンです。  
+冒険日誌の変更パッチで動かなくなった原作を再構築したものです。
+Tooltip Helper is an add-on for displaying additional information on tooltips.  
+It is the one which reconstructed original version which stopped working with change patch of Journal.
+![Tooltip Helperのイメージ](https://github.com/Toukibi/ToSAddon/raw/ForImage/TooltipHelper_Rebuild/img/topimage_s_ja.jpg?raw=true)
