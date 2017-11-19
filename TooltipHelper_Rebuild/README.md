@@ -10,14 +10,14 @@ Scroll down for [English Version](#description-of-english-version) description.
   * 使用するアイテム製作を列挙
   * マグナムオーパスの変換元・変換先の表示
   * 冒険日誌での目標取得数と現在取得数の表示
-  * アイテムドロップ率の表示 <span style="color:red;">(IToSのみ)</span>
+  * アイテムドロップ率の表示 <span style="color:red;">(**IToSのみ**)</span>
   * NPC修理と修理露店のどちらの修理が安いかを表示 (要価格設定)
 * マグナムオーパスの内蔵情報が古くなったときに備えて、外部のrecipe_puzzle.xmlファイルからのデータ読み込みに対応
 * 設定画面の実装で、視覚的な設定変更
 * アイテム製造は作成経験の有無でグループ化
 * マグナムオーパスは変換先のアイテムの配置も表示
 
-<span style="color:red;font-weight:bold">※注意※</span>
+<span style="color:red>**※注意※**</span>  
 基本的には原作のTooltip Helperに準拠していますが、次の機能は現在<span style="color:red;font-weight:bold">使用できません</span>。
 * Marketneerとの連携
 * アイテムレベルの表示 (廃止されたため)
@@ -58,14 +58,14 @@ This add-on will display additional information in the tooltip.
   * Enumerate item production required as material.
   * Magnum Opus conversion source / conversion destination.
   * Target acquisition number and current acquisition number in adventure logbook.
-  * Item drop ratio. <span style="color:red;">(only IToS)</span>
+  * Item drop ratio. <span style="color:red;">(**only IToS**)</span>
   * NPC and repair stalls, which repair is cheap. (price setting required)
 * Supports reading data from an external recipe_puzzle.xml file in case the built-in information of Magnum Opus becomes out-of-date.
 * Implementation of setting screen realizes visual setting change.
 * Item production is grouped based on creation experience.
 * Magnum Opus also displays the placement of the destination item.
 
-<span style="color:red;font-weight:bold">※Caution※</span>  
+<span style="color:red">**Caution**</span>  
 Basically it conforms to the original Tooltip Helper, but the following functions are <span style="color:red;font-weight:bold">not currently available</span>.
 * Collaboration with Marketneer.
 * Display item-level. (for obsolete)
