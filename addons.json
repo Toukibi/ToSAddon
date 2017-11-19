@@ -80,5 +80,25 @@
             "jp",
             "en"
         ]
+    },
+    {
+        "name" : "Tooltip Helper (Rebuild by Toukibi)",
+        "file" : "tooltiphelper_rebuild",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.0",
+        "releaseTag" : "TooltipHelper_Rebuild",
+        "unicode" : "⛄",
+        "description" : "Tooltip Helperの焼き直し版です。  This is a reworked version of Tooltip Helper.",
+        "tags" : [
+            "ui",
+            "tooltip",
+            "collection",
+            "recipe",
+            "journal",
+            "magnum opus",
+            "drop ratio",
+            "jp",
+            "en"
+        ]
     }
 ]
