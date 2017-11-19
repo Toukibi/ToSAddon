@@ -83,7 +83,7 @@
     },
     {
         "name" : "Tooltip Helper (Rebuild by Toukibi)",
-        "file" : "tooltiphelper_rebuild",
+        "file" : "tooltiphelper_toukibi",
         "extension" : "ipf",
         "fileVersion" : "v1.0.0",
         "releaseTag" : "TooltipHelper_Rebuild",
