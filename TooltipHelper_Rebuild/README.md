@@ -3,7 +3,7 @@ Scroll down for [English Version](#description-of-english-version) description.
 
 ### 1.これは何？
 ツールチップに追加の情報を表示します。  
-![Tooltip Helperのイメージ](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)
+![Tooltip Helperのイメージ](https://github.com/Toukibi/ToSAddon/raw/ForImage/TooltipHelper_Rebuild/img/topimage_s_ja.jpg?raw=true)
 ### 2.できること
 * ツールチップに次の項目を追加表示します  
   * 使用するコレクションを列挙
@@ -17,7 +17,7 @@ Scroll down for [English Version](#description-of-english-version) description.
 * アイテム製造は作成経験の有無でグループ化
 * マグナムオーパスは変換先のアイテムの配置も表示
 
-<span style="color:red>**※注意※**</span>  
+<span style="color:red;">**※注意※**</span>  
 基本的には原作のTooltip Helperに準拠していますが、次の機能は現在<span style="color:red;font-weight:bold">使用できません</span>。
 * Marketneerとの連携
 * アイテムレベルの表示 (廃止されたため)
@@ -43,6 +43,10 @@ Scroll down for [English Version](#description-of-english-version) description.
 このアドオンは、アドオンマネージャJPに登録しています。  
 アドオンマネージャJPを用いて導入してください  
 
+### 5.詳しい使い方
+Wikiを作成中です。こちらを参照してください。  
+[How to Use my Add-on (アドオンの使い方)](https://github.com/Toukibi/ToSAddon/wiki)  
+
 ---
 ## Description of English Version 
   
@@ -50,7 +54,7 @@ Scroll down for [English Version](#description-of-english-version) description.
 You can switch to English display mode by using command **`/tth en`**  
 ### What is this?
 This add-on will display additional information in the tooltip.  
-![Image of customized minimap view](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap2_en.jpg?raw=true)
+![Image of customized tooltip view](https://github.com/Toukibi/ToSAddon/raw/ForImage/TooltipHelper_Rebuild/img/topimage_s_ja.jpg?raw=true)
 
 ### Features.
 * Add the following items to the tooltip.
