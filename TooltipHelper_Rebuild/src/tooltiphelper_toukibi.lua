@@ -1,4 +1,4 @@
-local addonName = "ToolTipHelper_Rebuild";
+local addonName = "ToolTipHelper_Toukibi";
 local verText = "1.00";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
@@ -3291,7 +3291,7 @@ end
 
 -- 設定画面を設定データに反映
 function Me.ExecSetting()
-	local BaseFrame = ui.GetFrame("tooltiphelper_rebuild");
+	local BaseFrame = ui.GetFrame("tooltiphelper_toukibi");
 	if BaseFrame == nil then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "SettingFrame.CannotGetSettingFrameHandle"), "Warning", true, false);
 		return;
@@ -3370,7 +3370,7 @@ end
 
 -- 設定画面を開く
 function Me.SettingFrame_BeforeDisplay()
-	local BaseFrame = ui.GetFrame("tooltiphelper_rebuild");
+	local BaseFrame = ui.GetFrame("tooltiphelper_toukibi");
 	if BaseFrame == nil then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "SettingFrame.CannotGetSettingFrameHandle"), "Warning", true, false);
 		return;
@@ -3387,7 +3387,7 @@ end
 
 -- 設定画面を閉じる
 function Me.CloseSettingFrame()
-	local BaseFrame = ui.GetFrame("tooltiphelper_rebuild");
+	local BaseFrame = ui.GetFrame("tooltiphelper_toukibi");
 	if BaseFrame == nil then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "SettingFrame.CannotGetSettingFrameHandle"), "Warning", true, false);
 		return;
@@ -3474,7 +3474,7 @@ end
 -- ===== ここから先またお決まり文句 =====
 
 -- スラッシュコマンド受取
-function TOUKIBI_TTHELPER_REBUILD_PROCESS_COMMAND(command)
+function TOUKIBI_TTHELPER_PROCESS_COMMAND(command)
 	Toukibi:AddLog(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.ExecuteCommands"), SlashCommandList[1] .. " " .. table.concat(command, " ")), "Info", true, true);
 	local cmd = ""; 
 	if #command > 0 then 
@@ -3505,7 +3505,7 @@ function TOUKIBI_TTHELPER_REBUILD_PROCESS_COMMAND(command)
 end
 
 Me.HoockedOrigProc = Me.HoockedOrigProc or {};
-function TOOLTIPHELPER_REBUILD_ON_INIT(addon, frame)
+function TOOLTIPHELPER_TOUKIBI_ON_INIT(addon, frame)
 	-- 設定を読み込む
 	if not Me.Loaded then
 		Me.Loaded = true;
@@ -3527,7 +3527,7 @@ function TOOLTIPHELPER_REBUILD_ON_INIT(addon, frame)
 	-- スラッシュコマンドを登録する
 	local acutil = require("acutil");
 	for i = 1, #SlashCommandList do
-		acutil.slashCommand(SlashCommandList[i], TOUKIBI_TTHELPER_REBUILD_PROCESS_COMMAND);
+		acutil.slashCommand(SlashCommandList[i], TOUKIBI_TTHELPER_PROCESS_COMMAND);
 	end
 end
 

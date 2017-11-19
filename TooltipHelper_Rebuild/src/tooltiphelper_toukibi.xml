@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uiframe name="tooltiphelper_rebuild" x="0" y="0" width="520" height="610" create="open">
+<uiframe name="tooltiphelper_toukibi" x="0" y="0" width="520" height="610" create="open">
 	<frame fasthide="true" layout_gravity="center center" margin="0 0 0 0"/>
 	<skin frameskin=" "/>
 	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
@@ -13,7 +13,7 @@
 		<groupbox name="pipwin_top" rect="0 0 520 60" margin="0 0 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false" skin="test_frame_top"/>
 		<richtext name="title" rect="0 0 200 80" margin="0 16 0 0" layout_gravity="center top" caption="{@st43}Tooltip Helperの設定{/}" textalign="left top" hittest="false"/>
 		<button name="close" rect="0 0 44 44" margin="0 19 28 0" layout_gravity="right top" image="testclose_button"
-		LBtnUpScp="ui.CloseFrame(&apos;tooltiphelper_rebuild&apos;)" texttooltip="{@st59}Close / 閉じる{/}"
+		LBtnUpScp="ui.CloseFrame(&apos;tooltiphelper_toukibi&apos;)" texttooltip="{@st59}Close / 閉じる{/}"
 		clicksound="button_click_big" oversound="button_over" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover"/>
 
 		<richtext name="lang_title" parent="pnlMain" rect="0 0 120 24" margin="20 40 0 0" layout_gravity="left top" caption="{@st66b}Language (言語){/}"/>
@@ -35,7 +35,7 @@
 		<richtext name="repairPrice_title" parent="pnlMain" rect="0 0 120 24" margin="150 448 0 0" layout_gravity="left top" caption="{@st66b}修理露店の基本修理価格{/}"/>
 		<edit name="repairPrice" parent="pnlMain" rect="0 0 80 26" margin="65 443 0 0" layout_gravity="left top" OffsetForDraw="0 -1" clicksound="button_click_big" fontname="white_18_ol" maxlen="5" oversound="button_over" skin="test_weight_skin" textalign="center center"/>
 
-		<button name="btn_cencel" parent="pnlMain" rect="10 10 140 55" margin=" 80 0 0 30" layout_gravity="center bottom" LBtnUpScp="ui.CloseFrame(&apos;tooltiphelper_rebuild&apos;)" caption="{@st42}閉じる" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_gray_button"/>
+		<button name="btn_cencel" parent="pnlMain" rect="10 10 140 55" margin=" 80 0 0 30" layout_gravity="center bottom" LBtnUpScp="ui.CloseFrame(&apos;tooltiphelper_toukibi&apos;)" caption="{@st42}閉じる" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_gray_button"/>
 		<button name="btn_excute" parent="pnlMain" rect="10 10 140 55" margin="-90 0 0 30" layout_gravity="center bottom" LBtnUpScp="TOUKIBI_TTHELPER_EXEC_SETTING" caption="{@st42}保存" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_red_button"/>
 
 	</controls>
