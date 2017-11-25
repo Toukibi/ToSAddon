@@ -1,5 +1,6 @@
-﻿# Tooltip Helper (Rebuild by Toukibi)
+﻿# Experience Viewer Ex
 Scroll down for [English Version](#description-of-english-version) description.
+![ExpViewerの外観](https://github.com/Toukibi/ToSAddon/blob/ForImage/ExpViewer_Ex/img/topimage_ja.jpg?raw=true)
 
 ### 1.これは何？
 経験値に関する情報を表示します。  
@@ -38,7 +39,7 @@ Scroll down for [English Version](#description-of-english-version) description.
 
 ### 5.詳しい使い方
 Wikiを作成中です。こちらを参照してください。  
-[Tooltip Helperのヘルプ](https://github.com/Toukibi/ToSAddon/wiki/ExpViewer)  
+[Tooltip Helperのヘルプ](https://github.com/Toukibi/ToSAddon/wiki/Experience-Viewer)  
 
 ---
 ## Description of English Version 
@@ -47,7 +48,7 @@ Wikiを作成中です。こちらを参照してください。
 You can switch to English display mode by using command **`/tth en`**  
 ### What is this?
 This add-on will display all sorts of information about your character's experience.  
-
+![Image of ExpViewer](https://github.com/Toukibi/ToSAddon/blob/ForImage/ExpViewer_Ex/img/topimage_en.jpg?raw=true)
 
 ### Features.
 * Displays the following information about experience values.  
@@ -82,5 +83,5 @@ In order to use **Other Language** mode, you need to **add a text resource to th
 
 ### Detailed usage
 It is summarized in a wiki. Please see here.  
-[How to use Tooltip Helper](https://github.com/Toukibi/ToSAddon/wiki/ExpViewer)  
+[How to use Tooltip Helper](https://github.com/Toukibi/ToSAddon/wiki/Experience-Viewer)  
 
