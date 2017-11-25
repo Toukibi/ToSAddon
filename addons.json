@@ -100,5 +100,21 @@
             "jp",
             "en"
         ]
+    },
+    {
+        "name" : "Experience Viewer Ex",
+        "file" : "expviewer_ex",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.0",
+        "releaseTag" : "ExpViewer_Ex",
+        "unicode" : "⛄",
+        "description" : "Experience Viewerの改造版で、シルバー時給も表示できるようになりました。  This is a remodeled version of the Experience Viewer, and you can now display the information on the acquired silver.",
+        "tags" : [
+            "ui",
+            "exp",
+            "silver",
+            "jp",
+            "en"
+        ]
     }
 ]
