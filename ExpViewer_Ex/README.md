@@ -18,8 +18,9 @@ Scroll down for [English Version](#description-of-english-version) description.
 * 単位表示を用いることで表示を短くできます(設定で切替可能)
 
 ### 3.使用可能なコマンド一覧
+コマンドを使用する前に、メイン画面を右クリックしてみてください。
+右クリックメニューから殆どの項目の設定ができます。
 基本のコマンドは **`/expv`** です。  
-パラメータ無しでコマンドを入力すると設定画面が開きます。
 
 |コマンド|効果|
 |---|---|
@@ -39,7 +40,7 @@ Scroll down for [English Version](#description-of-english-version) description.
 
 ### 5.詳しい使い方
 Wikiを作成中です。こちらを参照してください。  
-[Tooltip Helperのヘルプ](https://github.com/Toukibi/ToSAddon/wiki/Experience-Viewer)  
+[Experience Viewerのヘルプ](https://github.com/Toukibi/ToSAddon/wiki/Experience-Viewer)  
 
 ---
 ## Description of English Version 
@@ -67,12 +68,12 @@ This add-on will display all sorts of information about your character's experie
 Install via the Addon Manager. Leave bug reports and other issues on my Github page.
 
 ### Settings.
-Settings can be accessed by Slash Command **`/expv`**, and via these Slash Commands.
+Settings can be accessed by Right Clicking on Experience Viewer, and via these Slash Commands.  
 
 |Paramater|What happens result|
 |---|---|
 |/tth reset|Reset session.|
-|/tth|Force update display.|
+|/tth update|Force update display.|
 |/tth jp|Switch to Japanese mode.|
 |/tth en|Switch to English mode.|
 |/tth xx|Insert two English letters in xx<br>(ccTLD or language code recommended)<br>Switch to Other Language mode.|
@@ -83,5 +84,5 @@ In order to use **Other Language** mode, you need to **add a text resource to th
 
 ### Detailed usage
 It is summarized in a wiki. Please see here.  
-[How to use Tooltip Helper](https://github.com/Toukibi/ToSAddon/wiki/Experience-Viewer)  
+[How to use Experience Viewer](https://github.com/Toukibi/ToSAddon/wiki/Experience-Viewer)  
 
