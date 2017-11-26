@@ -116,5 +116,18 @@
             "jp",
             "en"
         ]
+    },
+    {
+        "name" : "Collection Sorter",
+        "file" : "collectionsorter",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.0",
+        "releaseTag" : "CollectionSorter",
+        "unicode" : "⛄",
+        "description" : "コレクションを正しく名前順で並べ替えられるようにします。ただそれだけです。  Sort the collection correctly by name. That's it.",
+        "tags" : [
+            "ui",
+            "collection"
+        ]
     }
 ]
