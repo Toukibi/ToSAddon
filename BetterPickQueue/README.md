@@ -1,5 +1,6 @@
 
-# Better Pick Queue
+# Better Pick Queue  
+  
 Description of [English Version is Here](#description-of-english-version).
 
 ### 1.Ç±ÇÍÇÕâΩÅH
