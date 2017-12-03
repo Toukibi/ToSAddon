@@ -1,4 +1,4 @@
-# Tooltip Helper (Rebuild by Toukibi)
+﻿# Tooltip Helper (Rebuild by Toukibi)
 Scroll down for [English Version](#description-of-english-version) description.
 
 ### 1.これは何？
@@ -12,7 +12,7 @@ Scroll down for [English Version](#description-of-english-version) description.
   * 冒険日誌での目標取得数と現在取得数の表示
   * アイテムドロップ率の表示 <span style="color:red;">(**IToSのみ**)</span>
   * NPC修理と修理露店のどちらの修理が安いかを表示 (要価格設定)
-* マグナムオーパスの内蔵情報が古くなったときに備えて、外部のrecipe_puzzle.xmlファイルからのデータ読み込みに対応
+* マグナムオーパスの内蔵情報が古くなったときに備えて、外部の`recipe_puzzle.xml`ファイルからのデータ読み込みに対応
 * 設定画面の実装で、視覚的な設定変更
 * アイテム製造は作成経験の有無でグループ化
 * マグナムオーパスは変換先のアイテムの配置も表示
@@ -45,7 +45,7 @@ Scroll down for [English Version](#description-of-english-version) description.
 
 ### 5.詳しい使い方
 Wikiを作成中です。こちらを参照してください。  
-[How to Use my Add-on (アドオンの使い方)](https://github.com/Toukibi/ToSAddon/wiki)  
+[Tooltip Helperのヘルプ](https://github.com/Toukibi/ToSAddon/wiki/Tooltip-Helpeer)  
 
 ---
 ## Description of English Version 
@@ -54,7 +54,7 @@ Wikiを作成中です。こちらを参照してください。
 You can switch to English display mode by using command **`/tth en`**  
 ### What is this?
 This add-on will display additional information in the tooltip.  
-![Image of customized tooltip view](https://github.com/Toukibi/ToSAddon/raw/ForImage/TooltipHelper_Rebuild/img/topimage_s_ja.jpg?raw=true)
+![Image of customized tooltip view](https://github.com/Toukibi/ToSAddon/raw/ForImage/TooltipHelper_Rebuild/img/topimage_s_en.jpg?raw=true)
 
 ### Features.
 * Add the following items to the tooltip.
@@ -64,7 +64,7 @@ This add-on will display additional information in the tooltip.
   * Target acquisition number and current acquisition number in adventure logbook.
   * Item drop ratio. <span style="color:red;">(**only IToS**)</span>
   * NPC and repair stalls, which repair is cheap. (price setting required)
-* Supports reading data from an external recipe_puzzle.xml file in case the built-in information of Magnum Opus becomes out-of-date.
+* Supports reading data from an external `recipe_puzzle.xml` file in case the built-in information of Magnum Opus becomes out-of-date.
 * Implementation of setting screen realizes visual setting change.
 * Item production is grouped based on creation experience.
 * Magnum Opus also displays the placement of the destination item.
@@ -92,3 +92,7 @@ Settings can be accessed by Slash Command **`/tth`**, and via these Slash Comman
 
 <span style="color:red;">**In order to use language other than English and Japanese**</span>:  
 In order to use **Other Language** mode, you need to **add a text resource to the program source**.
+
+### Detailed usage
+It is summarized in a wiki. Please see here.  
+[How to use Tooltip Helper](https://github.com/Toukibi/ToSAddon/wiki/Tooltip-Helpeer)  
