@@ -3,38 +3,38 @@
   
 Description of [English Version is Here](#description-of-english-version).
 
-### 1.����͉��H
-��ʂ̉E���ŏE�����A�C�e����\������@�\���������܂��B  
-![�O�ϕ\��](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage_ja.jpg?raw=true)  
-### 2.�ł��邱��
-* �o�O�Ő��������z��\���ł��Ȃ����킢�����Ȏq�ɑ����Ď��̋@�\��񋟂��܂��B  
-  * ���݂̏������𐳂����\�����܂�
-  * �J�n���_����̑�������\�����܂�
-  * �ߋ�3�񕪂̏E�������ԂƗʂ�\�����܂�
-  * 1���Ԃ�����ɏE����\������\�����܂�
-  * �����d�ʂ̏���\�����܂�
+### 1.これは何？
+画面の右下で拾ったアイテムを表示する機能を強化します。  
+![外観表示](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage_ja.jpg?raw=true)  
+### 2.できること
+* バグで正しい金額を表示できないかわいそうな子に代わって次の機能を提供します。  
+  * 現在の所持数を正しく表示します
+  * 開始時点からの増加数を表示します
+  * 過去3回分の拾った時間と量を表示します
+  * 1時間あたりに拾える予測数を表示します
+  * 所持重量の情報を表示します
 
-### 3.�ǉ����ꂽ�E�N���b�N���j���[�̈ꗗ
-1. Better Pick Queue�̓���Ɋւ��郁�j���[  
-   Better Pick Queue�̃t���[������E�N���b�N����ƕ\������܂�
+### 3.追加された右クリックメニューの一覧
+1. Better Pick Queueの動作に関するメニュー  
+   Better Pick Queueのフレーム上を右クリックすると表示されます
 
-### 4.�g�p�\�ȃR�}���h�ꗗ
-��{�I�Ȑݒ�͕\�����E�N���b�N����Əo�ė���ݒ胁�j���[�ōs�Ȃ��܂��B
-�R�}���h�� **`/pickq`** �܂��� **`/pickqueue`** �ł�  
+### 4.使用可能なコマンド一覧
+基本的な設定は表示を右クリックすると出て来る設定メニューで行なえます。
+コマンドは **`/pickq`** または **`/pickqueue`** です  
 
-|�R�}���h|����|
+|コマンド|効果|
 |---|---|
-|/pickq|���C����ʂ̕\��/��\����؂�ւ�|
-|/pickq reset|�v�����Z�b�g|
-|/pickq resetsetting|�ݒ�����Z�b�g|
-|/pickq update|�\�����X�V|
-|/pickq ?|�`���b�g���O�Ƀw���v��\��|
-|/pickq jp<br>/pickq ja|���{�ꃂ�[�h�ɐ؂�ւ�|
-|/pickq en|�p�ꃂ�[�h�ɐ؂�ւ�|
+|/pickq|メイン画面の表示/非表示を切り替え|
+|/pickq reset|計測リセット|
+|/pickq resetsetting|設定をリセット|
+|/pickq update|表示を更新|
+|/pickq ?|チャットログにヘルプを表示|
+|/pickq jp<br>/pickq ja|日本語モードに切り替え|
+|/pickq en|英語モードに切り替え|
 
-### 5.�������@
-���̃A�h�I���́A�A�h�I���}�l�[�W��JP�ɓo�^���Ă��܂��B  
-�A�h�I���}�l�[�W��JP��p���ē������Ă�������  
+### 5.導入方法
+このアドオンは、アドオンマネージャJPに登録しています。  
+アドオンマネージャJPを用いて導入してください  
 
 ---
 ## Description of English Version 
