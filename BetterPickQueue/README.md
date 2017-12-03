@@ -1,8 +1,8 @@
 
 # Better Pick Queue  
   
-Description of [English Version is Here](#description-of-english-version).
-
+Description of [English Version is Here](#description-of-english-version).  
+  
 ### 1.これは何？
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 ![外観表示](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage_ja.jpg?raw=true)  
