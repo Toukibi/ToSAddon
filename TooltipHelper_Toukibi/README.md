@@ -1,4 +1,5 @@
-﻿# Tooltip Helper (Rebuild by Toukibi)
+﻿
+# Tooltip Helper (Rebuild by Toukibi)
 Scroll down for [English Version](#description-of-english-version) description.
 
 ### 1.これは何？
