@@ -129,5 +129,20 @@
             "ui",
             "collection"
         ]
+    },
+    {
+        "name" : "Better Pick Queue",
+        "file" : "betterpickqueue",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.0",
+        "releaseTag" : "BetterPickQueue",
+        "unicode" : "⛄",
+        "description" : "画面の右下で拾ったアイテムを表示する機能を強化します。  This add-on enhances the ability to display the items picked up.",
+        "tags" : [
+            "ui",
+            "item message",
+            "silver",
+            "weight"
+        ]
     }
 ]
