@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.84";
+local verText = "0.87";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
@@ -523,7 +523,13 @@ local function try(func, ...)
 		return "OK"
 	end
 end
-
+local function FunctionExists(func)
+	if func == nil then
+		return false
+	else
+		return true
+	end
+end
 
 local function ShowInitializeMessage()
 	local CurrentLang = "en"
@@ -748,14 +754,14 @@ function Me.UpdateFrame()
 	local FrameMiniMap = ui.GetFrame('minimap');
 	local MyFrame = ui.GetFrame('mapmate');
 
-	MyFrame:Resize(ParentWidth , height * 5);
+	MyFrame:Resize(ParentWidth , height * 10);
 	MyFrame:SetMargin(0, FrameMiniMap:GetMargin().top, 1, 0);
 	local pnlBase = tolua.cast(MyFrame:CreateOrGetControl("groupbox", "pnlInput", 0, 8, ParentWidth , height * 5), 
 							   "ui::CGroupBox");
 	
 	pnlBase:SetGravity(ui.RIGHT, ui.TOP);
 	pnlBase:SetMargin(0, 0, 0, 0);
-	pnlBase:Resize(ParentWidth , height * 8);
+	pnlBase:Resize(ParentWidth , height * 10);
 	--pnlBase:SetSkinName("chat_window");
 	pnlBase:SetSkinName("None");
 	pnlBase:EnableScrollBar(0);
@@ -882,14 +888,14 @@ function Me.UpdateFrame()
 		-- コレクション
 		ToDisplayCount = #Me.ThisMapInfo.CollectionID;
 		if ToDisplayCount > 0 then
-			for i,value in ipairs(Me.ThisMapInfo.CollectionID) do
+			for i, value in ipairs(Me.ThisMapInfo.CollectionID) do
 				local MaxCount = 0;
 				local NotCount = 0;
 				local Completed = true;
 				local ExistsList = {};
 				local ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), value.Name);
 				ToolTipText = ToolTipText .. string.format("{nl}    %s{nl}{s9} {nl} {nl}{/}{#66FF66}{s11}{b}%s{/}{/}{/}", value.Magic , Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_Collection"))
-				for j,tmpRecord in ipairs(Me.ThisMapInfo.CollectItem[value.ClassID]) do
+				for j, tmpRecord in ipairs(Me.ThisMapInfo.CollectItem[value.ClassID]) do
 					MaxCount = MaxCount + 1;
 					local CheckIcon = "socket_slot_check";
 					local TextColor = "#88FFFF";
@@ -926,7 +932,9 @@ function Me.UpdateFrame()
 		ButtonCount = ButtonCount + 1
 		Toukibi:AddLog(NPCInfo, "Warning", true, true);
 	end
-
+	pnlBase:Resize(ParentWidth , height * ButtonCount);
+	MyFrame:Resize(ParentWidth , height * ButtonCount);
+	
 end
 
 -- MobのToolTipだけ更新する
@@ -1058,7 +1066,7 @@ local function DrawIconToObjEx(objTarget, Zoom)
 													, BoxInfo.Lv
 													, BoxInfo.OpenStateText
 													, BoxInfo.Inside));
-			elseif value.Type == "NPC" and value.NpcState == 0 then
+			elseif (value.Type == "NPC" or value.Type == "Arrow") and value.NpcState == 0 then
 				-- まだ会っていないNPC
 				local XC = math.ceil((value.X) * Zoom) - 16;
 				local YC = math.ceil((value.Y) * Zoom) - 16;
@@ -1374,10 +1382,19 @@ function Me.UpdateMapInfo()
 					local itemName = TryGetProp(clsCollection, "ItemName_" .. Index);
 					if itemName == nil or itemName == "None" then break end
 					local itemCls = GetClass("Item", itemName);
-					local itemData = GET_COLLECTION_DETAIL_ITEM_INFO(objSessionCollection, itemCls , collectedItemSet);
+					local currentInfo = nil;
+					if objSessionCollection ~= nil then
+						currentInfo = GET_COLLECTION_DETAIL_ITEM_INFO(objSessionCollection, itemCls , collectedItemSet);
+					end
+					local itemData = {};
 					itemData.Name = itemCls.Name;
 					itemData.ClassName = itemCls.ClassName;
 					itemData.imgName = GET_ITEM_ICON_IMAGE(itemCls);
+					if currentInfo ~= nil then
+						itemData.isCollected = currentInfo.isCollected;
+					else
+						itemData.isCollected = false;
+					end
 					table.insert(ItemList, itemData);
 					Index = Index + 1;
 				end
@@ -1519,20 +1536,39 @@ function Me.GetMapMonsterInfo(MapClassName)
 	for i = 0 , cnt - 1 do 
 		local MonProp = MapInfo.MonGens:Element(i);
 		local IESData_GenType = GetClassByIndexFromList(MapInfo.ClassList, i);
+	-- log(string.format("%s : [%s] %s", i, IESData_GenType.Faction, IESData_GenType.ClassType))
 		if IESData_GenType.Faction == "Monster" and string.find(string.lower(IESData_GenType.ClassType),"hidden") == nil and string.find(string.lower(IESData_GenType.ClassType),"trigger") == nil then
 			local MobClass = GetClass("Monster", IESData_GenType.ClassType)
 			if MobList[IESData_GenType.ClassType] == nil then
-				local wiki = GetWikiByName(MobClass.Journal);
+	-- log(string.format("%s : %s (%s)", MobClass.ClassID, MobClass.Name, MobClass.MonRank))
 				local pKillCount = 0;
-				if wiki ~= nil then
-					pKillCount =GetWikiIntProp(wiki, "KillCount")
-				end
 				local pRequired = 0;
-				if GetClass('Journal_monkill_reward', MobClass.Journal) ~= nil then
-					pRequired = GetClass('Journal_monkill_reward', MobClass.Journal).Count1
+				if FunctionExists(GetMonKillCount) then
+					-- 新方式(20170926～)
+					pKillCount = GetMonKillCount(nil, MobClass.ClassID)
+					-- pKillCount = ADVENTURE_BOOK_MONSTER_CONTENT.MONSTER_KILL_COUNT(MobClass.ClassID)
+					local MonGrade = 'BASIC'
+					if MobClass.MonRank == 'Boss' then
+						MonGrade = 'BOSS'
+					end
+		-- log(GetClass('AdventureBookConst', MonGrade .. '_MON_GRADE_COUNT').Value)
+					pRequired = GetClass('AdventureBookConst', MonGrade .. '_MON_KILL_COUNT_GRADE' .. GetClass('AdventureBookConst', MonGrade .. '_MON_GRADE_COUNT').Value).Value
+				elseif FunctionExists(GetWikiByName) then
+					-- 旧方式(～20170926)
+					local wiki = GetWikiByName(MobClass.Journal);
+					if wiki ~= nil then
+						pKillCount =GetWikiIntProp(wiki, "KillCount")
+					end
+					if GetClass('Journal_monkill_reward', MobClass.Journal) ~= nil then
+						pRequired = GetClass('Journal_monkill_reward', MobClass.Journal).Count1
+					end
+				else
+					-- 関数が取れなかった場合
+					pKillCount = 0;
+					pRequired = 0;
 				end
-	--log(string.format("[%s] Lv.%s %s (%s)", IESData_GenType.GenType, MobClass.Level, MobClass.Name, IESData_GenType.ClassType))
-	--log(SCR_Get_MON_INT(MobClass))
+	-- log(string.format("%s : [%s] Lv.%s %s (%s)", i, IESData_GenType.GenType, MobClass.Level, MobClass.Name, IESData_GenType.ClassType))
+	-- log(SCR_Get_MON_INT(MobClass))
 				MobList[IESData_GenType.ClassType] = {
 					Name = MobClass.Name
 					, ClassID = MobClass.ClassID
@@ -1553,7 +1589,6 @@ function Me.GetMapMonsterInfo(MapClassName)
 					, KillCount = pKillCount
 					, KillRequired = pRequired
 				};
-				local killCount = GetWikiIntProp(wiki, "KillCount");
 			end
 			MobList[IESData_GenType.ClassType].MaxNum = MobList[IESData_GenType.ClassType].MaxNum + IESData_GenType.MaxPop
 			if MobList[IESData_GenType.ClassType].PopData == nil then
@@ -1988,7 +2023,7 @@ function Me.CustomizeMiniMap()
 	ChangeMiniMapControl()
 	AddControlToMiniMap()
 	Me.lblFogRateHideTimer = nil;
-	Me.UpdateMapInfo();
+	try(Me.UpdateMapInfo);
 	Me.UpdateFogRevealRate();
 	UpdatelblPCCount();
 	Me.PCCountRemainingTime = 3 * Me.BrinkRadix;

@@ -23,9 +23,9 @@ This add-on will tell you the remaining number of upper buffs.
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
-## [Map Mate Ver. 0.85 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
-マップ表示を色々便利にしてくれます。 (現在はミニマップに追加情報を表示するだけ)  
-This add-on makes map display a lot convenient. (Currently it only displays additional information in the mini map)  
+## [Map Mate Ver. 0.87 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
+マップ表示を色々便利にしてくれます。  
+This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
 ## [Shop Helper Ver. 0.83 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
 街などで開かれている露店の価格が高いか安いかをコメントしてくれます。  
