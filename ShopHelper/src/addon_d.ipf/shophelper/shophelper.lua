@@ -1,5 +1,5 @@
 local addonName = "ShopHelper";
-local verText = "0.83";
+local verText = "0.84";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/sh", "/shophelper", "/shelper", "/ShopHelper"};
@@ -22,6 +22,7 @@ local Me = _G['ADDONS'][autherName][addonName];
 Me.SettingFilePathName = string.format("../addons/%s/%s", addonNameLower, SettingFileName);
 Me.FavoriteFilePathName = string.format("../addons/%s/%s", addonNameLower, FavoriteFileName);
 local DebugMode = false;
+ShopHelper = Me;
 
 -- ===== 露店手数料設定 =====
 Me.CommissionRate = 0.3;
@@ -585,8 +586,8 @@ local Toukibi = {
 	},
 	
 	Log = function(self, Caption)
-		if Caption == nil then Caption = "てすと" end
-		Caption = tostring(Caption) or "てすと";
+		if Caption == nil then Caption = "Test Printing" end
+		Caption = tostring(Caption) or "Test Printing";
 		CHAT_SYSTEM(tostring(Caption));
 	end,
 
@@ -1027,6 +1028,11 @@ local LibPrice = {
 			ReturnValue.CostPrice = math.ceil(50 * 10 / (1 - Me.CommissionRate));
 			ReturnValue.MaxLv = 15;
 			ReturnValue.DoAddInfo = true
+		elseif SkillID == 40808 then
+			-- マジックシールド
+			ReturnValue.CostPrice = math.ceil(50 * 10 / (1 - Me.CommissionRate));
+			ReturnValue.MaxLv = 15;
+			ReturnValue.DoAddInfo = true
 		elseif SkillID == 10703 then
 			-- 修理
 			ReturnValue.CostPrice = math.ceil(80 / (1 - Me.CommissionRate));
@@ -1044,11 +1050,17 @@ local LibPrice = {
 			ReturnValue.DoAddInfo = true
 		end
 		-- 転ばぬ先の杖
-		ReturnValue.AveragePrice = Me.Settings.AverageData[tostring(SkillID)].Price or 100;
+		local avgData = Me.Settings.AverageData[tostring(SkillID)];
+		ReturnValue.AveragePrice = 100;
+		ReturnValue.Span = 20;
+		ReturnValue.Suburb = 100;
+		if avgData ~= nil then
+			ReturnValue.AveragePrice = avgData.Price or 100;
+			ReturnValue.Span = avgData.Radix or 20;
+			ReturnValue.Suburb = avgData.Suburb or 100;
+		end
 		ReturnValue.CostPrice = ReturnValue.CostPrice or 100;
-		ReturnValue.Span = Me.Settings.AverageData[tostring(SkillID)].Radix or 20;
 		ReturnValue.MaxLv = ReturnValue.MaxLv or 15;
-		ReturnValue.Suburb = Me.Settings.AverageData[tostring(SkillID)].Suburb or 100;
 		ReturnValue.DoAddInfo = ReturnValue.DoAddInfo or false;
 		return ReturnValue;
 	end,
@@ -1407,6 +1419,7 @@ function Me.Save()
 end
 
 local function MargeAverageDataRecord(SkillID, Force, pPrice, pRadix, pSuburb)
+	log(SkillID)
 	Me.Settings.AverageData[tostring(SkillID)] = Me.Settings.AverageData[tostring(SkillID)] or {};
 	if Force then --リセット
 		Me.Settings.AverageData[tostring(SkillID)].Price  = pPrice;
@@ -1430,6 +1443,7 @@ local function MargeDefaultPrice(Force, DoSave)
 	MargeAverageDataRecord("40203", Force,  750, 10, 100); -- ブレス
 	MargeAverageDataRecord("40205", Force,  850, 10, 100); -- サクラ
 	MargeAverageDataRecord("40201", Force, 1050, 10,  50); -- アスパ
+	MargeAverageDataRecord("40808", Force, 1050, 10,  50); -- マジックシールド
 	MargeAverageDataRecord("21003", Force, 6500, 50, 100); -- ジェムロースティング
 	MargeAverageDataRecord("31501", Force,  170,  1,  15); -- 鑑定
 	if Force then
@@ -1647,6 +1661,7 @@ local function GetBuffID(SkillID)
 	dicBuffID[40203] = 147; -- ブレス
 	dicBuffID[40205] = 100; -- サクラ
 	dicBuffID[40201] = 146; -- アスパ
+	dicBuffID[40808] = 260; -- マジックシールド
 	return dicBuffID[SkillID];
 end
 
@@ -2736,9 +2751,10 @@ function Me.InitSettingValue(BaseFrame)
 	LibPriceCtrl:CreateCtrl(PriceGBox, 40203, 1);
 	LibPriceCtrl:CreateCtrl(PriceGBox, 40205, 2);
 	LibPriceCtrl:CreateCtrl(PriceGBox, 40201, 3);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 10703, 4);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 21003, 5);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 31501, 6);
+	LibPriceCtrl:CreateCtrl(PriceGBox, 40808, 4);
+	LibPriceCtrl:CreateCtrl(PriceGBox, 10703, 5);
+	LibPriceCtrl:CreateCtrl(PriceGBox, 21003, 6);
+	LibPriceCtrl:CreateCtrl(PriceGBox, 31501, 7);
 
 
 end

@@ -27,7 +27,7 @@ This add-on will tell you the minimum durability value of your equipment.
 マップ表示を色々便利にしてくれます。  
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
-## [Shop Helper Ver. 0.83 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
+## [Shop Helper Ver. 0.84 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
 街などで開かれている露店の価格が高いか安いかをコメントしてくれます。  
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
