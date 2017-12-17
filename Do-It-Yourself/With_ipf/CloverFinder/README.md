@@ -11,7 +11,7 @@ Description of [English Version is Here](#description-of-english-version).
 
 #### 最新版のダウンロード
 現在の最新版は ver2.0.0になります。  
-ダウンロード：**_cloverfinder-⛄-v2.0.0.ipf**
+ダウンロード：**[_cloverfinder-⛄-v2.0.0.ipf](https://github.com/Toukibi/ToSAddon/raw/master/Do-It-Yourself/With_ipf/CloverFinder/ipf/_cloverfinder-%E2%9B%84-v2.0.0.ipf)**
 
 #### インストール方法
 Tree of Saviorが入っているフォルダーの中にある**data**フォルダーの中にダウンロードしたipfファイルを入れてください。  
@@ -42,7 +42,7 @@ However, for **this add-on is the elimination target**, handling is **at your ow
 
 #### Download the latest version.
 The latest version is ver 2.0.0.  
-Download:**_cloverfinder-⛄-v2.0.0.ipf**
+Download:**[_cloverfinder-⛄-v2.0.0.ipf](https://github.com/Toukibi/ToSAddon/raw/master/Do-It-Yourself/With_ipf/CloverFinder/ipf/_cloverfinder-%E2%9B%84-v2.0.0.ipf)**
 
 #### Installation Instructions.
 Please put the downloaded ipf file in the **data** folder inside the folder of Tree of Savior.  
