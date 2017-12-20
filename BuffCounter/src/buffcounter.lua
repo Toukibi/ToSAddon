@@ -1,5 +1,5 @@
 local addonName = "BuffCounter";
-local verText = "1.15";
+local verText = "1.17";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/buffc", "/buffcounter", "/BuffCounter"} -- {"/コマンド1", "/コマンド2", .......};
@@ -481,7 +481,7 @@ ShowInitializeMessage()
 -- ***** 変数の宣言と設定 *****
 
 Me.BuffPrintInfo = {
---	 [100] = {arg = "arg1", fmt = "%s"}, --サクラメント
+	 [100] = {arg = "arg3", fmt = "+%s"}, --サクラメント
 --	 [146] = {arg = "arg1", fmt = "%s"}, --アスパ
 	 [147] = {arg = "custom", fmt = "+%s"}, --ブレス
 	[3016] = {arg = "arg1", fmt = "%s"}, --ダイノ
@@ -504,8 +504,8 @@ Me.BuffPrintInfo = {
 local function GetCustomeBuffValue(buff)
 	local ReturnValue = 0;
 	if buff.buffID == 147 then
-		ReturnValue = 55 + ((buff.arg1 - 1) * 25) + ((buff.arg1 / 5) * (buff.arg4 ^ 0.9));
-		ReturnValue = math.floor(ReturnValue * (1 + buff.arg5 * 0.01));
+		ReturnValue = 55 + ((buff.arg1 - 1) * 25) + ((buff.arg1 / 5) * (buff.arg3 ^ 0.9));
+		ReturnValue = math.floor(ReturnValue * (1 + buff.arg4 * 0.01));
 	end
 	return ReturnValue;
 end
