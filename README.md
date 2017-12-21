@@ -15,7 +15,8 @@ So, I would appreciate it if you could told me the correct translation when you 
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
 ## [BuffCounter Ver. 1.17 ( JP / EN / KR )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
-装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
+上段バフの残り枠数を教えてくれます。  
+さらに、トークンの残り日数やバフのレベル・効果などを追加表示します。  
 This add-on will tell you the remaining number of upper buffs.  
 (In addition, the remaining time of the token is displayed in the buff field)  
 !["Image of main image of Buff-Counter"](https://github.com/Toukibi/ToSAddon/raw/ForImage/BuffCounter/img/topimage.png?raw=true)  
