@@ -1,7 +1,7 @@
 ## Notice：
 <span style="color:#FF0000;">The author is not currently working in ToS.  
-Therefore, basically these add-ons will not be updated.  
-現在、作者はToSを引退しているため、基本的にアドオンの更新をする予定はありません。</span>
+Therefore, I am planning to fix fatal things. However, basically it only updates as a whim.  
+現在、作者はToSを引退しています。そのため、致命的なものの修正は行うつもりですが、基本的には気まぐれで更新しかしません。</span>
 
 # Add-ons for Tree of Savior - Tree of Saviorアドオン集
 「あったらちょっと便利だな」と思う小道具を気まぐれに作成しています。    
@@ -20,6 +20,13 @@ This add-on enhances the ability to display the items picked up.
 This add-on will tell you the remaining number of upper buffs.  
 (In addition, the remaining time of the token is displayed in the buff field)  
 !["Image of main image of Buff-Counter"](https://github.com/Toukibi/ToSAddon/raw/ForImage/BuffCounter/img/topimage.png?raw=true)  
+## [Clover Finder Ver. 2.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/Do-It-Yourself/With_ipf/CloverFinder)
+訳ありのあの有名なアドオンです。  
+ランク9実装の時に動かなくなった物を組み直して再び動くようにしました。  
+しかし、物が物だけに**取り扱いは自己責任で**お願いします。  
+That is a famous add-on that has certain circumstances.  
+It stopped working due to the patch of December 2017. However, I reorganized it so that it moves again.  
+However, for **this add-on is the elimination target**, handling is **at your own risk**.  
 ## [Dur notice Mini Ver. 1.21 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
