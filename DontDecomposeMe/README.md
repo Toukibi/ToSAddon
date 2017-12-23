@@ -2,26 +2,26 @@
 # Don't Decompose Me
 Description of [English Version is Here](#description-of-english-version).
 
-### 1.����͉��H
-�A�C�e���������ɑ厖�ȃA�C�e���𕪉����Ȃ��悤�ɃA�C�e���̌����������₷�����Ă���܂��B  
-(**����ĕ������邱�Ƃ�j�~���邱�Ƃ͂ł��܂���**)  
-![�O�ϕ\��](https://github.com/Toukibi/ToSAddon/blob/ForImage/DontDecomposeMe/img/topimage_ja.png?raw=true)  
-### 2.�ł��邱��
-* �A�C�e�������E�B���h�E�̈ꗗ�Ɏ��̏���ǉ����܂�  
-  * �A�C�e���̃����N�̐F
-  * �A�C�e���̋����l
-  * �A�C�e�������Ӓ�ł��邱��
+### 1.これは何？
+アイテム分解時に大事なアイテムを分解しないようにアイテムの見分けをしやすくしてくれます。  
+(**誤って分解することを阻止することはできません**)  
+![外観表示](https://github.com/Toukibi/ToSAddon/blob/ForImage/DontDecomposeMe/img/topimage_ja.png?raw=true)  
+### 2.できること
+* アイテム分解ウィンドウの一覧に次の情報を追加します  
+  * アイテムのランクの色
+  * アイテムの強化値
+  * アイテムが未鑑定であること
   
-* ����ɁA���ɊY������A�C�e����\�����Ȃ��悤�ɂł��܂��B
-  * �Ӓ�ς݂̃A�C�e��
-  * �����ς݂̃A�C�e��
+* さらに、次に該当するアイテムを表示しないようにできます。
+  * 鑑定済みのアイテム
+  * 強化済みのアイテム
 
-### 3.�g�p�\�ȃR�}���h�ꗗ
-���̃A�h�I���ɂ̓R�}���h�͂���܂���B����؂�ւ��͎����ōs���܂��B
+### 3.使用可能なコマンド一覧
+このアドオンにはコマンドはありません。言語切り替えは自動で行われます。
 
-### 4.�������@
-���̃A�h�I���́A�A�h�I���}�l�[�W��JP�ɓo�^���Ă��܂��B  
-�A�h�I���}�l�[�W��JP��p���ē������Ă�������  
+### 4.導入方法
+このアドオンは、アドオンマネージャJPに登録しています。  
+アドオンマネージャJPを用いて導入してください  
 
 ---
 ## Description of English Version 
