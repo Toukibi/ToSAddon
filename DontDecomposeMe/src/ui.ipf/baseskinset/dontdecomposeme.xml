@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skinset name="toukibi_dontdecomposeme_res">
+	<imagelist category="icons">
+		<image name="dontdecomposeme_rare" file="\skin\dontdecomposeme.tga" imgrect="0 0 24 24" />
+		<image name="dontdecomposeme_epic" file="\skin\dontdecomposeme.tga" imgrect="32 0 24 24" />
+		<image name="dontdecomposeme_unique" file="\skin\dontdecomposeme.tga" imgrect="0 26 24 24" />
+		<image name="dontdecomposeme_legendary" file="\skin\dontdecomposeme.tga" imgrect="32 26 24 24" />
+		<image name="dontdecomposeme_mini_rare" file="\skin\dontdecomposeme.tga" imgrect="0 52 12 12" />
+		<image name="dontdecomposeme_mini_epic" file="\skin\dontdecomposeme.tga" imgrect="16 52 12 12" />
+		<image name="dontdecomposeme_mini_unique" file="\skin\dontdecomposeme.tga" imgrect="32 52 12 12" />
+		<image name="dontdecomposeme_mini_legendary" file="\skin\dontdecomposeme.tga" imgrect="48 52 12 12" />
+	</imagelist>
+</skinset>
