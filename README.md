@@ -27,6 +27,12 @@ This add-on will tell you the remaining number of upper buffs.
 That is a famous add-on that has certain circumstances.  
 It stopped working due to the patch of December 2017. However, I reorganized it so that it moves again.  
 However, for **this add-on is the elimination target**, handling is **at your own risk**.  
+## [Don't Decompose Me Ver. 1.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DontDecomposeMe)
+アイテム分解時に大事なアイテムを分解しないようにアイテムの見分けをしやすくしてくれます。  
+(**誤って分解することを阻止することはできません**)   
+It makes it easier to distinguish items so as not to disassemble important items at the time of item disassembly.  
+(**It will not be able to prevent the decomposition by mistake**)  
+!["Image of main image of Don't-Decompose-Me"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DontDecomposeMe/img/topimage_ja.png?raw=true)  
 ## [Dur notice Mini Ver. 1.21 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
