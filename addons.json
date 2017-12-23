@@ -1,148 +1,161 @@
 [
-    {
-        "name" : "Shop Helper",
-        "file" : "shophelper",
-        "extension" : "ipf",
-        "fileVersion" : "v0.8.4",
-        "releaseTag" : "ShopHelper",
-        "unicode" : "⛄",
-        "description" : "街などで開かれている露店の価格が高いか安いかをコメントしてくれます。This add-on will tell you whether the price of buff/repair/etc. is expensive or cheap.",
-        "tags" : [
-            "ui",
-            "rip-off measures",
-            "price",
-            "Auto-sellor baloon",
-            "jp",
-            "en",
-            "kr"
-        ]
-    },
-    {
-        "name" : "Dur Notice Mini",
-        "file" : "durnoticemini",
-        "extension" : "ipf",
-        "fileVersion" : "v1.2.1",
-        "releaseTag" : "DurNoticeMini",
-        "unicode" : "⛄",
-        "description" : "武器と防具のそれぞれで最も低い耐久値を表示します。zealotさんのDur Noticeを小型化してステータス表示に溶け込めるようにしたものです。 This add-on is a miniaturized version of durability value viewer 'Dur Notice' made by 'zealot'.",
-        "tags" : [
-            "ui",
-            "durability",
-            "miniaturized",
-            "jp",
-            "en",
-            "kr"
-        ]
-    },
-    {
-        "name" : "Map Mate",
-        "file" : "mapmate",
-        "extension" : "ipf",
-        "fileVersion" : "v0.8.7",
-        "releaseTag" : "MapMate",
-        "unicode" : "⛄",
-        "description" : "マップ表示を色々便利にしてくれます。 This add-on makes map display a lot convenient.",
-        "tags" : [
-            "ui",
-            "map",
-            "pc-count",
-            "jp",
-            "en"
-        ]
-    },
-    {
-        "name" : "Buff Counter",
-        "file" : "buffcounter",
-        "extension" : "ipf",
-        "fileVersion" : "v1.1.7",
-        "releaseTag" : "BuffCounter",
-        "unicode" : "⛄",
-        "description" : "上段バフの残り枠数を教えてくれます。  This add-on will tell you the remaining number of upper buffs.",
-        "tags" : [
-            "ui",
-            "buff",
-            "jp",
-            "en",
-            "kr"
-        ]
-    },
-    {
-        "name" : "Remaining Counter",
-        "file" : "remainingcounter",
-        "extension" : "ipf",
-        "fileVersion" : "v1.0.2",
-        "releaseTag" : "RemainingCounter",
-        "unicode" : "⛄",
-        "description" : "アイテムを使用するスキルの場合、クイックスロットの右下に残り回数を表示します。  For skills that use items, this add-on display the remaining number in the lower right of Quick Slot.",
-        "tags" : [
-            "ui",
-            "remaining number",
-            "jp",
-            "en"
-        ]
-    },
-    {
-        "name" : "Tooltip Helper (Rebuild by Toukibi)",
-        "file" : "tooltiphelper_toukibi",
-        "extension" : "ipf",
-        "fileVersion" : "v1.0.0",
-        "releaseTag" : "TooltipHelper_Rebuild",
-        "unicode" : "⛄",
-        "description" : "Tooltip Helperの焼き直し版です。  This is a reworked version of Tooltip Helper.",
-        "tags" : [
-            "ui",
-            "tooltip",
-            "collection",
-            "recipe",
-            "journal",
-            "magnum opus",
-            "drop ratio",
-            "jp",
-            "en"
-        ]
-    },
-    {
-        "name" : "Experience Viewer Ex",
-        "file" : "expviewer_ex",
-        "extension" : "ipf",
-        "fileVersion" : "v1.0.0",
-        "releaseTag" : "ExpViewer_Ex",
-        "unicode" : "⛄",
-        "description" : "Experience Viewerの改造版で、シルバー時給も表示できるようになりました。  This is a remodeled version of the Experience Viewer, and you can now display the information on the acquired silver.",
-        "tags" : [
-            "ui",
-            "exp",
-            "silver",
-            "jp",
-            "en"
-        ]
-    },
-    {
-        "name" : "Collection Sorter",
-        "file" : "collectionsorter",
-        "extension" : "ipf",
-        "fileVersion" : "v1.0.0",
-        "releaseTag" : "CollectionSorter",
-        "unicode" : "⛄",
-        "description" : "コレクションを正しく名前順で並べ替えられるようにします。ただそれだけです。  Sort the collection correctly by name. That's it.",
-        "tags" : [
-            "ui",
-            "collection"
-        ]
-    },
-    {
-        "name" : "Better Pick Queue",
-        "file" : "betterpickqueue",
-        "extension" : "ipf",
-        "fileVersion" : "v1.1.0",
-        "releaseTag" : "BetterPickQueue",
-        "unicode" : "⛄",
-        "description" : "画面の右下で拾ったアイテムを表示する機能を強化します。  This add-on enhances the ability to display the items picked up.",
-        "tags" : [
-            "ui",
-            "item message",
-            "silver",
-            "weight"
-        ]
-    }
+  {
+    "name": "Shop Helper",
+    "file": "shophelper",
+    "extension": "ipf",
+    "fileVersion": "v0.8.4",
+    "releaseTag": "ShopHelper",
+    "unicode": "⛄",
+    "description": "街などで開かれている露店の価格が高いか安いかをコメントしてくれます。This add-on will tell you whether the price of buff/repair/etc. is expensive or cheap.",
+    "tags": [
+      "ui",
+      "rip-off measures",
+      "price",
+      "Auto-sellor baloon",
+      "jp",
+      "en",
+      "kr"
+    ]
+  },
+  {
+    "name": "Dur Notice Mini",
+    "file": "durnoticemini",
+    "extension": "ipf",
+    "fileVersion": "v1.2.1",
+    "releaseTag": "DurNoticeMini",
+    "unicode": "⛄",
+    "description": "武器と防具のそれぞれで最も低い耐久値を表示します。zealotさんのDur Noticeを小型化してステータス表示に溶け込めるようにしたものです。 This add-on is a miniaturized version of durability value viewer 'Dur Notice' made by 'zealot'.",
+    "tags": [
+      "ui",
+      "durability",
+      "miniaturized",
+      "jp",
+      "en",
+      "kr"
+    ]
+  },
+  {
+    "name": "Map Mate",
+    "file": "mapmate",
+    "extension": "ipf",
+    "fileVersion": "v0.8.7",
+    "releaseTag": "MapMate",
+    "unicode": "⛄",
+    "description": "マップ表示を色々便利にしてくれます。 This add-on makes map display a lot convenient.",
+    "tags": [
+      "ui",
+      "map",
+      "pc-count",
+      "jp",
+      "en"
+    ]
+  },
+  {
+    "name": "Buff Counter",
+    "file": "buffcounter",
+    "extension": "ipf",
+    "fileVersion": "v1.1.7",
+    "releaseTag": "BuffCounter",
+    "unicode": "⛄",
+    "description": "上段バフの残り枠数を教えてくれます。  This add-on will tell you the remaining number of upper buffs.",
+    "tags": [
+      "ui",
+      "buff",
+      "jp",
+      "en",
+      "kr"
+    ]
+  },
+  {
+    "name": "Remaining Counter",
+    "file": "remainingcounter",
+    "extension": "ipf",
+    "fileVersion": "v1.0.2",
+    "releaseTag": "RemainingCounter",
+    "unicode": "⛄",
+    "description": "アイテムを使用するスキルの場合、クイックスロットの右下に残り回数を表示します。  For skills that use items, this add-on display the remaining number in the lower right of Quick Slot.",
+    "tags": [
+      "ui",
+      "remaining number",
+      "jp",
+      "en"
+    ]
+  },
+  {
+    "name": "Tooltip Helper (Rebuild by Toukibi)",
+    "file": "tooltiphelper_toukibi",
+    "extension": "ipf",
+    "fileVersion": "v1.0.0",
+    "releaseTag": "TooltipHelper_Rebuild",
+    "unicode": "⛄",
+    "description": "Tooltip Helperの焼き直し版です。  This is a reworked version of Tooltip Helper.",
+    "tags": [
+      "ui",
+      "tooltip",
+      "collection",
+      "recipe",
+      "journal",
+      "magnum opus",
+      "drop ratio",
+      "jp",
+      "en"
+    ]
+  },
+  {
+    "name": "Experience Viewer Ex",
+    "file": "expviewer_ex",
+    "extension": "ipf",
+    "fileVersion": "v1.0.0",
+    "releaseTag": "ExpViewer_Ex",
+    "unicode": "⛄",
+    "description": "Experience Viewerの改造版で、シルバー時給も表示できるようになりました。  This is a remodeled version of the Experience Viewer, and you can now display the information on the acquired silver.",
+    "tags": [
+      "ui",
+      "exp",
+      "silver",
+      "jp",
+      "en"
+    ]
+  },
+  {
+    "name": "Collection Sorter",
+    "file": "collectionsorter",
+    "extension": "ipf",
+    "fileVersion": "v1.0.0",
+    "releaseTag": "CollectionSorter",
+    "unicode": "⛄",
+    "description": "コレクションを正しく名前順で並べ替えられるようにします。ただそれだけです。  Sort the collection correctly by name. That's it.",
+    "tags": [
+      "ui",
+      "collection"
+    ]
+  },
+  {
+    "name": "Better Pick Queue",
+    "file": "betterpickqueue",
+    "extension": "ipf",
+    "fileVersion": "v1.1.0",
+    "releaseTag": "BetterPickQueue",
+    "unicode": "⛄",
+    "description": "画面の右下で拾ったアイテムを表示する機能を強化します。  This add-on enhances the ability to display the items picked up.",
+    "tags": [
+      "ui",
+      "item message",
+      "silver",
+      "weight"
+    ]
+  },
+  {
+    "name": "Dont Decompose Me",
+    "file": "dontdecomposeme",
+    "extension": "ipf",
+    "fileVersion": "v1.0.0",
+    "releaseTag": "DontDecomposeMe",
+    "unicode": "⛄",
+    "description": "アイテム分解時に大事なアイテムを分解しないようにアイテムの見分けをしやすくしてくれます。  It makes it easier to distinguish items so as not to disassemble important items at the time of item disassembly.",
+    "tags": [
+      "ui",
+      "decompose"
+    ]
+  }
 ]
