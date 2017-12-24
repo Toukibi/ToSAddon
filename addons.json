@@ -149,7 +149,7 @@
     "name": "Dont Decompose Me",
     "file": "dontdecomposeme",
     "extension": "ipf",
-    "fileVersion": "v1.0.0",
+    "fileVersion": "v1.0.1",
     "releaseTag": "DontDecomposeMe",
     "unicode": "⛄",
     "description": "アイテム分解時に大事なアイテムを分解しないようにアイテムの見分けをしやすくしてくれます。  It makes it easier to distinguish items so as not to disassemble important items at the time of item disassembly.",

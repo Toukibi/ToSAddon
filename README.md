@@ -27,7 +27,7 @@ This add-on will tell you the remaining number of upper buffs.
 That is a famous add-on that has certain circumstances.  
 It stopped working due to the patch of December 2017. However, I reorganized it so that it moves again.  
 However, for **this add-on is the elimination target**, handling is **at your own risk**.  
-## [Don't Decompose Me Ver. 1.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DontDecomposeMe)
+## [Don't Decompose Me Ver. 1.01 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DontDecomposeMe)
 アイテム分解時に大事なアイテムを分解しないようにアイテムの見分けをしやすくしてくれます。  
 (**誤って分解することを阻止することはできません**)   
 It makes it easier to distinguish items so as not to disassemble important items at the time of item disassembly.  

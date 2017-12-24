@@ -1,5 +1,5 @@
 local addonName = "DontDecomposeMe";
-local verText = "1.00";
+local verText = "1.01";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {} -- {"/コマンド1", "/コマンド2", .......};
@@ -539,6 +539,7 @@ end
 function Me.MakeBasicInfo()
 	-- チェックボックスのチェック状態を取得する
 	local TopParent = ui.GetFrame("itemdecompose");
+	ITEM_DECOMPOSE_ALL_UNSELECT(TopParent);
 	local itemTypeBoxFrame = GET_CHILD_RECURSIVELY(TopParent, "itemTypeBox", "ui::CGroupBox")
 
 	local itemGradeList = {};
@@ -563,7 +564,6 @@ function Me.MakeBasicInfo()
 	
 	local invItemList = session.GetInvItemList();
 	local itemCount = session.GetInvItemList():Count();
-
 	local index = invItemList:Head();
 	for i = 0, itemCount - 1 do
 		local invItem = invItemList:Element(index);
