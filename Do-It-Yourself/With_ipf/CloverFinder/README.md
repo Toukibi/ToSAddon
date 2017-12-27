@@ -10,8 +10,11 @@ Description of [English Version is Here](#description-of-english-version).
 しかし、物が物だけに**取り扱いは自己責任で**お願いします。
 
 #### 最新版のダウンロード
-現在の最新版は ver2.0.0になります。  
-ダウンロード：**[_cloverfinder-⛄-v2.0.0.ipf](https://github.com/Toukibi/ToSAddon/raw/master/Do-It-Yourself/With_ipf/CloverFinder/ipf/_cloverfinder-%E2%9B%84-v2.0.0.ipf)**
+現在の最新版は ver2.0.1になります。  
+ダウンロード：**[_cloverfinder-⛄-v2.0.1.ipf](https://github.com/Toukibi/ToSAddon/raw/master/Do-It-Yourself/With_ipf/CloverFinder/ipf/_cloverfinder-%E2%9B%84-v2.0.1.ipf)**
+
+**変更点：**  
+紫モンスター(チャレンジモード)にも反応するようになりました。
 
 #### インストール方法
 Tree of Saviorが入っているフォルダーの中にある**data**フォルダーの中にダウンロードしたipfファイルを入れてください。  
@@ -41,8 +44,11 @@ It stopped working due to the patch of December 2017. However, I reorganized it 
 However, for **this add-on is the elimination target**, handling is **at your own risk**.
 
 #### Download the latest version.
-The latest version is ver 2.0.0.  
-Download:**[_cloverfinder-⛄-v2.0.0.ipf](https://github.com/Toukibi/ToSAddon/raw/master/Do-It-Yourself/With_ipf/CloverFinder/ipf/_cloverfinder-%E2%9B%84-v2.0.0.ipf)**
+The latest version is ver 2.0.1.  
+Download:**[_cloverfinder-⛄-v2.0.1.ipf](https://github.com/Toukibi/ToSAddon/raw/master/Do-It-Yourself/With_ipf/CloverFinder/ipf/_cloverfinder-%E2%9B%84-v2.0.1.ipf)**
+
+**new function:**  
+It also reacts to the purple effect monster (challenge mode).
 
 #### Installation Instructions.
 Please put the downloaded ipf file in the **data** folder inside the folder of Tree of Savior.  

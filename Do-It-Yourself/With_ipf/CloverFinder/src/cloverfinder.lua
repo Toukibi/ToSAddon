@@ -1,5 +1,5 @@
 local addonName = "CloverFinder";
-local verText = "2.00";
+local verText = "2.01";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/clover"} -- {"/コマンド1", "/コマンド2", .......};
@@ -37,6 +37,7 @@ local ResText = {
 		  , Blue = "青色"
 		  , Red = "赤色"
 		  , Elite = "エリート"
+		  , Challenge = "チャレンジモード"
 		},
 		System = {
 			ErrorToUseDefaults = "設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。"
@@ -62,6 +63,7 @@ local ResText = {
 		  , Blue = "Blue"
 		  , Red = "Red"
 		  , Elite = "Elite"
+		  , Challenge = "Challenge Mode"
 		},
 		System = {
 			ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
@@ -78,6 +80,14 @@ Me.ResText = ResText;
 
 -- 検出するバフ一覧
 local DetectBuffList = {
+--[[	{
+		ID = 13007
+	  , Icon = "minimap_indun"
+	  , BG = "gacha_03"
+	  , Type = "Challenge"
+	  , checkFn = nil
+	},
+--]]
 	{
 		ID = 5028
 	  , Icon = "icon_item_jewelrybox"
@@ -111,6 +121,13 @@ local DetectBuffList = {
 	  , Icon = "icon_fieldboss"
 	  , BG = "gacha_03"
 	  , Type = "Elite"
+	  , checkFn = nil
+	},
+	{
+		ID = 5105
+	  , Icon = "minimap_indun"
+	  , BG = "gacha_03"
+	  , Type = "Challenge"
 	  , checkFn = nil
 	}
 };
@@ -537,7 +554,7 @@ local function HasBuff(type, handle, checkFn)
 	for i = 0, buffCount - 1 do
 		local buff = info.GetBuffIndexed(handle, i);
 		--local cls = GetClassByType('Buff', buff.buffID);
-	
+	-- log(buff.buffID)
 		if buff.buffID == type then
 			if checkFn ~= nil then
 				return checkFn(buff);
