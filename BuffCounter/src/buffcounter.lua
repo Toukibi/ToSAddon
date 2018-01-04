@@ -1,5 +1,5 @@
 local addonName = "BuffCounter";
-local verText = "1.17";
+local verText = "1.18";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/buffc", "/buffcounter", "/BuffCounter"} -- {"/コマンド1", "/コマンド2", .......};
@@ -26,7 +26,7 @@ local DebugMode = false;
 -- ***** 変数の宣言と設定 *****
 Me.SettingFilePathName = string.format("../addons/%s/%s", addonNameLower, SettingFileName);
 Me.Loaded = false;
-
+Me.BuffFromShop = Me.BuffFromShop or {};
 
 
 -- テキストリソース
@@ -481,7 +481,7 @@ ShowInitializeMessage()
 -- ***** 変数の宣言と設定 *****
 
 Me.BuffPrintInfo = {
-	 [100] = {arg = "arg3", fmt = "+%s"}, --サクラメント
+	 [100] = {arg = "custom", fmt = "+%s"}, --サクラメント
 --	 [146] = {arg = "arg1", fmt = "%s"}, --アスパ
 	 [147] = {arg = "custom", fmt = "+%s"}, --ブレス
 	[3016] = {arg = "arg1", fmt = "%s"}, --ダイノ
@@ -501,11 +501,55 @@ Me.BuffPrintInfo = {
 };
 
 -- Customに設定したバフの表示値を返す
+local function IsFromShop(buff)
+	local ReturnValue = false; -- わからない場合は「露店バフではない」とする
+	local currentIndex = tostring(buff.buffID)
+	if Me.BuffFromShop ~= nil and Me.BuffFromShop[currentIndex] ~= nil then
+		-- 記録があれば記録を使う
+		ReturnValue = Me.BuffFromShop[currentIndex];
+		-- log(string.format("記録有り (%s)", tostring(ReturnValue)))
+	else
+		-- 記録がない場合は、バフ主がDummyPCかで判断する
+		local OwnerHandle = buff:GetHandle();
+		if OwnerHandle ~= 0 and info.GetTargetInfo(OwnerHandle) ~= nil then
+			-- バフ主が見つかった場合
+			local TargetInfo = info.GetTargetInfo(OwnerHandle);
+			ReturnValue = (TargetInfo.IsDummyPC ~= 0);
+			-- log(string.format("主がいる (%s)", tostring(ReturnValue)))
+			Me.BuffFromShop[currentIndex] = ReturnValue;
+		else
+			-- バフ主が見つからない場合は、時間で判定する
+			if buff.buffID == 147 and buff.time > 300 * 1000 then
+				ReturnValue = true;
+				-- log(string.format("時間で判定 (%s)", tostring(ReturnValue)))
+				Me.BuffFromShop[currentIndex] = ReturnValue;
+			elseif buff.buffID == 100 and buff.time > 440 * 1000 then
+				ReturnValue = true;
+				Me.BuffFromShop[currentIndex] = ReturnValue;
+			end
+		end
+	end
+	return ReturnValue;
+end
+
 local function GetCustomeBuffValue(buff)
 	local ReturnValue = 0;
 	if buff.buffID == 147 then
+		-- ブレス
 		ReturnValue = 55 + ((buff.arg1 - 1) * 25) + ((buff.arg1 / 5) * (buff.arg3 ^ 0.9));
 		ReturnValue = math.floor(ReturnValue * (1 + buff.arg4 * 0.01));
+		if IsFromShop(buff) then
+			-- 露店で受けた可能性あり
+			ReturnValue = math.floor(ReturnValue * 0.7);
+		end
+		--log(ReturnValue)
+	elseif buff.buffID == 100 then
+		-- サクラ
+		ReturnValue = buff.arg3
+		if IsFromShop(buff) then
+			-- 露店で受けた可能性あり
+			ReturnValue = math.floor(ReturnValue * 0.7);
+		end
 	end
 	return ReturnValue;
 end
@@ -1182,7 +1226,27 @@ function TOUKIBI_BUFFCOUNTER_UPDATE_ALL(frame)
 	Me.Update();
 end
 
-function TOUKIBI_BUFFCOUNTER_UPDATE(frame)
+function TOUKIBI_BUFFCOUNTER_UPDATE(frame, msg, argStr, argNum)
+	--log(string.format("%s : %s (%s)", msg, argStr, argNum));
+	if msg == "BUFF_ADD" or msg == "BUFF_UPDATE" then
+		-- 露店のバフかを確認する
+		local handle = session.GetMyHandle();
+		local BuffCount = info.GetBuffCount(handle);
+		for i = 0, BuffCount - 1 do
+			local buff = info.GetBuffIndexed(handle, i);
+			if buff ~= nil and buff.buffID == argNum then
+				--log("buffID : " .. buff.buffID)
+				local OwnerHandle = buff:GetHandle();
+				--log("owner : " .. OwnerHandle)
+				if OwnerHandle ~= 0 and info.GetTargetInfo(OwnerHandle) ~= nil then
+					local TargetInfo = info.GetTargetInfo(OwnerHandle);
+					--log("Target : " .. tostring(TargetInfo))
+					--log("IsDummy : " .. tostring(TargetInfo.IsDummyPC ~= 0))
+					Me.BuffFromShop[tostring(argNum)] = (TargetInfo.IsDummyPC ~= 0);
+				end
+			end
+		end
+	end
 	Me.Update();
 end
 

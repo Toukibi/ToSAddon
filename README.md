@@ -14,7 +14,7 @@ So, I would appreciate it if you could told me the correct translation when you 
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
-## [BuffCounter Ver. 1.17 ( JP / EN / KR )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
+## [BuffCounter Ver. 1.18 ( JP / EN / KR )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
 上段バフの残り枠数を教えてくれます。  
 さらに、トークンの残り日数やバフのレベル・効果などを追加表示します。  
 This add-on will tell you the remaining number of upper buffs.  
@@ -46,7 +46,7 @@ This add-on makes map display a lot convenient.
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
-## [Tooltip Helper Ver. 1.00 (Rebuild by Toukibi)( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
+## [Tooltip Helper Ver. 1.01 (Rebuild by Toukibi)( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
 Tooltip Helperはツールチップに追加の情報を表示するためのアドオンです。  
 冒険日誌の変更パッチで動かなくなった原作を再構築したものです。
 Tooltip Helper is an add-on for displaying additional information on tooltips.  

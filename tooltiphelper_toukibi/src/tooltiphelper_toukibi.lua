@@ -1,5 +1,5 @@
 local addonName = "ToolTipHelper_Toukibi";
-local verText = "1.00";
+local verText = "1.01";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/tth"} -- {"/コマンド1", "/コマンド2", .......};
@@ -1729,6 +1729,7 @@ local ResText = {
 		  , NPCRepair = "NPCで修理"
 		  , SquireRepair = "修理露店で修理"
 		  , RepairCheaperCommon = "{s14}%sしたほうが安い{/}{s24} {/}"
+		  , OtherItems = "    他%s種 ..."
 		},
 		SettingFrame = {
 			CannotGetSettingFrameHandle = "設定画面のハンドルが取得できませんでした"
@@ -1785,31 +1786,32 @@ local ResText = {
 		},
 		Other = {
 			ToggleOpusMap = "{nl}{s6} {/}{nl}    Press 'Shift' to show details."
-			, NPCRepair = "NPC"
-			, SquireRepair = "Squire"
-			, RepairCheaperCommon = "Repair at: %s"
-		  },
+		  , NPCRepair = "NPC"
+		  , SquireRepair = "Squire"
+		  , RepairCheaperCommon = "Repair at: %s"
+		  , OtherItems = "         %s other items ..."
+		},
 		  SettingFrame = {
 			CannotGetSettingFrameHandle = "Failed to get the handle of setting dialog."
-			, SettingFrameTitle = "Settings  -Tooltip Helper-"
-			, Save = "Save"
-			, CloseMe = "Close"
-			, LangTitle = "Language (言語)"
-			, Japanese = "Japanese (日本語)"
-			, English = "English"
-			, DisplayTitle = "Display Settings"
-			, showCollection = "Collection"
-			, showCompletedCollection = "Also show completed collections"
-			, showRecipe = "Recipe"
-			, showRecipeHaveNeedCount = "Display possession / required number"
-			, showItemDropRatio = "Drop ratio"
-			, showMagnumOpus = "Magnum Opus"
-			, AllwaysDisplayOpusMap_From = "Always display the item placement : Transmuted From"
-			, AllwaysDisplayOpusMap_Into = "Always display the item placement : Transmutes Into"
-			, useRecipePuzzleXML = "Use external file (recipe_puzzle.xml)"
-			, showJournalStats = "Obtained Count"
-			, showRepairRecommendation = "Recommended repair methods"
-			, repairPrice_title = "Basic repair price of repair stalls"
+		  , SettingFrameTitle = "Settings  -Tooltip Helper-"
+		  , Save = "Save"
+		  , CloseMe = "Close"
+		  , LangTitle = "Language (言語)"
+		  , Japanese = "Japanese (日本語)"
+		  , English = "English"
+		  , DisplayTitle = "Display Settings"
+		  , showCollection = "Collection"
+		  , showCompletedCollection = "Also show completed collections"
+		  , showRecipe = "Recipe"
+		  , showRecipeHaveNeedCount = "Display possession / required number"
+		  , showItemDropRatio = "Drop ratio"
+		  , showMagnumOpus = "Magnum Opus"
+		  , AllwaysDisplayOpusMap_From = "Always display the item placement : Transmuted From"
+		  , AllwaysDisplayOpusMap_Into = "Always display the item placement : Transmutes Into"
+		  , useRecipePuzzleXML = "Use external file (recipe_puzzle.xml)"
+		  , showJournalStats = "Obtained Count"
+		  , showRepairRecommendation = "Recommended repair methods"
+		  , repairPrice_title = "Basic repair price of repair stalls"
 		},
 		System = {
 			ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
@@ -2408,39 +2410,48 @@ end
 
 function Me.CreateApplicationsList_Recipe()
 	Me.ApplicationsList.Recipe = {};
-	local ClassType = 'Recipe'
-	local tblTarget = Me.ApplicationsList[ClassType];
-	local clsList, cnt = GetClassList(ClassType);
-	for i = 0 , cnt - 1 do
-		local cls = GetClassByIndexFromList(clsList, i);
-		local DoneList = {};
+	local ClassTypeList = {"Recipe", "Recipe_ItemCraft", "ItemTradeShop"};
+	local tblTarget = Me.ApplicationsList.Recipe;
+	for _, ClassType in ipairs(ClassTypeList) do
+		local clsList, cnt = GetClassList(ClassType);
+		for i = 0 , cnt - 1 do
+			local cls = GetClassByIndexFromList(clsList, i);
+			local DoneList = {};
+			local TargetItemID = TryGetProp(cls, 'TargetItem');
+			-- 制作先アイテムが書いてあるか確かめる
+			if TargetItemID ~= nil and TargetItemID ~= "None" then
+				local clsNewItem = GetClass("Item", TargetItemID);
+				-- 制作先アイテムが存在するか確かめる
+				if clsNewItem ~= nil then
+					-- log(cls.ClassID .. ":" .. clsNewItem.Name)
+					for j = 1 , 5 do
+						local item = GetClass("Item", cls["Item_" .. j .. "_1"]);
 
-		for j = 1 , 5 do
-			local item = GetClass("Item", cls["Item_" .. j .. "_1"]);
-			local recipeItem = GetClass("Item", cls.ClassName);
+						if item == nil  or item.NotExist == 'YES'
+										or item.ItemType == 'Unused'
+										or item.GroupName == 'Unused' then
 
-			if recipeItem == "None" or recipeItem == nil
-									or item == "None"
-									or item == nil
-									or item.NotExist == 'YES'
-									or item.ItemType == 'Unused'
-									or item.GroupName == 'Unused' then
+							break;
+						end
 
-				break;
-			end
+						local itemClassName = item.ClassName;
+						-- log(j .. ":" .. itemClassName)
+						if tblTarget[itemClassName] == nil then
+							tblTarget[itemClassName] = {};
+						end
 
-			local itemClassName = item.ClassName;
-			if tblTarget[itemClassName] == nil then
-				tblTarget[itemClassName] = {};
-			end
-
-			if not ContainsKey(DoneList, itemClassName) then
-				table.insert(DoneList, itemClassName);
-				table.insert(tblTarget[itemClassName],	 {ClassType = ClassType
-														, Index = i
-														, Pos = j
-														, ResultItem = cls.TargetItem
-														 });
+						if not ContainsKey(DoneList, itemClassName) then
+							table.insert(DoneList, itemClassName);
+							table.insert(tblTarget[itemClassName],	 {ClassType = ClassType
+																	, Index = i
+																	, Pos = j
+																	, ResultItem = TargetItemID
+																	});
+						end
+					end
+				else
+					-- log(cls.ClassID .. ":" .. TargetItemID)
+				end
 			end
 		end
 	end
@@ -2659,9 +2670,12 @@ function Me.GetRecipeText(invItem)
 				NeedCount, HaveCount = GET_RECIPE_MATERIAL_INFO(TargetRecipe, MatchData.Pos);
 			end
 			
+			--log(MatchData.ClassType)
 			-- 現在レシピをもっているか
 			local HasRecipe = false;
-			if session.GetInvItemByName(TargetRecipe.ClassName) then
+			if MatchData.ClassType == "Recipe" and session.GetInvItemByName(TargetRecipe.ClassName) then
+				HasRecipe = true;
+			elseif MatchData.ClassType == "Recipe_ItemCraft" then
 				HasRecipe = true;
 			end
 
@@ -2730,7 +2744,13 @@ function Me.GetRecipeText(invItem)
 	-- 出力するテキストを生成する
 	local ResultText = "{nl}";
 	local prevIsCrafted = nil;
+	local ItemCount = 0;
 	for i, value in ipairs(ResultList) do
+		ItemCount = ItemCount + 1;
+		if ItemCount > 30 then 
+			ResultText = ResultText .. "{nl}{s4} {/}{nl}" .. Toukibi:GetStyledText(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.OtherItems"), #ResultList - 30), {"#FFFFFF", "s16", "ol", "ds"});
+			break;
+		end
 		if prevIsCrafted ~= value.isCrafted then
 			local strSplitter = "";
 			if value.isCrafted then
@@ -3062,9 +3082,6 @@ function Me.UpdateToolTipData(tooltipFrame, mainFrameName, invItem, strArg, useS
 	else
 		gBox:Resize(gBox:GetWidth(), gBox:GetHeight() + txtLeftInfo:GetHeight() + 10);
 	end
-
-
-	
 
 	return txtLeftInfo:GetHeight() + txtLeftInfo:GetY();
 end
