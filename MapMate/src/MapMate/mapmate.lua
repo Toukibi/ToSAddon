@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.87";
+local verText = "0.88";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
@@ -25,7 +25,6 @@ local ResText = {
 		  , TitleNotice = "{#663333}更新機能はサーバーへの通信を行います。{nl}使用は自己責任でお願いします。{/}"
 		  , UpdateNow = "今すぐ更新する"
 		  , AutoUpdate_Title = "自動更新間隔："
-		  , AutoUpdate_Space = "              "
 		  , AutoUpdateBySeconds = "%s秒"
 		  , AutoUpdateByMinutes = "%s分"
 		  , NoAutoUpdate = "更新しない"
@@ -37,16 +36,21 @@ local ResText = {
 		ClockMenu = {
 			Title = "{#006666}==== 時計設定 ===={/}"
 		  , Clock_Title = "時刻選択："
-		  , Clock_Space = "          "
 		  , ServerTime = "サーバー時刻"
 		  , ServerTimeFull = "サーバー時刻"
 		  , LocalTime = "PCの時刻"
 		  , LocalTimeFull = "PCの時刻"
-		  , ampm_Title = "表記法  ："
-		  , ampm_Space = "          "
+		  , ampm_Title = "表記法："
 		  , ampm = "AM/PM 表記"
 		  , Noampm = "24時間表記"
 		  , DisplaySec = "秒も表示(ローカル時計専用)"
+		},
+		QuestMenu = {
+			Title = "{#006666}==== クエスト表示設定 ===={/}"
+		  , DisplayImpossibleQuest = "進行不可なクエストも表示"
+		  , CountTitle = "件数表示の設定"
+		  , CountPossible = "進行可能な件数を表示"
+		  , CountAll = "すべての件数を表示"
 		},
 		System = {
 			ErrorToUseDefaults = "設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。"
@@ -70,6 +74,7 @@ local ResText = {
 		  , List_Mob = "生息モンスター一覧"
 		  , List_Quest = "残っているクエスト一覧"
 		  , List_Collection = "コレクション登録状況"
+		  , MsgNotPrayed = "まだ祈っていないジェミナ像があります"
 		  , MobInfoFormat = "{nl}{s20}    {/}{s14}%s :{s16}%s匹{/}{/}"
 		  , RespawnTimeFormat = "{s16}{#66AA33}%s湧き{/}{/}{#333333}%s{/}"
 		  , Respawn_WholeArea = "(全域)"
@@ -77,10 +82,10 @@ local ResText = {
 		},
 		DeathPenalty = {
 			Title = "デスペナ情報"
-		  , LostGem = "ジェム消失"
-		  , LostSilver = "%s％のシルバーを消失"
-		  , LostCard = "Bossカード消失"
-		  , LostBlessStone = "祝福石消失"
+		  , LostGem = "%s個のジェムをドロップ"
+		  , LostSilver = "%s％のシルバーが消失"
+		  , LostCard = "%s枚のBossカードをドロップ"
+		  , LostBlessStone = "%s％の祝福石が消失"
 		  , Other = "その他のペナルティー(%s)"
 		},
 		GetConnectionNumber = {
@@ -98,6 +103,8 @@ local ResText = {
 		  , Minutes = "分"
 		  , Seconds = "秒"
 		  , Soon = "即"
+		  , InProgress = "[進行中]"
+		  , Complete = "[完了]"
 		}
 	},
 	en = {
@@ -106,7 +113,6 @@ local ResText = {
 		  , TitleNotice = "{#663333}The update function communicates with{nl}the server. Use it at your own risk.{/}"
 		  , UpdateNow = "Update now"
 		  , AutoUpdate_Title = "Auto Update Interval:"
-		  , AutoUpdate_Space = "                                       "
 		  , AutoUpdateBySeconds = "%ssec."
 		  , AutoUpdateByMinutes = "%smin."
 		  , NoAutoUpdate = "Never"
@@ -118,16 +124,21 @@ local ResText = {
 		ClockMenu = {
 			Title = "{#006666}==== Time display setting ===={/}"
 		  , Clock_Title = "Time selection:"
-		  , Clock_Space = "                            "
 		  , ServerTime = "Server time"
 		  , ServerTimeFull = "Server time"
 		  , LocalTime = "Local Time"
 		  , LocalTimeFull = "Local Time"
-		  , ampm_Title = "Display:             "
-		  , ampm_Space = "                            "
+		  , ampm_Title = "Display:"
 		  , ampm = "Standard"
 		  , Noampm = "24Hour"
 		  , DisplaySec = "Show Sec.(Local time only)"
+		},
+		QuestMenu = {
+			Title = "{#006666}==== Quest display setting ===={/}"
+		  , DisplayImpossibleQuest = "Display quests that cannot be started"
+		  , CountTitle = "Set badge display"
+		  , CountPossible = "Display progressable count"
+		  , CountAll = "Display all counts"
 		},
 		System = {
 			ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
@@ -151,6 +162,7 @@ local ResText = {
 		  , List_Mob = "Monster List"
 		  , List_Quest = "List of remaining quests"
 		  , List_Collection = "List of collection items:"
+		  , MsgNotPrayed = "There is a statue of Zemina that has not yet been prayed."
 		  , MobInfoFormat = "{nl}{s20}    {/}%s : %s"
 		  , RespawnTimeFormat = "{s16}{#333333}Respawn Time:{/}{#66AA33}{b}%s{/} {/}{#333333}%s{/}{/}"
 		  , Respawn_WholeArea = "(Whole Area)"
@@ -158,10 +170,10 @@ local ResText = {
 		},
 		DeathPenalty = {
 			Title = "Additional penalty for character's death"
-		  , LostGem = "Loss of Gems"
-		  , LostSilver = "Loss of %s% silver"
-		  , LostCard = "Loss of boss-cards"
-		  , LostBlessStone = "Loss of blessed stone"
+		  , LostGem = "Loss of %s Gems"
+		  , LostSilver = "Loss of %s%% silver"
+		  , LostCard = "Loss of %s boss-cards"
+		  , LostBlessStone = "Loss of %s%% blessed stone"
 		  , Other = "Other items(%s)"
 		},
 		GetConnectionNumber = {
@@ -179,6 +191,8 @@ local ResText = {
 		  , Minutes = "Min."
 		  , Seconds = "Sec."
 		  , Soon = "Soon"
+		  , InProgress = "[In Progress]"
+		  , Complete = "[Complete]"
 		}
 	}
 };
@@ -449,11 +463,16 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width)
+	MakeCMenuSeparator = function(self, parent, width, text, style)
 		width = width or 300;
-		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+		text = text or "";
+		style = style or {"ol", "b", "s12", "#AAFFAA"}
+		local strTemp = string.format("{img fullgray %s 1}", width);
+		if text ~= "" then
+			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		end
+		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
-
 	-- コンテキストメニュー項目を作成
 	MakeCMenuItem = function(self, parent, text, eventscp, icon, checked)
 		local CheckIcon = "";
@@ -560,17 +579,19 @@ end
 local function MargeDefaultSetting(Force, DoSave)
 	DoSave = Toukibi:GetValueOrDefault(DoSave, true);
 	Me.Settings = Me.Settings or {};
-	Me.Settings.DoNothing				= Toukibi:GetValueOrDefault(Me.Settings.DoNothing, false, Force);
-	Me.Settings.Lang					= Toukibi:GetValueOrDefault(Me.Settings.Lang, Toukibi:GetDefaultLangCode(), Force);
-	Me.Settings.Movable					= Toukibi:GetValueOrDefault(Me.Settings.Movable, false, Force);
-	Me.Settings.Visible					= Toukibi:GetValueOrDefault(Me.Settings.Visible, true, Force);
-	Me.Settings.UpdatePCCountInterval	= Toukibi:GetValueOrDefault(Me.Settings.UpdatePCCountInterval, nil, Force);
-	Me.Settings.EnableOneClickPCCUpdate = Toukibi:GetValueOrDefault(Me.Settings.EnableOneClickPCCUpdate, false, Force);
-	Me.Settings.UsePCCountSafety		= Toukibi:GetValueOrDefault(Me.Settings.UsePCCountSafety, true, Force);
-	Me.Settings.UseServerClock			= Toukibi:GetValueOrDefault(Me.Settings.UseServerClock, true, Force);
-	Me.Settings.UseAMPM					= Toukibi:GetValueOrDefault(Me.Settings.UseAMPM, true, Force);
-	Me.Settings.ShowMapNameOutside		= Toukibi:GetValueOrDefault(Me.Settings.ShowMapNameOutside, false, Force);
-	Me.Settings.DisplaySec				= Toukibi:GetValueOrDefault(Me.Settings.DisplaySec, false, Force);
+	Me.Settings.DoNothing				= Toukibi:GetValueOrDefault(Me.Settings.DoNothing				, false, Force);
+	Me.Settings.Lang					= Toukibi:GetValueOrDefault(Me.Settings.Lang					, Toukibi:GetDefaultLangCode(), Force);
+	Me.Settings.Movable					= Toukibi:GetValueOrDefault(Me.Settings.Movable					, false, Force);
+	Me.Settings.Visible					= Toukibi:GetValueOrDefault(Me.Settings.Visible					, true, Force);
+	Me.Settings.UpdatePCCountInterval	= Toukibi:GetValueOrDefault(Me.Settings.UpdatePCCountInterval	, nil, Force);
+	Me.Settings.EnableOneClickPCCUpdate = Toukibi:GetValueOrDefault(Me.Settings.EnableOneClickPCCUpdate	, false, Force);
+	Me.Settings.UsePCCountSafety		= Toukibi:GetValueOrDefault(Me.Settings.UsePCCountSafety		, true, Force);
+	Me.Settings.UseServerClock			= Toukibi:GetValueOrDefault(Me.Settings.UseServerClock			, true, Force);
+	Me.Settings.UseAMPM					= Toukibi:GetValueOrDefault(Me.Settings.UseAMPM					, true, Force);
+	Me.Settings.ShowMapNameOutside		= Toukibi:GetValueOrDefault(Me.Settings.ShowMapNameOutside		, false, Force);
+	Me.Settings.DisplaySec				= Toukibi:GetValueOrDefault(Me.Settings.DisplaySec				, false, Force);
+	Me.Settings.DisplayImpossibleQuest	= Toukibi:GetValueOrDefault(Me.Settings.DisplayImpossibleQuest	, false, Force);
+	Me.Settings.QuestBadge_DisplayAll	= Toukibi:GetValueOrDefault(Me.Settings.QuestBadge_DisplayAll	, false, Force);
 	if Force then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
 	end
@@ -706,12 +727,25 @@ end
 
 local function GetMobListToolTipText()
 	local MobInfo = Me.GetMapMonsterInfo()
+	local MobSortedList = {};
+	for _, value in pairs(MobInfo) do
+		table.insert(MobSortedList, value)
+	end
+	table.sort(MobSortedList, function(a, b)
+		if a.MaxNum ~= b.MaxNum then
+			return a.MaxNum > b.MaxNum
+		else
+			return a.Name < b.Name
+		end
+	end)
+	--view(MobSortedList)
+
 	local ToolTipText = "";
 	local ToDisplayCount = 0;
 	-- Mob
 	ToDisplayCount = 0;
 	ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_Mob"));
-	for name, value in pairs(MobInfo) do
+	for _, value in ipairs(MobSortedList) do
 		if value.Name ~= "None" then
 			ToDisplayCount = ToDisplayCount + 1;
 			ToolTipText = ToolTipText .. string.format("{nl}{s18}{#AAAAAA}%s{/}{/}  {s14}{#888888}Lv.%s{/}{/}{s12}{#666666}  (%s/%s){/}{/}{s32} {/}", value.Name, value.Lv, value.KillCount, value.KillRequired);
@@ -787,16 +821,33 @@ function Me.UpdateFrame()
 
 	-- クエスト
 	ToDisplayCount = 0;
+	local QuestBadgeCount = 0;
 	ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_Quest"));
+	local MinModeNo = 10;
 	for i,value in ipairs(QuestInfo) do
-		ToDisplayCount = ToDisplayCount + 1;
-		ToolTipText = ToolTipText .. "{nl}{s28} {/}" .. value
+		if value.ModeNo > 0 or Me.Settings.DisplayImpossibleQuest then
+			ToDisplayCount = ToDisplayCount + 1;
+			if value.ModeNo > 0 or Me.Settings.QuestBadge_DisplayAll then
+				QuestBadgeCount = QuestBadgeCount + 1;
+			end
+			if string.len(ToolTipText) <= 4020 then
+				ToolTipText = ToolTipText .. "{nl}{s28} {/}" .. value.Text
+			end
+		end
+		if value.ModeNo > 0 and MinModeNo > value.ModeNo then
+			MinModeNo = value.ModeNo;
+		end
+	end
+	local QuestIconName = "minimap_1_SUB";
+	if MinModeNo == 1 then
+		QuestIconName = "minimap_1_MAIN";
 	end
 	if ToDisplayCount > 0 then
-		objButton = CreateToolButton(pnlBase, "btnQuest", 0, height * ButtonCount, nil, nil, "minimap_1_SUB", ToDisplayCount)
+		objButton = CreateToolButton(pnlBase, "btnQuest", 0, height * ButtonCount, nil, nil, QuestIconName, QuestBadgeCount)
 		objButton:SetGravity(ui.CENTER_HORZ, ui.TOP);
 		objButton:SetTextTooltip(ToolTipText)
 		objButton:SetEventScript(ui.MOUSEMOVE, "TOUKIBI_MAPMATE_HIDEMOBLIST");
+		objButton:SetEventScript(ui.RBUTTONDOWN, 'TOUKIBI_MAPMATE_CONTEXT_MENU_QUEST');
 		ButtonCount = ButtonCount + 1
 	end
 
@@ -819,22 +870,31 @@ function Me.UpdateFrame()
 			ButtonCount = ButtonCount + 1
 		end
 
-	--[[
+
 		-- 女神像
 		ToDisplayCount = 0;
 		ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_NoMeetStatue"));
+		local ContainsZemina = false;
 		for i,value in ipairs(NPCInfo) do
-			if value.NpcState == 0 and value.Type == "Statue" then
+			if value.NpcState ~= 20 and value.Type == "Statue" then
 				ToDisplayCount = ToDisplayCount + 1;
 				ToolTipText = ToolTipText .. "{nl}{s28} {/}{img minimap_goddess 20 20} " .. value.Name
+				if value.ClassName == "statue_zemina" then
+					ContainsZemina = true;
+				end
 			end
 		end
 		if ToDisplayCount > 0 then
-			local objButton = CreateToolButton(pnlBase, "btnStatue"	, 0, height * ButtonCount, nil, nil, "minimap_goddess")
+			local objButton = CreateToolButton(pnlBase, "btnStatue"	, 0, height * ButtonCount, nil, nil, "minimap_goddess", ToDisplayCount)
 			objButton:SetTextTooltip(ToolTipText)
+			-- objButton:SetTextTooltip(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.MsgNotPrayed"))
+			local ColorToneValue = "FF33BBFF";
+			if ContainsZemina then
+				ColorToneValue = "FFFF7575";
+			end
+			objButton:GetChild('picBase'):SetColorTone(ColorToneValue)
 			ButtonCount = ButtonCount + 1
 		end
-	--]]
 
 
 		-- 宝箱
@@ -1066,7 +1126,7 @@ local function DrawIconToObjEx(objTarget, Zoom)
 													, BoxInfo.Lv
 													, BoxInfo.OpenStateText
 													, BoxInfo.Inside));
-			elseif (value.Type == "NPC" or value.Type == "Arrow") and value.NpcState == 0 then
+			elseif (value.Type == "NPC" or value.Type == "Arrow" or value.Type == "Statue") and value.NpcState == 0 then
 				-- まだ会っていないNPC
 				local XC = math.ceil((value.X) * Zoom) - 16;
 				local YC = math.ceil((value.Y) * Zoom) - 16;
@@ -1340,13 +1400,13 @@ function Me.UpdateMapInfo()
 		local strTemp = "{#663333}" .. Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.Title") .. " : ";
 		for w in string.gmatch(strReadData, "%w+") do
 			if string.find(w, "gem") then
-				strTemp = strTemp .. string.format("{nl}  %s Lv.%s", Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostGem"), string.gsub(w, "gem", ""));
+				strTemp = strTemp .. string.format("{nl}  " .. Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostGem"), string.gsub(w, "gem", ""));
 			elseif string.find(w, "silver") then
 				strTemp = strTemp .. string.format("{nl}  " .. Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostSilver"), string.gsub(w, "silver", ""));
 			elseif string.find(w, "card") then
-				strTemp = strTemp .. string.format("{nl}  %s Lv.%s", Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostCard"), string.gsub(w, "card", ""));
+				strTemp = strTemp .. string.format("{nl}  " .. Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostCard"), string.gsub(w, "card", ""));
 			elseif string.find(w, "blessstone") then
-				strTemp = strTemp .. string.format("{nl}  %s Lv.%s", Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostBlessStone"), string.gsub(w, "blessstone", ""));
+				strTemp = strTemp .. string.format("{nl}  " .. Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.LostBlessStone"), string.gsub(w, "blessstone", ""));
 			else
 				strTemp = strTemp .. string.format("{nl}  %s (%s)", Toukibi:GetResText(ResText, Me.Settings.Lang, "DeathPenalty.Other"), w)
 			end
@@ -1463,8 +1523,33 @@ function Me.GetMapNPCInfo(MapClassName)
 		-- if string.find(string.lower(MonProp:GetDialog()),"treasurebox") then
 		if (IESData_GenType.Faction == "Neutral" and IESData_GenType.Minimap > 0 and string.find(string.lower(IESData_GenType.ClassType),"hidden") == nil and string.find(string.lower(IESData_GenType.ClassType),"trigger") == nil and string.find(string.lower(IESData_GenType.Name),"visible") == nil and string.find(string.lower(IESData_GenType.Name),"none") == nil) or string.find(string.lower(IESData_GenType.ClassType),"treasure.*box") then
 			local NPCType = "NPC"
-			if string.find(string.lower(IESData_GenType.ClassType),"statue_*") then
+			local NpcState = MapInfo.NpcState:FindAndGet(IESData_GenType.GenType)
+			if string.find(string.lower(IESData_GenType.ClassType),"statue_zemina") then
 				NPCType = "Statue"
+			elseif string.find(string.lower(IESData_GenType.ClassType),"statue_vakarine") then
+				-- ヴァカリネ像(ワープ)
+				NPCType = "Statue"
+				NpcState = 0;
+				local sObj_main = GET_MAIN_SOBJ();
+				if sObj_main ~= nil then
+					local gentype_classcount = GetClassCount('camp_warp')
+					if gentype_classcount > 0 then
+						for i = 0 , gentype_classcount - 1 do
+							local cls = GetClassByIndex('camp_warp', i);
+							if cls.Zone == MapClassName then
+								-- 該当データ発見
+								if sObj_main[cls.ClassName] == 300 then
+									-- ヴァカリネ像は会っただけで祈ったことにしておく
+									NpcState = 20;
+								else
+									NpcState = 0;
+								end
+								break;
+							end
+						end
+						--log(NpcState)
+					end
+				end
 			elseif string.find(string.lower(IESData_GenType.ClassType),"warp_arrow") then
 				NPCType = "Arrow"
 			elseif string.find(string.lower(IESData_GenType.ClassType),"treasure.*box") then
@@ -1493,7 +1578,7 @@ function Me.GetMapNPCInfo(MapClassName)
 	--log(string.format("[%s](%s) %s (%s)", IESData_GenType.GenType, MapInfo.NpcState:FindAndGet(IESData_GenType.GenType), IESData_GenType.Name, NPCType))
 			table.insert(NoMeetNPC, {
 				Name = IESData_GenType.Name -- .. "(" .. IESData_GenType.ClassType .. ")"
-				, NpcState = MapInfo.NpcState:FindAndGet(IESData_GenType.GenType)
+				, NpcState = NpcState
 				, Type = NPCType
 				, ClassID = IESData_GenType.ClassID
 				, ClassName = IESData_GenType.ClassType
@@ -1509,6 +1594,7 @@ function Me.GetMapNPCInfo(MapClassName)
 			});
 		end
 	end
+
 	-- view(NoMeetNPC)
 	return NoMeetNPC;
 	-- return MapInfo
@@ -1570,7 +1656,7 @@ function Me.GetMapMonsterInfo(MapClassName)
 	-- log(string.format("%s : [%s] Lv.%s %s (%s)", i, IESData_GenType.GenType, MobClass.Level, MobClass.Name, IESData_GenType.ClassType))
 	-- log(SCR_Get_MON_INT(MobClass))
 				MobList[IESData_GenType.ClassType] = {
-					Name = MobClass.Name
+					  Name = dictionary.ReplaceDicIDInCompStr(MobClass.Name)
 					, ClassID = MobClass.ClassID
 					, JournalID = MobClass.Journal
 					, Lv = MobClass.Level
@@ -1597,6 +1683,7 @@ function Me.GetMapMonsterInfo(MapClassName)
 			local AreaType = ((IESData_GenType.GenRange == 9999) and 1) or 2;
 			if MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)] == nil then
 				MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)] = {}
+				MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)].PopTime = IESData_GenType.RespawnTime
 				MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)][0] = 0
 				MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)][1] = 0
 				MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)][2] = 0
@@ -1605,7 +1692,7 @@ function Me.GetMapMonsterInfo(MapClassName)
 			MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)][AreaType] = MobList[IESData_GenType.ClassType].PopData[tostring(IESData_GenType.RespawnTime)][AreaType] + IESData_GenType.MaxPop
 		end
 	end
-	--view(MobList)
+	-- view(MobList)
 	return MobList
 end
 
@@ -1617,21 +1704,58 @@ function Me.GetMapQuestInfo(MapClassName)
 	local questClsList, questCnt = GetClassList('QuestProgressCheck');
 	for index = 0, questCnt-1 do
 		local questIES = GetClassByIndexFromList(questClsList, index);
-		if questIES.StartMap == MapClassName and questIES.PossibleUI_Notify ~= 'NO' and questIES.QuestMode ~= 'KEYITEM' and questIES.Level ~= 9999 and questIES.Lvup ~= -9999 and questIES.QuestStartMode ~= 'NPCENTER_HIDE' then
+		if questIES.StartMap == MapClassName
+				and questIES.PossibleUI_Notify ~= 'NO'
+				and questIES.QuestMode ~= 'KEYITEM'
+				and questIES.Level ~= 9999
+				and questIES.Lvup ~= -9999
+				and questIES.QuestStartMode ~= 'NPCENTER_HIDE'
+				and questIES.QuestMode ~= "PARTY"
+				and string.find(questIES.ClassName, 'JOB_') ~= 1
+				and string.find(questIES.ClassName, 'EV_') ~= 1
+				and string.find(questIES.ClassName, 'TUTO_.*_TECH') ~= 1
+				then
+
 			local result = SCR_QUEST_CHECK_C(pc, questIES.ClassName)
-			if result == "POSSIBLE" then
-				local ColorStyle = "@st70_s"
+			if result ~= "COMPLETE" then
+				local ModeNo = 2;
+				local ColorStyle = {"@st70_s"};
 				if questIES.QuestMode == "REPEAT" then
-					ColorStyle = "@st70_d"
+					ColorStyle = {"@st70_d"};
+					ModeNo = 3;
 				elseif questIES.QuestMode == "MAIN" then
-					ColorStyle = "@st70_m"
+					ColorStyle = {"@st70_m"};
+					ModeNo = 1;
 				end
-				table.insert(QuestInfo, string.format("{img %s 24 24}{%s}%s{/}"
-													  , GET_QUESTINFOSET_ICON_BY_STATE_MODE(result, questIES)
-													  , ColorStyle
-													  , questIES.Name))
+				if result == "IMPOSSIBLE" then
+					ColorStyle = {"ol", "s14", "#101010"};
+					ModeNo = ModeNo * -1;
+				end
+				local strState = "";
+				if result == "PROGRESS" then
+					strState = Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.InProgress"), {"s12", "ol"});
+				elseif result == "SUCCESS" then
+					strState = Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Complete"), {"s12", "ol"});
+				end
+				table.insert(QuestInfo, { ModeNo = ModeNo
+										, Name = dictionary.ReplaceDicIDInCompStr(questIES.Name)
+										, Text =  string.format("{img %s 24 24}%s{s6} {/}%s"
+												, GET_QUESTINFOSET_ICON_BY_STATE_MODE("POSSIBLE", questIES)
+												, Toukibi:GetStyledText(dictionary.ReplaceDicIDInCompStr(questIES.Name), ColorStyle)
+												, strState)
+										}
+							);
 			end
 		end
+	end
+	if #QuestInfo > 0 then
+		table.sort(QuestInfo, function(a, b)
+			if a.ModeNo ~= b.ModeNo then
+				return a.ModeNo < b.ModeNo
+			else
+				return a.Name < b.Name
+			end
+		end)
 	end
 	-- view(QuestInfo)
 	return QuestInfo;
@@ -1763,38 +1887,45 @@ function TOUKIBI_MAPMATE_CONTEXT_MENU_PCCOUNT(frame, ctrl)
 							  , Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title")
 							  , Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.TitleNotice")
 							  );
-	local context = ui.CreateContextMenu("DURMINI_MAIN_RBTN", Title, 0, 0, 320, 0);
+	local context = ui.CreateContextMenu("MAPMATE_PCCOUNT_RBTN", Title, 0, 0, 320, 0);
 	Toukibi:MakeCMenuSeparator(context, 300);
 	Toukibi:MakeCMenuItem(context, string.format("{#FFFF88}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow")), "TOUKIBI_MAPMATE_EXEC_PCCUPDATE()", nil, nil);
-	Toukibi:MakeCMenuSeparator(context, 300.1);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Title"), 
-											string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 10), 
-											"TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(10)", nil, Me.Settings.UpdatePCCountInterval == 10);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Space"), 
-											string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 20), 
-											"TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(20)", nil, Me.Settings.UpdatePCCountInterval == 20);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Space"), 
-											string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 30), 
-											"TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(30)", nil, Me.Settings.UpdatePCCountInterval == 30);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Space"), 
-											string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 1), 
-											"TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(60)", nil, Me.Settings.UpdatePCCountInterval == 60);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Space"), 
-											string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 3), 
-											"TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(180)", nil, Me.Settings.UpdatePCCountInterval == 180);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Space"), 
-											string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 5), 
-											"TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(300)", nil, Me.Settings.UpdatePCCountInterval == 300);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Space"), 
-											string.format("{#8888FF}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.NoAutoUpdate")), 
-											"TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(nil)", nil, Me.Settings.UpdatePCCountInterval == nil);
+	Toukibi:MakeCMenuSeparator(context, 300.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Title"));
+	Toukibi:MakeCMenuItem(context
+						, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 10)
+						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(10)"
+						, nil
+						, Me.Settings.UpdatePCCountInterval == 10);
+	Toukibi:MakeCMenuItem(context
+						, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 20)
+						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(20)"
+						, nil
+						, Me.Settings.UpdatePCCountInterval == 20);
+	Toukibi:MakeCMenuItem(context
+						, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 30)
+						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(30)"
+						, nil
+						, Me.Settings.UpdatePCCountInterval == 30);
+	Toukibi:MakeCMenuItem(context
+						, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 1)
+						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(60)"
+						, nil
+						, Me.Settings.UpdatePCCountInterval == 60);
+	Toukibi:MakeCMenuItem(context
+						, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 3)
+						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(180)"
+						, nil
+						, Me.Settings.UpdatePCCountInterval == 180);
+	Toukibi:MakeCMenuItem(context
+						, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateByMinutes"), 5)
+						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(300)"
+						, nil
+						, Me.Settings.UpdatePCCountInterval == 300);
+	Toukibi:MakeCMenuItem(context
+						, string.format("{#8888FF}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.NoAutoUpdate"))
+						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(nil)"
+						, nil
+						, Me.Settings.UpdatePCCountInterval == nil);
 	Toukibi:MakeCMenuSeparator(context, 300.2);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ManuallyUpdate"), "TOUKIBI_MAPMATE_TOGGLEPROP('EnableOneClickPCCUpdate')", nil, Me.Settings.EnableOneClickPCCUpdate);
 	Toukibi:MakeCMenuItem(context, string.format("{#8888FF}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ContinuousUpdatePrevention")), "TOUKIBI_MAPMATE_TOGGLEPROP('UsePCCountSafety')", nil, Me.Settings.UsePCCountSafety);
@@ -1810,31 +1941,67 @@ end
 -- 時計設定のコンテキストメニュー
 function TOUKIBI_MAPMATE_CONTEXT_MENU_CLOCK(frame, ctrl)
 	local Title = Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.Title");
-	local context = ui.CreateContextMenu("DURMINI_MAIN_RBTN", Title, 0, 0, 320, 0);
-	Toukibi:MakeCMenuSeparator(context, 300);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.Clock_Title"), 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ServerTime"), 
-											"TOUKIBI_MAPMATE_CHANGEPROP('UseServerClock', true)", nil, Me.Settings.UseServerClock);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.Clock_Space"), 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.LocalTime"), 
-											"TOUKIBI_MAPMATE_CHANGEPROP('UseServerClock', false)", nil, not Me.Settings.UseServerClock);
-	Toukibi:MakeCMenuSeparator(context, 300.1);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ampm_Title"), 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ampm"), 
-											"TOUKIBI_MAPMATE_CHANGEPROP('UseAMPM', true)", nil, Me.Settings.UseAMPM);
-	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ampm_Space"), 
-											Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.Noampm"), 
-											"TOUKIBI_MAPMATE_CHANGEPROP('UseAMPM', false)", nil, not Me.Settings.UseAMPM);
+	local context = ui.CreateContextMenu("MAPMATE_CLOCK_RBTN", Title, 0, 0, 320, 0);
+	Toukibi:MakeCMenuSeparator(context, 300, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.Clock_Title"));
+	Toukibi:MakeCMenuItem(context
+						, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ServerTime")
+						, "TOUKIBI_MAPMATE_CHANGEPROP('UseServerClock', true)"
+						, nil
+						, Me.Settings.UseServerClock);
+	Toukibi:MakeCMenuItem(context
+						, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.LocalTime")
+						, "TOUKIBI_MAPMATE_CHANGEPROP('UseServerClock', false)"
+						, nil
+						, not Me.Settings.UseServerClock);
+	Toukibi:MakeCMenuSeparator(context, 300.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ampm_Title"));
+	Toukibi:MakeCMenuItem(context
+						, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ampm")
+						, "TOUKIBI_MAPMATE_CHANGEPROP('UseAMPM', true)"
+						, nil
+						, Me.Settings.UseAMPM);
+	Toukibi:MakeCMenuItem(context
+						, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.Noampm")
+						, "TOUKIBI_MAPMATE_CHANGEPROP('UseAMPM', false)"
+						, nil
+						, not Me.Settings.UseAMPM);
 	Toukibi:MakeCMenuSeparator(context, 300.2);
-	Toukibi:MakeCMenuItem(context, 
-						  Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.DisplaySec"),
-						  "TOUKIBI_MAPMATE_TOGGLEPROP('DisplaySec')", nil, Me.Settings.DisplaySec);
+	Toukibi:MakeCMenuItem(context
+						, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.DisplaySec")
+						, "TOUKIBI_MAPMATE_TOGGLEPROP('DisplaySec')"
+						, nil
+						, Me.Settings.DisplaySec);
 	-- 閉じる
 	Toukibi:MakeCMenuSeparator(context, 300.3);
+	Toukibi:MakeCMenuItem(context, string.format("{#666666}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close")));
+	context:Resize(330, context:GetHeight());
+	ui.OpenContextMenu(context);
+	return context;
+end
+
+-- クエスト表示のコンテキストメニュー
+function TOUKIBI_MAPMATE_CONTEXT_MENU_QUEST(frame, ctrl)
+	local Title = Toukibi:GetResText(ResText, Me.Settings.Lang, "QuestMenu.Title");
+	local context = ui.CreateContextMenu("MAPMATE_QUEST_RBTN", Title, 0, 0, 320, 0);
+	Toukibi:MakeCMenuSeparator(context, 300);
+	Toukibi:MakeCMenuItem(context
+						, Toukibi:GetResText(ResText, Me.Settings.Lang, "QuestMenu.DisplayImpossibleQuest")
+						, "TOUKIBI_MAPMATE_TOGGLEPROP_WITH_UPDATE('DisplayImpossibleQuest')"
+						, nil
+						, Me.Settings.DisplayImpossibleQuest);
+	Toukibi:MakeCMenuSeparator(context, 300.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "QuestMenu.CountTitle"));
+	Toukibi:MakeCMenuItem(context
+						, Toukibi:GetResText(ResText, Me.Settings.Lang, "QuestMenu.CountPossible")
+						, "TOUKIBI_MAPMATE_CHANGEPROP_WITH_UPDATE('QuestBadge_DisplayAll', false)"
+						, nil
+						, not Me.Settings.QuestBadge_DisplayAll);
+	Toukibi:MakeCMenuItem(context
+						, Toukibi:GetResText(ResText, Me.Settings.Lang, "QuestMenu.CountAll")
+						, "TOUKIBI_MAPMATE_CHANGEPROP_WITH_UPDATE('QuestBadge_DisplayAll', true)"
+						, nil
+						, Me.Settings.QuestBadge_DisplayAll);
+
+	-- 閉じる
+	Toukibi:MakeCMenuSeparator(context, 300.2);
 	Toukibi:MakeCMenuItem(context, string.format("{#666666}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close")));
 	context:Resize(330, context:GetHeight());
 	ui.OpenContextMenu(context);
@@ -1855,6 +2022,18 @@ function TOUKIBI_MAPMATE_TOGGLEPROP(Name, Value)
 	Me.UpdateOnlyLocalTime()
 end
 
+function TOUKIBI_MAPMATE_TOGGLEPROP_WITH_UPDATE(Name, Value)
+	if Name == nil then return end
+	if Me.Settings == nil then return end
+	if Value == "nil" or type(Value) ~= "boolean" then
+		Me.Settings[Name] = not Me.Settings[Name];
+	else
+		Me.Settings[Name] = Value;
+	end
+	SaveSetting();
+	Me.CustomizeMiniMap()
+end
+
 function TOUKIBI_MAPMATE_CHANGEPROP(Name, Value)
 	if Name == nil then return end
 	if Me.Settings == nil then return end
@@ -1862,6 +2041,15 @@ function TOUKIBI_MAPMATE_CHANGEPROP(Name, Value)
 	Me.Settings[Name] = Value
 	SaveSetting();
 	Me.UpdateClock();
+end
+
+function TOUKIBI_MAPMATE_CHANGEPROP_WITH_UPDATE(Name, Value)
+	if Name == nil then return end
+	if Me.Settings == nil then return end
+	if Value == "nil" then Value = nil end
+	Me.Settings[Name] = Value
+	SaveSetting();
+	Me.CustomizeMiniMap();
 end
 
 function TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(value)

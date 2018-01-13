@@ -1,4 +1,16 @@
-## Notice：
+## Recent updates (最近の更新内容)
+
+Last Updated: January 13, 2018
+
+* **MapMate ver. 0.88**
+  * デスペナ情報をR9パッチに合わせました<br>Adjusted information on penalty at death to R9 patch.
+  * まだ進められないクエストも表示できるようになりました<br>You can now display quests that can not be started yet.
+  * モンスター情報の表示色や順序を調整しました<br>Adjusted display color and order of monster information.
+  * まだ会っていない女神像の情報が出るようになりました<br>Information on statues that have not met yet is now displayed.
+* **Dur notice Mini Ver. 1.22**
+  * NPCと会話した時に勝手にポップアップする問題を修正しました<br>Fixed a problem of pop-uping arbitrarily when talking with NPC.
+
+## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
 Therefore, I am planning to fix fatal things. However, basically it only updates as a whim.  
 現在、作者はToSを引退しています。そのため、致命的なものの修正は行うつもりですが、基本的には気まぐれで更新しかしません。</span>
@@ -20,7 +32,7 @@ This add-on enhances the ability to display the items picked up.
 This add-on will tell you the remaining number of upper buffs.  
 (In addition, the remaining time of the token is displayed in the buff field)  
 !["Image of main image of Buff-Counter"](https://github.com/Toukibi/ToSAddon/raw/ForImage/BuffCounter/img/topimage.png?raw=true)  
-## [Clover Finder Ver. 2.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/Do-It-Yourself/With_ipf/CloverFinder)
+## [Clover Finder Ver. 2.01 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/Do-It-Yourself/With_ipf/CloverFinder)
 訳ありのあの有名なアドオンです。  
 ランク9実装の時に動かなくなった物を組み直して再び動くようにしました。  
 しかし、物が物だけに**取り扱いは自己責任で**お願いします。  
@@ -33,15 +45,15 @@ However, for **this add-on is the elimination target**, handling is **at your ow
 It makes it easier to distinguish items so as not to disassemble important items at the time of item disassembly.  
 (**It will not be able to prevent the decomposition by mistake**)  
 !["Image of main image of Don't-Decompose-Me"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DontDecomposeMe/img/topimage_ja.png?raw=true)  
-## [Dur notice Mini Ver. 1.21 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
+## [Dur notice Mini Ver. 1.22 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
-## [Map Mate Ver. 0.87 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
+## [Map Mate Ver. 0.88 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
 マップ表示を色々便利にしてくれます。  
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
-## [Shop Helper Ver. 0.84 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
+## [Shop Helper Ver. 0.84 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
 街などで開かれている露店の価格が高いか安いかをコメントしてくれます。  
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)

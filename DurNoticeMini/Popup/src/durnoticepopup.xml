@@ -5,7 +5,7 @@
 	<layer layerlevel="90"/>
 	<draw drawframe="true" drawtitlebarframe="false" drawtitlebar="false"/>
 	<skin frameskin="tooltip1"/>
-	<option visible="true" alwaysVisible="true" closebutton="false" hideable="false" autoopen="true"/>
+	<option closebutton="false" hideable="false"/>
 	<sound opensound="win_open" closesound="win_close"/>
 	<script OpenScp="TOUKIBI_DURPOPUP_OPEN" LBtnUpScp="TOUKIBI_DURPOPUP_END_DRAG" lostFocusScp="TOUKIBI_DURPOPUP_LOSTFOCUS" MouseMoveScp="TOUKIBI_DURPOPUP_ADDDURATION"/>
 	<controls>

@@ -1,5 +1,5 @@
 local addonName = "MapMateMob";
-local verText = "1.03";
+local verText = "1.06";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mmob", "/MMob"} -- {"/コマンド1", "/コマンド2", .......};
@@ -40,7 +40,7 @@ local ResText = {
 		},
 		MobInfo = {
 			List_Mob = "生息モンスター一覧"
-		  , MobInfoFormat = "{nl}{s14} {/}{s13}%s :{s14}%s{/}{/}"
+		  , MobInfoFormat = "{nl}{s14} {/}{s13}{ol}%s :{s14}%s{/}{/}{/}"
 		  , RespawnTimeFormat = "{s13}{#66AA33}%s湧き{/}{/}{#333333}%s{/}"
 		  , Respawn_WholeArea = "(全域)"
 		  , Respawn_SpotArea = "(局地)"
@@ -485,6 +485,13 @@ local function try(f, ...)
 		return "OK"
 	end
 end
+local function FunctionExists(func)
+	if func == nil then
+		return false
+	else
+		return true
+	end
+end
 
 local function ShowInitializeMessage()
 	local CurrentLang = "en"
@@ -559,6 +566,7 @@ end
 
 local function GetPopTimeText(value)
 	value = tonumber(value)
+	local ForeColor = "#66AA33";
 	if value < 1000 then
 		return Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Soon");
 	end
@@ -566,20 +574,28 @@ local function GetPopTimeText(value)
 	local ContainsHour = false;
 	if value >= 1000 * 60 * 60 then
 		ReturnValue = ReturnValue .. math.floor(value / 60 / 60 / 1000) .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Hour");
+		ForeColor = "#FF4444";
 		ContainsHour = true;
 	end
 	value = value % (60 * 60 * 1000)
 	if value >= 1000 * 60 then
+		-- 分を記載(1分・5分・10分で色を変える)
+		ForeColor = "#FFFF33";
+		if value >= 1000 * 60 * 10 then
+			ForeColor = "#FF4444";
+		elseif value >= 1000 * 60 * 5 then
+			ForeColor = "#FF8833";
+		end
 		ReturnValue = ReturnValue .. math.floor(value / 60 / 1000) .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Minutes");
+	end	
+	if not ContainsHour then
+		-- 1時間未満なら秒も記載
+		value = value % (60 * 1000)
+		if value >= 1000 then
+			ReturnValue = ReturnValue .. math.floor(value / 1000) .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Seconds");
+		end
 	end
-	if ContainsHour then
-		return ReturnValue;
-	end
-	value = value % (60 * 1000)
-	if value >= 1000 then
-		ReturnValue = ReturnValue .. math.floor(value / 1000) .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Seconds");
-	end
-	return ReturnValue;
+	return Toukibi:GetStyledText(ReturnValue, {ForeColor});
 end
 
 -- MOB情報GroupBox描画
@@ -667,11 +683,16 @@ function CreateMobPanel(Parent, MobData, Index, Top)
 	local txtMobKillCount = pnlBase:CreateOrGetControl("richtext", "mobKillCount", 4, 70, 20, 20);
 	txtMobKillCount:SetGravity(ui.LEFT, ui.TOP);
 	txtMobKillCount:EnableHitTest(0);
-	local TextColor = "#333333"
+	local TextColor = "#333333";
+	local KillCountText = MobData.KillCount
+	local KillCountLimit = 120;
 	if MobData.KillCount >= MobData.KillRequired then
 		TextColor = "#4444FF"
 	end
-	txtMobKillCount:SetText(Toukibi:GetStyledText(string.format("[%s/%s]", MobData.KillCount, MobData.KillRequired), {TextColor, "s12", "b"}));
+	if FunctionExists(GetMonKillCount) and MobData.KillCount >= KillCountLimit then
+		KillCountText = "over " .. KillCountLimit;
+	end
+	txtMobKillCount:SetText(Toukibi:GetStyledText(string.format("[%s/%s]", KillCountText, MobData.KillRequired), {TextColor, "s12", "b"}));
 
 	local txtName = pnlBase:CreateOrGetControl("richtext", "name", 54, 24, 180, 16);
 	txtName:SetGravity(ui.LEFT, ui.TOP);
@@ -692,27 +713,40 @@ function CreateMobPanel(Parent, MobData, Index, Top)
 	txtRespawn:EnableHitTest(0);
 	txtRespawn:SetTextFixWidth(1);
 	txtRespawn:SetTextMaxWidth(190);
+
+	local SortedPopData = {}
+	for _, PopData in pairs(MobData.PopData) do
+		table.insert(SortedPopData, PopData)
+	end
+	table.sort(SortedPopData, function(a, b)
+		if a.PopTime ~= b.PopTime then
+			return a.PopTime < b.PopTime
+		else
+			return a[0] > b[0]
+		end
+	end)
+
 	local RespawnText = "";
-	for PopTime, PopData in pairs(MobData.PopData) do
+	for _, PopData in ipairs(SortedPopData) do
 		if true then
 			if PopData[1] > 0 then
 				RespawnText = RespawnText .. string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.MobInfoFormat")
 															, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.RespawnTimeFormat")
-																		,GetPopTimeText(PopTime)
+																		,GetPopTimeText(PopData.PopTime)
 																		,Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.Respawn_WholeArea"))
 															, PopData[1]);
 			end
 			if PopData[2] > 0 then
 				RespawnText = RespawnText .. string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.MobInfoFormat")
 															, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.RespawnTimeFormat")
-																		,GetPopTimeText(PopTime)
+																		,GetPopTimeText(PopData.PopTime)
 																		,Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.Respawn_SpotArea"))
 															, PopData[2]);
 			end
 		else
 				RespawnText = RespawnText .. string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.MobInfoFormat")
 															, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.RespawnTimeFormat")
-																		,GetPopTimeText(PopTime)
+																		,GetPopTimeText(PopData.PopTime)
 																		,"")
 															, PopData[0]);
 		end
@@ -767,6 +801,18 @@ end
 function Me.UpdateMobList()
 	if MyParent == nil then return false end
 	Me.MobInfo = MyParent.GetMapMonsterInfo()
+	local MobSortedList = {};
+	for _, value in pairs(Me.MobInfo) do
+		table.insert(MobSortedList, value)
+	end
+	table.sort(MobSortedList, function(a, b)
+		if a.MaxNum ~= b.MaxNum then
+			return a.MaxNum > b.MaxNum
+		else
+			return a.Name < b.Name
+		end
+	end)
+
 	--view(MobInfo)
 	local BaseFrame = ui.GetFrame("mapmatemob");
 	if BaseFrame == nil then return end
@@ -778,13 +824,14 @@ function Me.UpdateMobList()
 	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlBase");
 	GET_CHILD(BaseFrame, "title", "ui::CRichText"):SetText(Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "MobInfo.List_Mob"), {"#063306", "ol", "b"}));
 	local btnClose = GET_CHILD(BaseFrame, "close", "ui::CButton");
+	btnClose:SetImage("button_whisper_talk_exit");
 	btnClose:Resize(24, 24);
 	--btnClose:SetMargin(0, 4, 4, 0);
 	local NowTop = 0;
 	Me.CurrentMobCount = 0
 	if BodyGBox ~= nil then
 		local NowIndex = 1
-		for name, value in pairs(Me.MobInfo) do
+		for name, value in pairs(MobSortedList) do
 			NowTop = NowTop + CreateMobPanel(BodyGBox, value, NowIndex, NowTop);
 			NowIndex = NowIndex + 1;
 			Me.CurrentMobCount = Me.CurrentMobCount + 1;

@@ -1,5 +1,5 @@
 local addonName = "DurNoticeMini";
-local verText = "1.20";
+local verText = "1.22";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/durmini", "/DurMini", "/Durmini", "/durMini"};
