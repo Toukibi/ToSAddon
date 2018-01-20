@@ -1,5 +1,5 @@
 local addonName = "ToolTipHelper_Toukibi";
-local verText = "1.01";
+local verText = "1.02";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/tth"} -- {"/コマンド1", "/コマンド2", .......};
@@ -7,6 +7,7 @@ local CommandParamList = {
 	reset = {jp = "設定リセット", en = "Reset the all settings."}
   , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)"}
   , en = {jp = "英語モードに切り替え(Switch to English mode.)", en = "Switch to English mode."}
+  , import = {jp = "ドロップ情報の読み込み", en = "No need to run (Already implemented)"}
 };
 local SettingFileName = "setting.json"
 local MagnumOpusRecipeFileName = "recipe_puzzle.xml"
@@ -1752,6 +1753,7 @@ local ResText = {
 			, showJournalStats = "アイテム取得数"
 			, showRepairRecommendation = "推奨する修理手段"
 			, repairPrice_title = "修理露店の基本修理価格"
+			, UseOriginalBgSkin = "背景の透明度を下げる"
 		  },
 		System = {
 			ErrorToUseDefaults = "設定の読み込みでエラーが発生したのでデフォルトの設定を使用します。"
@@ -1764,6 +1766,10 @@ local ResText = {
 		  , FailToLoadXMLSimple = "エラー：xmlSimpleの読み込みに失敗しました"
 		  , NotFoundMagnumOpusXML = "'recipe_puzzle.xml' は検出されませんでした"
 		  , FoundMagnumOpusXML = "'recipe_puzzle.xml' を検出しました"
+		  , StartImportDropData = "'dropdata.xml'の読み込みを開始します。この処理では10秒弱画面がフリーズします。"
+		  , NotFoundDropDataXML = "'dropdata.xml' は検出されませんでした"
+		  , FoundDropDataXML = "'dropdata.xml' を検出しました"
+		  , CompleteImportDropDataXML = "'dropdata.xml' の読み込みが完了しました"
 		}
 	},
 	en = {
@@ -1812,6 +1818,7 @@ local ResText = {
 		  , showJournalStats = "Obtained Count"
 		  , showRepairRecommendation = "Recommended repair methods"
 		  , repairPrice_title = "Basic repair price of repair stalls"
+		  , UseOriginalBgSkin = "Decrease the transparency of the background"
 		},
 		System = {
 			ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
@@ -1824,6 +1831,10 @@ local ResText = {
 		  , FailToLoadXMLSimple = "Error: Unable to load xmlSimple"
 		  , NotFoundMagnumOpusXML = "Magnum Opus recipe file not found"
 		  , FoundMagnumOpusXML = "Magnum Opus recipe file was found"
+		  , StartImportDropData = "Start loading 'dropdata.xml'. In this process, the screen freezes up for about 10 seconds."
+		  , NotFoundDropDataXML = "'dropdata.xml' is not found"
+		  , FoundDropDataXML = "found 'dropdata.xml'"
+		  , CompleteImportDropDataXML = "Import of 'dropdata.xml' is completed"
 		}
 	}
 };
@@ -2174,15 +2185,16 @@ end
 ShowInitializeMessage();
 
 -- ***** 定数の宣言 *****
-local labelColor = "9D8C70";
+local labelColor = "2D281F"; -- 9D8C70
 local subLabelColor = "AAFFAA";
 local completeColor = "00FF00";
-local commonColor = "FFFFFF";
+local commonColor = "EEEEEE"; -- FFFFFF
 local npcColor = "FF4040";
 local squireColor = "40FF40";
-local unregisteredColor = "7B7B7B";
-local foundBossColor = "FF4040";
-local unFoundBossColor = "BC8383";
+local unregisteredColor = "444444"; -- 7B7B7B
+local commonMobColor = "1f100b";
+local foundBossColor = "665555";
+local unFoundBossColor = "663333";
 local collectionIcon = "icon_item_box";
 local strSeparator = "{s6}{img fulldgray 200 1} {/}{nl}"
 local strIntoImage = "{img white_right_arrow 12 14}"
@@ -2193,6 +2205,7 @@ Me.MagnumOpusRecipeFileName = string.format("../addons/%s/%s", addonNameLower, M
 Me.Loaded = false;
 Me.ApplicationsList = {};
 Me.UsingXMLRecipeData = false;
+Me.DropXMLData = Me.DropXMLData or {};
 
 -- 設定書き込み
 local function SaveSetting()
@@ -2203,21 +2216,23 @@ end
 local function MargeDefaultSetting(Force, DoSave)
 	DoSave = Toukibi:GetValueOrDefault(DoSave, true);
 	Me.Settings = Me.Settings or {};
-	Me.Settings.DoNothing = Toukibi:GetValueOrDefault(Me.Settings.DoNothing, false, Force);
-	Me.Settings.Lang = Toukibi:GetValueOrDefault(Me.Settings.Lang, Toukibi:GetDefaultLangCode(), Force);
-	Me.Settings.showCollectionCustomTooltips = Toukibi:GetValueOrDefault(Me.Settings.showCollectionCustomTooltips, true, Force);
-	Me.Settings.showCompletedCollections = Toukibi:GetValueOrDefault(Me.Settings.showCompletedCollections, true, Force);
-	Me.Settings.showRecipeCustomTooltips = Toukibi:GetValueOrDefault(Me.Settings.showRecipeCustomTooltips, true, Force);
-	Me.Settings.showRecipeHaveNeedCount = Toukibi:GetValueOrDefault(Me.Settings.showRecipeHaveNeedCount, true, Force);
-	Me.Settings.showMagnumOpus = Toukibi:GetValueOrDefault(Me.Settings.showMagnumOpus, true, Force);
-	Me.Settings.AllwaysDisplayOpusMap_From = Toukibi:GetValueOrDefault(Me.Settings.AllwaysDisplayOpusMap_From, true, Force);
-	Me.Settings.AllwaysDisplayOpusMap_Into = Toukibi:GetValueOrDefault(Me.Settings.AllwaysDisplayOpusMap_Into, false, Force);
-	Me.Settings.useRecipePuzzleXML = Toukibi:GetValueOrDefault(Me.Settings.useRecipePuzzleXML, false, Force);
-	Me.Settings.showItemDropRatio = Toukibi:GetValueOrDefault(Me.Settings.showItemDropRatio, true, Force);
-	Me.Settings.showItemLevel = Toukibi:GetValueOrDefault(Me.Settings.showItemLevel, true, Force);
-	Me.Settings.showJournalStats = Toukibi:GetValueOrDefault(Me.Settings.showJournalStats, true, Force);
-	Me.Settings.showRepairRecommendation = Toukibi:GetValueOrDefault(Me.Settings.showRepairRecommendation, true, Force);
-	Me.Settings.squireRepairPerKit = Toukibi:GetValueOrDefault(Me.Settings.squireRepairPerKit, 200, Force); -- 160 is the minimum for the Squire to break even
+	Me.Settings.DoNothing					 = Toukibi:GetValueOrDefault(Me.Settings.DoNothing						, false, Force);
+	Me.Settings.Lang						 = Toukibi:GetValueOrDefault(Me.Settings.Lang							, Toukibi:GetDefaultLangCode(), Force);
+	Me.Settings.showCollectionCustomTooltips = Toukibi:GetValueOrDefault(Me.Settings.showCollectionCustomTooltips	, true, Force);
+	Me.Settings.showCompletedCollections	 = Toukibi:GetValueOrDefault(Me.Settings.showCompletedCollections		, true, Force);
+	Me.Settings.showRecipeCustomTooltips	 = Toukibi:GetValueOrDefault(Me.Settings.showRecipeCustomTooltips		, true, Force);
+	Me.Settings.showRecipeHaveNeedCount		 = Toukibi:GetValueOrDefault(Me.Settings.showRecipeHaveNeedCount		, true, Force);
+	Me.Settings.showMagnumOpus				 = Toukibi:GetValueOrDefault(Me.Settings.showMagnumOpus					, true, Force);
+	Me.Settings.AllwaysDisplayOpusMap_From	 = Toukibi:GetValueOrDefault(Me.Settings.AllwaysDisplayOpusMap_From		, true, Force);
+	Me.Settings.AllwaysDisplayOpusMap_Into	 = Toukibi:GetValueOrDefault(Me.Settings.AllwaysDisplayOpusMap_Into		, false, Force);
+	Me.Settings.useRecipePuzzleXML			 = Toukibi:GetValueOrDefault(Me.Settings.useRecipePuzzleXML				, false, Force);
+	Me.Settings.showItemDropRatio			 = Toukibi:GetValueOrDefault(Me.Settings.showItemDropRatio				, true, Force);
+	Me.Settings.showItemLevel				 = Toukibi:GetValueOrDefault(Me.Settings.showItemLevel					, true, Force);
+	Me.Settings.showJournalStats			 = Toukibi:GetValueOrDefault(Me.Settings.showJournalStats				, true, Force);
+	Me.Settings.showRepairRecommendation	 = Toukibi:GetValueOrDefault(Me.Settings.showRepairRecommendation		, true, Force);
+	Me.Settings.squireRepairPerKit			 = Toukibi:GetValueOrDefault(Me.Settings.squireRepairPerKit				, 200, Force); -- 160 is the minimum for the Squire to break even
+	Me.Settings.UseOriginalBgSkin			 = Toukibi:GetValueOrDefault(Me.Settings.UseOriginalBgSkin				, true, Force);
+	Me.Settings.UseAutoImportDropData		 = Toukibi:GetValueOrDefault(Me.Settings.UseAutoImportDropData			, false, Force);
 	
 	if Force then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
@@ -2366,6 +2381,44 @@ function Me.LoadMagnumOpusRecipeFromXML()
 	end
 end
 
+function Me.ImportDropData()
+	local ImportFilePathName = string.format("../addons/%s/%s", addonNameLower, "dropdata.xml");
+
+	local status, objXml = pcall(require, "xmlSimple");
+	if not status then
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.FailToLoadXMLSimple"), "Warning", true, false);
+		return;
+	end
+
+	local xmlDropData = objXml.newParser():loadFile(ImportFilePathName);
+	if xmlDropData == nil then
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.NotFoundDropDataXML"), "Caution", true, false);
+		return;
+	else
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.FoundDropDataXML"), "Notice", true, false);
+	end
+
+	Me.DropXMLData = {};
+	local DropDataList = xmlDropData["DropData"]:children();
+
+	for i = 1, #DropDataList do
+		local DropDataRecord = DropDataList[i];
+		local ItemClassName = DropDataRecord["@iCNm"];
+		local DropMobID = tonumber(DropDataRecord["@mCID"]);
+		local DropRatio = tonumber(DropDataRecord["@Ratio"]);
+		table.insert(Me.DropXMLData, {Item = ItemClassName
+									, MobID = DropMobID
+									, Ratio = DropRatio
+									 });
+	end
+	--view(Me.DropXMLData)
+	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteImportDropDataXML"), "Notice", true, false);
+	Me.CreateDropRatioListFromXmlData()
+end
+
+function TOUKIBI_TTHELPER_START_IMPORT()
+	Me.ImportDropData()
+end
 
 -- ===========================
 --      作業用リスト作成
@@ -2458,8 +2511,56 @@ function Me.CreateApplicationsList_Recipe()
 	-- log('Recipe Finish!!')
 end
 
+function Me.CreateDropRatioListFromXmlData()
+	if Me.DropXMLData == nil then return end;
+	local tblTarget = Me.ApplicationsList.DropRatio;
+	if tblTarget == nil then tblTarget = {} end
+
+	for _, value in ipairs(Me.DropXMLData) do
+		local clsMob = GetClassByType("Monster", value.MobID)
+		local itemClassName = value.Item;
+		local DropRatio = value.Ratio;
+
+		if tblTarget[itemClassName] == nil then
+			tblTarget[itemClassName] = {};
+		end
+
+		local MobClassID = clsMob.ClassID;
+		local MobClassName = clsMob.ClassName;
+		local MobName = dictionary.ReplaceDicIDInCompStr(clsMob.Name);
+		local MobLv = clsMob.Level;
+		local MobRank = clsMob.MonRank;
+
+		local isNewMob = true;
+		
+		--[[
+		for k = 1, #tblTarget[itemClassName] do
+			if tblTarget[itemClassName][k].ClassName == MobClassName and tblTarget[itemClassName][k].DropRatio == DropRatio then
+				isNewMob = false;
+				break
+			end
+		end
+		--]]
+		if isNewMob then
+			table.insert(tblTarget[itemClassName],	 {ClassID = MobClassID
+													, ClassName = MobClassName
+													, Name = MobName
+													, DropRatio = DropRatio
+													, Rank = string.upper(MobRank)
+													, Lv = MobLv
+													 })
+		end
+	end
+	--view(tblTarget)
+	--log("Build data from XML is Completed")
+end
+
 function Me.CreateDropRatioList()
 	Me.ApplicationsList.DropRatio = {};
+	if Me.DropXMLData ~= nil then
+		Me.CreateDropRatioListFromXmlData()
+		return;
+	end
 	local tblTarget = Me.ApplicationsList.DropRatio;
 	local clsList, cnt = GetClassList("Monster");
 	for i = 0 , cnt - 1 do
@@ -2635,7 +2736,7 @@ function Me.GetCollectionText(invItem)
 		end
 		ResultText = ResultText .. value.Text;
 	end
-	ResultText = Toukibi:GetStyledText(ResultText, {"#" .. labelColor, "ol", "ds"});
+	ResultText = Toukibi:GetStyledText(ResultText, {"#" .. labelColor, "ol", "ds", "s15"});
 	-- log(ResultText)
 	return ResultText;
 end
@@ -2693,8 +2794,10 @@ function Me.GetRecipeText(invItem)
 			end
 
 			local RecipeColor = GetItemRarityColor(ResultItem);
+			local TextStyle = {"ol", "s15", "ds"};
 			if not HasRecipe then
 				RecipeColor = unregisteredColor;
+				TextStyle = {"s15"};
 			end
 			local RecipeItemText = string.format("{img %s 24 24}%s"	, TargetRecipe.Icon
 																	, Toukibi:GetStyledText(dictionary.ReplaceDicIDInCompStr(ResultItem.Name), {"#" .. RecipeColor})
@@ -2722,7 +2825,7 @@ function Me.GetRecipeText(invItem)
 			table.insert(ResultList	, {isCrafted = isCrafted
 									, ItemGrade = grade
 									, Name = dictionary.ReplaceDicIDInCompStr(ResultItem.Name)
-									, Text = Toukibi:GetStyledText(string.format("%s%s", RecipeItemText, CountText), {"ol", "ds"})
+									, Text = Toukibi:GetStyledText(string.format("%s%s", RecipeItemText, CountText), TextStyle)
 										});
 		end
 	end
@@ -2748,7 +2851,7 @@ function Me.GetRecipeText(invItem)
 	for i, value in ipairs(ResultList) do
 		ItemCount = ItemCount + 1;
 		if ItemCount > 30 then 
-			ResultText = ResultText .. "{nl}{s4} {/}{nl}" .. Toukibi:GetStyledText(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.OtherItems"), #ResultList - 30), {"#FFFFFF", "s16", "ol", "ds"});
+			ResultText = ResultText .. "{nl}{s4} {/}{nl}" .. Toukibi:GetStyledText(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.OtherItems"), #ResultList - 30), {"#FFFFFF", "s15", "ol", "ds"});
 			break;
 		end
 		if prevIsCrafted ~= value.isCrafted then
@@ -2800,22 +2903,28 @@ function Me.GetDropRatioText(invItem)
 		local MobText = string.format("%s%s  %s (Lv.%s%s)", DropRatioText, Toukibi:GetResText(ResText, Me.Settings.Lang, "Common.PercentMark"), MatchData.Name, MatchData.Lv, IsBossText);
 
 		local TextColor = unregisteredColor;
-		if isFound ~= 0 then
+		local TextStyle = {"ol", "s14"}
+		--if isFound ~= 0 then
 			if MatchData.Rank == "BOSS" then
 				TextColor = foundBossColor;
 			else
-				TextColor = commonColor;
+				TextColor = commonMobColor;
 			end
+			TextStyle = {"#" .. TextColor, "s14"}
+		--[[
 		else
 			if MatchData.Rank == "BOSS" then
 				TextColor = unFoundBossColor
 			else
 				TextColor = unregisteredColor;
 			end
+			TextStyle = {"#" .. TextColor, "s14"}
 		end
+		]]
 
-		MobText = Toukibi:GetStyledText(MobText, {"#" .. TextColor, "ol", "ds"})
+		MobText = Toukibi:GetStyledText(MobText .. "{s18} {/}", TextStyle)
 		table.insert(ResultList, {isFound = (isFound ~= 0)
+								, isBoss = (MatchData.Rank == "BOSS")
 								, Lv = MatchData.Lv
 								, DropRatio = MatchData.DropRatio
 								, Name = MatchData.Name
@@ -2824,52 +2933,29 @@ function Me.GetDropRatioText(invItem)
 	end
 	-- ソートを行う
 	table.sort(ResultList,	function(a, b)
-		if a.isFound ~= b.isFound then
-			if a.isFound then
+		if a.isBoss ~= b.isBoss then
+			if b.isBoss then
 				return true
 			end
 			return false
 		end
-		if a.isFound then
-			if a.DropRatio == b.DropRatio then
-				if a.Lv == b.Lv then
-					return a.Name < b.Name
-				end
-				return a.Lv < b.Lv
-			end
-			return a.DropRatio > b.DropRatio
-		end
-		if a.Lv == b.Lv then
-			if a.DropRatio == b.DropRatio then
+		if a.DropRatio == b.DropRatio then
+			if a.Lv == b.Lv then
 				return a.Name < b.Name
 			end
-			return a.DropRatio > b.DropRatio
+			return a.Lv < b.Lv
 		end
-		return a.Lv < b.Lv
+		return a.DropRatio > b.DropRatio
 	end)
 
 	-- 出力するテキストを生成する
 	local ResultText = "{nl}";
 	local prevIsFound = nil;
 	for i, value in ipairs(ResultList) do
-	if prevIsFound ~= value.isFound then
-	local strSplitter = "";
-	if value.isFound then
-	strSplitter = Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.FoundMob");
-	else
-	strSplitter = Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.UnfoundMob");
+		ResultText = ResultText .. "{nl}" .. value.Text;
+		prevIsFound = value.isFound;
 	end
-	strSplitter = Toukibi:GetStyledText(strSplitter, {"#CCFFCC", "s12", "ol"});
-	strSplitter = "{nl}{s6} {/}{nl}" .. strSplitter .. "{nl}" .. strSeparator;
-	if string.len(ResultText) > 0 then
-	ResultText = ResultText .. "{nl}";
-	end
-	ResultText = ResultText .. strSplitter;
-	end
-	ResultText = ResultText .. "{nl}" .. value.Text;
-	prevIsFound = value.isFound;
-	end
-	ResultText = "{s20} {/}{nl}" .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.DropsFrom"), {"s16", "ol", "ds", "#AAAAFF"}) .. ResultText
+	ResultText = "{s20} {/}{nl}" .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.DropsFrom"), {"s15", "ol", "ds", "#AAAAFF"}) .. "{nl}{s6} {/}" .. ResultText
 	ResultText = Toukibi:GetStyledText(ResultText, {"#" .. labelColor});
 	-- log(ResultText);
 	return ResultText;
@@ -2945,12 +3031,12 @@ function Me.GetMagnumOpusFromText(invItem, showRecipeMap)
 	end
 	local ResultText = "{S6} {/}{nl}";
 	ResultText = ResultText .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusFrom"), {"s12", "#" .. subLabelColor, "ol"}) .. "{nl}" .. strSeparator;
-	ResultText = ResultText .. Toukibi:GetStyledText(AggregatedText, {"ol", "ds"});
+	ResultText = ResultText .. Toukibi:GetStyledText(AggregatedText, {"ol", "ds", "s15"});
 	if Me.Settings.AllwaysDisplayOpusMap_From or showRecipeMap then
 		ResultText = ResultText .. GetMagnumOpusMap(MatchList);
 	end
 	if not Me.Settings.AllwaysDisplayOpusMap_From and not showRecipeMap then
-		ResultText = ResultText .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.ToggleOpusMap"), {"s12", "#" .. labelColor, "ol", "ds"})
+		ResultText = ResultText .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.ToggleOpusMap"), {"s12", "#" .. labelColor})
 	end
 	-- log(ResultText)
 	return ResultText, true;
@@ -2991,7 +3077,7 @@ function Me.GetMagnumOpusIntoText(invItem, showRecipeMap)
 					ResultText = ResultText .. "{S6} {/}{nl}";
 				end
 			end
-		ResultText = ResultText .. string.format(Toukibi:GetStyledText("{img %s 24 24} x %s{s6} %s {/}{img %s 24 24} %s", {"ol", "ds"})
+		ResultText = ResultText .. string.format(Toukibi:GetStyledText("{img %s 24 24} x %s{s6} %s {/}{img %s 24 24} %s", {"ol", "ds", "s15"})
 												, invItem.Icon
 												, Quantity
 												, strIntoImage
@@ -3004,7 +3090,7 @@ function Me.GetMagnumOpusIntoText(invItem, showRecipeMap)
 	end
 	ResultText = "{S6} {/}{nl}" .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusInto"), {"s12", "#" .. subLabelColor, "ol"}) .. "{nl}" .. strSeparator .. ResultText;
 	if not Me.Settings.AllwaysDisplayOpusMap_Into and not showRecipeMap then
-		ResultText = ResultText .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.ToggleOpusMap"), {"s12", "#" .. labelColor, "ol", "ds"})
+		ResultText = ResultText .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.ToggleOpusMap"), {"s12", "#" .. labelColor})
 	end
 	-- log(ResultText)
 	return ResultText, true;
@@ -3043,7 +3129,7 @@ function Me.UpdateToolTipData(tooltipFrame, mainFrameName, invItem, strArg, useS
 		if Me.UsingXMLRecipeData then
 			strTemp = Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.Mark_UsingXML")
 		end
-		table.insert(RBuffer, 1, Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusCommon"), {"#" .. labelColor, "ol", "ds"}) .. strTemp);
+		--table.insert(RBuffer, 1, Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusCommon"), {"#" .. labelColor, "ol", "ds"}) .. strTemp);
 	end
 	
 	local LeftText = table.concat(LBuffer, "{nl}");
@@ -3081,6 +3167,30 @@ function Me.UpdateToolTipData(tooltipFrame, mainFrameName, invItem, strArg, useS
 		end
 	else
 		gBox:Resize(gBox:GetWidth(), gBox:GetHeight() + txtLeftInfo:GetHeight() + 10);
+	end
+
+	if Me.Settings.UseOriginalBgSkin then
+		local newSkinName = "toukibi_Item_tooltip_normal";
+		if mainFrameName == "equip_main" then
+			newSkinName = "toukibi_Item_tooltip_equip";
+		elseif mainFrameName == "equip_main_addinfo" then
+			newSkinName = "toukibi_Item_tooltip_equip_sub";
+		elseif mainFrameName == "equip_sub" then
+			newSkinName = "toukibi_Item_tooltip_equip";
+		elseif mainFrameName == "equip_sub_addinfo" then
+			newSkinName = "toukibi_Item_tooltip_equip_sub";
+		elseif mainFrameName == "bosscard" then
+			newSkinName = "monstercard";
+		elseif mainFrameName == "gem" then
+			newSkinName = "toukibi_Item_tooltip_equip";
+		elseif mainFrameName == "etc" then
+			newSkinName = "toukibi_Item_tooltip_normal";
+		elseif mainFrameName == "etc_sub" then
+			newSkinName = "toukibi_Item_tooltip_normal";
+		end
+
+		gBox:SetSkinName(newSkinName)
+		gBox:SetColorTone("F0FFFFFF")
 	end
 
 	return txtLeftInfo:GetHeight() + txtLeftInfo:GetY();
@@ -3303,6 +3413,7 @@ function Me.InitSettingValue(BaseFrame)
 	ToukibiUI:SetCheckedByName(BodyGBox, "showRepairRecommendation",	 Me.Settings.showRepairRecommendation);
 	txtInput = GET_CHILD(BodyGBox, "repairPrice", "ui::CEditControl");
 	txtInput:SetText(Me.Settings.squireRepairPerKit);
+	ToukibiUI:SetCheckedByName(BodyGBox, "UseOriginalBgSkin",			 Me.Settings.UseOriginalBgSkin);
 	
 end
 
@@ -3331,6 +3442,7 @@ function Me.ExecSetting()
 	Me.Settings.showRepairRecommendation =		 ToukibiUI:GetCheckedByName(BodyGBox, "showRepairRecommendation");
 	txtInput = GET_CHILD(BodyGBox, "repairPrice", "ui::CEditControl");
 	Me.Settings.squireRepairPerKit = 			 ToukibiUI:GetNumValue(txtInput)
+	Me.Settings.UseOriginalBgSkin =				 ToukibiUI:GetCheckedByName(BodyGBox, "UseOriginalBgSkin");
 
 	SaveSetting();
 	Me.CloseSettingFrame();
@@ -3377,6 +3489,8 @@ function Me.InitSettingText(BaseFrame, LangMode)
 						  Toukibi:GetResText(ResText, LangMode, "SettingFrame.showRepairRecommendation"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "repairPrice_title", "ui::CRichText"), 
 						  Toukibi:GetResText(ResText, LangMode, "SettingFrame.repairPrice_title"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "UseOriginalBgSkin", "ui::CCheckBox"), 
+						  Toukibi:GetResText(ResText, LangMode, "SettingFrame.UseOriginalBgSkin"), {"@st66b"});
 
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "btn_excute", "ui::CButton"), 
 							Toukibi:GetResText(ResText, LangMode, "SettingFrame.Save"), {"@st42"});
@@ -3505,6 +3619,12 @@ function TOUKIBI_TTHELPER_PROCESS_COMMAND(command)
 		MargeDefaultSetting(true, true);
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.ResetSettings"), "Notice", true, false);
 		return;
+	elseif cmd == "import" then 
+		-- ドロップデータをインポート
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.StartImportDropData"), "Caution", true, false);
+
+		ReserveScript("TOUKIBI_TTHELPER_START_IMPORT()", 0.5);
+		return;
 	elseif cmd == "jp" or cmd == "en" or string.len(cmd) == 2 then
 		-- 言語モードと勘違いした？
 		if cmd == "ja" then cmd = "jp" end
@@ -3547,4 +3667,3 @@ function TOOLTIPHELPER_TOUKIBI_ON_INIT(addon, frame)
 		acutil.slashCommand(SlashCommandList[i], TOUKIBI_TTHELPER_PROCESS_COMMAND);
 	end
 end
-

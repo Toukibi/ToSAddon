@@ -1,6 +1,13 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: January 13, 2018
+Last Updated: January 20, 2018
+
+* **Tooltip Helper ver. 1.02**
+  * 背景の透明度を下げました<br>Reduced the transparency of the background.
+  * それに合わせても文字表示色を少し変えました<br>I changed a character display color slightly.
+  * JToSでもアイテムドロップ率が表示できるようになりました<br>The item drop rate can now be displayed in JToS. (already implemented in IToS)
+
+Update January 13, 2018
 
 * **MapMate ver. 0.88**
   * デスペナ情報をR9パッチに合わせました<br>Adjusted information on penalty at death to R9 patch.

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skinset name="tooltiphelper_toukibi_skin">
+	<skinlist category="frames">
+		<skin name="toukibi_Item_tooltip_equip_sub" texture="\skin\tooltip_back.tga">
+			<img name="topleft" imgrect="0 531 50 50"/>
+			<img name="topcore" imgrect="51 531 100 50"/>
+			<img name="topright" imgrect="152 531 50 50"/>
+			<img name="bodyleft" imgrect="0 582 50 50"/>
+			<img name="bodycore" imgrect="51 582 100 50"/>
+			<img name="bodyright" imgrect="152 582 50 50"/>
+			<img name="bottomleft" imgrect="0 633 50 50"/>
+			<img name="bottomcore" imgrect="51 633 100 50"/>
+			<img name="bottomright" imgrect="152 633 50 50"/>
+		</skin>
+		<skin name="toukibi_Item_tooltip_equip" texture="\skin\tooltip_back.tga">
+			<img name="topleft" imgrect="0 0 50 50"/>
+			<img name="topcore" imgrect="51 0 100 50"/>
+			<img name="topright" imgrect="152 0 50 50"/>
+			<img name="bodyleft" imgrect="0 51 50 50"/>
+			<img name="bodycore" imgrect="51 51 100 50"/>
+			<img name="bodyright" imgrect="152 51 50 50"/>
+			<img name="bottomleft" imgrect="0 102 50 50"/>
+			<img name="bottomcore" imgrect="51 102 100 50"/>
+			<img name="bottomright" imgrect="152 102 50 50"/>
+		</skin>
+		<skin name="toukibi_Item_tooltip_normal" texture="\skin\tooltip_back.tga">
+			<img name="topleft" imgrect="0 345 50 60"/>
+			<img name="topcore" imgrect="51 345 100 60"/>
+			<img name="topright" imgrect="152 345 50 60"/>
+			<img name="bodyleft" imgrect="0 406 50 50"/>
+			<img name="bodycore" imgrect="51 406 100 50"/>
+			<img name="bodyright" imgrect="152 406 50 50"/>
+			<img name="bottomleft" imgrect="0 467 50 60"/>
+			<img name="bottomcore" imgrect="51 467 100 60"/>
+			<img name="bottomright" imgrect="152 467 50 60"/>
+		</skin>
+	</skinlist>
+</skinset>

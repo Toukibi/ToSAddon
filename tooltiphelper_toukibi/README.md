@@ -33,6 +33,7 @@ Scroll down for [English Version](#description-of-english-version) description.
 |---|---|
 |/tth|設定画面を開く|
 |/tth reset|設定リセット|
+|**[New]**<br>/tth import|ドロップデータの読み込み<br>この処理は**約10秒画面がフリーズ**します。|
 |/tth jp|日本語に切り替え|
 |/tth en|英語に切り替え|
 |/tth xx|xx に英語2文字を入れる<br>その言語に切り替え|
@@ -87,6 +88,7 @@ Settings can be accessed by Slash Command **`/tth`**, and via these Slash Comman
 |---|---|
 |/tth|Display options|
 |/tth reset|Reset the all settings.|
+|**[New]**<br>/tth import|IToS does not need to run (already implemented)|
 |/tth jp|Switch to Japanese mode.|
 |/tth en|Switch to English mode.|
 |/tth xx|Insert two English letters in xx<br>(ccTLD or language code recommended)<br>Switch to Other Language mode.|
