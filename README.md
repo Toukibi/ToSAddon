@@ -1,8 +1,9 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: January 20, 2018
+Last Updated: January 21, 2018
 
-* **Tooltip Helper ver. 1.02**
+* **Tooltip Helper ver. 1.03 (1.02)**
+  * [Ver.1.03]XMLマークが表示されない問題を修正しました<br>[Ver.1.03]Fixed an issue where the XML mark was not displayed.
   * 背景の透明度を下げました<br>Reduced the transparency of the background.
   * それに合わせても文字表示色を少し変えました<br>I changed a character display color slightly.
   * JToSでもアイテムドロップ率が表示できるようになりました<br>The item drop rate can now be displayed in JToS. (already implemented in IToS)
@@ -65,7 +66,7 @@ This add-on makes map display a lot convenient.
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
-## [Tooltip Helper Ver. 1.01 (Rebuild by Toukibi)( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
+## [Tooltip Helper Ver. 1.03 (Rebuild by Toukibi)( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
 Tooltip Helperはツールチップに追加の情報を表示するためのアドオンです。  
 冒険日誌の変更パッチで動かなくなった原作を再構築したものです。
 Tooltip Helper is an add-on for displaying additional information on tooltips.  
