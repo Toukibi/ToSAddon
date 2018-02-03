@@ -1,5 +1,5 @@
 local addonName = "ToolTipHelper_Toukibi";
-local verText = "1.02";
+local verText = "1.04";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/tth"} -- {"/コマンド1", "/コマンド2", .......};
@@ -2557,7 +2557,7 @@ end
 
 function Me.CreateDropRatioList()
 	Me.ApplicationsList.DropRatio = {};
-	if Me.DropXMLData ~= nil then
+	if GetClassCount("MonsterDropItemList_Onion") < 0 and Me.DropXMLData ~= nil then
 		Me.CreateDropRatioListFromXmlData()
 		return;
 	end
@@ -2711,13 +2711,13 @@ function Me.GetCollectionText(invItem)
 			end
 
 			local CollectionText = string.format("%s (%s/%s)", CollectionName, CurrentCount, MatchData.Count);
-			local TextColor = unregisteredColor;
+			local TextStyle = {"#" .. unregisteredColor, "s15"}
 			if isCompleted then
-				TextColor = completeColor;
+				TextStyle = {"#" .. completeColor, "ol", "ds", "s15"}
 			elseif hasRegistered then
-				TextColor = commonColor;
+				TextStyle = {"#" .. commonColor, "ol", "ds", "s15"}
 			end
-			CollectionText = Toukibi:GetStyledText(CollectionText, {"#" .. TextColor});
+			CollectionText = Toukibi:GetStyledText(CollectionText, TextStyle);
 			CollectionText = "{img " .. collectionIcon .. " 24 24}" .. CollectionText;
 			table.insert(ResultList	, {Name = CollectionName
 									, Text = CollectionText
@@ -2736,7 +2736,7 @@ function Me.GetCollectionText(invItem)
 		end
 		ResultText = ResultText .. value.Text;
 	end
-	ResultText = Toukibi:GetStyledText(ResultText, {"#" .. labelColor, "ol", "ds", "s15"});
+	-- ResultText = Toukibi:GetStyledText(ResultText, {"#" .. labelColor, "ol", "ds", "s15"});
 	-- log(ResultText)
 	return ResultText;
 end
@@ -3029,8 +3029,12 @@ function Me.GetMagnumOpusFromText(invItem, showRecipeMap)
 		end
 		AggregatedText = AggregatedText .. string.format("{img %s 24 24} %s  x %s", clsItem.Icon, dictionary.ReplaceDicIDInCompStr(clsItem.Name), Quantity);
 	end
+	local strXMLMark = "";
+	if Me.UsingXMLRecipeData then
+		strXMLMark = Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.Mark_UsingXML")
+	end
 	local ResultText = "{S6} {/}{nl}";
-	ResultText = ResultText .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusFrom"), {"s12", "#" .. subLabelColor, "ol"}) .. "{nl}" .. strSeparator;
+	ResultText = ResultText .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusFrom"), {"s12", "#" .. subLabelColor, "ol"}) .. strXMLMark .. "{nl}" .. strSeparator;
 	ResultText = ResultText .. Toukibi:GetStyledText(AggregatedText, {"ol", "ds", "s15"});
 	if Me.Settings.AllwaysDisplayOpusMap_From or showRecipeMap then
 		ResultText = ResultText .. GetMagnumOpusMap(MatchList);
@@ -3088,7 +3092,11 @@ function Me.GetMagnumOpusIntoText(invItem, showRecipeMap)
 			ResultText = ResultText .. GetMagnumOpusMap(MagnumOpusRecipes[TargetItemClassName]);
 		end
 	end
-	ResultText = "{S6} {/}{nl}" .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusInto"), {"s12", "#" .. subLabelColor, "ol"}) .. "{nl}" .. strSeparator .. ResultText;
+	local strXMLMark = "";
+	if Me.UsingXMLRecipeData then
+		strXMLMark = Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.Mark_UsingXML")
+	end
+	ResultText = "{S6} {/}{nl}" .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusInto"), {"s12", "#" .. subLabelColor, "ol"}) .. strXMLMark .. "{nl}" .. strSeparator .. ResultText;
 	if not Me.Settings.AllwaysDisplayOpusMap_Into and not showRecipeMap then
 		ResultText = ResultText .. Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.ToggleOpusMap"), {"s12", "#" .. labelColor})
 	end
@@ -3129,7 +3137,7 @@ function Me.UpdateToolTipData(tooltipFrame, mainFrameName, invItem, strArg, useS
 		if Me.UsingXMLRecipeData then
 			strTemp = Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.Mark_UsingXML")
 		end
-		--table.insert(RBuffer, 1, Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusCommon"), {"#" .. labelColor, "ol", "ds"}) .. strTemp);
+		-- table.insert(RBuffer, 1, Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.MagnumOpusCommon"), {"#AAAAFF", "ol", "s15"}) .. strTemp);
 	end
 	
 	local LeftText = table.concat(LBuffer, "{nl}");
@@ -3666,4 +3674,40 @@ function TOOLTIPHELPER_TOUKIBI_ON_INIT(addon, frame)
 	for i = 1, #SlashCommandList do
 		acutil.slashCommand(SlashCommandList[i], TOUKIBI_TTHELPER_PROCESS_COMMAND);
 	end
+end
+
+-- ドロップ情報書き込み
+function Me.ExportDropData()
+	local ExportFilePathName = string.format("../addons/%s/%s", addonNameLower, "dropdata.json");
+
+	local tblTarget = {};
+	local clsList, cnt = GetClassList("Monster");
+	for i = 0 , cnt - 1 do
+		local cls = GetClassByIndexFromList(clsList, i);
+		local DoneList = {};
+		if cls.Faction == "Monster" and cls.GroupName == "Monster" then
+			local dropID = cls.DropItemList;
+			if dropID ~= nil and dropID ~= "None" then
+				local dropID = 'MonsterDropItemList_' .. dropID;
+				local dropClassCount = GetClassCount(dropID);
+				if dropClassCount ~= nil and dropClassCount > 0 then
+					local MobClassID = cls.ClassID;
+					for j = 0, dropClassCount - 1 do
+						local dropIES = GetClassByIndex(dropID, j);
+						if dropIES ~= nil and dropIES.GroupName == 'Item' then
+							local itemClassName = dropIES.ItemClassName;
+							local DropRatio = dropIES.DropRatio;
+							table.insert(tblTarget,	 {iCNm = itemClassName
+													, mCID = MobClassID
+													, Ratio = DropRatio
+													 });
+						end
+					end
+				end
+			end
+		end
+	end
+	-- Toukibi:SaveTable(ExportFilePathName, Me.ApplicationsList.DropRatio);
+	 Toukibi:SaveTable(ExportFilePathName, tblTarget);
+	log('[Export Drop Ratio Data] Finish!!')
 end
