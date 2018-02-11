@@ -1,5 +1,5 @@
 local addonName = "BetterPickQueue";
-local verText = "1.10";
+local verText = "1.11";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/pickq", "/pickqueue"} -- {"/コマンド1", "/コマンド2", .......};
@@ -78,7 +78,7 @@ local ResText = {
 		  , Percent = "％"
 		  , WeightTitle = "所持重量："
 		  , LogSpacer = "        "
-		  , TotalTitle = " / "
+		  , TotalTitle = "{s4} {/}/{s4} {/}"
 		  , GuessFormat = "約{#FFFF33}%s{/}個/h"
 		  , GuessFormatLong = "{#FFFF33}%s{/}ほどで入手"
 		  , ElapsedTimeFormat = "{#FFFF33}%s{/}経過"
@@ -653,7 +653,7 @@ local function GetCommaedTextEx(value, MaxTextLen, AfterTheDecimalPointLen, useP
 		end
 	end
 	if lAddSpaceAfterSign and string.len(SignMark) > 0 then
-		SignMark = " " .. SignMark .. " ";
+		SignMark = SignMark .. "{s4} {/}";
 	end
 	-- 整数部を成形
 	local RoughFinish = SignMark .. IntegerPartText;
@@ -730,11 +730,11 @@ end
 local function GetState_ShowElapsedTime()
 	if Me.Settings.useSimpleMenu then
 		-- かんたんモード使用中
-		if Me.Settings.CurrentMode == "Normal" then
-			return false;
-		else
-			return true;
-		end
+		--if Me.Settings.CurrentMode == "Normal" then
+			return Me.Settings.ShowElapsedTime;
+		--else
+		--	return true;
+		--end
 	else
 		return Me.Settings.ShowElapsedTime;
 	end
@@ -907,7 +907,7 @@ local function MakeItemText(itemClsName)
 	local PickData = Me.Data.Pick[itemClsName];
 	-- メインの表示
 	local itemCls = GetClass("Item", itemClsName);
-	strResult = string.format("{img %s 24 24} {#%s}%s{/} {#33FFFF}(%s ){/}"
+	strResult = string.format("{img %s 24 24} {#%s}%s{/} {#33FFFF}( %s ){/}"
 		, itemCls.Icon
 		, GetItemRarityColor(itemCls)
 		, dictionary.ReplaceDicIDInCompStr(itemCls.Name)
@@ -981,14 +981,28 @@ local function GetMyWeightText()
 	local RedZone = 90;
 	local pc = GetMyPCObject();
 	local NowWeight, MaxWeight = pc.NowWeight, pc.MaxWeight;
+	local textColor = "FFFFFF";
 	local WeightRate = 0;
 	if MaxWeight > 0 then
 		WeightRate = NowWeight * 100 / MaxWeight;
 	end
-	local strResult = string.format("%s%s/%s {s12}(%d%s){/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.WeightTitle"), NowWeight, MaxWeight, WeightRate, Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Percent"));
+	if MaxWeight < NowWeight then
+		textColor = "FF1111";
+	elseif WeightRate >= 95 then
+		textColor = "FF3333";
+	elseif WeightRate >= RedZone then
+		textColor = "FF9999";
+	end
+	local strResult = string.format("%s%s/%s {s12}(%d%s){/}"
+								, Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.WeightTitle")
+								, Toukibi:GetStyledText(NowWeight, {"#" .. textColor})
+								, MaxWeight
+								, WeightRate
+								, Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Percent")
+								);
 
 	local widthYellow, widthRed, widthBack = 0, 0, GaugeWidth;
-	widthYellow = NowWeight * GaugeWidth / MaxWeight;
+	widthYellow = math.floor(NowWeight * GaugeWidth / MaxWeight);
 	if widthYellow > GaugeWidth then
 		widthYellow = GaugeWidth;
 	end
@@ -1008,7 +1022,6 @@ local function GetMyWeightText()
 	if widthBack > 0 then
 		strResult = strResult .. string.format("{img fullblack %d 2}", widthBack);
 	end
-
 	return strResult;
 end
 
@@ -1292,6 +1305,10 @@ function TOUKIBI_BETTERPICKQUEUE_CONTEXT_MENU(frame, ctrl)
 		end
 		
 		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.3, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AllwaysDisplay"));
+		if Me.Settings.useSimpleMenu then
+			-- かんたんメニューときだけ表示
+			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.ElapsedTime"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowElapsedTime", not Me.Settings.ShowElapsedTime and 1 or 0), nil, Me.Settings.ShowElapsedTime);
+		end
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.Silver"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowVis", not Me.Settings.ShowVis and 1 or 0), nil, Me.Settings.ShowVis);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.WeightData"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowWeight", not Me.Settings.ShowWeight and 1 or 0), nil, Me.Settings.ShowWeight);
 		if not Me.Settings.useSimpleMenu then
@@ -1303,6 +1320,7 @@ function TOUKIBI_BETTERPICKQUEUE_CONTEXT_MENU(frame, ctrl)
 		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.5);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetSession"), "TOUKIBI_BETTERPICKQUEUE_RESET_DATA()");
 		--Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_BETTERPICKQUEUE_UPDATE()");
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.6);
 	else
 		cmenuWidth = 270
 		--第2メニュー

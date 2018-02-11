@@ -1,17 +1,15 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: February 3, 2018
+Last Updated: February 11, 2018
+
+* **Better Pick Queue ver. 1.11**
+  * 重量が100％に近づくと表示がおかしくなる問題を修正しました<br>Fixed a problem that the display became wrong when the weight approached 100%.
+  * テキスト表示を微調整しました<br>fine-tuned the display.
+
+February 3, 2018
 
 * **Tooltip Helper ver. 1.04**
   * IToSでドロップリストが表示されない問題を修正しました<br>Fixed an issue where drop lists were not displayed in IToS.
-
-Last Updated: January 21, 2018
-
-* **Tooltip Helper ver. 1.03 (1.02)**
-  * [Ver.1.03]XMLマークが表示されない問題を修正しました<br>[Ver.1.03]Fixed an issue where the XML mark was not displayed.
-  * 背景の透明度を下げました<br>Reduced the transparency of the background.
-  * それに合わせても文字表示色を少し変えました<br>I changed a character display color slightly.
-  * JToSでもアイテムドロップ率が表示できるようになりました<br>The item drop rate can now be displayed in JToS. (already implemented in IToS)
 
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
@@ -25,7 +23,7 @@ I am not good at English. I frequently translate English into different nuances.
 So, I would appreciate it if you could told me the correct translation when you see an unnatural English translation  
 
 
-## [Better Pick Queue Ver. 1.10 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
+## [Better Pick Queue Ver. 1.11 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
