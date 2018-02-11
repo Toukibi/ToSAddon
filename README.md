@@ -4,6 +4,7 @@ Last Updated: February 11, 2018
 
 * **Better Pick Queue ver. 1.11**
   * 重量が100％に近づくと表示がおかしくなる問題を修正しました<br>Fixed a problem that the display became wrong when the weight approached 100%.
+  * 簡単モードの通常表示モードでも経過時間の表示が可能になりました<br>It is now possible to display elapsed time even in the normal display mode of simple menu mode.
   * テキスト表示を微調整しました<br>fine-tuned the display.
 
 February 3, 2018
