@@ -163,7 +163,7 @@
     "file": "itemdrops2",
     "extension": "ipf",
     "fileVersion": "v2.0.0",
-    "releaseTag": "itemdrops2",
+    "releaseTag": "ItemDrops2",
     "unicode": "⛄",
     "description": "ItemDropsが2になって帰ってきました。ドロップしたアイテムを色濃く強調表示してくれます。  ItemDrops is back. It highlights the dropped item more strongly.",
     "tags": [
