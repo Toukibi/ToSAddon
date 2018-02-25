@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="itemdrops2" x="0" y="0" width="520" height="660" create="open">
+	<frame fasthide="true" layout_gravity="center center" margin="0 0 0 0"/>
+	<skin frameskin=" "/>
+	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+	<layer layerlevel="99"/>
+	<draw drawframe="true" drawtitlebarframe="false" drawtitlebar="false"/>
+	<option closebutton="false" hideable="false" useimageitem="true"/>
+	<sound opensound="sys_popup_open_1" closesound="character_item_window_close"/>
+	<script OpenScp="TOUKIBI_ITEMDROPS2_OPEN_SETTING" CloseScp="TOUKIBI_ITEMDROPS2_CLOSE_SETTING"/>
+	<controls>
+		<groupbox name="pnlMain" rect="0 0 520 630" margin="0 30 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" savescroll="true" scrollbar="true" skin="test_frame_low"/>
+		<groupbox name="pipwin_top" rect="0 0 520 60" margin="0 0 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false" skin="test_frame_top"/>
+		<richtext name="title" rect="0 0 200 80" margin="0 16 0 0" layout_gravity="center top" caption="{@st43}Tooltip Helperの設定{/}" textalign="left top" hittest="false"/>
+		<button name="close" rect="0 0 44 44" margin="0 19 28 0" layout_gravity="right top" image="testclose_button"
+		LBtnUpScp="ui.CloseFrame(&apos;itemdrops2&apos;)" texttooltip="{@st59}Close / 閉じる{/}"
+		clicksound="button_click_big" oversound="button_over" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover"/>
+
+		<richtext name="lang_title" parent="pnlMain" rect="0 0 120 24" margin="20 40 0 0" layout_gravity="left top" caption="{@st66b}Language (言語){/}"/>
+		<radiobutton name="lang_jp" parent="pnlMain" rect="0 0 200 24" margin="40 65 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_ITEMDROPS2_CHANGE_LANGMODE" caption="{@st66b}Japanese (日本語){/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+		<radiobutton name="lang_en" parent="pnlMain" rect="0 0 200 24" margin="40 90 0 0" layout_gravity="left top" ConfigName="ControlMode" LBtnDownScp="TOUKIBI_ITEMDROPS2_CHANGE_LANGMODE" caption="{@st66b}English{/}" clicksound="button_click_big" group="controlType" oversound="button_over"/>
+
+
+		<richtext name="display_title" parent="pnlMain" rect="0 0 120 24" margin="20 150 0 0" layout_gravity="left top" caption="{@st66b}表示設定{/}"/>
+
+		<richtext name="effectFilter_title" parent="pnlMain" rect="0 0 120 24" margin="40 175 0 0" layout_gravity="left top" caption="{@st66b}ハイライト表示をするアイテムランク{/}"/>
+		<radiobutton name="effectFilter_1" parent="pnlMain" rect="0 0 130 24" margin="60 200 0 0" layout_gravity="left top" caption="{@st66b}{#FFFFFF}{ol}一般{/}{/}{/}" clicksound="button_click_big" group="effectFilter" oversound="button_over"/>
+		<radiobutton name="effectFilter_2" parent="pnlMain" rect="0 0 130 24" margin="160 200 0 0" layout_gravity="left top" caption="{@st66b}{#108CFF}{ol}マジック{/}{/}{/}" clicksound="button_click_big" group="effectFilter" oversound="button_over"/>
+		<radiobutton name="effectFilter_3" parent="pnlMain" rect="0 0 130 24" margin="260 200 0 0" layout_gravity="left top" caption="{@st66b}{#9F30FF}{ol}レア{/}{/}{/}" clicksound="button_click_big" group="effectFilter" oversound="button_over"/>
+		<radiobutton name="effectFilter_4" parent="pnlMain" rect="0 0 130 24" margin="360 200 0 0" layout_gravity="left top" caption="{@st66b}{#FF4F00}{ol}ユニーク{/}{/}{/}" clicksound="button_click_big" group="effectFilter" oversound="button_over"/>
+
+		<richtext name="msgFilter_title" parent="pnlMain" rect="0 0 120 24" margin="40 240 0 0" layout_gravity="left top" caption="{@st66b}チャットログに表示するアイテムランク{/}"/>
+		<radiobutton name="msgFilter_1" parent="pnlMain" rect="0 0 130 24" margin="60 265 0 0" layout_gravity="left top" caption="{@st66b}{#FFFFFF}{ol}Normal{/}{/}{/}" clicksound="button_click_big" group="msgFilter" oversound="button_over"/>
+		<radiobutton name="msgFilter_2" parent="pnlMain" rect="0 0 130 24" margin="160 265 0 0" layout_gravity="left top" caption="{@st66b}{#108CFF}{ol}Magic{/}{/}{/}" clicksound="button_click_big" group="msgFilter" oversound="button_over"/>
+		<radiobutton name="msgFilter_3" parent="pnlMain" rect="0 0 130 24" margin="260 265 0 0" layout_gravity="left top" caption="{@st66b}{#9F30FF}{ol}Rare{/}{/}{/}" clicksound="button_click_big" group="msgFilter" oversound="button_over"/>
+		<radiobutton name="msgFilter_4" parent="pnlMain" rect="0 0 130 24" margin="360 265 0 0" layout_gravity="left top" caption="{@st66b}{#FF4F00}{ol}Unique{/}{/}{/}" clicksound="button_click_big" group="msgFilter" oversound="button_over"/>
+
+		<richtext name="nameTagFilter_title" parent="pnlMain" rect="0 0 120 24" margin="40 305 0 0" layout_gravity="left top" caption="{@st66b}アイテム名を表示をするアイテムランク{/}"/>
+		<radiobutton name="nameTagFilter_1" parent="pnlMain" rect="0 0 130 24" margin="60 330 0 0" layout_gravity="left top" caption="{@st66b}{#FFFFFF}{ol}一般{/}{/}{/}" clicksound="button_click_big" group="nameTagFilter" oversound="button_over"/>
+		<radiobutton name="nameTagFilter_2" parent="pnlMain" rect="0 0 130 24" margin="160 330 0 0" layout_gravity="left top" caption="{@st66b}{#108CFF}{ol}マジック{/}{/}{/}" clicksound="button_click_big" group="nameTagFilter" oversound="button_over"/>
+		<radiobutton name="nameTagFilter_3" parent="pnlMain" rect="0 0 130 24" margin="260 330 0 0" layout_gravity="left top" caption="{@st66b}{#9F30FF}{ol}レア{/}{/}{/}" clicksound="button_click_big" group="nameTagFilter" oversound="button_over"/>
+		<radiobutton name="nameTagFilter_4" parent="pnlMain" rect="0 0 130 24" margin="360 330 0 0" layout_gravity="left top" caption="{@st66b}{#FF4F00}{ol}ユニーク{/}{/}{/}" clicksound="button_click_big" group="nameTagFilter" oversound="button_over"/>
+
+		<richtext name="showAlways_title" parent="pnlMain" rect="0 0 120 24" margin="40 370 0 0" layout_gravity="left top" caption="{@st66b}次のものもハイライト表示する{/}"/>
+		<checkbox name="alwaysShowXPCards" parent="pnlMain" rect="0 0 120 30" margin="60 385 0 0" layout_gravity="left top" caption="{@st66b}経験値カード{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="alwaysShowMonGems" parent="pnlMain" rect="0 0 120 30" margin="210 385 0 0" layout_gravity="left top" caption="{@st66b}モンスタージェム{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="alwaysShowCubes" parent="pnlMain" rect="0 0 120 30" margin="60 410 0 0" layout_gravity="left top" caption="{@st66b}キューブ{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="showSomeoneDrops" parent="pnlMain" rect="0 0 120 30" margin="210 410 0 0" layout_gravity="left top" caption="{@st66b}他人のドロップアイテム{/}" clicksound="button_click_big" oversound="button_over"/>
+
+		<richtext name="ptMemberDrop_title" parent="pnlMain" rect="0 0 120 24" margin="40 450 0 0" layout_gravity="left top" caption="{@st66b}PTメンバーのドロップ品の処理{/}"/>
+		<checkbox name="showPartyDrops" parent="pnlMain" rect="0 0 120 30" margin="60 465 0 0" layout_gravity="left top" caption="{@st66b}ハイライト表示する{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="showPartyDropsNotice" parent="pnlMain" rect="0 0 120 30" margin="60 490 0 0" layout_gravity="left top" caption="{@st66b}チャットログに表示する{/}" clicksound="button_click_big" oversound="button_over"/>
+
+		<checkbox name="showSilverNameTag" parent="pnlMain" rect="0 0 120 30" margin="40 530 0 0" layout_gravity="left top" caption="{@st66b}シルバーのアイテム名を表示しない{/}" clicksound="button_click_big" oversound="button_over"/>
+
+
+		<button name="btn_cencel" parent="pnlMain" rect="10 10 140 40" margin=" 80 0 0 30" layout_gravity="center bottom" LBtnUpScp="ui.CloseFrame(&apos;itemdrops2&apos;)" caption="{@st42}閉じる" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_gray_button"/>
+		<button name="btn_excute" parent="pnlMain" rect="10 10 140 40" margin="-90 0 0 30" layout_gravity="center bottom" LBtnUpScp="TOUKIBI_ITEMDROPS2_EXEC_SETTING" caption="{@st42}保存" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_red_button"/>
+
+	</controls>
+</uiframe>
