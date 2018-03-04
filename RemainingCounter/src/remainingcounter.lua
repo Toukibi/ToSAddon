@@ -1,5 +1,5 @@
 local addonName = "RemainingCounter";
-local verText = "1.01";
+local verText = "1.03";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"rmcnt", "remcount"} -- {"/コマンド1", "/コマンド2", .......};
@@ -39,13 +39,13 @@ local ResText = {
 		  , Close = "Close"
 		},
 		System = {
-			ErrorToUseDefaults = "Since an error occurred while loading settings, default settings will be used."
-		  , CompleteLoadDefault = "Default settings loaded."
-		  , CompleteLoadSettings = "Settings loaded."
-		  , ExecuteCommands = "Command '{#333366}%s{/}' was called."
+			ErrorToUseDefaults = "Since an error occurred in setting loading, switch to the default setting."
+		  , CompleteLoadDefault = "Loading of default settings has been completed."
+		  , CompleteLoadSettings = "Loading of setting is completed"
+		  , ExecuteCommands = "Command '{#333366}%s{/}' was called"
 		  , ResetSettings = "The setting was reset."
 		  , InvalidCommand = "Invalid command called"
-		  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
+		  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
 		}
 	}
 };
@@ -82,23 +82,23 @@ local Toukibi = {
 				InitMsg = "[Add-ons]" .. addonName .. verText .. " loaded!"
 			  , NoSaveFileName = "The filename of save settings is not specified."
 			  , HasErrorOnSaveSettings = "An error occurred while saving the settings."
-			  , CompleteSaveSettings = "Settings saved."
-			  , ErrorToUseDefaults = "Using default settings because an error occurred while loading the settings."
-			  , CompleteLoadDefault = "Default settings loaded."
-			  , CompleteLoadSettings = "Settings loaded!"
+			  , CompleteSaveSettings = "Saving settings completed."
+			  , ErrorToUseDefaults = "Change to use default setting because of an error occurred while loading the settings."
+			  , CompleteLoadDefault = "An error occurred while loading the default settings."
+			  , CompleteLoadSettings = "Loading settings completed."
 			},
 			Command = {
-				ExecuteCommands = "Command '{#333366}%s{/}' was called."
-			  , ResetSettings = "Settings reset.""
-			  , InvalidCommand = "Invalid command called."
-			  , AnnounceCommandList = "Please use [ %s ? ] to see the command list."
+				ExecuteCommands = "Command '{#333366}%s{/}' was called"
+			  , ResetSettings = "The setting was reset."
+			  , InvalidCommand = "Invalid command called"
+			  , AnnounceCommandList = "Please use [ %s ? ] To see the command list"
 				},
 			Help = {
 				Title = string.format("{#333333}Help for %s commands.{/}", addonName)
 			  , Description = string.format("{#92D2A0}To change settings of '%s', please call the following command.{/}", addonName)
 			  , ParamDummy = "[paramaters]"
 			  , OrText = "or"
-			  , EnableTitle = "Commands available"
+			  , EnableTitle = "Available commands"
 			}
 		},
 		kr = {
@@ -231,7 +231,7 @@ local Toukibi = {
 	ChangeLanguage = function(self, Lang)
 		local msg;
 		if self.CommonResText[Lang] == nil then
-			msg = string.format("Sorry, '%s' doesn't have implemented '%s' mode yet.{nl}Language mode has not been changed from '%s'.", 
+			msg = string.format("Sorry, '%s' does not implement '%s' mode.{nl}Language mode has not been changed from '%s'.", 
 								addonName, Lang, Me.Settings.Lang);
 			self:AddLog(msg, "Warning", true, false)
 			return;
@@ -449,6 +449,19 @@ local function LoadSetting()
 	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteLoadSettings"), "Info", true, false);
 end
 
+local function GetUseItemCount(objSkill)
+	-- log(objSkill.Name)
+	if objSkill.SpendItem == nil or objSkill.SpendItem == "" or objSkill.SpendItem == "None" then
+		return 0
+	end
+	-- log(objSkill.SpendItem)
+	local skillInfo = session.GetSkill(objSkill.ClassID);
+	local IESSkill = GetIES(skillInfo:GetObject());
+	local UseItemCount = IESSkill.SpendItemCount;
+	-- log(string.format("アイテム使用個数は %s です", tostring(UseItemCount)))
+	return UseItemCount
+end
+
 -- ===== アドオンの内容ここから =====
 local function UpdateSlotInfo(objSlot)
 	local objIcon = objSlot:GetIcon();
@@ -456,13 +469,15 @@ local function UpdateSlotInfo(objSlot)
 		local SlotInfo = objIcon:GetInfo();
 		if SlotInfo.category == "Skill" then
 			local objSkill = GetClassByType("Skill", SlotInfo.type);
-			if objSkill.SpendItemBaseCount > 0 and objSkill.SpendItem ~= nil and objSkill.SpendItem ~= "None" then
+			local UseItemCount = GetUseItemCount(objSkill);
+
+			if UseItemCount > 0 and objSkill.SpendItem ~= nil and objSkill.SpendItem ~= "None" then
 				local SpendItemInfo = GetClass("Item", objSkill.SpendItem);
-		--log(string.format("%sはアイテム[%s]を%s個使うスキルです", objSkill.Name, SpendItemInfo.Name, objSkill.SpendItemBaseCount))
+		-- log(string.format("%sはアイテム[%s]を%s個使うスキルです", objSkill.Name, SpendItemInfo.Name, UseItemCount))
 				local InvenItemInfo = session.GetInvItemByName(objSkill.SpendItem);
 				local RemainingCount = 0;
 				if InvenItemInfo ~= nil and InvenItemInfo.count > 0 then
-					RemainingCount = math.floor(InvenItemInfo.count / objSkill.SpendItemBaseCount)
+					RemainingCount = math.floor(InvenItemInfo.count / UseItemCount)
 				end
 				local YOffset = 1
 				if objSkill.OverHeatGroup ~= "None" then
@@ -505,6 +520,11 @@ end
 function Me.SET_QUICK_SLOT_HOOKED(slot, category, type, iesID, makeLog, sendSavePacket)
 	Me.HoockedOrigProc["SET_QUICK_SLOT"](slot, category, type, iesID, makeLog, sendSavePacket);
 	UpdateSlotInfo(slot)
+end
+
+function Me.TOGGLE_ABILITY_ACTIVE_HOOKED(frame, control, abilName, abilID)
+	Me.HoockedOrigProc["TOGGLE_ABILITY_ACTIVE"](frame, control, abilName, abilID);
+	ReserveScript("TOUKIBI_REMAININGCOUNTER_UPDATE()", 0.5);
 end
 
 -- ===== アドオンの内容ここまで =====
@@ -565,8 +585,9 @@ function REMAININGCOUNTER_ON_INIT(addon, frame)
 	addon:RegisterMsg("INV_ITEM_ADD", "TOUKIBI_REMAININGCOUNTER_UPDATE");
 	addon:RegisterMsg('INV_ITEM_POST_REMOVE', 'TOUKIBI_REMAININGCOUNTER_UPDATE');
 	addon:RegisterMsg('INV_ITEM_CHANGE_COUNT', 'TOUKIBI_REMAININGCOUNTER_UPDATE');
-
+	
 	Toukibi:SetHook("SET_QUICK_SLOT", Me.SET_QUICK_SLOT_HOOKED);
+	Toukibi:SetHook("TOGGLE_ABILITY_ACTIVE", Me.TOGGLE_ABILITY_ACTIVE_HOOKED);
 
 
 	-- スラッシュコマンドを登録する
