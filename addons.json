@@ -172,5 +172,18 @@
       "loot",
       "item message"
     ]
+  },
+  {
+    "name": "Equip Marker",
+    "file": "equipmarker",
+    "extension": "ipf",
+    "fileVersion": "v1.0.0",
+    "releaseTag": "EquipMarker",
+    "unicode": "⛄",
+    "description": "アイテム表示に強化値とランクと未鑑定の情報を追加します。  This add-on adds enhancement value, item rank and unidentified icon to the item display.",
+    "tags": [
+      "ui",
+      "items"
+    ]
   }
 ]

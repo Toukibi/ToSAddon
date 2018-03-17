@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skinset name="toukibi_equipmarker_res">
+	<imagelist category="icons">
+		<image name="equipmarker_rare" file="\skin\equipmarker.tga" imgrect="0 0 24 24" />
+		<image name="equipmarker_epic" file="\skin\equipmarker.tga" imgrect="32 0 24 24" />
+		<image name="equipmarker_unique" file="\skin\equipmarker.tga" imgrect="0 26 24 24" />
+		<image name="equipmarker_legendary" file="\skin\equipmarker.tga" imgrect="32 26 24 24" />
+		<image name="equipmarker_mini_rare" file="\skin\equipmarker.tga" imgrect="0 52 12 12" />
+		<image name="equipmarker_mini_epic" file="\skin\equipmarker.tga" imgrect="16 52 12 12" />
+		<image name="equipmarker_mini_unique" file="\skin\equipmarker.tga" imgrect="32 52 12 12" />
+		<image name="equipmarker_mini_legendary" file="\skin\equipmarker.tga" imgrect="48 52 12 12" />
+	</imagelist>
+</skinset>

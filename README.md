@@ -1,16 +1,14 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: February 25, 2018
+Last Updated: March 17, 2018
+
+* **Equip Marker Ver. 1.00**
+  * 新規公開<br>Public release started.
+
+February 25, 2018
 
 * **Item Drops 2 Ver. 2.00**
   * 新規公開<br>Public release started.
-
-February 11, 2018
-
-* **Better Pick Queue ver. 1.11**
-  * 重量が100％に近づくと表示がおかしくなる問題を修正しました<br>Fixed a problem that the display became wrong when the weight approached 100%.
-  * かんたんモードで表示中でも経過時間の表示切り替えが可能になりました<br>The display of elapsed time can be switched even while displaying in simple menu mode.
-  * テキスト表示を微調整しました<br>fine-tuned the display.
 
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
@@ -55,6 +53,11 @@ It makes it easier to distinguish items so as not to disassemble important items
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
+
+## [Equip Marker Ver. 1.00 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
+アイテム表示に強化値とランクと未鑑定の情報を追加します。  
+This add-on adds enhancement value, item rank and unidentified icon to the item display.    
+![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    
 
 ## [Item Drops 2 Ver. 2.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ItemDrops2)
 ItemDropsが2になって帰ってきました。ドロップしたアイテムを**色濃く**強調表示してくれます。  
