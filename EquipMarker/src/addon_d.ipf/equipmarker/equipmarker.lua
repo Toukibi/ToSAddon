@@ -1,5 +1,5 @@
 local addonName = "EquipMarker";
-local verText = "1.00";
+local verText = "1.01";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 
@@ -409,7 +409,7 @@ function Me.UpdateDecomposeList()
 end
 
 
-function TOUKIBI_EQUIPMARKER_INV_UPDATE()
+function TOUKIBI_EQUIPMARKER_INV_UPDATE(frame, msg)
 	Me.UpdateInv();
 end
 
@@ -456,6 +456,11 @@ function Me.INVENTORY_OPEN_HOOKED(frame)
 	Me.UpdateInv();
 end
 
+function Me.INVENTORY_TOTAL_LIST_GET_HOOKED(frame, setpos, isIgnorelifticon)
+	Me.HoockedOrigProc["INVENTORY_TOTAL_LIST_GET"](frame, setpos, isIgnorelifticon);
+	Me.UpdateInv();
+end
+
 -- 修理/ジェムロースティング店を開くイベント
 function Me.OPEN_ITEMBUFF_UI_HOOKED(groupName, sellType, handle) 
 	Me.HoockedOrigProc["OPEN_ITEMBUFF_UI"](groupName, sellType, handle);
@@ -495,6 +500,8 @@ function EQUIPMARKER_ON_INIT(addon, frame)
 	-- イベントを登録する
 	addon:RegisterMsg('EQUIP_ITEM_LIST_GET', 'TOUKIBI_EQUIPMARKER_INV_UPDATE');
 
+	addon:RegisterMsg('GAME_START', 'TOUKIBI_EQUIPMARKER_INV_UPDATE');
+	addon:RegisterMsg('INV_ITEM_LIST_GET', 'TOUKIBI_EQUIPMARKER_INV_UPDATE');
 	addon:RegisterMsg('INV_ITEM_ADD', 'TOUKIBI_EQUIPMARKER_INV_UPDATE');
 	addon:RegisterMsg('INV_ITEM_REMOVE', 'TOUKIBI_EQUIPMARKER_INV_UPDATE');
 
@@ -519,7 +526,8 @@ function EQUIPMARKER_ON_INIT(addon, frame)
 
 	addon:RegisterMsg("SUCCESS_APPRALSAL_PC", "TOUKIBI_EQUIPMARKER_APPRAISAL_UPDATE_CALLER");
 
-	Toukibi:SetHook("INVENTORY_OPEN", Me.INVENTORY_OPEN_HOOKED);
+	-- Toukibi:SetHook("INVENTORY_OPEN", Me.INVENTORY_OPEN_HOOKED);
+	Toukibi:SetHook("INVENTORY_TOTAL_LIST_GET", Me.INVENTORY_TOTAL_LIST_GET_HOOKED);
 	Toukibi:SetHook("OPEN_ITEMBUFF_UI", Me.OPEN_ITEMBUFF_UI_HOOKED);
 	Toukibi:SetHook("ITEM_DECOMPOSE_ITEM_LIST", Me.ITEM_DECOMPOSE_ITEM_LIST_HOOKED);
 end

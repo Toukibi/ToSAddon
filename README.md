@@ -1,8 +1,9 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: March 17, 2018
+Last Updated: March 18, 2018
 
-* **Equip Marker Ver. 1.00**
+* **Equip Marker Ver. 1.01**
+  * [Ver.1.01] Extended Inventoryと競合を起こしていた問題を修正<br>[Ver.1.01] Fixed an issue that conflicted with Extended Inventory.
   * 新規公開<br>Public release started.
 
 February 25, 2018
@@ -54,15 +55,15 @@ It makes it easier to distinguish items so as not to disassemble important items
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
 
-## [Equip Marker Ver. 1.00 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
+## [Equip Marker Ver. 1.01 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
 アイテム表示に強化値とランクと未鑑定の情報を追加します。  
 This add-on adds enhancement value, item rank and unidentified icon to the item display.    
-![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    
+![Image of main image of Equip-Marker](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    
 
 ## [Item Drops 2 Ver. 2.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ItemDrops2)
 ItemDropsが2になって帰ってきました。ドロップしたアイテムを**色濃く**強調表示してくれます。  
 ItemDrops is back. It highlights the dropped item **more strongly**.    
-![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/ItemDrops2/img/topimage_ja.jpg?raw=true)    
+![Image of main image of ItemDrops2](https://github.com/Toukibi/ToSAddon/blob/ForImage/ItemDrops2/img/topimage_ja.jpg?raw=true)    
 
 ## [Map Mate Ver. 0.88 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
 マップ表示を色々便利にしてくれます。  
