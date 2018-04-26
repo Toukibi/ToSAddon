@@ -1,5 +1,5 @@
 local addonName = "DontDecomposeMe";
-local verText = "1.01";
+local verText = "1.02";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {} -- {"/コマンド1", "/コマンド2", .......};
@@ -617,7 +617,7 @@ end
 function Me.AddCheckBox()
 	local TopParent = ui.GetFrame("itemdecompose");
 
-	local chkIncludeAppraised = tolua.cast(TopParent:CreateOrGetControl('checkbox', "chkIncludeAppraised", 20, 465, 10, 10), "ui::CCheckBox");
+	local chkIncludeAppraised = tolua.cast(TopParent:CreateOrGetControl('checkbox', "chkIncludeAppraised", 20, 500, 10, 10), "ui::CCheckBox");
 	chkIncludeAppraised:SetText(Toukibi:GetStyledText(Toukibi:GetResText(ResText, Toukibi:GetDefaultLangCode(), "UI.Appraised"), {"@st66"})); 
 	chkIncludeAppraised:SetGravity(ui.LEFT, ui.TOP);
 	chkIncludeAppraised:SetClickSound("button_click_big");
@@ -625,7 +625,7 @@ function Me.AddCheckBox()
 	chkIncludeAppraised:ShowWindow(1);
 	chkIncludeAppraised:SetEventScript(ui.LBUTTONDOWN, "DECOMPOSE_ITEM_GRADE_SET");
 
-	local chkIncludeReinforced = tolua.cast(TopParent:CreateOrGetControl('checkbox', "chkIncludeReinforced", 200, 465, 100, 10), "ui::CCheckBox");
+	local chkIncludeReinforced = tolua.cast(TopParent:CreateOrGetControl('checkbox', "chkIncludeReinforced", 200, 500, 100, 10), "ui::CCheckBox");
 	chkIncludeReinforced:SetText(Toukibi:GetStyledText(Toukibi:GetResText(ResText, Toukibi:GetDefaultLangCode(), "UI.Reinforced"), {"@st66"})); 
 	chkIncludeReinforced:SetGravity(ui.LEFT, ui.TOP);
 	chkIncludeReinforced:SetClickSound("button_click_big");

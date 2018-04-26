@@ -1,15 +1,20 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: March 18, 2018
+Last Updated: April 26, 2018
+
+* **Don't Decompose Me Ver. 1.02**
+  * 公式のUI変更に対応<br>Corresponds to official UI change.
+
+* **Remaining Counter Ver. 1.03**
+  * 使用個数が減少する特性をONにしても表示回数が反映しない問題を修正<br>Fixed a problem that remaining number display does not change even when turning on the characteristic of decreasing number used.
+
+
+March 18, 2018
 
 * **Equip Marker Ver. 1.01**
   * [Ver.1.01] Extended Inventoryと競合を起こしていた問題を修正<br>[Ver.1.01] Fixed an issue that conflicted with Extended Inventory.
   * 新規公開<br>Public release started.
 
-February 25, 2018
-
-* **Item Drops 2 Ver. 2.00**
-  * 新規公開<br>Public release started.
 
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
@@ -43,7 +48,7 @@ That is a famous add-on that has certain circumstances.
 It stopped working due to the patch of December 2017. However, I reorganized it so that it moves again.  
 However, for **this add-on is the elimination target**, handling is **at your own risk**.  
 
-## [Don't Decompose Me Ver. 1.01 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DontDecomposeMe)
+## [Don't Decompose Me Ver. 1.02 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DontDecomposeMe)
 アイテム分解時に大事なアイテムを分解しないようにアイテムの見分けをしやすくしてくれます。  
 (**誤って分解することを阻止することはできません**)   
 It makes it easier to distinguish items so as not to disassemble important items at the time of item disassembly.  
