@@ -134,7 +134,7 @@
     "name": "Better Pick Queue",
     "file": "betterpickqueue",
     "extension": "ipf",
-    "fileVersion": "v1.1.1",
+    "fileVersion": "v1.1.2",
     "releaseTag": "BetterPickQueue",
     "unicode": "⛄",
     "description": "画面の右下で拾ったアイテムを表示する機能を強化します。  This add-on enhances the ability to display the items picked up.",

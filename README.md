@@ -2,6 +2,9 @@
 
 Last Updated: April 26, 2018
 
+* **Better Pick Queue Ver. 1.12**
+  * 重量が0.1の物をいくつか所持すると重量表示がおかしくなる問題を修正<br>Fixed a problem that weighing display became wrong when holding some things with weight 0.1.
+
 * **Don't Decompose Me Ver. 1.02**
   * 公式のUI変更に対応<br>Corresponds to official UI change.
 
@@ -28,7 +31,7 @@ I am not good at English. I frequently translate English into different nuances.
 So, I would appreciate it if you could told me the correct translation when you see an unnatural English translation  
 
 
-## [Better Pick Queue Ver. 1.11 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
+## [Better Pick Queue Ver. 1.12 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    

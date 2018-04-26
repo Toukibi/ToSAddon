@@ -1,5 +1,5 @@
 local addonName = "BetterPickQueue";
-local verText = "1.11";
+local verText = "1.12";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/pickq", "/pickqueue"} -- {"/コマンド1", "/コマンド2", .......};
@@ -995,7 +995,7 @@ local function GetMyWeightText()
 	end
 	local strResult = string.format("%s%s/%s {s12}(%d%s){/}"
 								, Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.WeightTitle")
-								, Toukibi:GetStyledText(NowWeight, {"#" .. textColor})
+								, Toukibi:GetStyledText(string.format("%.1f", NowWeight), {"#" .. textColor})
 								, MaxWeight
 								, WeightRate
 								, Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Percent")
