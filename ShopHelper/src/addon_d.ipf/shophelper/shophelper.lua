@@ -1,5 +1,5 @@
 local addonName = "ShopHelper";
-local verText = "0.84";
+local verText = "0.85";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/sh", "/shophelper", "/shelper", "/ShopHelper"};
@@ -816,6 +816,28 @@ local Toukibi = {
 Me.ComLib = Toukibi;
 local function log(value)
 	Toukibi:Log(value);
+end
+local function view(objValue)
+	local frame = ui.GetFrame("developerconsole");
+	if frame == nil then return end
+	--DEVELOPERCONSOLE_PRINT_TEXT("{#444444}type of {#005500}"  .. objName .. "{/} is {#005500}" .. type(objValue) .. "{/}{/}", "white_16_ol");
+	DEVELOPERCONSOLE_PRINT_TEXT("{nl} ");
+	DEVELOPERCONSOLE_PRINT_VALUE(frame, "", objValue, "", nil, true);
+end
+local function try(f, ...)
+	local status, error = pcall(f, ...)
+	if not status then
+		return tostring(error);
+	else
+		return "OK";
+	end
+end
+local function FunctionExists(func)
+	if func == nil then
+		return false;
+	else
+		return true;
+	end
 end
 
 local ToukibiUI = {
@@ -2338,7 +2360,19 @@ end
 
 -- 全プレイヤーの名前を隠す
 function TOUKIBI_SHOPHELPER_HIDE_PLAYERS()
-	if keyboard.IsPressed(KEY_ALT) == 1 and Me.Settings.EnableHideNames then
+	local isPressed = false;
+	if FunctionExists(keyboard.IsPressed) then
+		-- 2018/06/27パッチ前
+		isPressed = (keyboard.IsPressed(KEY_ALT) == 1);
+	elseif FunctionExists(keyboard.IsKeyPressed) then
+		-- 2018/06/27パッチ後
+		isPressed = (keyboard.IsKeyPressed("LALT") == 1 or keyboard.IsKeyPressed("RALT") == 1);
+	else
+		-- どっちの関数もなかった場合
+		isPressed = false;
+	end
+
+	if isPressed and Me.Settings.EnableHideNames then
 		-- Altキーが押されている間はキャラクター情報を非表示にする
 		local selectedObjects, selectedObjectsCount = SelectObject(GetMyPCObject(), 1000000, "ALL");
 		for i = 1, selectedObjectsCount do

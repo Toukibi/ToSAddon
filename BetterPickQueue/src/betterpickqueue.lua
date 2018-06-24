@@ -1,5 +1,5 @@
 local addonName = "BetterPickQueue";
-local verText = "1.12";
+local verText = "1.13";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/pickq", "/pickqueue"} -- {"/コマンド1", "/コマンド2", .......};
@@ -34,6 +34,7 @@ local ResText = {
 		  , AutoReset = "オートリセット"
 		  , BackGround = "背景の濃さ"
 		  , LockPosition = "位置を固定する"
+		  , ResetPosition = "位置をリセット"
 		  , useSimpleMenu = "かんたん表示切り替え"
 		  , HideOriginalQueue = "標準機能のアイテム獲得の{nl}{img channel_mark_empty 24 24}    表示を消す"
 		  , ExpandTo = "表示が伸びる方向"
@@ -111,6 +112,7 @@ local ResText = {
 		  , AutoReset = "Auto reset function"
 		  , BackGround = "Background"
 		  , LockPosition = "Lock position"
+		  , ResetPosition = "Reset position"
 		  , useSimpleMenu = "Use Simple menu"
 		  , HideOriginalQueue = "Hide default{nl}{img channel_mark_empty 24 24}       item-obtention display"
 		  , ExpandTo = "Direction of display extension"
@@ -1241,6 +1243,11 @@ function TOUKIBI_BETTERPICKQUEUE_RESET_DATA()
 	Me.UpdateFrame();
 end
 
+function TOUKIBI_BETTERPICKQUEUE_RESET_POSITION()
+	Me.ResetPos();
+	SaveSetting();
+end
+
 function TOUKIBI_BETTERPICKQUEUE_CHANGE_MOVABLE()
 	if Me.Settings == nil then return end
 	Me.Settings.Movable = not Me.Settings.Movable;
@@ -1273,14 +1280,26 @@ end
 function TOUKIBI_BETTERPICKQUEUE_CONTEXT_MENU(frame, ctrl)
 	local titleText = Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title");
 	local cmenuWidth = 270;
-	if keyboard.IsPressed(KEY_SHIFT) ~= 1 then
+	local CallSubMenu = false;
+	if FunctionExists(keyboard.IsPressed) then
+		-- 2018/06/27パッチ前
+		CallSubMenu = (keyboard.IsPressed(KEY_SHIFT) == 1);
+	elseif FunctionExists(keyboard.IsKeyPressed) then
+		-- 2018/06/27パッチ後
+		CallSubMenu = (keyboard.IsKeyPressed("LSHIFT") == 1 or keyboard.IsKeyPressed("RSHIFT") == 1);
+	else
+		-- どっちの関数もなかった場合
+		CallSubMenu = false;
+	end
+	if not CallSubMenu then
 		titleText = titleText .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.SecondaryInfo");
 	else
 		titleText = titleText .. Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.SecondaryTitle");
+		CallSubMenu = true;
 	end
 	local context = ui.CreateContextMenu("BETTERPICKQUEUE_MAIN_RBTN", titleText, 0, 0, cmenuWidth - 10, 0);
 	
-	if keyboard.IsPressed(KEY_SHIFT) ~= 1 then
+	if not CallSubMenu then
 		-- 通常メニュー
 		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.useSimpleMenu"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "useSimpleMenu", not Me.Settings.useSimpleMenu and 1 or 0), nil, Me.Settings.useSimpleMenu);
@@ -1319,7 +1338,6 @@ function TOUKIBI_BETTERPICKQUEUE_CONTEXT_MENU(frame, ctrl)
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.LockPosition"), "TOUKIBI_BETTERPICKQUEUE_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
 		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.5);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetSession"), "TOUKIBI_BETTERPICKQUEUE_RESET_DATA()");
-		--Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_BETTERPICKQUEUE_UPDATE()");
 		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.6);
 	else
 		cmenuWidth = 270
@@ -1339,8 +1357,11 @@ function TOUKIBI_BETTERPICKQUEUE_CONTEXT_MENU(frame, ctrl)
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Up"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Up", 1), nil, Me.Settings.ExpandTo_Up);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Down"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Up", 0), nil, not Me.Settings.ExpandTo_Up);
 
-
 		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.5);
+		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_BETTERPICKQUEUE_RESET_POSITION()");
+		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_BETTERPICKQUEUE_UPDATE()");
+
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.6);
 	end
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	context:Resize(cmenuWidth, context:GetHeight());

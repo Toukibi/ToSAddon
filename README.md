@@ -1,6 +1,15 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: April 26, 2018
+Last Updated: June 24, 2018  
+
+* **Better Pick Queue Ver. 1.12**
+  * パッチ適用後、右クリックメニューが開かなくなっていた問題を修正<br>Fixed issue where right click menu did not open after applying patch.
+
+* **Shop Helper Ver. 0.85**
+  * パッチ適用後、Altキーを押してもプレイヤー名のラベルが消えない問題を修正<br>Fixed a problem that the label of the player name does not disappear while pressing the Alt key after applying the patch.
+
+
+April 26, 2018
 
 * **Better Pick Queue Ver. 1.12**
   * 重量が0.1の物をいくつか所持すると重量表示がおかしくなる問題を修正<br>Fixed a problem that weighing display became wrong when holding some things with weight 0.1.
@@ -10,13 +19,6 @@ Last Updated: April 26, 2018
 
 * **Remaining Counter Ver. 1.03**
   * 使用個数が減少する特性をONにしても表示回数が反映しない問題を修正<br>Fixed a problem that remaining number display does not change even when turning on the characteristic of decreasing number used.
-
-
-March 18, 2018
-
-* **Equip Marker Ver. 1.01**
-  * [Ver.1.01] Extended Inventoryと競合を起こしていた問題を修正<br>[Ver.1.01] Fixed an issue that conflicted with Extended Inventory.
-  * 新規公開<br>Public release started.
 
 
 ## Notice:
@@ -31,7 +33,7 @@ I am not good at English. I frequently translate English into different nuances.
 So, I would appreciate it if you could told me the correct translation when you see an unnatural English translation  
 
 
-## [Better Pick Queue Ver. 1.12 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
+## [Better Pick Queue Ver. 1.13 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
@@ -78,7 +80,7 @@ ItemDrops is back. It highlights the dropped item **more strongly**.
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
 
-## [Shop Helper Ver. 0.84 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
+## [Shop Helper Ver. 0.85 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
 街などで開かれている露店の価格が高いか安いかをコメントしてくれます。  
 This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
