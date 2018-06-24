@@ -2,7 +2,7 @@
 
 Last Updated: June 24, 2018  
 
-* **Better Pick Queue Ver. 1.12**
+* **Better Pick Queue Ver. 1.13**
   * パッチ適用後、右クリックメニューが開かなくなっていた問題を修正<br>Fixed issue where right click menu did not open after applying patch.
 
 * **Shop Helper Ver. 0.85**
