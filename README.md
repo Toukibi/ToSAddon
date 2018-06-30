@@ -1,24 +1,18 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: June 24, 2018  
+Last Updated: June 30, 2018  
+
+* **Equip Marker Ver. 1.02**
+  * スロットの背景表示をIToSのように変更<br>Changed slot background display like IToS.
+  * IToSではアイテム等級の背景表示をインベントリー以外にも拡張しました<br>For IToS, I expanded the background display of item classes besides inventory.
+
+June 24, 2018  
 
 * **Better Pick Queue Ver. 1.13**
   * パッチ適用後、右クリックメニューが開かなくなっていた問題を修正<br>Fixed issue where right click menu did not open after applying patch.
 
 * **Shop Helper Ver. 0.85**
   * パッチ適用後、Altキーを押してもプレイヤー名のラベルが消えない問題を修正<br>Fixed a problem that the label of the player name does not disappear while pressing the Alt key after applying the patch.
-
-
-April 26, 2018
-
-* **Better Pick Queue Ver. 1.12**
-  * 重量が0.1の物をいくつか所持すると重量表示がおかしくなる問題を修正<br>Fixed a problem that weighing display became wrong when holding some things with weight 0.1.
-
-* **Don't Decompose Me Ver. 1.02**
-  * 公式のUI変更に対応<br>Corresponds to official UI change.
-
-* **Remaining Counter Ver. 1.03**
-  * 使用個数が減少する特性をONにしても表示回数が反映しない問題を修正<br>Fixed a problem that remaining number display does not change even when turning on the characteristic of decreasing number used.
 
 
 ## Notice:
@@ -65,7 +59,7 @@ It makes it easier to distinguish items so as not to disassemble important items
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
 
-## [Equip Marker Ver. 1.01 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
+## [Equip Marker Ver. 1.02 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
 アイテム表示に強化値とランクと未鑑定の情報を追加します。  
 This add-on adds enhancement value, item rank and unidentified icon to the item display.    
 ![Image of main image of Equip-Marker](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    

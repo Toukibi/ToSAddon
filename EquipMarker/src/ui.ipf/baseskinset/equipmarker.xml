@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skinset name="toukibi_equipmarker_res">
+	<skinlist category="toukibi_invenslots">
+		<skin name="equipmarker_invenslot_nomal" texture="\skin\equipmarker2.tga">
+			<img name="slot" imgrect="0 0 58 58"/>
+			<img name="mouseon" imgrect="295 0 58 58"/>
+			<img name="cooltime" imgrect="295 0 58 58"/>
+			<img name="selected" imgrect="295 0 58 58"/>
+		</skin>
+		<skin name="equipmarker_invenslot_magic" texture="\skin\equipmarker2.tga">
+			<img name="slot" imgrect="59 0 58 58"/>
+			<img name="mouseon" imgrect="295 0 58 58"/>
+			<img name="cooltime" imgrect="295 0 58 58"/>
+			<img name="selected" imgrect="295 0 58 58"/>
+		</skin>
+		<skin name="equipmarker_invenslot_rare" texture="\skin\equipmarker2.tga">
+			<img name="slot" imgrect="118 0 58 58"/>
+			<img name="mouseon" imgrect="295 0 58 58"/>
+			<img name="cooltime" imgrect="295 0 58 58"/>
+			<img name="selected" imgrect="295 0 58 58"/>
+		</skin>
+		<skin name="equipmarker_invenslot_unique" texture="\skin\equipmarker2.tga">
+			<img name="slot" imgrect="177 0 58 58"/>
+			<img name="mouseon" imgrect="295 0 58 58"/>
+			<img name="cooltime" imgrect="295 0 58 58"/>
+			<img name="selected" imgrect="295 0 58 58"/>
+		</skin>
+		<skin name="equipmarker_invenslot_legend" texture="\skin\equipmarker2.tga">
+			<img name="slot" imgrect="236 0 58 58"/>
+			<img name="mouseon" imgrect="295 0 58 58"/>
+			<img name="cooltime" imgrect="295 0 58 58"/>
+			<img name="selected" imgrect="295 0 58 58"/>
+		</skin>
+	</skinlist>
 	<imagelist category="icons">
 		<image name="equipmarker_rare" file="\skin\equipmarker.tga" imgrect="0 0 24 24" />
 		<image name="equipmarker_epic" file="\skin\equipmarker.tga" imgrect="32 0 24 24" />
@@ -9,5 +41,18 @@
 		<image name="equipmarker_mini_epic" file="\skin\equipmarker.tga" imgrect="16 52 12 12" />
 		<image name="equipmarker_mini_unique" file="\skin\equipmarker.tga" imgrect="32 52 12 12" />
 		<image name="equipmarker_mini_legendary" file="\skin\equipmarker.tga" imgrect="48 52 12 12" />
+	</imagelist>
+	<imagelist category="toukibi_item_state_icons">
+		<image name="equipmarker_itemslot_star_icon_1" file="\skin\equipmarker2.tga" imgrect="0 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_2" file="\skin\equipmarker2.tga" imgrect="30 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_3" file="\skin\equipmarker2.tga" imgrect="60 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_4" file="\skin\equipmarker2.tga" imgrect="90 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_5" file="\skin\equipmarker2.tga" imgrect="120 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_6" file="\skin\equipmarker2.tga" imgrect="150 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_7" file="\skin\equipmarker2.tga" imgrect="180 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_8" file="\skin\equipmarker2.tga" imgrect="210 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_9" file="\skin\equipmarker2.tga" imgrect="240 60 26 26" />
+		<image name="equipmarker_itemslot_star_icon_10" file="\skin\equipmarker2.tga" imgrect="270 60 26 26" />
+		<image name="equipmarker_itemslot_unconceded_icon" file="\skin\equipmarker2.tga" imgrect="354 0 58 58" />
 	</imagelist>
 </skinset>
