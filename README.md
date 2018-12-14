@@ -1,6 +1,15 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: June 30, 2018  
+Last Updated: December 14, 2018
+
+* **Shop Helper Ver. 0.90**
+  * パッチ適用後、露店で購入ができなくなる問題を修正<br>Fixed a problem that makes it impossible to purchase at stalls after applying patch.
+  * 販売価格の高い・安いの比較機能を削除<br>Delete guidance function as to whether the selling price is high or low.
+
+* **Experience Viewer Ex Ver. 1.01**
+  * パッチ適用後、表示がされなくなる問題を修正<br>Fixed a problem that display disappeared after applying patch.
+
+June 30, 2018  
 
 * **Equip Marker Ver. 1.02**
   * スロットの背景表示をIToSのように変更<br>Changed slot background display like IToS.
@@ -64,6 +73,11 @@ This add-on will tell you the minimum durability value of your equipment.
 This add-on adds enhancement value, item rank and unidentified icon to the item display.    
 ![Image of main image of Equip-Marker](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    
 
+## [Experience Viewer Ex Ver. 1.01](https://github.com/Toukibi/ToSAddon/tree/master/ExpViewer_Ex)
+経験値に関する情報と、獲得シルバーの情報を表示します。  
+This add-on will display all sorts of information about your character's experience and information on acquired silver.  
+![ExpViewerの外観](https://github.com/Toukibi/ToSAddon/blob/ForImage/ExpViewer_Ex/img/topimage_ja.jpg?raw=true)
+
 ## [Item Drops 2 Ver. 2.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ItemDrops2)
 ItemDropsが2になって帰ってきました。ドロップしたアイテムを**色濃く**強調表示してくれます。  
 ItemDrops is back. It highlights the dropped item **more strongly**.    
@@ -74,9 +88,9 @@ ItemDrops is back. It highlights the dropped item **more strongly**.
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
 
-## [Shop Helper Ver. 0.85 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
-街などで開かれている露店の価格が高いか安いかをコメントしてくれます。  
-This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
+## [Shop Helper Ver. 0.90 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
+街などで開かれている露店の表示を少しだけ使いやすくしてくれます。  
+This add-on will make the display of the stalls opened in towns etc. a little easier to use.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
 

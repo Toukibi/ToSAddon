@@ -3,18 +3,17 @@
     "name": "Shop Helper",
     "file": "shophelper",
     "extension": "ipf",
-    "fileVersion": "v0.8.5",
+    "fileVersion": "v0.9.0",
     "releaseTag": "ShopHelper",
     "unicode": "⛄",
-    "description": "街などで開かれている露店の価格が高いか安いかをコメントしてくれます。This add-on will tell you whether the price of buff/repair/etc. is expensive or cheap.",
+    "description": "露店の画面を少し使いやすいように手助けします。This add-on will help the stall screens a little easier to use.",
     "tags": [
       "ui",
-      "rip-off measures",
-      "price",
       "Auto-sellor baloon",
       "jp",
       "en",
-      "kr"
+      "kr",
+      "br"
     ]
   },
   {
@@ -105,7 +104,7 @@
     "name": "Experience Viewer Ex",
     "file": "expviewer_ex",
     "extension": "ipf",
-    "fileVersion": "v1.0.0",
+    "fileVersion": "v1.0.1",
     "releaseTag": "ExpViewer_Ex",
     "unicode": "⛄",
     "description": "Experience Viewerの改造版で、シルバー時給も表示できるようになりました。  This is a remodeled version of the Experience Viewer, and you can now display the information on the acquired silver.",

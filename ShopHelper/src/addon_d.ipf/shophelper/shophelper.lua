@@ -1,5 +1,5 @@
 local addonName = "ShopHelper";
-local verText = "0.85";
+local verText = "0.90";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/sh", "/shophelper", "/shelper", "/ShopHelper"};
@@ -1169,240 +1169,8 @@ local LibPrice = {
 		else
 		end
 		return ResultValue;
-	end,
-
-	-- 値段のテキスト情報を作成する
-	GetPriceText = function(self, Price, PriceInfo)
-		local ReturnValue = {};
-		local CustomFormat = {};
-		PriceInfo.AverageWithCharge = PriceInfo.AveragePrice;
-		if Me.IsVillage == nil then
-			Me.IsVillage = (GetClass("Map", session.GetMapName()).isVillage == "YES") or false;
-		end
-		if not Me.IsVillage then
-			PriceInfo.AverageWithCharge = PriceInfo.AverageWithCharge + PriceInfo.Suburb;
-		end
-		ReturnValue.ImpressionValue = "Empty";
-		if Price < PriceInfo.CostPrice then
-			ReturnValue.ImpressionValue = "BelowCost"
-			CustomFormat.Price = {"#0000FF"};
-			CustomFormat.Impression = {"#0000FF"};
-		elseif Price == PriceInfo.CostPrice then
-			ReturnValue.ImpressionValue = "AtCost"
-			CustomFormat.Price = {"#0000FF"};
-			CustomFormat.Impression = {"#0000FF"};
-		elseif Price <= PriceInfo.CostPrice + PriceInfo.Span * 3 then
-			ReturnValue.ImpressionValue = "NearCost"
-			CustomFormat.Price = {"@st41b", "#00CC00"};
-			CustomFormat.Impression = {"#006633"};
-		elseif Price < PriceInfo.AverageWithCharge - PriceInfo.Span * 2 then
-			-- お値打ち1
-			ReturnValue.ImpressionValue = "GoodValue"
-			CustomFormat.Price = {"@st41b", "#9999FF"};
-			CustomFormat.Impression = {"#3333FF"};
-		elseif Price < PriceInfo.AverageWithCharge then
-			-- お値打ち2 だけど大体平均
-			ReturnValue.ImpressionValue = "WithinAverage"
-			CustomFormat.Price = {"@st41b", "#CCCCFF"};
-		elseif Price <= PriceInfo.AverageWithCharge + PriceInfo.Span * 5 then
-			-- 普通
-			ReturnValue.ImpressionValue = "WithinAverage"
-			CustomFormat.Price = {"@st41b"};
-		elseif Price <= PriceInfo.AverageWithCharge + PriceInfo.Span * 20 then
-			-- ちょい高
-			ReturnValue.ImpressionValue = "ALittleExpensive"
-			CustomFormat.Price = {"@st41b", "#FF9999"};
-		elseif Price >= PriceInfo.AverageWithCharge * 1.8 then
-			-- 異常に高い2
-			ReturnValue.ImpressionValue = "RipOff"
-			CustomFormat.Price = {"@st41b", "#FF0000"};
-		elseif Price >= PriceInfo.AverageWithCharge + PriceInfo.Span * 100 then
-			-- 異常に高い1
-			ReturnValue.ImpressionValue = "RipOff"
-			CustomFormat.Price = {"@st41b", "#FF0000"};
-		else
-			ReturnValue.ImpressionValue = "Expensive"
-			CustomFormat.Price = {"@st41b", "#FF3333"};
-		end
-		-- 備考の文字を作成する
-		ReturnValue.PriceText = Toukibi:GetStyledText(self:GetCommaedTextEx(Price), CustomFormat.Price);
-		ReturnValue.ImpressionText = Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic." .. ReturnValue.ImpressionValue), CustomFormat.Impression);
-		if ReturnValue.ImpressionValue == "BelowCost" or ReturnValue.ImpressionValue == "AtCost" then
-			-- 原価を表示
-			ReturnValue.ComparsionText = string.format("%s:%ss"
-													 , Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
-													 , self:GetCommaedTextEx(PriceInfo.CostPrice));
-
-			ReturnValue.ToolTipText = self:MakePriceToolTipText(Price, PriceInfo.CostPrice, PriceInfo.AverageWithCharge, not Me.IsVillage and PriceInfo.Suburb or 0);
-		elseif ReturnValue.ImpressionValue == "AtCost" then
-			-- 原価との比較のみ表示
-			ReturnValue.ComparsionText = string.format("%s%s"
-													 , Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
-													 , self:GetCommaedTextEx(Price - PriceInfo.CostPrice, 0, 0, true, true));
-			ReturnValue.ToolTipText = self:MakePriceToolTipText(Price, PriceInfo.CostPrice, PriceInfo.AverageWithCharge, not Me.IsVillage and PriceInfo.Suburb or 0);
-		elseif ReturnValue.ImpressionValue == "RipOff" and  Price >= PriceInfo.AverageWithCharge * 1.8 then
-			-- 原価・平均との割合で表示(ぼったくり対応)
-			ReturnValue.ComparsionText = string.format("%sx%s  %sx%s"
-													 , Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.AveragePrice")
-													 , self:GetCommaedTextEx(Price / PriceInfo.AverageWithCharge, nil, 2)
-													 , Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
-													 , self:GetCommaedTextEx(Price / PriceInfo.CostPrice, nil, 2));
-
-			ReturnValue.ToolTipText = self:MakePriceToolTipText(Price, PriceInfo.CostPrice, PriceInfo.AverageWithCharge, not Me.IsVillage and PriceInfo.Suburb or 0, true);
-		else
-			-- 通常表示(原価と平均比較)
-			ReturnValue.ComparsionText = string.format("%s%s  %s%s"
-													 , Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.AveragePrice")
-													 , self:GetCommaedTextEx(Price - PriceInfo.AverageWithCharge, nil, nil, true)
-													 , Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
-													 , self:GetCommaedTextEx(Price - PriceInfo.CostPrice, nil, nil, true));
-
-			ReturnValue.ToolTipText = self:MakePriceToolTipText(Price, PriceInfo.CostPrice, PriceInfo.AverageWithCharge, not Me.IsVillage and PriceInfo.Suburb or 0);
-		end
-		if ReturnValue.ImpressionValue == "RipOff" then ReturnValue.DoAlart = true end
-		return ReturnValue;
-	end,
-
-	-- 価格参考のツールチップテキストを作成する
-	MakePriceToolTipText = function(self, Price, CostPrice, AveragePrice, SuburbPrice, MultiplicationMode)
-		local lMultiplicationMode = MultiplicationMode or false;
-		local lSuburbPrice = SuburbPrice or 0;
-		local ReturnText = "";
-		if lMultiplicationMode then
-			-- 倍率モード
-			ReturnText = string.format("%s x %s   (%s:%ss){nl}%s x %s   (%s:%ss)"
-									, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.AveragePrice"), self:GetCommaedTextEx(Price / AveragePrice, 7, 2)
-									, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.AveragePrice"), self:GetCommaedTextEx(AveragePrice, 7)
-									, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")   , self:GetCommaedTextEx(Price / CostPrice, 7, 2)
-									, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")   , self:GetCommaedTextEx(CostPrice, 7));
-		else
-			-- 通常モード
-			local SuburbText = "";
-			if lSuburbPrice > 0 then
-				SuburbText = string.format("{#FF8888}%s %s{/}{nl}"
-										, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.RuralCharge"), self:GetCommaedTextEx(lSuburbPrice))
-			end
-			ReturnText = string.format("%s%s %s   (%s:%ss){nl}%s %s   (%s:%ss)"
-									, SuburbText
-									, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.AveragePrice"), self:GetCommaedTextEx(Price - AveragePrice, 7, nil, true)
-									, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.AveragePrice"), self:GetCommaedTextEx(AveragePrice, 7)
-									, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")   , self:GetCommaedTextEx(Price - CostPrice, 7, nil, true)
-									, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")   , self:GetCommaedTextEx(CostPrice, 7));
-
-		end
-		return ReturnText;
-	end,
-
-	-- 警告メッセージを作成する
-	MakeWarningMsg = function(self, usrSkillID, SLv, Price)
-		local BuffPriceInfo = self:GetPriceInfo(usrSkillID);
-		local PriceTextData = self:GetPriceText(Price, BuffPriceInfo);
-		local objSkill;
-		objSkill = GetClassByType("Skill", usrSkillID);
-
-		local msg_title = string.format("%s  {s40}{b}{ol}{#EEEEEE}%s{/}{/}{/}{/}  %s"
-										, "{img shophelpericon_warning 56 56}{/}"
-										, Toukibi:GetResText(ResText, Me.Settings.Lang, "WarnMsg.Title")
-										, "{img shophelpericon_warning 56 56}{/}");
-
-		local msg_body = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "WarnMsg.Body"));
-		
-		local msg_skillinfo = string.format("{img icon_%s 60 60}{/}  %s Lv.%s"
-											, objSkill.Icon
-											, objSkill.Name
-											, string.format("{@st41}{#%s}%d{/}{/}"
-														, self:GetBuffLvColor(SLv, BuffPriceInfo.MaxLv)
-														, SLv
-														)
-											);
-
-		local msg_priceinfo = string.format("%s:%s {#111111}(%s){/}{nl} {nl}{#111111}{s16}%s{/}{/}"
-											, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CurrentPrice")
-											, PriceTextData.PriceText
-											, PriceTextData.ImpressionText
-											, PriceTextData.ToolTipText);
-
-		return string.format("%s{nl} {nl}%s{nl} {nl} {nl}%s{nl} {nl}%s"
-						, msg_title
-						, msg_body
-						, msg_skillinfo
-						, msg_priceinfo);
-	end,
-
-	-- 最終使用時間を記憶して修正移動平均とsetting.jsonを更新する
-	UpdateAverage = function(self, handle, skillID, LatestPrice)
-		local OwnerFamilyName = info.GetFamilyName(handle);
-		local objSkill = GetClassByType("Skill", skillID);
-		local objSkillName = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.UnknownSkillID"), skillID);
-		if objSkill ~= nil then
-			objSkillName = objSkill.Name;
-		end
-		Toukibi:AddLog(string.format( Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.BuySomething")
-									, OwnerFamilyName
-									, objSkillName
-									, self:GetCommaedTextEx(LatestPrice)
-									), "Info", true, false);
-
-		if Me.IsVillage == nil then
-			Me.IsVillage = (GetClass("Map", session.GetMapName()).isVillage == "YES") or false;
-		end
-		if Me.Settings.UpdateAverage then
-			Me.BuyHistory[handle] = Me.BuyHistory[handle] or {};
-			Me.BuyHistory[handle][skillID] = Me.BuyHistory[handle][skillID] or {};
-			local CurrentHistory = Me.BuyHistory[handle][skillID];
-			if CurrentHistory.LatestUse == nil or os.clock() - CurrentHistory.LatestUse >= Me.Settings.RecalcInterval then
-				-- 修正移動平均を求めて平均値を更新する
-				if not Me.IsVillage and Me.Settings.AverageData[tostring(skillID)].Suburb ~= nil then
-					Toukibi:AddLog(string.format( Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.IsSuburbMsg")
-												, self:GetCommaedTextEx(LatestPrice)
-												, self:GetCommaedTextEx(Me.Settings.AverageData[tostring(skillID)].Suburb)
-												, self:GetCommaedTextEx(LatestPrice - Me.Settings.AverageData[tostring(skillID)].Suburb)
-								   ), "Notice", true, true);
-					LatestPrice = LatestPrice - Me.Settings.AverageData[tostring(skillID)].Suburb
-				end
-				if Me.Settings.IgnoreAwayValue ~= "None" then
-					local PriceInfo = self:GetPriceInfo(skillID);
-					if PriceInfo.DoAddInfo and LatestPrice < PriceInfo.CostPrice then
-						-- 原価割れ
-						if Me.Settings.SaveAsCostIfBelow then
-							Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.IsBelowCostMsg"), "Notice", true, false);
-							LatestPrice = PriceInfo.CostPrice;
-						end
-					elseif PriceInfo.DoAddInfo and math.abs(LatestPrice - PriceInfo.AveragePrice) > PriceInfo.Span * 30 then
-						-- 外れ値
-						if Me.Settings.IgnoreAwayValue == "Ignore" then
-							-- 無視する
-							Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.IsFartherValueMsg"), "Notice", true, false);
-							return;
-						elseif LatestPrice - PriceInfo.AveragePrice > PriceInfo.Span * 30 then
-							-- 高い方の離れ値の場合離れ値の上限を記録する
-							LatestPrice = PriceInfo.CostPrice;
-							Toukibi:AddLog(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.SaveAsFartherLimitValue"), LatestPrice), "Notice", true, false);
-						elseif LatestPrice - PriceInfo.AveragePrice < PriceInfo.Span * -30 then
-							-- 低いい方の離れ値の場合離れ値の下限を記録する
-							LatestPrice = PriceInfo.CostPrice;
-							Toukibi:AddLog(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.SaveAsFartherLimitValue"), LatestPrice), "Notice", true, false);
-						end
-					end
-				end
-				Me.Settings.AverageData[tostring(skillID)].Price = (Me.Settings.AverageData[tostring(skillID)].Price * (Me.Settings.AverageNCount - 1) + LatestPrice) / Me.Settings.AverageNCount
-				CurrentHistory.LatestUse = os.clock();
-				Toukibi:AddLog(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.UpdateAveragePrice")
-							 , objSkillName
-							 , self:GetCommaedTextEx(Me.Settings.AverageData[tostring(skillID)].Price, nil, 2)
-							 ), "Info", true, false);
-
-				-- 設定情報を保存する
-				Toukibi:SaveTable(Me.SettingFilePathName, Me.Settings);
-			else
-				Toukibi:AddLog(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Log.IsShorterInterval")
-							 , os.clock() - CurrentHistory.LatestUse
-							 , Me.Settings.RecalcInterval
-							 ), "Info", true, false);
-			end
-		end
 	end
-
+	
 }
 Me.LibPrice = LibPrice;
 
@@ -1482,19 +1250,14 @@ local function MargeDefaultSetting(Force, DoSave)
 	Me.Settings.Lang					= Toukibi:GetValueOrDefault(Me.Settings.Lang				, Toukibi:GetDefaultLangCode(), Force);
 	Me.Settings.ShowMessageLog			= Toukibi:GetValueOrDefault(Me.Settings.ShowMessageLog		, false, Force);
 	Me.Settings.ShowMsgBoxOnBuffShop	= Toukibi:GetValueOrDefault(Me.Settings.ShowMsgBoxOnBuffShop, true, Force);
-	Me.Settings.UpdateAverage			= Toukibi:GetValueOrDefault(Me.Settings.UpdateAverage		, true, Force);
 	Me.Settings.AddInfoToBaloon			= Toukibi:GetValueOrDefault(Me.Settings.AddInfoToBaloon		, true, Force);
 	Me.Settings.EnableBaloonRightClick	= Toukibi:GetValueOrDefault(Me.Settings.EnableBaloonRightClick, true, Force);
 	Me.Settings.EnableHideNames			= Toukibi:GetValueOrDefault(Me.Settings.EnableHideNames		, true, Force);
-	Me.Settings.AverageNCount			= Toukibi:GetValueOrDefault(Me.Settings.AverageNCount		, 30, Force);
-	Me.Settings.RecalcInterval			= Toukibi:GetValueOrDefault(Me.Settings.RecalcInterval		, 60, Force);
-	Me.Settings.IgnoreAwayValue			= Toukibi:GetValueOrDefault(Me.Settings.IgnoreAwayValue		, "Limit", Force);
-	Me.Settings.SaveAsCostIfBelow		= Toukibi:GetValueOrDefault(Me.Settings.SaveAsCostIfBelow	, true, Force);
 	Me.Settings.Repair_SelectByDur		= Toukibi:GetValueOrDefault(Me.Settings.Repair_SelectByDur	, true, Force);
 	Me.Settings.Repair_DurValue			= Toukibi:GetValueOrDefault(Me.Settings.Repair_DurValue		, 3, Force);
 	Me.Settings.Repair_ShowDurGauge		= Toukibi:GetValueOrDefault(Me.Settings.Repair_ShowDurGauge	, true, Force);
 	Me.Settings.Repair_ShowDurValue		= Toukibi:GetValueOrDefault(Me.Settings.Repair_ShowDurValue	, false, Force);
-	Me.Settings.IfAlreadyBuffed			= Toukibi:GetValueOrDefault(Me.Settings.IfAlreadyBuffed		, "Abort", Force);
+	Me.Settings.IfAlreadyBuffed			= Toukibi:GetValueOrDefault(Me.Settings.IfAlreadyBuffed		, "None", Force);
 	if Force then
 		Toukibi:AddLog(Toukibi:GetResText(Toukibi.CommonResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
 	end
@@ -1667,11 +1430,48 @@ function Me.RedrawShopBaloon(handle)
 	AddToShopBaloon(originalText, sellType, handle);
 end
 
+local function ToggleControlVisibleByName(BaseFrame, CtrlName, Param)
+	if BaseFrame == nil then return end
+	local TargetControl = BaseFrame:GetChild(CtrlName);
+	if TargetControl == nil then return end
+	TargetControl:ShowWindow(Param);
+end
+
 function Me.RedrawAllShopBaloon()
 	local selectedObjects, selectedObjectsCount = SelectObject(GetMyPCObject(), 1000000, "ALL");
 	for i = 1, selectedObjectsCount do
-		Me.RedrawShopBaloon(GetHandle(selectedObjects[i]));
+		local handle = GetHandle(selectedObjects[i]);
+		if handle ~= nil then
+			Me.RedrawShopBaloon(GetHandle(selectedObjects[i]));
+		end
 	end
+end
+
+local function HideSellerInfo(handle)
+	--[[
+	if info.IsPC(handle) == 1 then
+		local shopFrame = ui.GetFrame("SELL_BALLOON_" .. handle);
+		-- 露店が対象
+		if shopFrame ~= nil then
+			local FrameName = "charbaseinfo1_" .. handle;
+			local BaseFrame = ui.GetFrame(FrameName);
+			if BaseFrame ~= nil then
+				-- BaseFrame:ShowWindow(1);
+				local VisibleParam = 0;
+				-- HP/SPバー
+				ToggleControlVisibleByName(BaseFrame, "pcHpGauge", VisibleParam);
+				ToggleControlVisibleByName(BaseFrame, "pcSpGauge", VisibleParam);
+				ToggleControlVisibleByName(BaseFrame, "pcinfo_bg_L", VisibleParam);
+				ToggleControlVisibleByName(BaseFrame, "pcinfo_bg_R", VisibleParam);
+				-- 名前関連
+				ToggleControlVisibleByName(BaseFrame, "givenName", VisibleParam);
+				ToggleControlVisibleByName(BaseFrame, "familyName", VisibleParam);
+				ToggleControlVisibleByName(BaseFrame, "achieveName", VisibleParam);
+
+			end
+		end
+	end
+	]]
 end
 
 -- ================================
@@ -1709,40 +1509,22 @@ function Me.AddInfoToBuffSellerSlot(BaseFrame, info)
 	if ParentFrame:GetUserIValue("HANDLE") ==  session.GetMyHandle() then return nil end
 	local BuffPriceInfo = LibPrice:GetPriceInfo(info.classID);
 	if BuffPriceInfo.DoAddInfo then
-		local PriceTextData = LibPrice:GetPriceText(info.price, BuffPriceInfo)
 		local lblSLv = BaseFrame:GetChild("skilllevel");
 		lblSLv:SetTextByKey("value", string.format("{@st41}{#%s}%d{/}{/}"
 												, LibPrice:GetBuffLvColor(info.level, BuffPriceInfo.MaxLv)
 												, info.level));
 
-		local lblPrice = BaseFrame:GetChild("price")
-		local WarnIcon = ""
-		if PriceTextData.ImpressionValue == "RipOff" then
-			WarnIcon = "{img NOTICE_Dm_! 26 26}"
-		end
-		lblPrice:SetTextByKey("value", WarnIcon .. PriceTextData.PriceText);
-		lblPrice:SetTextTooltip(PriceTextData.ToolTipText);
-
-		-- ボタンを上へ動かす
-		local objTextItem = ToukibiUI:AddRichTextToCenter(BaseFrame, "ShopHelper_lblPriceInfo", PriceTextData.ImpressionText, 250, 40, 150, 20, 16);
-		objTextItem:SetTextTooltip(PriceTextData.ToolTipText);
 		local BuyButton = BaseFrame:GetChild("btn");
 		if BuyButton ~= nil then
 			tolua.cast(BuyButton, 'ui::CButton');
 			ToukibiUI:SetMargin(BuyButton, 280 - 30, nil, nil, nil);
 			BuyButton:Resize(118 + 30, 45);
-			if PriceTextData.DoAlart then
-				BuyButton:SetText(Toukibi:GetResText(ResText, Me.Settings.Lang, "BtnText.lblWarning"));
+			BuyButton:SetText("");
+			if Me.BuffIsOngoing(info.classID) then
+				BuyButton:SetText(Toukibi:GetResText(ResText, Me.Settings.Lang, "BtnText.lblOngoing"));
 			else
-				BuyButton:SetText("");
-				if Me.BuffIsOngoing(info.classID) then
-					BuyButton:SetText(Toukibi:GetResText(ResText, Me.Settings.Lang, "BtnText.lblOngoing"));
-				else
-					BuyButton:SetText(Toukibi:GetResText(ResText, Me.Settings.Lang, "BtnText.lblBuy"));
-				end
+				BuyButton:SetText(Toukibi:GetResText(ResText, Me.Settings.Lang, "BtnText.lblBuy"));
 			end
-			-- 購入時の注意フラグを追加する
-			BaseFrame:SetUserValue("ImpressionValue", PriceTextData.ImpressionValue);
 		end
 	end
 end
@@ -1755,8 +1537,7 @@ function Me.btnBuyBuffAutosell_Click(ctrlSet, btn)
 	local index = ctrlSet:GetUserIValue("INDEX");
 	local itemInfo = session.autoSeller.GetByIndex(groupName, index);
 	local buycount =  GET_CHILD(ctrlSet, "price");
-	-- 勝手に埋め込んだパラメータを取り出す
-	local DoAlart = (ctrlSet:GetUserValue("ImpressionValue") == "RipOff");
+
 	if itemInfo == nil then
 		return;
 	end
@@ -1767,7 +1548,7 @@ function Me.btnBuyBuffAutosell_Click(ctrlSet, btn)
 	end
 
 	local totalPrice = itemInfo.price * cnt;
-	local myMoney = GET_TOTAL_MONEY();
+	local myMoney = session.GetInvItemByName('Vis').count;
 	if totalPrice > myMoney or  myMoney <= 0 then
 		ui.SysMsg(ClMsg("NotEnoughMoney"));
 		return;
@@ -1775,23 +1556,11 @@ function Me.btnBuyBuffAutosell_Click(ctrlSet, btn)
 
 	-- 飛び先も自前で偽装する(価格情報が欲しいため)
 	local strscp = string.format("TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(%d, %d, %d, %d, %d, %d)", frame:GetUserIValue("HANDLE"), index, cnt, sellType, itemInfo.classID, itemInfo.price);
-	if DoAlart then
-
-		-- 価格データを作り直す(本当はポインター的な手法で渡したかった)
-		--local BuffPriceInfo = LibPrice:GetPriceInfo(itemInfo.classID);
-		--local PriceTextData = LibPrice:GetPriceText(itemInfo.price, BuffPriceInfo);
-		--local objSkill = GetClassByType("Skill", itemInfo.classID);
-
-		local msg = LibPrice:MakeWarningMsg(itemInfo.classID, itemInfo.level, itemInfo.price)
-		
+	if Me.Settings.ShowMsgBoxOnBuffShop then
+		local msg = ClMsg("ReallyBuy?")
 		ui.MsgBox(msg, strscp, "None");
 	else
-		if Me.Settings.ShowMsgBoxOnBuffShop then
-			local msg = ClMsg("ReallyBuy?")
-			ui.MsgBox(msg, strscp, "None");
-		else
-			TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(frame:GetUserIValue("HANDLE"), index, cnt, sellType, itemInfo.classID, itemInfo.price);
-		end
+		TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(frame:GetUserIValue("HANDLE"), index, cnt, sellType, itemInfo.classID, itemInfo.price);
 	end
 end
 
@@ -1817,8 +1586,6 @@ function TOUKIBI_SHOPHELPER_EXEC_BUY_BUFF(handle, index, cnt, sellType, skillID,
 			end
 		end
 	end
-	-- 最終使用時間を記憶する
-	Me.LibPrice:UpdateAverage(handle, skillID, Price)
 	EXEC_BUY_AUTOSELL(handle, index, cnt, sellType);
 end
 
@@ -1879,7 +1646,6 @@ function Me.AddInfoToSquireBuff(BaseFrame)
 		local SLv = BaseFrame:GetUserIValue("SKILLLEVEL");
 		local Price = BaseFrame:GetUserIValue("PRICE");
 		local PriceInfo = LibPrice:GetPriceInfo(10703); -- リペアのスキルID
-		local PriceTextData = LibPrice:GetPriceText(Price, PriceInfo)
 		ToukibiUI:AddRichText(BaseFrame , "ShopHelper_lblOwnerInfo"
 					 , string.format("{@st42b}{#%s}Lv.%d{/}{/}  %s"
 					 			   , LibPrice:GetBuffLvColor(SLv, PriceInfo.MaxLv)
@@ -1888,19 +1654,6 @@ function Me.AddInfoToSquireBuff(BaseFrame)
 					 				)
 					 , 40, 120, 420, 20, 16);
 		local WarnIcon = ""
-		if PriceTextData.ImpressionValue == "RipOff" then
-			WarnIcon = "{img NOTICE_Dm_! 26 26}"
-		end
-		local lblPrice = ToukibiUI:AddRichText(BaseFrame
-									  , "ShopHelper_lblPriceInfo"
-									  , string.format("%s:%s%s  %s (%s)"
-													, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
-													, WarnIcon
-													, PriceTextData.PriceText
-													, PriceTextData.ImpressionText
-													, PriceTextData.ComparsionText)
-									  , 40, 200, 420, 20, 16);
-		lblPrice:SetTextTooltip(PriceTextData.ToolTipText);
 		-- 耐久度で選ぶUIを追加する
 		local lblSelectByDur = ToukibiUI:AddRichText(RepairFrame , "ShopHelper_lblSelectByDur"
 							, Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.DurabilityLeft")
@@ -1932,8 +1685,6 @@ function Me.AddInfoToSquireBuff(BaseFrame)
 		ToukibiUI:SetChecked(chkShowDurValue, Me.Settings.Repair_ShowDurValue)
 
 
-		-- 購入時の注意フラグを追加する
-		BaseFrame:SetUserValue("ImpressionValue", PriceTextData.ImpressionValue);
 
 		btnSelectByDur:SetEventScript(ui.LBUTTONDOWN, "TOUKIBI_SHOPHELPER_REPAIRSETTING_CHANGED");
 		btnSelectByDur:SetEventScriptArgNumber(ui.LBUTTONDOWN, 2);
@@ -2008,15 +1759,8 @@ function Me.btnBuySquireRepair_Click(frame)
 	-- パラメータを取り出す
 	local SLv = ParentFrame:GetUserIValue("SKILLLEVEL");
 	local RepairPrice = ParentFrame:GetUserIValue("PRICE");
-	-- 勝手に埋め込んだパラメータを取り出す
-	local DoAlart = (ParentFrame:GetUserValue("ImpressionValue") == "RipOff");
-	if DoAlart then
-		local strscp = string.format("TOUKIBI_SHOPHELPER_EXEC_SQUIRE_REPAIR('%s')", ParentFrame:GetName());
-		local msg = LibPrice:MakeWarningMsg(10703, SLv, RepairPrice)
-		ui.MsgBox(msg, strscp, "None");
-	else
-		TOUKIBI_SHOPHELPER_EXEC_SQUIRE_REPAIR(ParentFrame:GetName())
-	end
+
+	TOUKIBI_SHOPHELPER_EXEC_SQUIRE_REPAIR(ParentFrame:GetName())
 end
 
 -- 修理アクション
@@ -2033,9 +1777,6 @@ function TOUKIBI_SHOPHELPER_EXEC_SQUIRE_REPAIR(ParentFrameName)
 		ui.MsgBox(ScpArgMsg("SelectRepairItemPlz"))
 		return;
 	end
-
-	-- 最終使用時間を記憶する
-	LibPrice:UpdateAverage(handle, 10703, RepairPrice)
 
 	for i = 0, slotSet:GetSelectedSlotCount() -1 do
 		local slot = slotSet:GetSelectedSlot(i);
@@ -2170,7 +1911,6 @@ function Me.AddInfoToGemRoasting(BaseFrame)
 		local SLv = BaseFrame:GetUserIValue("SKILLLEVEL");
 		local Price = BaseFrame:GetUserIValue("PRICE");
 		local PriceInfo = LibPrice:GetPriceInfo(21003);
-		local PriceTextData = LibPrice:GetPriceText(Price, PriceInfo)
 
 		ToukibiUI:AddRichText(BaseFrame
 					 , "lblOwnerInfo"
@@ -2181,21 +1921,6 @@ function Me.AddInfoToGemRoasting(BaseFrame)
 					 				)
 					 , 40, 120, 420, 20, 16);
 		local WarnIcon = ""
-		if PriceTextData.ImpressionValue == "RipOff" then
-			WarnIcon = "{img NOTICE_Dm_! 26 26}"
-		end
-		local lblPrice = ToukibiUI:AddRichText(BaseFrame
-									  , "lblPriceInfo"
-									  , string.format("%s:%s%s  %s (%s)"
-													, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
-													, WarnIcon
-													, PriceTextData.PriceText
-													, PriceTextData.ImpressionText
-													, PriceTextData.ComparsionText)
-									  , 40, 200, 420, 20, 16);
-		lblPrice:SetTextTooltip(PriceTextData.ToolTipText);
-		-- 購入時の注意フラグを追加する
-		BaseFrame:SetUserValue("ImpressionValue", PriceTextData.ImpressionValue);
 	end
 end
 
@@ -2204,18 +1929,8 @@ function Me.btnBuyGemRoasting_Click(frame)
 	session.ResetItemList();
 
 	local ParentFrame = frame:GetTopParentFrame();
-	local SLv = ParentFrame:GetUserIValue("SKILLLEVEL");
-	local Price = ParentFrame:GetUserIValue("PRICE");
-	-- 勝手に埋め込んだパラメータを取り出す
-	local DoAlart = (ParentFrame:GetUserValue("ImpressionValue") == "RipOff");
 
-	if DoAlart then
-		local strscp = string.format("TOUKIBI_SHOPHELPER_EXEC_GEM_ROASTING('%s')", ParentFrame:GetName());
-		local msg = LibPrice:MakeWarningMsg(21003, SLv, Price)
-		ui.MsgBox(msg, strscp, "None");
-	else
-		TOUKIBI_SHOPHELPER_EXEC_GEM_ROASTING(ParentFrame:GetName())
-	end
+	TOUKIBI_SHOPHELPER_EXEC_GEM_ROASTING(ParentFrame:GetName())
 end
 
 --ジェムローストアクション
@@ -2234,9 +1949,6 @@ function TOUKIBI_SHOPHELPER_EXEC_GEM_ROASTING(ParentFrameName)
 
 	local handle = ParentFrame:GetUserValue("HANDLE");
 	local skillName = ParentFrame:GetUserValue("SKILLNAME");
-	local RoastPrice = ParentFrame:GetUserIValue("PRICE");
-	-- 最終使用時間を記憶する
-	LibPrice:UpdateAverage(handle, 21003, RoastPrice)
 
 	session.AddItemID(itemIESID);
 	session.autoSeller.BuyItems(handle, AUTO_SELL_GEM_ROASTING, session.GetItemIDList(), skillName);
@@ -2260,8 +1972,8 @@ function Me.AddInfoToAppraisalPC(BaseFrame)
 		local SLv = groupInfo.level;
 		local Price = groupInfo.price;
 		local PriceInfo = LibPrice:GetPriceInfo(31501); -- 鑑定のスキルID
-		local PriceTextData = LibPrice:GetPriceText(Price, PriceInfo)
-	local sklName = GetClassByType("Skill", groupInfo.classID).ClassName;
+
+		local sklName = GetClassByType("Skill", groupInfo.classID).ClassName;
 
 		ToukibiUI:AddRichText(BaseFrame , "ShopHelper_lblOwnerInfo"
 					 , string.format("{@st42b}{#%s}Lv.%d{/}{/}  %s"
@@ -2271,41 +1983,14 @@ function Me.AddInfoToAppraisalPC(BaseFrame)
 					 				)
 					 , 40, 120, 420, 20, 16);
 		local WarnIcon = ""
-		if PriceTextData.ImpressionValue == "RipOff" then
-			WarnIcon = "{img NOTICE_Dm_! 26 26}"
-		end
-		local lblPrice = ToukibiUI:AddRichText(BaseFrame
-									  , "ShopHelper_lblPriceInfo"
-									  , string.format("%s:%s%s  %s (%s)"
-													, Toukibi:GetResText(ResText, Me.Settings.Lang, "ComDic.CostPrice")
-													, WarnIcon
-													, PriceTextData.PriceText
-													, PriceTextData.ImpressionText
-													, PriceTextData.ComparsionText)
-									  , 40, 680, 420, 20, 16);
-
-		lblPrice:SetTextTooltip(PriceTextData.ToolTipText);
-		-- 購入時の注意フラグを追加する
-		BaseFrame:SetUserValue("ImpressionValue", PriceTextData.ImpressionValue);
-
 	end
 end
 
 -- 修理商店の修理ボタンをクリックしたときの処理
 function Me.btnBuyAppraisal_Click(frame)
 	local ParentFrame = frame:GetTopParentFrame();
-	local groupName = ParentFrame:GetUserValue("GroupName");
-	local groupInfo = session.autoSeller.GetByIndex(groupName, 0);
-	-- 勝手に埋め込んだパラメータを取り出す
-	local DoAlart = (ParentFrame:GetUserValue("ImpressionValue") == "RipOff");
 
-	if DoAlart then
-		local strscp = string.format("TOUKIBI_SHOPHELPER_EXEC_APPRAISAL_PC('%s')", ParentFrame:GetName());
-		local msg = LibPrice:MakeWarningMsg(groupInfo.classID, groupInfo.level, groupInfo.price)
-		ui.MsgBox(msg, strscp, "None");
-	else
-		TOUKIBI_SHOPHELPER_EXEC_APPRAISAL_PC(ParentFrame:GetName())
-	end
+	TOUKIBI_SHOPHELPER_EXEC_APPRAISAL_PC(ParentFrame:GetName())
 end
 
 -- 鑑定アクション
@@ -2326,13 +2011,10 @@ function TOUKIBI_SHOPHELPER_EXEC_APPRAISAL_PC(ParentFrameName)
 	end
 
 	-- check money
-	if handle ~= session.GetMyHandle() and GET_TOTAL_MONEY() < frame:GetUserIValue('TOTAL_MONEY') then
+	if handle ~= session.GetMyHandle() and session.GetInvItemByName('Vis').count < frame:GetUserIValue('TOTAL_MONEY') then
 		ui.MsgBox(ScpArgMsg("Auto_SoJiKeumi_BuJogHapNiDa."));
 		return;
 	end
-
-	-- 最終使用時間を記憶する
-	LibPrice:UpdateAverage(handle, groupInfo.classID, groupInfo.price)
 
 	for i = 0, slotSet:GetSelectedSlotCount() -1 do
 		local slot = slotSet:GetSelectedSlot(i)
@@ -2413,292 +2095,6 @@ end
 --          設定画面
 -- ===========================
 
--- 価格コントロール部
-local LibPriceCtrl = {
-
-	-- 入力価格を取得する
-	GetPriceInputValue = function(self, frame)
-		if frame == nil then return end
-		local AverageValue = ToukibiUI:GetNumValue(GET_CHILD(frame, "txtAverage", "ui::CEditControl"));
-		local RadixValue = ToukibiUI:GetNumValue(GET_CHILD(frame, "txtRadix", "ui::CEditControl"));
-		local SuburbValue = ToukibiUI:GetNumValue(GET_CHILD(frame, "txtSuburb", "ui::CEditControl"));
-		return AverageValue, RadixValue, SuburbValue;
-	end,
-
-	-- 価格表記を更新する
-	UpdatePriceText = function(self, parent, ControlBaseName, value, CurrentHighestValue)
-		local ctrl = GET_CHILD(parent, "value_" .. ControlBaseName, "ui::CRichText");
-		if ctrl == nil then return CurrentHighestValue end
-		ToukibiUI:SetText(ctrl, LibPrice:GetCommaedTextEx(value), {"@st66b", "s16"});
-		if value > CurrentHighestValue then
-			ctrl:ShowWindow(1);
-			GET_CHILD(parent, "zone_" .. ControlBaseName, "ui::CRichText"):ShowWindow(1);
-			GET_CHILD(parent, "bar_" .. ControlBaseName, "ui::CRichText"):ShowWindow(1);
-			GET_CHILD(parent, "pointer_" .. ControlBaseName, "ui::CRichText"):ShowWindow(1);
-			return value;
-		else
-			ctrl:ShowWindow(0);
-			GET_CHILD(parent, "zone_" .. ControlBaseName, "ui::CRichText"):ShowWindow(0);
-			GET_CHILD(parent, "bar_" .. ControlBaseName, "ui::CRichText"):ShowWindow(0);
-			GET_CHILD(parent, "pointer_" .. ControlBaseName, "ui::CRichText"):ShowWindow(0);
-			return CurrentHighestValue;
-		end
-	end,
-	UpdatePricePanel = function(self, ctrl)
-		local pnlInput = nil;
-		local Container = nil;
-		if ctrl:GetName() == "pnlInput" then
-			Container = ctrl:GetParent():GetParent();
-			pnlInput = ctrl;
-		else
-			Container = ctrl;
-			pnlInput = GET_CHILD(ctrl, "pnlInput", "ui::CGroupBox");
-		end
-		if Container ~= nil then
-			-- 入力されている値を読む
-			local AverageValue, RadixValue, SuburbValue = self:GetPriceInputValue(pnlInput);
-			local pnlGauge = GET_CHILD(Container, "pnlGauge", "ui::CGroupBox");
-			local SkillID = Container:GetUserValue("SkillID");
-			if pnlGauge ~= nil and SkillID ~= nil then
-				local PriceInfo = LibPrice:GetPriceInfo(tonumber(SkillID));
-				local HighestValue = 0;
-				HighestValue = self:UpdatePriceText(pnlGauge, "BelowCost", PriceInfo.CostPrice, HighestValue);
-				HighestValue = self:UpdatePriceText(pnlGauge, "NearCost", PriceInfo.CostPrice + RadixValue * 3, HighestValue);
-				HighestValue = self:UpdatePriceText(pnlGauge, "GoodValue", AverageValue - RadixValue * 2, HighestValue);
-				HighestValue = self:UpdatePriceText(pnlGauge, "WithinAverage", AverageValue + RadixValue * 5, HighestValue);
-				HighestValue = self:UpdatePriceText(pnlGauge, "ALittleExpensive", AverageValue + RadixValue * 20, HighestValue);
-				local RipOffValue = math.min(AverageValue * 1.8, AverageValue + RadixValue * 100);
-				HighestValue = self:UpdatePriceText(pnlGauge, "Expensive", RipOffValue, HighestValue);
-			end
-		end
-	end,
-
-	--目盛りを作成する
-	CreateDivText = function(self, ParetFrame, name, left, right, text, value)
-		local MarginBottom = 0;
-		local textWidth = math.abs(right - left);
-		local lblZone = tolua.cast(ParetFrame:CreateOrGetControl("richtext", "zone_" .. name, math.floor((left + right) / 2), 0, textWidth, 12),
-								"ui::CRichText");
-		lblZone:SetGravity(ui.CENTER_HORZ, ui.BOTTOM);
-		ToukibiUI:SetMargin(lblZone, nil, nil, nil, MarginBottom);
-		lblZone:EnableHitTest(0);
-		lblZone:SetText(string.format("{@st66b}{s12}%s{/}{/}", text));
-
-		if value ~= nil then
-			local lblBar = tolua.cast(ParetFrame:CreateOrGetControl("richtext","bar_" .. name, right + 1, 0, 12, 12),
-									"ui::CRichText");
-			lblBar:SetGravity(ui.CENTER_HORZ, ui.BOTTOM);
-			ToukibiUI:SetMargin(lblBar, nil, nil, nil, 6);
-			lblBar:EnableHitTest(0);
-			lblBar:SetText("{@st66b}{s12}|{/}{/}");
-
-			local lblPointer = tolua.cast(ParetFrame:CreateOrGetControl("richtext","pointer_" .. name, right + 1, 0, 12, 12),
-									"ui::CRichText");
-			lblPointer:SetGravity(ui.CENTER_HORZ, ui.BOTTOM);
-			ToukibiUI:SetMargin(lblPointer, nil, nil, nil, 22);
-			lblPointer:EnableHitTest(0);
-			lblPointer:SetText("{@st66b}{s12}▼{/}{/}");
-
-			local MarginBottom = 36;
-			local lblValue = tolua.cast(ParetFrame:CreateOrGetControl("richtext", "value_" .. name, right, 0, 60, 12),
-									"ui::CRichText");
-			lblValue:SetGravity(ui.CENTER_HORZ, ui.BOTTOM);
-			ToukibiUI:SetMargin(lblValue, nil, nil, nil, MarginBottom);
-			lblValue:EnableHitTest(0);
-			lblValue:SetText(string.format("{@st66b}{s16}%s{/}{/}", LibPrice:GetCommaedTextEx(value)));
-		end
-	end,
-	
-	-- 価格のゲージを作成する
-	CreatePriceGauge = function(self, ParentFrame, PriceInfo)
-		local ParentWidth = ParentFrame:GetWidth();
-		local height = 60;
-		local pnlBase = tolua.cast(ParentFrame:CreateOrGetControl("groupbox", "pnlGauge", 0, 0, ParentWidth - 10, height), 
-								"ui::CGroupBox");
-		
-		pnlBase:SetGravity(ui.CENTER_HORZ, ui.BOTTOM);
-		ToukibiUI:SetMargin(pnlBase, nil, nil, nil, 5);
-		pnlBase:EnableHitTest(0);
-		pnlBase:SetSkinName("None");
-
-		self:CreateDivText(pnlBase, "BelowCost", -275, -220, "原価割れ", PriceInfo.CostPrice);
-		self:CreateDivText(pnlBase, "NearCost", -220, -165, "ほぼ原価", PriceInfo.CostPrice + PriceInfo.Span * 3);
-		self:CreateDivText(pnlBase, "GoodValue", -165, -55, "お値打ち", PriceInfo.AveragePrice - PriceInfo.Span * 2);
-		self:CreateDivText(pnlBase, "WithinAverage", -55, 55, "平均", PriceInfo.AveragePrice + PriceInfo.Span * 5);
-		self:CreateDivText(pnlBase, "ALittleExpensive", 55, 165, "高くない？", PriceInfo.AveragePrice + PriceInfo.Span * 20);
-		local RipOffValue = math.min(PriceInfo.AveragePrice * 1.8, PriceInfo.AveragePrice + PriceInfo.Span * 100);
-		self:CreateDivText(pnlBase, "Expensive", 165, 220, "高い", RipOffValue);
-		self:CreateDivText(pnlBase, "RipOff", 230, 275, "異常に高い");
-
-		local gaugeHMargin = 20;
-		local imageMarginTop = 60;
-		local gaugeWidth = pnlBase:GetWidth() - gaugeHMargin * 2;
-		local picGauge = tolua.cast(pnlBase:CreateOrGetControl("picture", "pricegauge", 0, 0, gaugeWidth, 6), "ui::CPicture");
-		picGauge:SetGravity(ui.CENTER_HORZ, ui.BOTTOM);
-		ToukibiUI:SetMargin(picGauge, nil, nil, nil, 20);
-		picGauge:EnableHitTest(0);
-		picGauge:SetEnableStretch(1);
-		picGauge:SetImage("inventory_weight");
-	end,
-
-	-- 価格入力部を作る
-	CreatePriceInputBox = function(self, BaseFrame, PriceInfo)
-		local ParentWidth = 310;
-		local height = 60;
-		local pnlBase = tolua.cast(BaseFrame:CreateOrGetControl("groupbox", "pnlInput", 0, 8, ParentWidth , height), 
-								"ui::CGroupBox");
-		
-		pnlBase:SetGravity(ui.RIGHT, ui.TOP);
-		ToukibiUI:SetMargin(pnlBase, nil, nil, 10, nil);
-		-- pnlBase:SetSkinName("test_frame_midle");
-		pnlBase:EnableScrollBar(0);
-		pnlBase:EnableHitTest(1);
-		pnlBase:SetSkinName("None");
-
-		local lblSuburb = tolua.cast(pnlBase:CreateOrGetControl("richtext", "lblSuburb", 0, 35, 40, 20), "ui::CRichText");
-		lblSuburb:SetGravity(ui.RIGHT, ui.TOP);
-		ToukibiUI:SetMargin(lblSuburb, nil, nil, 50, nil);
-		lblSuburb:EnableHitTest(0);
-		lblSuburb:SetText("{@st66b}郊外価格{/}");
-
-		local txtSuburb = tolua.cast(pnlBase:CreateOrGetControl("edit", "txtSuburb", 0, 30, 50, 26), "ui::CEditControl");
-		txtSuburb:SetGravity(ui.RIGHT, ui.TOP);
-		ToukibiUI:SetMargin(txtSuburb, nil, nil, 0, nil);
-		txtSuburb:EnableHitTest(1);
-		txtSuburb:SetSkinName("test_weight_skin");
-		txtSuburb:SetClickSound("button_click_big");
-		txtSuburb:SetOverSound("button_over");
-		txtSuburb:SetFontName("white_18_ol");
-		txtSuburb:SetMaxLen(4);
-		txtSuburb:SetOffsetXForDraw(0);
-		txtSuburb:SetOffsetYForDraw(-1);
-		txtSuburb:SetTextAlign("center", "center");
-		txtSuburb:SetText(PriceInfo.Suburb);
-
-		local lblRadix = tolua.cast(pnlBase:CreateOrGetControl("richtext", "lblRadix", 0, 5, 50, 20), "ui::CRichText");
-		lblRadix:SetGravity(ui.RIGHT, ui.TOP);
-		ToukibiUI:SetMargin(lblRadix, nil, nil, 50, nil);
-		lblRadix:EnableHitTest(0);
-		lblRadix:SetText("{@st66b}単位{/}");
-
-		local txtRadix = tolua.cast(pnlBase:CreateOrGetControl("edit", "txtRadix", 0, 0, 50, 26), "ui::CEditControl");
-		txtRadix:SetGravity(ui.RIGHT, ui.TOP);
-		ToukibiUI:SetMargin(txtRadix, nil, nil, 0, nil);
-		txtRadix:EnableHitTest(1);
-		txtRadix:SetSkinName("test_weight_skin");
-		txtRadix:SetClickSound("button_click_big");
-		txtRadix:SetOverSound("button_over");
-		txtRadix:SetFontName("white_18_ol");
-		txtRadix:SetMaxLen(3);
-		txtRadix:SetOffsetXForDraw(0);
-		txtRadix:SetOffsetYForDraw(-1);
-		txtRadix:SetTextAlign("center", "center");
-		txtRadix:SetText(PriceInfo.Span);
-		txtRadix:SetTypingScp("TOUKIBI_SHOPHELPER_PRICETEXT_CHANGED");
-
-		local lblAverage = tolua.cast(pnlBase:CreateOrGetControl("richtext", "lblAverage", 0, 5, 40, 20), "ui::CRichText");
-		lblAverage:SetGravity(ui.RIGHT, ui.TOP);
-		ToukibiUI:SetMargin(lblAverage, nil, nil, 180, nil);
-		lblAverage:EnableHitTest(0);
-		lblAverage:SetText("{@st66b}平均値{/}");
-
-		local txtAverage = tolua.cast(pnlBase:CreateOrGetControl("edit", "txtAverage", 0, 0, 80, 26), "ui::CEditControl");
-		txtAverage:SetGravity(ui.RIGHT, ui.TOP);
-		ToukibiUI:SetMargin(txtAverage, nil, nil, 100, nil);
-		txtAverage:EnableHitTest(1);
-		txtAverage:SetSkinName("test_weight_skin");
-		txtAverage:SetClickSound("button_click_big");
-		txtAverage:SetOverSound("button_over");
-		txtAverage:SetFontName("white_18_ol");
-		txtAverage:SetMaxLen(5);
-		txtAverage:SetOffsetXForDraw(0);
-		txtAverage:SetOffsetYForDraw(-1);
-		txtAverage:SetTextAlign("center", "center");
-		txtAverage:SetText(LibPrice:GetCommaedTextEx(PriceInfo.AveragePrice));
-		txtAverage:SetTypingScp("TOUKIBI_SHOPHELPER_PRICETEXT_CHANGED");
-
-	end,
-
-	-- 価格設定コントロールを作成する
-	CreateCtrl = function(self, BaseFrame, SkillID, Index)
-		local width = BaseFrame:GetWidth() - 40;
-		local height = 140;
-
-		local pnlPriceBase = tolua.cast(BaseFrame:CreateOrGetControl("controlset", "pnlPrice_" .. SkillID, 
-																	0, (height + 5) * (Index - 1), width, height), 
-										"ui::CControlSet");
-
-		pnlPriceBase:SetSkinName("test_skin_01_btn");
-		pnlPriceBase:EnableHitTest(1);
-		pnlPriceBase:SetGravity(ui.CENTER_HORZ, ui.TOP);
-		local imageSize = 24;
-		local imageMarginLeft = 20;
-		local imageMarginRight = 2;
-		local imageMarginTop = 10;
-		local left = imageMarginLeft;
-		local picSkillIcon = tolua.cast(pnlPriceBase:CreateOrGetControl("picture", "skillicon", left, imageMarginTop, imageSize, imageSize), "ui::CPicture");
-		picSkillIcon:SetGravity(ui.LEFT, ui.TOP);
-		picSkillIcon:EnableHitTest(0);
-		picSkillIcon:SetEnableStretch(1);
-		left = left + imageSize + imageMarginRight;
-
-		local countControlWidth = 90;
-		local textHMargin = 10;
-		local textMarginTOP = 12;
-		local nameWidth = width - left - countControlWidth - textHMargin * 2;
-		local nameControl = pnlPriceBase:CreateOrGetControl("richtext", "name", left, textMarginTOP, nameWidth, 24);
-		nameControl:SetGravity(ui.LEFT, ui.TOP);
-		nameControl:EnableHitTest(0);
-		nameControl:SetText("{@st66b}Cannot get the skill name{/}");
-		left = left + nameWidth;
-
-		local objSkill = GetClassByType("Skill", SkillID);
-		if objSkill ~= nil then
-			picSkillIcon:SetImage("icon_" .. objSkill.Icon);
-			nameControl:SetText(string.format("{@st66b}%s{/}", objSkill.Name));
-		end
-		-- スキル・価格情報を埋め込んでおく
-		pnlPriceBase:SetUserValue("SkillID", SkillID);
-		local PriceInfo = LibPrice:GetPriceInfo(SkillID)
-		self:CreatePriceGauge(pnlPriceBase, PriceInfo);
-		self:CreatePriceInputBox(pnlPriceBase, PriceInfo);
-		self:UpdatePricePanel(pnlPriceBase);
-	end,
-
-	-- 言語切替対応
-	ChangePricePanelLang = function(self, BaseContainer, LangMode)
-		LangMode = LangMode or Me.Settings.Lang or "jp";
-		if BaseContainer == nil then return end
-		local pnlInput = GET_CHILD(BaseContainer, "pnlInput", "ui::CGroupBox");
-		if pnlInput ~= nil then
-			ToukibiUI:SetText(GET_CHILD(pnlInput, "lblSuburb", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "ComDic.RuralCharge"), {"@st66b"});
-			ToukibiUI:SetText(GET_CHILD(pnlInput, "lblRadix", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "ComDic.PriceRadix"), {"@st66b"});
-			ToukibiUI:SetText(GET_CHILD(pnlInput, "lblAverage", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "ComDic.AveragePrice"), {"@st66b"});
-		end
-		local pnlGauge = GET_CHILD(BaseContainer, "pnlGauge", "ui::CGroupBox");
-		if pnlGauge ~= nil then
-			ToukibiUI:SetText(GET_CHILD(pnlGauge, "zone_BelowCost", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "Option.Zone.BelowCost"), {"@st66b", "s12"});
-			ToukibiUI:SetText(GET_CHILD(pnlGauge, "zone_NearCost", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "Option.Zone.NearCost"), {"@st66b", "s12"});
-			ToukibiUI:SetText(GET_CHILD(pnlGauge, "zone_GoodValue", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "Option.Zone.GoodValue"), {"@st66b", "s12"});
-			ToukibiUI:SetText(GET_CHILD(pnlGauge, "zone_WithinAverage", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "Option.Zone.WithinAverage"), {"@st66b", "s12"});
-			ToukibiUI:SetText(GET_CHILD(pnlGauge, "zone_ALittleExpensive", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "Option.Zone.ALittleExpensive"), {"@st66b", "s12"});
-			ToukibiUI:SetText(GET_CHILD(pnlGauge, "zone_Expensive", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "Option.Zone.Expensive"), {"@st66b", "s12"});
-			ToukibiUI:SetText(GET_CHILD(pnlGauge, "zone_RipOff", "ui::CRichText"), 
-							Toukibi:GetResText(ResText, LangMode, "Option.Zone.RipOff"), {"@st66b", "s12"});
-		end
-	end
-};
-Me.LibPriceCtrl = LibPriceCtrl;
-
 function Me.OpenSettingFrame()
 	Me.SettingFrame_BeforeDisplay();
 end
@@ -2744,7 +2140,6 @@ function Me.InitSettingValue(BaseFrame)
 	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlMain");
 	local LangGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlLang");
 	local OptionGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlOption");
-	local PriceGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlPrice");
 
 	local CurrentRadio = GET_CHILD(LangGBox, "lang_en", "ui::CRadioButton");
 	if Me.Settings.Lang == "jp" then
@@ -2768,44 +2163,20 @@ function Me.InitSettingValue(BaseFrame)
 		CurrentRadio = GET_CHILD(OptionGBox, "AlreadyBuffed_Refresh", "ui::CRadioButton");
 	end
 	CurrentRadio:Select()
-
-	ToukibiUI:SetCheckedByName(OptionGBox, "UpdateAverage", Me.Settings.UpdateAverage);
-	ToukibiUI:SetSliderValue(OptionGBox, "AverageNCount", "AverageNCount_text", math.floor(Me.Settings.AverageNCount / 10), Me.Settings.AverageNCount);
-	ToukibiUI:SetSliderValue(OptionGBox, "RecalcInterval", "RecalcInterval_text", math.floor(Me.Settings.RecalcInterval / 10), Me.Settings.RecalcInterval);
-	CurrentRadio = GET_CHILD(OptionGBox, "FartherValue_Limit", "ui::CRadioButton");
-	if Me.Settings.IgnoreAwayValue == "None" then
-		CurrentRadio = GET_CHILD(OptionGBox, "FartherValue_None", "ui::CRadioButton");
-	elseif Me.Settings.IgnoreAwayValue == "Ignore" then
-		CurrentRadio = GET_CHILD(OptionGBox, "FartherValue_Ignore", "ui::CRadioButton");
-	end
-	CurrentRadio:Select()
-	ToukibiUI:SetCheckedByName(OptionGBox, "SaveAsCostIfBelow", Me.Settings.SaveAsCostIfBelow);
-
-	PriceGBox:RemoveAllChild();
-	LibPriceCtrl:CreateCtrl(PriceGBox, 40203, 1);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 40205, 2);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 40201, 3);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 40808, 4);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 10703, 5);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 21003, 6);
-	LibPriceCtrl:CreateCtrl(PriceGBox, 31501, 7);
-
-
 end
 
 function Me.InitSettingText(BaseFrame, LangMode)
 	LangMode = LangMode or Me.Settings.Lang or "jp";
 	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlMain");
 	local OptionGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlOption");
-	local PriceGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlPrice");
 
 	ToukibiUI:SetText(GET_CHILD(BaseFrame, "title", "ui::CRichText"), 
 					  Toukibi:GetResText(ResText, LangMode, "Option.SettingFrameTitle"), {"@st43"});
 	local objTab = GET_CHILD(BodyGBox, "ShopHelperSettingTab", "ui::CTabControl");
 	if objTab ~= nil then
 		objTab:ChangeCaption(0, Toukibi:GetStyledText("  " .. Toukibi:GetResText(ResText, LangMode, "Option.TabGeneralSetting") .. "  ", {"@st66b"}));
-		objTab:ChangeCaption(1, Toukibi:GetStyledText("  " .. Toukibi:GetResText(ResText, LangMode, "Option.TabAverageSetting") .. "  ", {"@st66b"}));
-		objTab:ChangeCaption(2, Toukibi:GetStyledText("  Language(言語)  ", {"@st66b"}));
+--		objTab:ChangeCaption(1, Toukibi:GetStyledText("  " .. Toukibi:GetResText(ResText, LangMode, "Option.TabAverageSetting") .. "  ", {"@st66b"}));
+		objTab:ChangeCaption(1, Toukibi:GetStyledText("  Language(言語)  ", {"@st66b"}));
 	end
 	local TargetGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlOption");
 	if TargetGBox ~= nil then
@@ -2821,8 +2192,6 @@ function Me.InitSettingText(BaseFrame, LangMode)
 						  Toukibi:GetResText(ResText, LangMode, "Option.EnableBaloonRightClick"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "EnableHideNames", "ui::CCheckBox"), 
 						  Toukibi:GetResText(ResText, LangMode, "Option.EnableHideNames"), {"@st66b"});
-		ToukibiUI:SetText(GET_CHILD(TargetGBox, "UpdateAverage", "ui::CCheckBox"), 
-						  Toukibi:GetResText(ResText, LangMode, "Option.UpdateAverage"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "AlreadyBuffed_title", "ui::CRichText"), 
 						  Toukibi:GetResText(ResText, LangMode, "Option.AlreadyBuffedTitle"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "AlreadyBuffed_Abort", "ui::CRichText"), 
@@ -2832,31 +2201,8 @@ function Me.InitSettingText(BaseFrame, LangMode)
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "AlreadyBuffed_None", "ui::CRichText"), 
 						  Toukibi:GetResText(ResText, LangMode, "Option.AlreadyBuffedNone"), {"@st66b"});
 
-		local TargetControl = GET_CHILD(TargetGBox, "AverageNCount_text", "ui::CRichText");
-		ToukibiUI:SetTextByKey(TargetControl, "opCaption", Toukibi:GetResText(ResText, LangMode, "Option.AverageWeight"));
-		ToukibiUI:SetTextByKey(TargetControl, "opUnit", Toukibi:GetResText(ResText, LangMode, "Option.AverageWeightUnit"));
-		local TargetControl = GET_CHILD(TargetGBox, "RecalcInterval_text", "ui::CRichText");
-		ToukibiUI:SetTextByKey(TargetControl, "opCaption", Toukibi:GetResText(ResText, LangMode, "Option.AverageUpdateInterval"));
-		ToukibiUI:SetTextByKey(TargetControl, "opUnit", Toukibi:GetResText(ResText, LangMode, "Option.AverageUpdateIntervalUnit"));
-		ToukibiUI:SetText(GET_CHILD(TargetGBox, "FartherValue_title", "ui::CRichText"), 
-						  Toukibi:GetResText(ResText, LangMode, "Option.FartherValueTitle"), {"@st66b"});
-		ToukibiUI:SetText(GET_CHILD(TargetGBox, "FartherValue_None", "ui::CRadioButton"), 
-						  Toukibi:GetResText(ResText, LangMode, "Option.FartherValueNone"), {"@st66b"});
-		ToukibiUI:SetText(GET_CHILD(TargetGBox, "FartherValue_Limit", "ui::CRadioButton"), 
-						  Toukibi:GetResText(ResText, LangMode, "Option.FartherValueLimit"), {"@st66b"});
-		ToukibiUI:SetText(GET_CHILD(TargetGBox, "FartherValue_Ignore", "ui::CRadioButton"), 
-						  Toukibi:GetResText(ResText, LangMode, "Option.FartherValueIgnore"), {"@st66b"});
-		ToukibiUI:SetText(GET_CHILD(TargetGBox, "SaveAsCostIfBelow", "ui::CCheckBox"), 
-						  Toukibi:GetResText(ResText, LangMode, "Option.SaveAsCostIfBelow"), {"@st66b"});
 	end
-	TargetGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlPrice");
-	local cnt = TargetGBox:GetChildCount();
-	for i = 0, cnt - 1 do
-		local ctrl = TargetGBox:GetChildByIndex(i);
-		if string.find(ctrl:GetName(), "pnlPrice_") then
-			LibPriceCtrl:ChangePricePanelLang(ctrl, LangMode)
-		end
-	end
+
 	ToukibiUI:SetText(GET_CHILD(BodyGBox, "btn_excute", "ui::CButton"), 
 						Toukibi:GetResText(ResText, LangMode, "Option.Save"), {"@st42"});
 	ToukibiUI:SetText(GET_CHILD(BodyGBox, "btn_cencel", "ui::CButton"), 
@@ -2874,9 +2220,8 @@ end
 function Me.ChangeActiveTab(frame, SelectedIndex)
 	if frame == nil then return end
 	SelectedIndex = SelectedIndex or 0;
-	GET_CHILD_GROUPBOX(frame, "pnlLang"  ):ShowWindow((2 == SelectedIndex) and 1 or 0);
+	GET_CHILD_GROUPBOX(frame, "pnlLang"  ):ShowWindow((1 == SelectedIndex) and 1 or 0);
 	GET_CHILD_GROUPBOX(frame, "pnlOption"):ShowWindow((0 == SelectedIndex) and 1 or 0);
-	GET_CHILD_GROUPBOX(frame, "pnlPrice" ):ShowWindow((1 == SelectedIndex) and 1 or 0);
 end
 
 -- 言語切替
@@ -2902,13 +2247,6 @@ function TOUKIBI_SHOPHELPER_SLIDER_CHANGED(frame, ctrl, str, num)
 	end
 end
 
--- テキストボックスに入力された時のイベント
-function TOUKIBI_SHOPHELPER_PRICETEXT_CHANGED(parent, ctrl)
-	if Me.Settings ~= nil and Me.Settings.OptionFrameIsAvailable then
-		LibPriceCtrl:UpdatePricePanel(parent, ctrl)
-	end
-end
-
 -- 設定反映
 function Me.ExecSetting()
 	local BaseFrame = ui.GetFrame("shophelper");
@@ -2928,36 +2266,6 @@ function Me.ExecSetting()
 	Me.Settings.EnableHideNames = ToukibiUI:GetCheckedByName(ModeGBox, "EnableHideNames");
 	Me.Settings.IfAlreadyBuffed = ToukibiUI:GetSelectedRadioValue(ModeGBox:GetChild("AlreadyBuffed_None"));
 	
-	Me.Settings.UpdateAverage = ToukibiUI:GetCheckedByName(ModeGBox, "UpdateAverage");
-	local intValue;
-	intValue = ToukibiUI:GetSliderValueByName(ModeGBox, "AverageNCount");
-	if intValue ~= nil then
-		Me.Settings.AverageNCount = intValue * 10
-	end
-	intValue = ToukibiUI:GetSliderValueByName(ModeGBox, "RecalcInterval");
-	if intValue ~= nil then
-		Me.Settings.RecalcInterval = intValue * 10
-	end
-	Me.Settings.SaveAsCostIfBelow = ToukibiUI:GetCheckedByName(ModeGBox, "SaveAsCostIfBelow");
-	Me.Settings.IgnoreAwayValue = ToukibiUI:GetSelectedRadioValue(ModeGBox:GetChild("FartherValue_None"));
-
-	local PriceGBox = GET_CHILD_GROUPBOX(BodyGBox, "pnlPrice");
-	if PriceGBox ~= nil then
-		local cnt = PriceGBox:GetChildCount();
-		for i = 0, cnt - 1 do
-			local Container = PriceGBox:GetChildByIndex(i);
-			if string.find(Container:GetName(), "pnlPrice_") then
-				-- 入力されている値を読む
-				local SkillID = Container:GetUserValue("SkillID");
-				local AverageValue, RadixValue, SuburbValue = LibPriceCtrl:GetPriceInputValue(GET_CHILD(Container, "pnlInput", "ui::CGroupBox"));
-	-- CHAT_SYSTEM(string.format("%s: %s, %s, %s", SkillID, AverageValue, RadixValue, SuburbValue))
-				Me.Settings.AverageData[tostring(SkillID)].Price = AverageValue;
-				Me.Settings.AverageData[tostring(SkillID)].Radix = RadixValue;
-				Me.Settings.AverageData[tostring(SkillID)].Suburb = SuburbValue;
-			end
-		end
-	end
-
 	SaveSetting();
 	Me.CloseSettingFrame();
 	Me.RedrawAllShopBaloon();
@@ -3085,8 +2393,9 @@ end
 function Me.AUTOSELLER_BALLOON_HOOKED(title, sellType, handle, skillID, skillLv) 
 	-- CHAT_SYSTEM("AUTOSELLER_BALLOON_HOOKED実行");
 	-- デフォルト状態のショップバルーンを作ってもらう
-	Me.HoockedOrigProc["AUTOSELLER_BALLOON"](title, sellType, handle, skillID, skillLv); 
-	AddToShopBaloon(title, sellType, handle, skillID, skillLv); 
+	Me.HoockedOrigProc["AUTOSELLER_BALLOON"](title, sellType, handle, skillID, skillLv);
+	AddToShopBaloon(title, sellType, handle, skillID, skillLv);
+	HideSellerInfo(handle);
 end 
 
 -- フックイベント中継
@@ -3155,6 +2464,7 @@ end
 function TOUKIBI_SHOPHELPER_CLOSE_SETTING()
 	Me.CloseSettingFrame();
 end
+
 
 
 -- ==================================
