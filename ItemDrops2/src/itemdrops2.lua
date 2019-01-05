@@ -541,8 +541,13 @@ local function GetItemGrade(itemObj)
 	if (itemObj.ItemType == "Recipe") then
 		local recipeGrade = tonumber(itemObj.Icon:match("misc(%d)")) - 1;
 		if (recipeGrade <= 0) then recipeGrade = 1 end;
-		grade = recipeGrade;
+		return recipeGrade;
 	end
+
+	if (grade == 0 and itemObj.ItemType ~= "Consume") then
+		return nil
+	end
+
 	return grade;
 end
 
