@@ -1,6 +1,11 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: December 14, 2018
+Last Updated: January 6, 2019
+
+* **Item Drops 2 Ver. 2.01**
+  * 一部のアイテムに光の柱がでない不具合を修正<br>Fixed a problem that light column was not on some items.
+
+December 14, 2018
 
 * **Shop Helper Ver. 0.90**
   * パッチ適用後、露店で購入ができなくなる問題を修正<br>Fixed a problem that makes it impossible to purchase at stalls after applying patch.
@@ -8,20 +13,6 @@ Last Updated: December 14, 2018
 
 * **Experience Viewer Ex Ver. 1.01**
   * パッチ適用後、表示がされなくなる問題を修正<br>Fixed a problem that display disappeared after applying patch.
-
-June 30, 2018  
-
-* **Equip Marker Ver. 1.02**
-  * スロットの背景表示をIToSのように変更<br>Changed slot background display like IToS.
-  * IToSではアイテム等級の背景表示をインベントリー以外にも拡張しました<br>For IToS, I expanded the background display of item classes besides inventory.
-
-June 24, 2018  
-
-* **Better Pick Queue Ver. 1.13**
-  * パッチ適用後、右クリックメニューが開かなくなっていた問題を修正<br>Fixed issue where right click menu did not open after applying patch.
-
-* **Shop Helper Ver. 0.85**
-  * パッチ適用後、Altキーを押してもプレイヤー名のラベルが消えない問題を修正<br>Fixed a problem that the label of the player name does not disappear while pressing the Alt key after applying the patch.
 
 
 ## Notice:
@@ -78,7 +69,7 @@ This add-on adds enhancement value, item rank and unidentified icon to the item 
 This add-on will display all sorts of information about your character's experience and information on acquired silver.  
 ![ExpViewerの外観](https://github.com/Toukibi/ToSAddon/blob/ForImage/ExpViewer_Ex/img/topimage_ja.jpg?raw=true)
 
-## [Item Drops 2 Ver. 2.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ItemDrops2)
+## [Item Drops 2 Ver. 2.01 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ItemDrops2)
 ItemDropsが2になって帰ってきました。ドロップしたアイテムを**色濃く**強調表示してくれます。  
 ItemDrops is back. It highlights the dropped item **more strongly**.    
 ![Image of main image of ItemDrops2](https://github.com/Toukibi/ToSAddon/blob/ForImage/ItemDrops2/img/topimage_ja.jpg?raw=true)    

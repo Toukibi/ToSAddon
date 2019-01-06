@@ -162,10 +162,11 @@
     "name": "Item Drops 2",
     "file": "itemdrops2",
     "extension": "ipf",
-    "fileVersion": "v2.0.0",
+    "fileVersion": "v2.0.1",
     "releaseTag": "ItemDrops2",
     "unicode": "⛄",
     "description": "ItemDropsが2になって帰ってきました。ドロップしたアイテムを色濃く強調表示してくれます。\n  ItemDrops is back. It highlights the dropped item more strongly.",
+    "updateInfo": "v2.0.1 一部のアイテムに光の柱がでない不具合を修正 \n Fixed a problem that light column was not on some items.",
     "tags": [
       "items",
       "drops",
