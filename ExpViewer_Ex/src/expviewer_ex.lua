@@ -1,5 +1,5 @@
 local addonName = "ExpViewer_Ex";
-local verText = "1.01";
+local verText = "1.02";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/expv", "/expviewer"};
@@ -1216,6 +1216,11 @@ function EXPVIEWER_EX_ON_INIT(addon, frame)
 	addon:RegisterMsg('GAME_START', 'TOUKIBI_EXPVIEWER_ON_GAME_START');
 	
 	Me.IsDragging = false;
+
+	local objFrame = ui.GetFrame(addonNameLower)
+	if objFrame ~= nil then
+		objFrame:EnableMove(Me.Settings.Movable and 1 or 0);
+	end
 
 	Me.UpdatePos()
 	-- スラッシュコマンドを登録する

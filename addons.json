@@ -105,10 +105,11 @@
     "name": "Experience Viewer Ex",
     "file": "expviewer_ex",
     "extension": "ipf",
-    "fileVersion": "v1.0.1",
+    "fileVersion": "v1.0.2",
     "releaseTag": "ExpViewer_Ex",
     "unicode": "⛄",
     "description": "Experience Viewerの改造版で、シルバー時給も表示できるようになりました。\n  This is a remodeled version of the Experience Viewer, and you can now display the information on the acquired silver.",
+    "updateInfo": "v1.0.2 位置を固定を適用してもウィンドウを移動できてしまう問題を修正 \n Fixed the problem that window can be moved even if 'Lock position' is applied.",
     "tags": [
       "ui",
       "exp",

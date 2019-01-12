@@ -1,19 +1,14 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: January 6, 2019
+Last Updated: January 12, 2019
+
+* **Experience Viewer Ex Ver. 1.02**
+  * 位置を固定を適用してもウィンドウを移動できてしまう問題を修正<br>Fixed the problem that window can be moved even if "Lock position" is applied.
+
+January 6, 2019
 
 * **Item Drops 2 Ver. 2.01**
   * 一部のアイテムに光の柱がでない不具合を修正<br>Fixed a problem that light column was not on some items.
-
-December 14, 2018
-
-* **Shop Helper Ver. 0.90**
-  * パッチ適用後、露店で購入ができなくなる問題を修正<br>Fixed a problem that makes it impossible to purchase at stalls after applying patch.
-  * 販売価格の高い・安いの比較機能を削除<br>Delete guidance function as to whether the selling price is high or low.
-
-* **Experience Viewer Ex Ver. 1.01**
-  * パッチ適用後、表示がされなくなる問題を修正<br>Fixed a problem that display disappeared after applying patch.
-
 
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
@@ -64,7 +59,7 @@ This add-on will tell you the minimum durability value of your equipment.
 This add-on adds enhancement value, item rank and unidentified icon to the item display.    
 ![Image of main image of Equip-Marker](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    
 
-## [Experience Viewer Ex Ver. 1.01](https://github.com/Toukibi/ToSAddon/tree/master/ExpViewer_Ex)
+## [Experience Viewer Ex Ver. 1.02](https://github.com/Toukibi/ToSAddon/tree/master/ExpViewer_Ex)
 経験値に関する情報と、獲得シルバーの情報を表示します。  
 This add-on will display all sorts of information about your character's experience and information on acquired silver.  
 ![ExpViewerの外観](https://github.com/Toukibi/ToSAddon/blob/ForImage/ExpViewer_Ex/img/topimage_ja.jpg?raw=true)
