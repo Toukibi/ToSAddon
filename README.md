@@ -1,14 +1,33 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: January 12, 2019
+Last Updated: February 3, 2019
+
+* **Dur notice Mini Ver. 1.23**
+  * Re:Buildパッチに対応しました<br>Corresponded to Re: Build patch.
+
+ January 12, 2019
 
 * **Experience Viewer Ex Ver. 1.02**
   * 位置を固定を適用してもウィンドウを移動できてしまう問題を修正<br>Fixed the problem that window can be moved even if "Lock position" is applied.
 
-January 6, 2019
+## About Re: Build patch (Update in Feb 3, 2019) (Re:Buildパッチへの対応について)
+I have confirmed that the following add-on is affected by Re: Build patch.  
+Re:Buildパッチにより次のアドオンに影響が出ていることを確認しています。
 
-* **Item Drops 2 Ver. 2.01**
-  * 一部のアイテムに光の柱がでない不具合を修正<br>Fixed a problem that light column was not on some items.
+* **BuffCounter**
+  * Since the ID number of the buff and the acquisition method have been changed, the buffing enhancement value can not be displayed correctly.<br>バフの番号と取得方法が変更され、バフの強化値が正しく表示できない問題が発生しています。
+    * Although measures can be taken, I am currently looking for ways to coexist before and after the Re: build patch.<br>対策はできていますが、現在Re:buildパッチの前後の共存方法を模索中です。
+* **Dur notice Mini**
+  * Since the method of obtaining the item endurance value was changed, there was a problem that display of durability was not done at all.<br>アイテム耐久値の取得方法が変更され、耐久度の表示が全くされない問題が発生していました。
+    * Support completed in Ver.1.23.<br>Ver.1.23で対応完了しました。
+* **Remaining Counter**
+  * I have heard information that skill slots are initialized.<br>スキルスロットが初期化されるとの情報を聞いております。
+    * It is not yet investigated.<br>まだ未調査です。
+* **Shop Helper**
+  * The skill level is not displayed at buff shops.<br>バフ商店でスキルレベルの表示がされません。
+    * Because the actual skill level differs from the displayed skill level, we are considering abolishing this function.<br>実際のスキルレベルと表示されるスキルレベルが異なるため、この機能は廃止することを検討中です。
+  * The endurance value will not be displayed until repaired at the repair shop.<br>修理商店で修理するまで耐久値の表示がされません。
+    * A bug exists in the official program, and it occurs because the processing order does not reach the add-on. I am considering whether to wait for the bug fix completion or generate processing independently.<br>公式のプログラムにバグが存在し、アドオンに処理の順番が回ってこないため発生しています。バグ修正完了を待つか独自に処理を生成するか検討中です。
 
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
@@ -49,7 +68,7 @@ It makes it easier to distinguish items so as not to disassemble important items
 (**It will not be able to prevent the decomposition by mistake**)  
 !["Image of main image of Don't-Decompose-Me"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DontDecomposeMe/img/topimage_ja.png?raw=true)  
 
-## [Dur notice Mini Ver. 1.22 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
+## [Dur notice Mini Ver. 1.23 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  

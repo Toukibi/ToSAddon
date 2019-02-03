@@ -1,5 +1,5 @@
 local addonName = "DurNoticePopup";
-local verText = "1.00";
+local verText = "1.02";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SettingFileName = "setting.json"
@@ -363,6 +363,22 @@ local function view(objValue)
 	DEVELOPERCONSOLE_PRINT_VALUE(frame, "", objValue, "", nil, true);
 end
 
+-- メソッドが存在するかを確認する
+local function MethodExists(objValue, MethodName)
+	local typeStr = type(objValue);
+	if typeStr == "userdata" or typeStr == "table" then
+		if typeStr == "userdata" then objValue = getmetatable(objValue) end
+		for pName, pValue in pairs(objValue) do
+			if tostring(pName) == MethodName then
+				return "YES"
+			end
+		end
+	else
+		return "NOT TABLE"
+	end
+	return "NO"
+end
+
 local function ShowInitializeMessage()
 	local CurrentLang = "en"
 	if Me.Settings == nil then
@@ -422,6 +438,18 @@ local function GetGaugeSkin(current, max)
 	return "durmini_" .. GaugeColor;
 end
 
+-- 耐久値の取得方法をチェックする
+local function CheckGetMethod()
+	local eqlist = session.GetEquipItemList();
+	if MethodExists(eqlist, "GetEquipItemByIndex") == "YES" then
+		-- Re:Build後
+		Me.GetDurMethod = "GetEquipItemByIndex"
+	elseif MethodExists(eqlist, "Element") == "YES" then
+		-- Re:Build前
+		Me.GetDurMethod = "Element"
+	end
+end
+
 function Me.GetDurData()
 	local eqTypes = {"RH", "LH", "SHIRT", "GLOVES", "PANTS", "BOOTS", "RING1", "RING2", "NECK"};
 	local ReturnValue = {}
@@ -431,8 +459,16 @@ function Me.GetDurData()
 		local eqlist = session.GetEquipItemList();
 		local num = item.GetEquipSpotNum(eqTypeName)
 		if num == nil then return end
-		local eq = eqlist:Element(num);
-
+		local eq = nil;
+		if Me.GetDurMethod == nil then CheckGetMethod() end
+		if Me.GetDurMethod == "GetEquipItemByIndex" then
+			-- Re:Build後
+			eq = eqlist:GetEquipItemByIndex(num);
+		elseif Me.GetDurMethod == "Element" then
+			-- Re:Build前
+			eq = eqlist:Element(num);
+		end
+	
 		ReturnValue[eqTypeName] = nil;
 		if eq.type ~= item.GetNoneItem(eq.equipSpot) then
 			local obj = GetIES(eq:GetObject());
