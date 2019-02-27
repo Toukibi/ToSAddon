@@ -1,5 +1,5 @@
 local addonName = "BuffCounter";
-local verText = "1.18";
+local verText = "1.19";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/buffc", "/buffcounter", "/BuffCounter"} -- {"/コマンド1", "/コマンド2", .......};
@@ -481,9 +481,14 @@ ShowInitializeMessage()
 -- ***** 変数の宣言と設定 *****
 
 Me.BuffPrintInfo = {
-	 [100] = {arg = "custom", fmt = "+%s"}, --サクラメント
---	 [146] = {arg = "arg1", fmt = "%s"}, --アスパ
-	 [147] = {arg = "custom", fmt = "+%s"}, --ブレス
+	 [100] = {arg = "arg3", fmt = "+%s"}, --サクラメント
+	 [358] = {arg = "arg3", fmt = "+%s"}, --サクラメント(商店)
+	 [146] = {arg = "custom", fmt = "%3.1f"}, --アスパ
+	 [370] = {arg = "custom", fmt = "%3.1f"}, --アスパ(商店)
+	 [260] = {arg = "custom", fmt = "%3.1f"}, --マジックディフェンス
+	 [360] = {arg = "custom", fmt = "%3.1f"}, --マジックディフェンス(商店)
+	 [147] = {arg = "arg3", fmt = "+%s"}, --ブレス
+	 [359] = {arg = "arg3", fmt = "+%s"}, --ブレス(商店)
 	[3016] = {arg = "arg1", fmt = "%s"}, --ダイノ
 	 [114] = {arg = "arg1", fmt = "%s"}, --リバイブ
 	 [144] = {arg = "arg1", fmt = "%s"}, --ディバインマイト
@@ -550,6 +555,18 @@ local function GetCustomeBuffValue(buff)
 			-- 露店で受けた可能性あり
 			ReturnValue = math.floor(ReturnValue * 0.7);
 		end
+	elseif buff.buffID == 146 then
+		-- アスパ
+		ReturnValue = buff.arg3 / 100
+	elseif buff.buffID == 370 then
+		-- アスパ(露店)
+		ReturnValue = buff.arg3 / 100
+	elseif buff.buffID == 260 then
+		-- マジックディフェンス
+		ReturnValue = buff.arg3 / 100
+	elseif buff.buffID == 360 then
+		-- マジックディフェンス(露店)
+		ReturnValue = buff.arg3 / 100
 	end
 	return ReturnValue;
 end

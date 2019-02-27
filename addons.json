@@ -55,10 +55,11 @@
     "name": "Buff Counter",
     "file": "buffcounter",
     "extension": "ipf",
-    "fileVersion": "v1.1.8",
+    "fileVersion": "v1.1.9",
     "releaseTag": "BuffCounter",
     "unicode": "⛄",
     "description": "上段バフの残り枠数を教えてくれます。\n  This add-on will tell you the remaining number of upper buffs.",
+    "updateInfo": "v1.1.9 Re:Buildパッチに対応しました \n Corresponded to Re: Build patch.",
     "tags": [
       "ui",
       "buff",

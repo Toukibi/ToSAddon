@@ -1,22 +1,25 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: February 3, 2019
+Last Updated: February 27, 2019
+
+* **BuffCounter Ver. 1.19**
+  * Re:Buildパッチに対応しました<br>Corresponded to Re: Build patch.
+
+February 3, 2019
 
 * **Dur notice Mini Ver. 1.23**
   * Re:Buildパッチに対応しました<br>Corresponded to Re: Build patch.
 
- January 12, 2019
-
-* **Experience Viewer Ex Ver. 1.02**
-  * 位置を固定を適用してもウィンドウを移動できてしまう問題を修正<br>Fixed the problem that window can be moved even if "Lock position" is applied.
-
-## About Re: Build patch (Update in Feb 3, 2019) (Re:Buildパッチへの対応について)
+## About Re: Build patch (Update in Feb 27, 2019) (Re:Buildパッチへの対応について)
 I have confirmed that the following add-on is affected by Re: Build patch.  
 Re:Buildパッチにより次のアドオンに影響が出ていることを確認しています。
 
+* **Better Pick Queue**
+  * There is a problem that operation stops when equipment items are picked up.<br>装備アイテムを拾うと動作が停止します。
+    * Investigation is under way<br>原因調査中です
 * **BuffCounter**
   * Since the ID number of the buff and the acquisition method have been changed, the buffing enhancement value can not be displayed correctly.<br>バフの番号と取得方法が変更され、バフの強化値が正しく表示できない問題が発生しています。
-    * Although measures can be taken, I am currently looking for ways to coexist before and after the Re: build patch.<br>対策はできていますが、現在Re:buildパッチの前後の共存方法を模索中です。
+    * Support completed in Ver.1.19.<br>Ver.1.19で対応完了しました。
 * **Dur notice Mini**
   * Since the method of obtaining the item endurance value was changed, there was a problem that display of durability was not done at all.<br>アイテム耐久値の取得方法が変更され、耐久度の表示が全くされない問題が発生していました。
     * Support completed in Ver.1.23.<br>Ver.1.23で対応完了しました。
