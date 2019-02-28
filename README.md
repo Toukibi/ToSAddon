@@ -1,16 +1,16 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: February 27, 2019
+Last Updated: February 28, 2019
+
+* **Remaining Counter Ver. 1.04**
+  * Re:Buildパッチ適用後、スキルアイコンが表示されない不具合を修正しました。<br>Fixed a problem that skill icon was not displayed after applying Re: Build patch.
+
+February 27, 2019
 
 * **BuffCounter Ver. 1.19**
   * Re:Buildパッチに対応しました<br>Corresponded to Re: Build patch.
 
-February 3, 2019
-
-* **Dur notice Mini Ver. 1.23**
-  * Re:Buildパッチに対応しました<br>Corresponded to Re: Build patch.
-
-## About Re: Build patch (Update in Feb 27, 2019) (Re:Buildパッチへの対応について)
+## About Re: Build patch (Update in Feb 28, 2019) (Re:Buildパッチへの対応について)
 I have confirmed that the following add-on is affected by Re: Build patch.  
 Re:Buildパッチにより次のアドオンに影響が出ていることを確認しています。
 
@@ -24,8 +24,8 @@ Re:Buildパッチにより次のアドオンに影響が出ていることを確
   * Since the method of obtaining the item endurance value was changed, there was a problem that display of durability was not done at all.<br>アイテム耐久値の取得方法が変更され、耐久度の表示が全くされない問題が発生していました。
     * Support completed in Ver.1.23.<br>Ver.1.23で対応完了しました。
 * **Remaining Counter**
-  * I have heard information that skill slots are initialized.<br>スキルスロットが初期化されるとの情報を聞いております。
-    * It is not yet investigated.<br>まだ未調査です。
+  * There is a problem that the skill icon is not displayed.<br>スキルアイコンが表示されない不具合があります。
+    * Support completed in Ver.1.04.<br>Ver.1.04で対応完了しました。
 * **Shop Helper**
   * The skill level is not displayed at buff shops.<br>バフ商店でスキルレベルの表示がされません。
     * Because the actual skill level differs from the displayed skill level, we are considering abolishing this function.<br>実際のスキルレベルと表示されるスキルレベルが異なるため、この機能は廃止することを検討中です。
@@ -49,7 +49,7 @@ So, I would appreciate it if you could told me the correct translation when you 
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
 
-## [BuffCounter Ver. 1.18 ( JP / EN / KR )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
+## [BuffCounter Ver. 1.19 ( JP / EN / KR )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
 上段バフの残り枠数を教えてくれます。  
 さらに、トークンの残り日数やバフのレベル・効果などを追加表示します。  
 This add-on will tell you the remaining number of upper buffs.  

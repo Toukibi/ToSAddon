@@ -1,5 +1,5 @@
 local addonName = "RemainingCounter";
-local verText = "1.03";
+local verText = "1.04";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"rmcnt", "remcount"} -- {"/コマンド1", "/コマンド2", .......};
@@ -463,11 +463,11 @@ local function GetUseItemCount(objSkill)
 end
 
 -- ===== アドオンの内容ここから =====
-local function UpdateSlotInfo(objSlot)
+function Me.UpdateSlotInfo(objSlot)
 	local objIcon = objSlot:GetIcon();
 	if objIcon ~= nil then
 		local SlotInfo = objIcon:GetInfo();
-		if SlotInfo.category == "Skill" then
+		if SlotInfo:GetCategory() == "Skill" then
 			local objSkill = GetClassByType("Skill", SlotInfo.type);
 			local UseItemCount = GetUseItemCount(objSkill);
 
@@ -483,7 +483,7 @@ local function UpdateSlotInfo(objSlot)
 				if objSkill.OverHeatGroup ~= "None" then
 					YOffset = -10
 				end
-				objIcon:SetText(Toukibi:GetStyledText(RemainingCount, {"s16", "ol", "b", }), 'None', 'right', 'bottom', -2, YOffset);
+				objIcon:SetText(Toukibi:GetStyledText(RemainingCount, {"s16", "ol", "b", }), 'None', ui.RIGHT, ui.BOTTOM, -2, YOffset);
 			else
 				objIcon:ClearText();
 			end
@@ -495,7 +495,7 @@ end
 local  function UpdateSlotInfoByIndex(SlotIndex)
 	local objSlot = GET_CHILD_RECURSIVELY(ui.GetFrame("quickslotnexpbar"), "slot" .. SlotIndex, "ui::CSlot")
 	if objSlot ~= nil then
-		UpdateSlotInfo(objSlot)
+		Me.UpdateSlotInfo(objSlot)
 	end
 end
 
@@ -517,9 +517,9 @@ end
 
 
 
-function Me.SET_QUICK_SLOT_HOOKED(slot, category, type, iesID, makeLog, sendSavePacket)
-	Me.HoockedOrigProc["SET_QUICK_SLOT"](slot, category, type, iesID, makeLog, sendSavePacket);
-	UpdateSlotInfo(slot)
+function Me.SET_QUICK_SLOT_HOOKED(frame, slot, category, type, iesID, makeLog, sendSavePacket, isForeceRegister)
+	Me.HoockedOrigProc["SET_QUICK_SLOT"](frame, slot, category, type, iesID, makeLog, sendSavePacket, isForeceRegister);
+	Me.UpdateSlotInfo(slot)
 end
 
 function Me.TOGGLE_ABILITY_ACTIVE_HOOKED(frame, control, abilName, abilID)
