@@ -1,5 +1,5 @@
 local addonName = "BetterPickQueue";
-local verText = "1.13";
+local verText = "1.14";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/pickq", "/pickqueue"} -- {"/コマンド1", "/コマンド2", .......};
@@ -810,22 +810,21 @@ local function GetEquipInvCount(itemClsName)
 	if itemClsName == nil or itemClsName == "" or itemClsName == "None" then
 		return 0;
 	end
-	local CurrentNum = 0
-	local AllInvList = session.GetInvItemList();
-	local index = AllInvList:Head();
-	while 1 do
-		if index == AllInvList:InvalidIndex() then
-			break;
-		end
+	local invItemList = session.GetInvItemList();
+	local retTable = {Value = 0};
+	FOR_EACH_INVENTORY(invItemList, function(invItemList, invItem, retTable, itemClsName)
+			if invItem ~= nil then
+				local objItem = GetIES(invItem:GetObject());
+				if objItem.ClassName == itemClsName then
+					retTable.Value = retTable.Value + 1;
+				end
+			end
+		end, false, retTable, itemClsName);
+	return retTable.Value;
+end
 
-		local item = AllInvList:Element(index);
-		if GetClassByType("Item", tonumber(item.type)).ClassName == itemClsName then
-			CurrentNum = CurrentNum + 1;
-		end
-		index = AllInvList:Next(index);
-	end
-
-	return CurrentNum;
+function Me.Test(itemClsName)
+	return GetEquipInvCount(itemClsName)
 end
 
 local function GetCurrentCount(itemClsName)

@@ -1,14 +1,14 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: February 28, 2019
+Last Updated: March 2, 2019
+
+* **Better Pick Queue Ver. 1.14**
+  * Re:Buildパッチ適用後、装備アイテムを拾うと動作が停止する不具合を修正しました。<br>Fixed an issue where counting operation stopped when equipment items were picked up after applying Re: Build patch.
+
+February 28, 2019
 
 * **Remaining Counter Ver. 1.04**
   * Re:Buildパッチ適用後、スキルアイコンが表示されない不具合を修正しました。<br>Fixed a problem that skill icon was not displayed after applying Re: Build patch.
-
-February 27, 2019
-
-* **BuffCounter Ver. 1.19**
-  * Re:Buildパッチに対応しました<br>Corresponded to Re: Build patch.
 
 ## About Re: Build patch (Update in Feb 28, 2019) (Re:Buildパッチへの対応について)
 I have confirmed that the following add-on is affected by Re: Build patch.  
@@ -16,7 +16,7 @@ Re:Buildパッチにより次のアドオンに影響が出ていることを確
 
 * **Better Pick Queue**
   * There is a problem that operation stops when equipment items are picked up.<br>装備アイテムを拾うと動作が停止します。
-    * Investigation is under way<br>原因調査中です
+    * Support completed in Ver.1.14.<br>Ver.1.14で対応完了しました。
 * **BuffCounter**
   * Since the ID number of the buff and the acquisition method have been changed, the buffing enhancement value can not be displayed correctly.<br>バフの番号と取得方法が変更され、バフの強化値が正しく表示できない問題が発生しています。
     * Support completed in Ver.1.19.<br>Ver.1.19で対応完了しました。
@@ -44,7 +44,7 @@ I am not good at English. I frequently translate English into different nuances.
 So, I would appreciate it if you could told me the correct translation when you see an unnatural English translation  
 
 
-## [Better Pick Queue Ver. 1.13 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
+## [Better Pick Queue Ver. 1.14 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
