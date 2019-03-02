@@ -5,12 +5,15 @@ Last Updated: March 2, 2019
 * **Better Pick Queue Ver. 1.14**
   * Re:Buildパッチ適用後、装備アイテムを拾うと動作が停止する不具合を修正しました。<br>Fixed an issue where counting operation stopped when equipment items were picked up after applying Re: Build patch.
 
+* **Equip Marker Ver. 1.03**
+  * Re:Buildパッチ適用後、動作しない問題を暫定対応しました。<br>Temporarily corresponded to Re: Build patch.
+
 February 28, 2019
 
 * **Remaining Counter Ver. 1.04**
   * Re:Buildパッチ適用後、スキルアイコンが表示されない不具合を修正しました。<br>Fixed a problem that skill icon was not displayed after applying Re: Build patch.
 
-## About Re: Build patch (Update in Feb 28, 2019) (Re:Buildパッチへの対応について)
+## About Re: Build patch (Update in Mar 2, 2019) (Re:Buildパッチへの対応について)
 I have confirmed that the following add-on is affected by Re: Build patch.  
 Re:Buildパッチにより次のアドオンに影響が出ていることを確認しています。
 
@@ -23,6 +26,11 @@ Re:Buildパッチにより次のアドオンに影響が出ていることを確
 * **Dur notice Mini**
   * Since the method of obtaining the item endurance value was changed, there was a problem that display of durability was not done at all.<br>アイテム耐久値の取得方法が変更され、耐久度の表示が全くされない問題が発生していました。
     * Support completed in Ver.1.23.<br>Ver.1.23で対応完了しました。
+* **Equip Marker**
+  * It does not work.<br>動作しません。
+    * Although it was provisionally supported by Ver. 1.03, the following functions can not be used.<br>Ver.1.03で暫定対応しましたが次の機能が使用できません。
+      * Display does not apply to item decomposition window.<br>アイテム分解ウィンドウに表示が適用されません。
+      * The display does not apply to the item column being equipped.<br>装備中アイテム欄に表示が適用されません。
 * **Remaining Counter**
   * There is a problem that the skill icon is not displayed.<br>スキルアイコンが表示されない不具合があります。
     * Support completed in Ver.1.04.<br>Ver.1.04で対応完了しました。
@@ -30,7 +38,7 @@ Re:Buildパッチにより次のアドオンに影響が出ていることを確
   * The skill level is not displayed at buff shops.<br>バフ商店でスキルレベルの表示がされません。
     * Because the actual skill level differs from the displayed skill level, we are considering abolishing this function.<br>実際のスキルレベルと表示されるスキルレベルが異なるため、この機能は廃止することを検討中です。
   * The endurance value will not be displayed until repaired at the repair shop.<br>修理商店で修理するまで耐久値の表示がされません。
-    * A bug exists in the official program, and it occurs because the processing order does not reach the add-on. I am considering whether to wait for the bug fix completion or generate processing independently.<br>公式のプログラムにバグが存在し、アドオンに処理の順番が回ってこないため発生しています。バグ修正完了を待つか独自に処理を生成するか検討中です。
+    * It occurred when it was involved in the problem of EquipMarker.<br> Please update EquipMarker.<br>EquipMarkerの不具合に巻き込まれて発生しているものでした。EquipMarkerをアップデートしてください。
 
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
@@ -76,7 +84,7 @@ It makes it easier to distinguish items so as not to disassemble important items
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
 
-## [Equip Marker Ver. 1.02 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
+## [Equip Marker Ver. 1.03 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
 アイテム表示に強化値とランクと未鑑定の情報を追加します。  
 This add-on adds enhancement value, item rank and unidentified icon to the item display.    
 ![Image of main image of Equip-Marker](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    

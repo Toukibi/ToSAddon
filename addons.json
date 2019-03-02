@@ -183,10 +183,11 @@
     "name": "Equip Marker",
     "file": "equipmarker",
     "extension": "ipf",
-    "fileVersion": "v1.0.2",
+    "fileVersion": "v1.0.3",
     "releaseTag": "EquipMarker",
     "unicode": "⛄",
     "description": "アイテム表示に強化値とランクと未鑑定の情報を追加します。\n  This add-on adds enhancement value, item rank and unidentified icon to the item display.",
+    "updateInfo": "v1.0.3 Re:Buildパッチで動作しなくなっていたものを暫定対応しました \n Temporarily corresponded to Re: Build patch.",
     "tags": [
       "ui",
       "items"
