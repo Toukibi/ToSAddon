@@ -1,17 +1,17 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: March 2, 2019
+Last Updated: March 9, 2019
+
+* **Remaining Counter Ver. 1.05**
+  * アルケミストのスキルの使用回数が表示されるようになりました。<br>The number of uses of Alchemist's skills is now displayed.
+
+March 2, 2019
 
 * **Better Pick Queue Ver. 1.14**
   * Re:Buildパッチ適用後、装備アイテムを拾うと動作が停止する不具合を修正しました。<br>Fixed an issue where counting operation stopped when equipment items were picked up after applying Re: Build patch.
 
 * **Equip Marker Ver. 1.03**
   * Re:Buildパッチ適用後、動作しない問題を暫定対応しました。<br>Temporarily corresponded to Re: Build patch.
-
-February 28, 2019
-
-* **Remaining Counter Ver. 1.04**
-  * Re:Buildパッチ適用後、スキルアイコンが表示されない不具合を修正しました。<br>Fixed a problem that skill icon was not displayed after applying Re: Build patch.
 
 ## About Re: Build patch (Update in Mar 2, 2019) (Re:Buildパッチへの対応について)
 I have confirmed that the following add-on is affected by Re: Build patch.  
