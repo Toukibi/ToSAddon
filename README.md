@@ -2,7 +2,7 @@
 
 Last Updated: March 16, 2019
 
-* **Map Mate Ver. 1.89**
+* **Map Mate Ver. 0.89**
   * 3/13に行われたIToSのアップデートに対応しました。<br>Added support for IToS update on March 13.
 
 March 9, 2019
