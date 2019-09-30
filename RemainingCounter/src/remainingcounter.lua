@@ -1,5 +1,5 @@
 local addonName = "RemainingCounter";
-local verText = "1.03";
+local verText = "1.05";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"rmcnt", "remcount"} -- {"/コマンド1", "/コマンド2", .......};
@@ -449,41 +449,100 @@ local function LoadSetting()
 	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteLoadSettings"), "Info", true, false);
 end
 
-local function GetUseItemCount(objSkill)
+local function GetUseItemInfo(objSkill)
+	local SpendItemName = objSkill.SpendItem
+	if SpendItemName == nil or SpendItemName == "" or SpendItemName == "None" then
+		return nil
+	end
+
+	local objItem = nil;
+	if string.sub(SpendItemName, 1, 4) == "SCR_" then
+		-- 専用スクリプトあり
+		--local UseItemInfo = IESSkill.SpendItem;
+		--log(UseItemInfo)
+		-- log("専用スクリプトあり")
+		-- log(SpendItemName)
+		objItem = assert(loadstring(string.format("return %s()", SpendItemName)))();
+		-- log(objItem)
+	else
+		-- アイテム名表記のみ
+		-- 本来の呼び方で調べる
+		objItem = GetClass("Item", SpendItemName);
+	end
+	--[[
+	if objItem ~= nil then
+		log(string.format("%sの使用アイテムは%sです", objSkill.Name, objItem.Name))
+	end
+	--]]
+	return objItem;
+end
+
+function Me.GetUseItemCount(SkillID)
+	local objSkill = GetClassByType("Skill", SkillID);
 	-- log(objSkill.Name)
-	if objSkill.SpendItem == nil or objSkill.SpendItem == "" or objSkill.SpendItem == "None" then
+	local SpendItemName = objSkill.SpendItem
+	if SpendItemName == nil or SpendItemName == "" or SpendItemName == "None" then
 		return 0
 	end
-	-- log(objSkill.SpendItem)
+	-- log(objSkill.Name)
+	-- log(SpendItemName)
+
 	local skillInfo = session.GetSkill(objSkill.ClassID);
 	local IESSkill = GetIES(skillInfo:GetObject());
-	local UseItemCount = IESSkill.SpendItemCount;
-	-- log(string.format("アイテム使用個数は %s です", tostring(UseItemCount)))
-	return UseItemCount
+	-- log(IESSkill)
+
+	local UseCount = 0;
+	local HasScript = (string.sub(SpendItemName, 1, 4) == "SCR_");
+	if HasScript then
+		-- 専用スクリプトあり
+		-- 使用アイテムがわからないので使用個数の欄を直に読んで返す
+		-- log("専用スクリプトあり")
+		UseCount = IESSkill.SpendItemBaseCount
+	else
+		-- アイテム名表記のみ
+		-- 本来の呼び方で調べる
+		UseCount = IESSkill.SpendItemCount
+	end
+
+	-- log(string.format("アイテム使用個数は %s です", UseCount))
+	return UseCount;
 end
 
 -- ===== アドオンの内容ここから =====
-local function UpdateSlotInfo(objSlot)
+function Me.UpdateSlotInfo(objSlot)
 	local objIcon = objSlot:GetIcon();
 	if objIcon ~= nil then
 		local SlotInfo = objIcon:GetInfo();
-		if SlotInfo.category == "Skill" then
+		if SlotInfo:GetCategory() == "Skill" then
 			local objSkill = GetClassByType("Skill", SlotInfo.type);
-			local UseItemCount = GetUseItemCount(objSkill);
-
-			if UseItemCount > 0 and objSkill.SpendItem ~= nil and objSkill.SpendItem ~= "None" then
-				local SpendItemInfo = GetClass("Item", objSkill.SpendItem);
-		-- log(string.format("%sはアイテム[%s]を%s個使うスキルです", objSkill.Name, SpendItemInfo.Name, UseItemCount))
-				local InvenItemInfo = session.GetInvItemByName(objSkill.SpendItem);
-				local RemainingCount = 0;
-				if InvenItemInfo ~= nil and InvenItemInfo.count > 0 then
-					RemainingCount = math.floor(InvenItemInfo.count / UseItemCount)
+			local SpendItemName = objSkill.SpendItem
+			if SpendItemName ~= nil and SpendItemName ~= "" and SpendItemName ~= "None" then
+				-- log(objSkill.Name)
+				local UseItemCount = Me.GetUseItemCount(SlotInfo.type);
+				-- log(string.format("%sの使用個数は%s個です", objSkill.Name, UseItemCount))
+				if UseItemCount > 0 then
+					local SpendItemInfo = GetUseItemInfo(objSkill);
+					-- log(string.format("%sの使用アイテムは%sです", objSkill.Name, tostring(SpendItemInfo)))
+					local RemainingCount = 0;
+					if SpendItemInfo ~= nil then
+						-- log(string.format("%sはアイテム[%s]を%s個使うスキルです", objSkill.Name, SpendItemInfo.Name, UseItemCount))
+						local InvenItemInfo = session.GetInvItemByName(SpendItemInfo.ClassName);
+						if InvenItemInfo ~= nil and InvenItemInfo.count > 0 then
+							RemainingCount = math.floor(InvenItemInfo.count / UseItemCount)
+						end
+					else
+						-- 使用アイテム取得失敗
+						-- log("取得失敗")
+						RemainingCount = "--"
+					end
+					local YOffset = 1
+					if objSkill.OverHeatGroup ~= "None" then
+						YOffset = -10
+					end
+					objIcon:SetText(Toukibi:GetStyledText(RemainingCount, {"s16", "ol", "b", }), 'None', ui.RIGHT, ui.BOTTOM, -2, YOffset);
+				else
+					objIcon:ClearText();
 				end
-				local YOffset = 1
-				if objSkill.OverHeatGroup ~= "None" then
-					YOffset = -10
-				end
-				objIcon:SetText(Toukibi:GetStyledText(RemainingCount, {"s16", "ol", "b", }), 'None', 'right', 'bottom', -2, YOffset);
 			else
 				objIcon:ClearText();
 			end
@@ -495,7 +554,7 @@ end
 local  function UpdateSlotInfoByIndex(SlotIndex)
 	local objSlot = GET_CHILD_RECURSIVELY(ui.GetFrame("quickslotnexpbar"), "slot" .. SlotIndex, "ui::CSlot")
 	if objSlot ~= nil then
-		UpdateSlotInfo(objSlot)
+		Me.UpdateSlotInfo(objSlot)
 	end
 end
 
@@ -506,7 +565,7 @@ function Me.Update()
 end
 
 function TOUKIBI_REMAININGCOUNTER_UPDATE()
-	Me.Update()
+	Me.Update();
 end
 
 
@@ -515,11 +574,14 @@ end
 
 
 
+function Me.CLOSE_ALCHEMY_WORKSHOP_HOOKED(frame)
+	Me.HoockedOrigProc["CLOSE_ALCHEMY_WORKSHOP"](frame);
+	ReserveScript("TOUKIBI_REMAININGCOUNTER_UPDATE()", 0.5);
+end
 
-
-function Me.SET_QUICK_SLOT_HOOKED(slot, category, type, iesID, makeLog, sendSavePacket)
-	Me.HoockedOrigProc["SET_QUICK_SLOT"](slot, category, type, iesID, makeLog, sendSavePacket);
-	UpdateSlotInfo(slot)
+function Me.SET_QUICK_SLOT_HOOKED(frame, slot, category, type, iesID, makeLog, sendSavePacket, isForeceRegister)
+	Me.HoockedOrigProc["SET_QUICK_SLOT"](frame, slot, category, type, iesID, makeLog, sendSavePacket, isForeceRegister);
+	Me.UpdateSlotInfo(slot)
 end
 
 function Me.TOGGLE_ABILITY_ACTIVE_HOOKED(frame, control, abilName, abilID)
@@ -588,6 +650,7 @@ function REMAININGCOUNTER_ON_INIT(addon, frame)
 	
 	Toukibi:SetHook("SET_QUICK_SLOT", Me.SET_QUICK_SLOT_HOOKED);
 	Toukibi:SetHook("TOGGLE_ABILITY_ACTIVE", Me.TOGGLE_ABILITY_ACTIVE_HOOKED);
+	Toukibi:SetHook("CLOSE_ALCHEMY_WORKSHOP", Me.CLOSE_ALCHEMY_WORKSHOP_HOOKED);
 
 
 	-- スラッシュコマンドを登録する

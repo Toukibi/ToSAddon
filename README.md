@@ -1,19 +1,41 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated: June 30, 2018  
+Last Updated: March 16, 2019
 
-* **Equip Marker Ver. 1.02**
-  * スロットの背景表示をIToSのように変更<br>Changed slot background display like IToS.
-  * IToSではアイテム等級の背景表示をインベントリー以外にも拡張しました<br>For IToS, I expanded the background display of item classes besides inventory.
+* **Map Mate Ver. 0.89**
+  * 3/13に行われたIToSのアップデートに対応しました。<br>Added support for IToS update on March 13.
 
-June 24, 2018  
+March 9, 2019
 
-* **Better Pick Queue Ver. 1.13**
-  * パッチ適用後、右クリックメニューが開かなくなっていた問題を修正<br>Fixed issue where right click menu did not open after applying patch.
+* **Remaining Counter Ver. 1.05**
+  * アルケミストのスキルの使用回数が表示されるようになりました。<br>The number of uses of Alchemist's skills is now displayed.
 
-* **Shop Helper Ver. 0.85**
-  * パッチ適用後、Altキーを押してもプレイヤー名のラベルが消えない問題を修正<br>Fixed a problem that the label of the player name does not disappear while pressing the Alt key after applying the patch.
+## About Re: Build patch (Update in Mar 2, 2019) (Re:Buildパッチへの対応について)
+I have confirmed that the following add-on is affected by Re: Build patch.  
+Re:Buildパッチにより次のアドオンに影響が出ていることを確認しています。
 
+* **Better Pick Queue**
+  * There is a problem that operation stops when equipment items are picked up.<br>装備アイテムを拾うと動作が停止します。
+    * Support completed in Ver.1.14.<br>Ver.1.14で対応完了しました。
+* **BuffCounter**
+  * Since the ID number of the buff and the acquisition method have been changed, the buffing enhancement value can not be displayed correctly.<br>バフの番号と取得方法が変更され、バフの強化値が正しく表示できない問題が発生しています。
+    * Support completed in Ver.1.19.<br>Ver.1.19で対応完了しました。
+* **Dur notice Mini**
+  * Since the method of obtaining the item endurance value was changed, there was a problem that display of durability was not done at all.<br>アイテム耐久値の取得方法が変更され、耐久度の表示が全くされない問題が発生していました。
+    * Support completed in Ver.1.23.<br>Ver.1.23で対応完了しました。
+* **Equip Marker**
+  * It does not work.<br>動作しません。
+    * Although it was provisionally supported by Ver. 1.03, the following functions can not be used.<br>Ver.1.03で暫定対応しましたが次の機能が使用できません。
+      * Display does not apply to item decomposition window.<br>アイテム分解ウィンドウに表示が適用されません。
+      * The display does not apply to the item column being equipped.<br>装備中アイテム欄に表示が適用されません。
+* **Remaining Counter**
+  * There is a problem that the skill icon is not displayed.<br>スキルアイコンが表示されない不具合があります。
+    * Support completed in Ver.1.04.<br>Ver.1.04で対応完了しました。
+* **Shop Helper**
+  * The skill level is not displayed at buff shops.<br>バフ商店でスキルレベルの表示がされません。
+    * Because the actual skill level differs from the displayed skill level, we are considering abolishing this function.<br>実際のスキルレベルと表示されるスキルレベルが異なるため、この機能は廃止することを検討中です。
+  * The endurance value will not be displayed until repaired at the repair shop.<br>修理商店で修理するまで耐久値の表示がされません。
+    * It occurred when it was involved in the problem of EquipMarker.<br> Please update EquipMarker.<br>EquipMarkerの不具合に巻き込まれて発生しているものでした。EquipMarkerをアップデートしてください。
 
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
@@ -27,12 +49,12 @@ I am not good at English. I frequently translate English into different nuances.
 So, I would appreciate it if you could told me the correct translation when you see an unnatural English translation  
 
 
-## [Better Pick Queue Ver. 1.13 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
+## [Better Pick Queue Ver. 1.14 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
 
-## [BuffCounter Ver. 1.18 ( JP / EN / KR )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
+## [BuffCounter Ver. 1.19 ( JP / EN / KR )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
 上段バフの残り枠数を教えてくれます。  
 さらに、トークンの残り日数やバフのレベル・効果などを追加表示します。  
 This add-on will tell you the remaining number of upper buffs.  
@@ -54,29 +76,34 @@ It makes it easier to distinguish items so as not to disassemble important items
 (**It will not be able to prevent the decomposition by mistake**)  
 !["Image of main image of Don't-Decompose-Me"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DontDecomposeMe/img/topimage_ja.png?raw=true)  
 
-## [Dur notice Mini Ver. 1.22 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
+## [Dur notice Mini Ver. 1.23 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
 
-## [Equip Marker Ver. 1.02 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
+## [Equip Marker Ver. 1.03 ](https://github.com/Toukibi/ToSAddon/tree/master/EquipMarker)
 アイテム表示に強化値とランクと未鑑定の情報を追加します。  
 This add-on adds enhancement value, item rank and unidentified icon to the item display.    
 ![Image of main image of Equip-Marker](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    
 
-## [Item Drops 2 Ver. 2.00 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ItemDrops2)
+## [Experience Viewer Ex Ver. 1.02](https://github.com/Toukibi/ToSAddon/tree/master/ExpViewer_Ex)
+経験値に関する情報と、獲得シルバーの情報を表示します。  
+This add-on will display all sorts of information about your character's experience and information on acquired silver.  
+![ExpViewerの外観](https://github.com/Toukibi/ToSAddon/blob/ForImage/ExpViewer_Ex/img/topimage_ja.jpg?raw=true)
+
+## [Item Drops 2 Ver. 2.01 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/ItemDrops2)
 ItemDropsが2になって帰ってきました。ドロップしたアイテムを**色濃く**強調表示してくれます。  
 ItemDrops is back. It highlights the dropped item **more strongly**.    
 ![Image of main image of ItemDrops2](https://github.com/Toukibi/ToSAddon/blob/ForImage/ItemDrops2/img/topimage_ja.jpg?raw=true)    
 
-## [Map Mate Ver. 0.88 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
+## [Map Mate Ver. 0.89 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
 マップ表示を色々便利にしてくれます。  
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
 
-## [Shop Helper Ver. 0.85 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
-街などで開かれている露店の価格が高いか安いかをコメントしてくれます。  
-This add-on will tell you whether the price of buff/repair/etc. is  expensive or cheap.  
+## [Shop Helper Ver. 0.90 ( JP / EN / KR / BR )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
+街などで開かれている露店の表示を少しだけ使いやすくしてくれます。  
+This add-on will make the display of the stalls opened in towns etc. a little easier to use.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
 

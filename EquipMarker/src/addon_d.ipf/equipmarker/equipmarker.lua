@@ -1,5 +1,5 @@
 local addonName = "EquipMarker";
-local verText = "1.02";
+local verText = "1.03";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 
@@ -406,7 +406,7 @@ local function UpdateInvSlot(slotName)
 end
 
 function Me.UpdateInv()
-	UpdateEquipSlot();
+	-- UpdateEquipSlot();
 	UpdateInvSlot("sset_Weapon");
 	UpdateInvSlot("sset_SubWeapon");
 	UpdateInvSlot("sset_Armor");
@@ -510,6 +510,7 @@ function Me.UpdateAppraisalList(frameName)
 end
 
 function Me.UpdateDecomposeList()
+	log()
 	local objParentFrame = ui.GetFrame("itemdecompose");
 	if objParentFrame == nil or objParentFrame:IsVisible() == 0 then return end
 	-- スロットの中身を調べる
@@ -579,8 +580,8 @@ function Me.INVENTORY_OPEN_HOOKED(frame)
 	Me.UpdateInv();
 end
 
-function Me.INVENTORY_TOTAL_LIST_GET_HOOKED(frame, setpos, isIgnorelifticon)
-	Me.HoockedOrigProc["INVENTORY_TOTAL_LIST_GET"](frame, setpos, isIgnorelifticon);
+function Me.INVENTORY_TOTAL_LIST_GET_HOOKED(frame, setpos, isIgnorelifticon, invenTypeStr)
+	Me.HoockedOrigProc["INVENTORY_TOTAL_LIST_GET"](frame, setpos, isIgnorelifticon, invenTypeStr);
 	Me.UpdateInv();
 end
 
@@ -602,7 +603,7 @@ end
 
 -- アイテム分解を開くイベント
 function Me.ITEM_DECOMPOSE_ITEM_LIST_HOOKED(frame, itemGradeList)
-	Me.HoockedOrigProc["ITEM_DECOMPOSE_ITEM_LIST"](frame, itemGradeList);
+	Me.HoockedOrigProc["_ITEM_DECOMPOSE_ITEM_LIST"](frame, itemGradeList);
 	-- Don't Decompose Meを検出する
 	local ExistsDontDecomposeMe = _G["ADDONS"]["TOUKIBI"]["DontDecomposeMe"] ~= nil
 	if ExistsDontDecomposeMe then
@@ -652,6 +653,6 @@ function EQUIPMARKER_ON_INIT(addon, frame)
 	-- Toukibi:SetHook("INVENTORY_OPEN", Me.INVENTORY_OPEN_HOOKED);
 	Toukibi:SetHook("INVENTORY_TOTAL_LIST_GET", Me.INVENTORY_TOTAL_LIST_GET_HOOKED);
 	Toukibi:SetHook("OPEN_ITEMBUFF_UI", Me.OPEN_ITEMBUFF_UI_HOOKED);
-	Toukibi:SetHook("ITEM_DECOMPOSE_ITEM_LIST", Me.ITEM_DECOMPOSE_ITEM_LIST_HOOKED);
+	-- Toukibi:SetHook("_ITEM_DECOMPOSE_ITEM_LIST", Me.ITEM_DECOMPOSE_ITEM_LIST_HOOKED);
 end
 

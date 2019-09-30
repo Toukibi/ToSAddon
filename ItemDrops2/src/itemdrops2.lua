@@ -1,5 +1,5 @@
 local addonName = "ItemDrops2";
-local verText = "2.00";
+local verText = "2.01";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/drops2"} -- {"/コマンド1", "/コマンド2", .......};
@@ -541,7 +541,10 @@ local function GetItemGrade(itemObj)
 	if (itemObj.ItemType == "Recipe") then
 		local recipeGrade = tonumber(itemObj.Icon:match("misc(%d)")) - 1;
 		if (recipeGrade <= 0) then recipeGrade = 1 end;
-		grade = recipeGrade;
+		return recipeGrade;
+	end
+	if (grade == 0 and itemObj.GroupName ~= "Premium") then
+		return nil
 	end
 	return grade;
 end
@@ -551,7 +554,7 @@ local function GetItemRarityColor(itemObj)
 	local grade = GetItemGrade(itemObj);
 
 	if (itemProp.setInfo ~= nil) then return "00FF00"; -- set piece
-	elseif (grade == 0) then return "FFBF33"; -- premium
+	elseif (grade == 0 or itemObj.GroupName == "Premium") then return "FFBF33"; -- premium
 	elseif (grade == 1) then return "FFFFFF"; -- common
 	elseif (grade == 2) then return "108CFF"; -- rare
 	elseif (grade == 3) then return "9F30FF"; -- epic
@@ -576,7 +579,7 @@ local function GetItemRarityEffect(itemObj)
 			Name = "F_magic_prison_line_green";
 			scale = 6;
 		};
-	elseif (grade == 0) then
+	elseif (grade == 0 or itemObj.GroupName == "Premium") then
 		-- プレミアム
 		return {
 			Name = "F_magic_prison_line_white";
@@ -799,6 +802,7 @@ function Me.AddObjList()
 						ownerMode = dropOwnerMode;
 						itemGrade = gradeNo;
 						itemColor = GetItemRarityColor(itemObj);
+						itemType = itemObj.ItemType;
 						doHighlight = doHighlightByOwner and doHighlightByItem;
 						Effect = GetItemRarityEffect(itemObj);
 						showNameTag = showItemNameTag;

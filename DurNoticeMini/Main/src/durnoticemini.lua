@@ -1,5 +1,5 @@
 local addonName = "DurNoticeMini";
-local verText = "1.22";
+local verText = "1.23";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/durmini", "/DurMini", "/Durmini", "/durMini"};
@@ -422,6 +422,22 @@ local function log(value)
 	Toukibi:Log(value);
 end
 
+-- メソッドが存在するかを確認する
+local function MethodExists(objValue, MethodName)
+	local typeStr = type(objValue);
+	if typeStr == "userdata" or typeStr == "table" then
+		if typeStr == "userdata" then objValue = getmetatable(objValue) end
+		for pName, pValue in pairs(objValue) do
+			if tostring(pName) == MethodName then
+				return "YES"
+			end
+		end
+	else
+		return "NOT TABLE"
+	end
+	return "NO"
+end
+
 
 local function ShowInitializeMessage()
 	local CurrentLang = "en"
@@ -524,12 +540,32 @@ local function GetGaugeSkin(current, max)
 	return "durmini_" .. GaugeColor;
 end
 
+-- 耐久値の取得方法をチェックする
+local function CheckGetMethod()
+	local eqlist = session.GetEquipItemList();
+	if MethodExists(eqlist, "GetEquipItemByIndex") == "YES" then
+		-- Re:Build後
+		Me.GetDurMethod = "GetEquipItemByIndex"
+	elseif MethodExists(eqlist, "Element") == "YES" then
+		-- Re:Build前
+		Me.GetDurMethod = "Element"
+	end
+end
+
 -- 装備の耐久値を取得する
 local function GetDurData(eqTypeName)
 	local eqlist = session.GetEquipItemList();
-	local num = item.GetEquipSpotNum(eqTypeName)
+	local num = item.GetEquipSpotNum(eqTypeName);
 	if num == nil then return end
-	local eq = eqlist:Element(num);
+	local eq = nil;
+	if Me.GetDurMethod == nil then CheckGetMethod() end
+	if Me.GetDurMethod == "GetEquipItemByIndex" then
+		-- Re:Build後
+		eq = eqlist:GetEquipItemByIndex(num);
+	elseif Me.GetDurMethod == "Element" then
+		-- Re:Build前
+		eq = eqlist:Element(num);
+	end
 
 	if eq.type ~= item.GetNoneItem(eq.equipSpot) then
 		local obj = GetIES(eq:GetObject());

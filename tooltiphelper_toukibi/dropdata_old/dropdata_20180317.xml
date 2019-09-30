@@ -4,7 +4,7 @@
   <item mCID="11090" Ratio="108" iCNm="BRC01_132" />
   <item mCID="11090" Ratio="2" iCNm="BlueOrb_HighBube_Archer" />
   <item mCID="11090" Ratio="2" iCNm="RedOrb_HighBube_Archer" />
-  <item mCID="11090" Ratio="4" iCNm="GEM_Scout_FreeStep" />
+  <item mCID="11090" Ratio="2" iCNm="Gem_Scout_FlareShot" />
   <item mCID="11110" Ratio="60" iCNm="TSF01_104" />
   <item mCID="11110" Ratio="60" iCNm="SPR01_101" />
   <item mCID="11110" Ratio="46" iCNm="NECK02_103" />
@@ -27,7 +27,7 @@
   <item mCID="11125" Ratio="82" iCNm="SWD01_119" />
   <item mCID="11125" Ratio="82" iCNm="TBW01_119" />
   <item mCID="11125" Ratio="134" iCNm="LEG01_103" />
-  <item mCID="11125" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="11125" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="11125" Ratio="2" iCNm="SWD02_118" />
   <item mCID="11125" Ratio="2" iCNm="BlueOrb_Goblin_Miners" />
   <item mCID="11125" Ratio="2" iCNm="RedOrb_Goblin_Miners" />
@@ -40,7 +40,7 @@
   <item mCID="11160" Ratio="25" iCNm="BRC01_110" />
   <item mCID="11160" Ratio="100" iCNm="Hat_628010" />
   <item mCID="11160" Ratio="134" iCNm="LEG01_124" />
-  <item mCID="11160" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="11160" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="11160" Ratio="2" iCNm="TBW02_116" />
   <item mCID="11160" Ratio="2" iCNm="BlueOrb_Goblin_Archer" />
   <item mCID="11160" Ratio="2" iCNm="RedOrb_Goblin_Archer" />
@@ -58,7 +58,7 @@
   <item mCID="41197" Ratio="2" iCNm="RedOrb_tombstone_turtle" />
   <item mCID="41198" Ratio="1111" iCNm="misc_0093" />
   <item mCID="41198" Ratio="1" iCNm="R_SHD04_101" />
-  <item mCID="41198" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41198" Ratio="129" iCNm="gem_square_1" />
   <item mCID="41198" Ratio="61" iCNm="TSW01_108" />
   <item mCID="41198" Ratio="2" iCNm="BlueOrb_dog_of_king" />
   <item mCID="41198" Ratio="2" iCNm="RedOrb_dog_of_king" />
@@ -134,7 +134,6 @@
   <item mCID="41226" Ratio="1000" iCNm="R_BOW01_107" />
   <item mCID="41226" Ratio="1000" iCNm="R_MAC01_109" />
   <item mCID="41226" Ratio="1000" iCNm="R_SPR01_104" />
-  <item mCID="41229" Ratio="0" iCNm="misc_BRC03_105_3" />
   <item mCID="41230" Ratio="1000" iCNm="SWD01_106" />
   <item mCID="41230" Ratio="1000" iCNm="TSW01_104" />
   <item mCID="41230" Ratio="1000" iCNm="STF01_106" />
@@ -255,16 +254,16 @@
   <item mCID="41256" Ratio="15" iCNm="misc_shredded2" />
   <item mCID="41256" Ratio="23" iCNm="misc_shredded3" />
   <item mCID="41256" Ratio="60" iCNm="STF01_120" />
-  <item mCID="41256" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41256" Ratio="134" iCNm="gem_star_1" />
   <item mCID="41256" Ratio="280" iCNm="HAND01_133" />
   <item mCID="41256" Ratio="2" iCNm="STF02_113" />
   <item mCID="41256" Ratio="2" iCNm="BlueOrb_Shredded" />
   <item mCID="41256" Ratio="2" iCNm="RedOrb_Shredded" />
-  <item mCID="41256" Ratio="4" iCNm="GEM_Necromancer_RaiseSkullwizard" />
+  <item mCID="41256" Ratio="2" iCNm="Gem_Wizard_Sleep" />
   <item mCID="41257" Ratio="3333" iCNm="misc_0016" />
   <item mCID="41257" Ratio="60" iCNm="SWD01_120" />
   <item mCID="41257" Ratio="280" iCNm="FOOT01_134" />
-  <item mCID="41257" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41257" Ratio="134" iCNm="gem_diamond_1" />
   <item mCID="41257" Ratio="2" iCNm="BlueOrb_Yekubite" />
   <item mCID="41257" Ratio="2" iCNm="RedOrb_Yekubite" />
   <item mCID="41257" Ratio="2" iCNm="Gem_Swordman_GungHo" />
@@ -307,21 +306,21 @@
   <item mCID="41273" Ratio="1500" iCNm="misc_0064" />
   <item mCID="41273" Ratio="10" iCNm="misc_jore03" />
   <item mCID="41273" Ratio="108" iCNm="NECK01_129" />
-  <item mCID="41273" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41273" Ratio="129" iCNm="gem_star_1" />
   <item mCID="41273" Ratio="2" iCNm="BlueOrb_Vesper" />
   <item mCID="41273" Ratio="2" iCNm="RedOrb_Vesper" />
   <item mCID="41274" Ratio="1428" iCNm="misc_Karas" />
-  <item mCID="41274" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41274" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="41274" Ratio="2" iCNm="BlueOrb_Karas" />
   <item mCID="41274" Ratio="2" iCNm="RedOrb_Karas" />
   <item mCID="41275" Ratio="2500" iCNm="misc_0094" />
-  <item mCID="41275" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41275" Ratio="129" iCNm="gem_square_1" />
   <item mCID="41275" Ratio="108" iCNm="TOP01_114" />
   <item mCID="41275" Ratio="2" iCNm="BlueOrb_Echad" />
   <item mCID="41275" Ratio="2" iCNm="RedOrb_Echad" />
   <item mCID="41276" Ratio="3333" iCNm="misc_shtayim" />
   <item mCID="41276" Ratio="4" iCNm="R_SPR04_103" />
-  <item mCID="41276" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41276" Ratio="129" iCNm="gem_star_1" />
   <item mCID="41276" Ratio="2" iCNm="BlueOrb_shtayim" />
   <item mCID="41276" Ratio="2" iCNm="RedOrb_shtayim" />
   <item mCID="41276" Ratio="2" iCNm="Gem_Sadhu_AstralBodyExplosion" />
@@ -346,14 +345,14 @@
   <item mCID="41281" Ratio="2" iCNm="Gem_Psychokino_MagneticForce" />
   <item mCID="41285" Ratio="1250" iCNm="misc_0132" />
   <item mCID="41285" Ratio="50" iCNm="R_TBW02_108" />
-  <item mCID="41285" Ratio="100" iCNm="TSW02_117" />
+  <item mCID="41285" Ratio="2" iCNm="TSW02_117" />
   <item mCID="41285" Ratio="2" iCNm="BlueOrb_Meleech" />
   <item mCID="41285" Ratio="2" iCNm="RedOrb_Meleech" />
   <item mCID="41287" Ratio="500" iCNm="misc_0075" />
   <item mCID="41287" Ratio="108" iCNm="SHD01_113" />
   <item mCID="41287" Ratio="2" iCNm="BlueOrb_Zolem" />
   <item mCID="41287" Ratio="2" iCNm="RedOrb_Zolem" />
-  <item mCID="41287" Ratio="4" iCNm="GEM_Scout_DoubleAttack" />
+  <item mCID="41287" Ratio="2" iCNm="Gem_Scout_FluFlu" />
   <item mCID="41288" Ratio="2000" iCNm="misc_0138" />
   <item mCID="41288" Ratio="135" iCNm="R_SWD01_131" />
   <item mCID="41288" Ratio="2" iCNm="BlueOrb_raider" />
@@ -373,7 +372,7 @@
   <item mCID="41295" Ratio="82" iCNm="STF01_119" />
   <item mCID="41295" Ratio="82" iCNm="TOP01_103" />
   <item mCID="41295" Ratio="100" iCNm="FOOT02_120" />
-  <item mCID="41295" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41295" Ratio="134" iCNm="gem_square_1" />
   <item mCID="41295" Ratio="2" iCNm="BlueOrb_StonOrca" />
   <item mCID="41295" Ratio="2" iCNm="RedOrb_StonOrca" />
   <item mCID="41295" Ratio="2" iCNm="Gem_Swordman_PainBarrier" />
@@ -402,7 +401,7 @@
   <item mCID="41310" Ratio="50" iCNm="R_SHD02_107" />
   <item mCID="41310" Ratio="2" iCNm="BlueOrb_InfroBurk" />
   <item mCID="41310" Ratio="2" iCNm="RedOrb_InfroBurk" />
-  <item mCID="41310" Ratio="4" iCNm="GEM_Hoplite_SharpSpear" />
+  <item mCID="41310" Ratio="2" iCNm="Gem_Peltasta_UmboThrust" />
   <item mCID="41315" Ratio="135" iCNm="R_SPR01_114" />
   <item mCID="41315" Ratio="135" iCNm="R_TOP01_140" />
   <item mCID="41315" Ratio="40" iCNm="R_NECK03_103" />
@@ -420,8 +419,8 @@
   <item mCID="41319" Ratio="60" iCNm="MAC01_117" />
   <item mCID="41319" Ratio="2" iCNm="BlueOrb_InfroRocktor" />
   <item mCID="41319" Ratio="2" iCNm="RedOrb_InfroRocktor" />
+  <item mCID="41319" Ratio="2" iCNm="Gem_Cleric_DeprotectedZone" />
   <item mCID="41319" Ratio="1" iCNm="Hat_628102" />
-  <item mCID="41319" Ratio="4" iCNm="GEM_Priest_TurnUndead" />
   <item mCID="41322" Ratio="2500" iCNm="misc_0052" />
   <item mCID="41322" Ratio="180" iCNm="R_NECK02_106" />
   <item mCID="41348" Ratio="0" iCNm="gem_circle_1" />
@@ -538,28 +537,31 @@
   <item mCID="41405" Ratio="2" iCNm="RedOrb_HighBube_Spear" />
   <item mCID="41405" Ratio="2" iCNm="Gem_Rodelero_Montano" />
   <item mCID="41409" Ratio="2500" iCNm="misc_0015" />
-  <item mCID="41409" Ratio="80" iCNm="misc_quartz_weaver3" />
+  <item mCID="41409" Ratio="12" iCNm="misc_quartz_weaver3" />
   <item mCID="41409" Ratio="60" iCNm="MAC01_120" />
   <item mCID="41409" Ratio="75" iCNm="FOOT02_101" />
   <item mCID="41409" Ratio="128" iCNm="BOW01_114" />
-  <item mCID="41409" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41409" Ratio="134" iCNm="gem_star_1" />
   <item mCID="41409" Ratio="2" iCNm="BlueOrb_Quartz_weaver" />
   <item mCID="41409" Ratio="2" iCNm="RedOrb_Quartz_weaver" />
   <item mCID="41409" Ratio="2" iCNm="Gem_Archer_SwiftStep" />
-  <item mCID="41409" Ratio="100" iCNm="R_FOOT02_101" />
+  <item mCID="41409" Ratio="32" iCNm="R_FOOT02_101" />
   <item mCID="41413" Ratio="2500" iCNm="misc_raffly-b" />
   <item mCID="41413" Ratio="280" iCNm="HAND01_110" />
-  <item mCID="41413" Ratio="180" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41413" Ratio="180" iCNm="gem_diamond_1" />
   <item mCID="41418" Ratio="2500" iCNm="misc_0119" />
   <item mCID="41418" Ratio="120" iCNm="misc_bat2" />
   <item mCID="41418" Ratio="280" iCNm="HAND01_134" />
   <item mCID="41418" Ratio="2" iCNm="BlueOrb_Bat" />
   <item mCID="41418" Ratio="2" iCNm="RedOrb_Bat" />
-  <item mCID="41418" Ratio="4" iCNm="GEM_Falconer_Tomahawk" />
+  <item mCID="41418" Ratio="2" iCNm="Gem_Archer_Fulldraw" />
   <item mCID="41420" Ratio="2000" iCNm="misc_0138" />
   <item mCID="41420" Ratio="135" iCNm="R_SWD01_131" />
   <item mCID="41420" Ratio="2" iCNm="BlueOrb_raider" />
   <item mCID="41420" Ratio="2" iCNm="RedOrb_raider" />
+  <item mCID="41421" Ratio="15" iCNm="R_SWD02_108" />
+  <item mCID="41421" Ratio="2" iCNm="BlueOrb_wood_goblin" />
+  <item mCID="41421" Ratio="2" iCNm="RedOrb_wood_goblin" />
   <item mCID="41426" Ratio="650" iCNm="R_TOP03_105" />
   <item mCID="41433" Ratio="500" iCNm="misc_0061" />
   <item mCID="41433" Ratio="20" iCNm="misc_hogma_warrior2" />
@@ -578,7 +580,7 @@
   <item mCID="41435" Ratio="50" iCNm="R_TSF02_104" />
   <item mCID="41435" Ratio="2" iCNm="BlueOrb_hogma_sorcerer" />
   <item mCID="41435" Ratio="2" iCNm="RedOrb_hogma_sorcerer" />
-  <item mCID="41435" Ratio="4" iCNm="GEM_Enchanter_EnchantGlove" />
+  <item mCID="41435" Ratio="2" iCNm="Gem_Priest_StoneSkin" />
   <item mCID="41436" Ratio="750" iCNm="misc_ellom" />
   <item mCID="41436" Ratio="135" iCNm="R_STF01_130" />
   <item mCID="41436" Ratio="2" iCNm="BlueOrb_ellom" />
@@ -628,12 +630,13 @@
   <item mCID="41446" Ratio="134" iCNm="R_HAND01_109" />
   <item mCID="41446" Ratio="2" iCNm="BlueOrb_wendigo" />
   <item mCID="41446" Ratio="2" iCNm="RedOrb_wendigo" />
+  <item mCID="41446" Ratio="2" iCNm="Gem_Cryomancer_Gust" />
   <item mCID="41447" Ratio="2000" iCNm="misc_Lizardman" />
   <item mCID="41447" Ratio="100" iCNm="misc_Lizardman2" />
   <item mCID="41447" Ratio="48" iCNm="misc_jore10" />
   <item mCID="41447" Ratio="108" iCNm="LEG01_121" />
   <item mCID="41447" Ratio="108" iCNm="TOP01_121" />
-  <item mCID="41447" Ratio="333" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="41447" Ratio="333" iCNm="gem_diamond_1" />
   <item mCID="41447" Ratio="2" iCNm="BlueOrb_Lizardman" />
   <item mCID="41447" Ratio="2" iCNm="RedOrb_Lizardman" />
   <item mCID="41447" Ratio="2" iCNm="Gem_Paladin_ResistElements" />
@@ -642,13 +645,13 @@
   <item mCID="41448" Ratio="108" iCNm="HAND01_121" />
   <item mCID="41448" Ratio="2" iCNm="BlueOrb_Tama" />
   <item mCID="41448" Ratio="2" iCNm="RedOrb_Tama" />
-  <item mCID="41449" Ratio="1000" iCNm="misc_Kepari" />
+  <item mCID="41449" Ratio="1000" iCNm="misc_0139" />
   <item mCID="41449" Ratio="135" iCNm="R_BOW01_124" />
   <item mCID="41449" Ratio="2" iCNm="BlueOrb_Kepari" />
   <item mCID="41449" Ratio="2" iCNm="RedOrb_Kepari" />
   <item mCID="41450" Ratio="1500" iCNm="misc_0143" />
   <item mCID="41450" Ratio="135" iCNm="R_LEG01_140" />
-  <item mCID="41450" Ratio="100" iCNm="TSP02_110" />
+  <item mCID="41450" Ratio="2" iCNm="TSP02_110" />
   <item mCID="41450" Ratio="2" iCNm="BlueOrb_kodomor" />
   <item mCID="41450" Ratio="2" iCNm="RedOrb_kodomor" />
   <item mCID="41451" Ratio="1000" iCNm="misc_kowak" />
@@ -659,7 +662,7 @@
   <item mCID="47306" Ratio="30" iCNm="R_BRC02_111" />
   <item mCID="47306" Ratio="2" iCNm="BlueOrb_Lemur" />
   <item mCID="47306" Ratio="2" iCNm="RedOrb_Lemur" />
-  <item mCID="47306" Ratio="4" iCNm="GEM_Pyromancer_Prominence" />
+  <item mCID="47306" Ratio="2" iCNm="Gem_Doppelsoeldner_Mordschlag" />
   <item mCID="47307" Ratio="500" iCNm="misc_Lemuria" />
   <item mCID="47307" Ratio="58" iCNm="misc_0160" />
   <item mCID="47307" Ratio="2" iCNm="BlueOrb_Lemuria" />
@@ -749,7 +752,7 @@
   <item mCID="47347" Ratio="135" iCNm="R_SHD01_108" />
   <item mCID="47347" Ratio="2" iCNm="BlueOrb_varv" />
   <item mCID="47347" Ratio="2" iCNm="RedOrb_varv" />
-  <item mCID="47347" Ratio="4" iCNm="GEM_Hunter_Howling" />
+  <item mCID="47347" Ratio="2" iCNm="Gem_Thaumaturge_SwellLeftArm" />
   <item mCID="47350" Ratio="13" iCNm="Drug_HP2" />
   <item mCID="47350" Ratio="13" iCNm="Drug_SP2" />
   <item mCID="47350" Ratio="13" iCNm="Drug_STA2" />
@@ -1306,23 +1309,23 @@
   <item mCID="47397" Ratio="2" iCNm="RedOrb_flight_hope" />
   <item mCID="47398" Ratio="2500" iCNm="misc_0081" />
   <item mCID="47398" Ratio="40" iCNm="misc_tower_of_firepuppet2" />
-  <item mCID="47398" Ratio="333" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="47398" Ratio="333" iCNm="gem_circle_1" />
   <item mCID="47398" Ratio="2" iCNm="BlueOrb_tower_of_firepuppet" />
   <item mCID="47398" Ratio="2" iCNm="RedOrb_tower_of_firepuppet" />
-  <item mCID="47398" Ratio="4" iCNm="GEM_Thaumaturge_SwellHands" />
+  <item mCID="47398" Ratio="2" iCNm="Gem_Paladin_TurnUndead" />
   <item mCID="47399" Ratio="1200" iCNm="misc_0088" />
   <item mCID="47399" Ratio="135" iCNm="R_LEG01_139" />
   <item mCID="47399" Ratio="2" iCNm="BlueOrb_tower_of_firepuppet_black" />
   <item mCID="47399" Ratio="2" iCNm="RedOrb_tower_of_firepuppet_black" />
   <item mCID="47401" Ratio="75" iCNm="food_030" />
-  <item mCID="47401" Ratio="333" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="47401" Ratio="333" iCNm="gem_square_1" />
   <item mCID="47401" Ratio="135" iCNm="R_STF01_131" />
   <item mCID="47401" Ratio="2" iCNm="BlueOrb_wizards_marmotte" />
   <item mCID="47401" Ratio="2" iCNm="RedOrb_wizards_marmotte" />
   <item mCID="47402" Ratio="2" iCNm="R_TBW03_104" />
   <item mCID="47402" Ratio="2" iCNm="BlueOrb_slime_elite" />
   <item mCID="47402" Ratio="2" iCNm="RedOrb_slime_elite" />
-  <item mCID="47408" Ratio="0" iCNm="Gacha_E_025" />
+  <item mCID="47408" Ratio="0" iCNm="Gacha_E_019" />
   <item mCID="47410" Ratio="2500" iCNm="misc_0086" />
   <item mCID="47410" Ratio="134" iCNm="R_LEG01_139" />
   <item mCID="47414" Ratio="28" iCNm="LEG01_103" />
@@ -1342,7 +1345,7 @@
   <item mCID="47442" Ratio="2" iCNm="Gem_Wizard_EarthQuake" />
   <item mCID="47442" Ratio="160" iCNm="misc_whip_vine_ra2" />
   <item mCID="47444" Ratio="1428" iCNm="misc_mushroom_ent" />
-  <item mCID="47444" Ratio="180" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="47444" Ratio="180" iCNm="gem_diamond_1" />
   <item mCID="47444" Ratio="30" iCNm="R_TOP03_104" />
   <item mCID="47445" Ratio="1000" iCNm="misc_ellomago" />
   <item mCID="47445" Ratio="135" iCNm="R_SPR01_112" />
@@ -1365,7 +1368,7 @@
   <item mCID="47453" Ratio="250" iCNm="HAND01_104" />
   <item mCID="47453" Ratio="134" iCNm="TOP01_124" />
   <item mCID="47453" Ratio="250" iCNm="FOOT01_133" />
-  <item mCID="47453" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="47453" Ratio="134" iCNm="gem_square_1" />
   <item mCID="47453" Ratio="2" iCNm="BlueOrb_bubbe_mage_normal" />
   <item mCID="47453" Ratio="2" iCNm="RedOrb_bubbe_mage_normal" />
   <item mCID="47454" Ratio="3" iCNm="R_STF03_102" />
@@ -1373,7 +1376,7 @@
   <item mCID="47456" Ratio="60" iCNm="TSW01_114" />
   <item mCID="47456" Ratio="250" iCNm="FOOT01_104" />
   <item mCID="47456" Ratio="155" iCNm="R_TSW02_101" />
-  <item mCID="47456" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="47456" Ratio="134" iCNm="gem_square_1" />
   <item mCID="47456" Ratio="134" iCNm="BRC01_124" />
   <item mCID="47456" Ratio="2" iCNm="TSF02_113" />
   <item mCID="47456" Ratio="2" iCNm="BlueOrb_bubbe_mage_priest" />
@@ -1383,8 +1386,9 @@
   <item mCID="47460" Ratio="134" iCNm="R_HAND01_109" />
   <item mCID="47460" Ratio="2" iCNm="BlueOrb_wendigo" />
   <item mCID="47460" Ratio="2" iCNm="RedOrb_wendigo" />
+  <item mCID="47460" Ratio="2" iCNm="Gem_Cryomancer_Gust" />
   <item mCID="47461" Ratio="1700" iCNm="misc_chromadog" />
-  <item mCID="47461" Ratio="333" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="47461" Ratio="333" iCNm="gem_star_1" />
   <item mCID="47461" Ratio="19" iCNm="Hat_628036" />
   <item mCID="47461" Ratio="2" iCNm="BlueOrb_Chromadog" />
   <item mCID="47461" Ratio="2" iCNm="RedOrb_Chromadog" />
@@ -1397,6 +1401,7 @@
   <item mCID="47463" Ratio="134" iCNm="HAND01_107" />
   <item mCID="47463" Ratio="2" iCNm="BlueOrb_Ultanun" />
   <item mCID="47463" Ratio="2" iCNm="RedOrb_Ultanun" />
+  <item mCID="47463" Ratio="2" iCNm="Gem_Swordman_DoubleSlash" />
   <item mCID="47464" Ratio="750" iCNm="misc_Rubabos" />
   <item mCID="47464" Ratio="2" iCNm="BlueOrb_Rubabos" />
   <item mCID="47464" Ratio="2" iCNm="RedOrb_Rubabos" />
@@ -1426,7 +1431,7 @@
   <item mCID="47471" Ratio="115" iCNm="R_TSW01_127" />
   <item mCID="47471" Ratio="2" iCNm="BlueOrb_Bavon" />
   <item mCID="47471" Ratio="2" iCNm="RedOrb_Bavon" />
-  <item mCID="47472" Ratio="80" iCNm="misc_Tanu" />
+  <item mCID="47472" Ratio="4" iCNm="misc_Tanu" />
   <item mCID="47472" Ratio="134" iCNm="TOP01_126" />
   <item mCID="47472" Ratio="60" iCNm="TSF01_105" />
   <item mCID="47472" Ratio="2" iCNm="MAC02_115" />
@@ -1452,7 +1457,7 @@
   <item mCID="47478" Ratio="115" iCNm="R_PST01_102" />
   <item mCID="47478" Ratio="2" iCNm="BlueOrb_Denden" />
   <item mCID="47478" Ratio="2" iCNm="RedOrb_Denden" />
-  <item mCID="47478" Ratio="4" iCNm="GEM_Alchemist_SprinkleSPPotion" />
+  <item mCID="47478" Ratio="2" iCNm="Gem_Fencer_Lunge" />
   <item mCID="47479" Ratio="800" iCNm="misc_0113" />
   <item mCID="47479" Ratio="100" iCNm="misc_Doyor2" />
   <item mCID="47479" Ratio="3333" iCNm="food_002" />
@@ -1472,10 +1477,10 @@
   <item mCID="47481" Ratio="14" iCNm="misc_0429" />
   <item mCID="47481" Ratio="2" iCNm="BlueOrb_Rondo" />
   <item mCID="47481" Ratio="2" iCNm="RedOrb_Rondo" />
-  <item mCID="47481" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="47481" Ratio="127" iCNm="gem_star_1" />
   <item mCID="47482" Ratio="625" iCNm="misc_TerraNymph" />
   <item mCID="47482" Ratio="95" iCNm="R_STF01_109" />
-  <item mCID="47482" Ratio="180" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="47482" Ratio="180" iCNm="gem_square_1" />
   <item mCID="47483" Ratio="5000" iCNm="misc_0022" />
   <item mCID="47483" Ratio="100" iCNm="misc_firent2" />
   <item mCID="47483" Ratio="3333" iCNm="wood_01" />
@@ -1570,10 +1575,10 @@
   <item mCID="57010" Ratio="666" iCNm="misc_0065" />
   <item mCID="57010" Ratio="3" iCNm="misc_jore17" />
   <item mCID="57010" Ratio="108" iCNm="LEG01_153" />
-  <item mCID="57010" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57010" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="57010" Ratio="2" iCNm="BlueOrb_wolf_statue_mage" />
   <item mCID="57010" Ratio="2" iCNm="RedOrb_wolf_statue_mage" />
-  <item mCID="57010" Ratio="4" iCNm="GEM_Peltasta_HardShield" />
+  <item mCID="57010" Ratio="2" iCNm="Gem_Peltasta_ButterFly" />
   <item mCID="57015" Ratio="1000" iCNm="SWD01_105" />
   <item mCID="57015" Ratio="1000" iCNm="TSW01_103" />
   <item mCID="57015" Ratio="1000" iCNm="STF01_105" />
@@ -1584,6 +1589,7 @@
   <item mCID="57016" Ratio="2000" iCNm="misc_seedmia" />
   <item mCID="57016" Ratio="2" iCNm="BlueOrb_seedmia" />
   <item mCID="57016" Ratio="2" iCNm="RedOrb_seedmia" />
+  <item mCID="57016" Ratio="2" iCNm="Gem_Swordman_Restrain" />
   <item mCID="57017" Ratio="5000" iCNm="misc_0022" />
   <item mCID="57017" Ratio="100" iCNm="misc_firent2" />
   <item mCID="57017" Ratio="152" iCNm="BRC01_115" />
@@ -1605,18 +1611,18 @@
   <item mCID="57021" Ratio="3333" iCNm="misc_glizardon" />
   <item mCID="57021" Ratio="90" iCNm="misc_glizardon2" />
   <item mCID="57021" Ratio="40" iCNm="misc_silverbar" />
-  <item mCID="57021" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57021" Ratio="128" iCNm="gem_diamond_1" />
   <item mCID="57021" Ratio="2" iCNm="BlueOrb_Glizardon" />
   <item mCID="57021" Ratio="2" iCNm="RedOrb_Glizardon" />
   <item mCID="57021" Ratio="2" iCNm="Gem_Highlander_Moulinet" />
   <item mCID="57022" Ratio="1111" iCNm="misc_Corylus" />
   <item mCID="57022" Ratio="183" iCNm="misc_ore08" />
-  <item mCID="57022" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57022" Ratio="128" iCNm="gem_square_1" />
   <item mCID="57022" Ratio="134" iCNm="SHD01_104" />
   <item mCID="57022" Ratio="134" iCNm="BRC01_126" />
   <item mCID="57022" Ratio="2" iCNm="BlueOrb_Corylus" />
   <item mCID="57022" Ratio="2" iCNm="RedOrb_Corylus" />
-  <item mCID="57022" Ratio="4" iCNm="GEM_Rogue_KnifeThrowing" />
+  <item mCID="57022" Ratio="2" iCNm="Gem_Cleric_DivineMight" />
   <item mCID="57023" Ratio="5000" iCNm="misc_Rudas_loxodon" />
   <item mCID="57023" Ratio="100" iCNm="misc_Rudas_loxodon2" />
   <item mCID="57023" Ratio="15" iCNm="misc_Rudas_loxodon3" />
@@ -1650,7 +1656,7 @@
   <item mCID="57027" Ratio="2" iCNm="Gem_Peltasta_Guardian" />
   <item mCID="57028" Ratio="500" iCNm="misc_pawn1" />
   <item mCID="57028" Ratio="8" iCNm="misc_pawndel3" />
-  <item mCID="57028" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57028" Ratio="128" iCNm="gem_circle_1" />
   <item mCID="57028" Ratio="134" iCNm="FOOT01_127" />
   <item mCID="57028" Ratio="2" iCNm="TSW02_115" />
   <item mCID="57028" Ratio="2" iCNm="BlueOrb_Pawndel" />
@@ -1674,14 +1680,14 @@
   <item mCID="57035" Ratio="135" iCNm="R_TSF01_123" />
   <item mCID="57035" Ratio="2" iCNm="BlueOrb_duckey" />
   <item mCID="57035" Ratio="2" iCNm="RedOrb_duckey" />
-  <item mCID="57035" Ratio="4" iCNm="GEM_Sapper_SpringTrap" />
+  <item mCID="57035" Ratio="2" iCNm="Gem_Thaumaturge_SwellRightArm" />
   <item mCID="57036" Ratio="800" iCNm="misc_0135" />
   <item mCID="57036" Ratio="135" iCNm="R_TSW01_123" />
   <item mCID="57036" Ratio="2" iCNm="MAC02_117" />
   <item mCID="57036" Ratio="2" iCNm="BlueOrb_Cronewt" />
   <item mCID="57036" Ratio="2" iCNm="RedOrb_Cronewt" />
+  <item mCID="57036" Ratio="2" iCNm="Gem_Barbarian_GiantSwing" />
   <item mCID="57036" Ratio="150" iCNm="misc_Cronewt" />
-  <item mCID="57036" Ratio="4" iCNm="GEM_Templer_FlyingColors" />
   <item mCID="57037" Ratio="500" iCNm="misc_0136" />
   <item mCID="57037" Ratio="33" iCNm="R_BOW02_107" />
   <item mCID="57037" Ratio="2" iCNm="BlueOrb_InfroHoglan" />
@@ -1692,17 +1698,17 @@
   <item mCID="57038" Ratio="2" iCNm="BlueOrb_Dumaro" />
   <item mCID="57038" Ratio="2" iCNm="RedOrb_Dumaro" />
   <item mCID="57039" Ratio="50" iCNm="R_FOOT02_106" />
-  <item mCID="57039" Ratio="100" iCNm="STF01_108" />
+  <item mCID="57039" Ratio="60" iCNm="STF01_108" />
   <item mCID="57039" Ratio="134" iCNm="R_HAND01_108" />
   <item mCID="57039" Ratio="134" iCNm="R_FOOT01_108" />
   <item mCID="57039" Ratio="2" iCNm="BlueOrb_Lichenclops" />
   <item mCID="57039" Ratio="2" iCNm="RedOrb_Lichenclops" />
-  <item mCID="57039" Ratio="4" iCNm="GEM_Chaplain_VisibleTalent" />
+  <item mCID="57039" Ratio="2" iCNm="Gem_Hunter_Pointing" />
   <item mCID="57040" Ratio="1700" iCNm="misc_rublem" />
   <item mCID="57040" Ratio="80" iCNm="misc_rublem2" />
   <item mCID="57040" Ratio="2" iCNm="BlueOrb_rubblem" />
   <item mCID="57040" Ratio="2" iCNm="RedOrb_rubblem" />
-  <item mCID="57040" Ratio="4" iCNm="GEM_Scout_ObliqueFire" />
+  <item mCID="57040" Ratio="2" iCNm="Gem_Sapper_CollarBomb" />
   <item mCID="57041" Ratio="3333" iCNm="misc_jore09" />
   <item mCID="57041" Ratio="134" iCNm="R_SHD01_106" />
   <item mCID="57041" Ratio="2" iCNm="BlueOrb_loftlem" />
@@ -1728,8 +1734,8 @@
   <item mCID="57046" Ratio="2" iCNm="BlueOrb_tucen" />
   <item mCID="57046" Ratio="2" iCNm="RedOrb_tucen" />
   <item mCID="57046" Ratio="2" iCNm="Gem_Hunter_RushDog" />
-  <item mCID="57048" Ratio="115" iCNm="SWD01_107" />
-  <item mCID="57048" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57048" Ratio="60" iCNm="SWD01_107" />
+  <item mCID="57048" Ratio="128" iCNm="gem_diamond_1" />
   <item mCID="57048" Ratio="60" iCNm="SPR01_102" />
   <item mCID="57048" Ratio="134" iCNm="FOOT01_112" />
   <item mCID="57048" Ratio="2" iCNm="STF02_114" />
@@ -1757,10 +1763,10 @@
   <item mCID="57054" Ratio="666" iCNm="misc_0065" />
   <item mCID="57054" Ratio="3" iCNm="misc_jore17" />
   <item mCID="57054" Ratio="108" iCNm="LEG01_153" />
-  <item mCID="57054" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57054" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="57054" Ratio="2" iCNm="BlueOrb_wolf_statue_mage" />
   <item mCID="57054" Ratio="2" iCNm="RedOrb_wolf_statue_mage" />
-  <item mCID="57054" Ratio="4" iCNm="GEM_Peltasta_HardShield" />
+  <item mCID="57054" Ratio="2" iCNm="Gem_Peltasta_ButterFly" />
   <item mCID="57056" Ratio="1000" iCNm="R_SWD01_131" />
   <item mCID="57056" Ratio="1000" iCNm="R_TSW01_123" />
   <item mCID="57056" Ratio="1000" iCNm="R_STF01_131" />
@@ -2318,7 +2324,7 @@
   <item mCID="57146" Ratio="1000" iCNm="TBW01_120" />
   <item mCID="57146" Ratio="1000" iCNm="BOW01_114" />
   <item mCID="57146" Ratio="1000" iCNm="MAC01_120" />
-  <item mCID="57147" Ratio="0" iCNm="Gacha_E_025" />
+  <item mCID="57147" Ratio="0" iCNm="Gacha_E_019" />
   <item mCID="57148" Ratio="13" iCNm="card_archon" />
   <item mCID="57148" Ratio="13" iCNm="Drug_SP2" />
   <item mCID="57148" Ratio="13" iCNm="Drug_STA2" />
@@ -2470,7 +2476,7 @@
   <item mCID="57193" Ratio="25" iCNm="BRC01_110" />
   <item mCID="57193" Ratio="100" iCNm="Hat_628010" />
   <item mCID="57193" Ratio="134" iCNm="LEG01_124" />
-  <item mCID="57193" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57193" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="57193" Ratio="2" iCNm="TBW02_116" />
   <item mCID="57193" Ratio="2" iCNm="BlueOrb_Goblin_Archer" />
   <item mCID="57193" Ratio="2" iCNm="RedOrb_Goblin_Archer" />
@@ -2483,7 +2489,7 @@
   <item mCID="57203" Ratio="115" iCNm="R_TSP01_106" />
   <item mCID="57203" Ratio="2" iCNm="BlueOrb_Siaulamb" />
   <item mCID="57203" Ratio="2" iCNm="RedOrb_Siaulamb" />
-  <item mCID="57203" Ratio="4" iCNm="GEM_Thaumaturge_Quicken" />
+  <item mCID="57203" Ratio="2" iCNm="Gem_Chronomancer_Quicken" />
   <item mCID="57205" Ratio="666" iCNm="misc_0178" />
   <item mCID="57205" Ratio="135" iCNm="R_RAP01_101" />
   <item mCID="57205" Ratio="2" iCNm="BlueOrb_Siaulago" />
@@ -2492,7 +2498,7 @@
   <item mCID="57207" Ratio="4200" iCNm="misc_0026" />
   <item mCID="57207" Ratio="15" iCNm="misc_ore05" />
   <item mCID="57207" Ratio="60" iCNm="MAC01_106" />
-  <item mCID="57207" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57207" Ratio="128" iCNm="gem_circle_1" />
   <item mCID="57207" Ratio="60" iCNm="SWD01_106" />
   <item mCID="57207" Ratio="2" iCNm="BlueOrb_Yognome" />
   <item mCID="57207" Ratio="2" iCNm="RedOrb_Yognome" />
@@ -2511,7 +2517,7 @@
   <item mCID="57213" Ratio="500" iCNm="misc_pawn1" />
   <item mCID="57213" Ratio="107" iCNm="R_TOP02_103" />
   <item mCID="57213" Ratio="30" iCNm="Hat_628051" />
-  <item mCID="57213" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57213" Ratio="128" iCNm="gem_star_1" />
   <item mCID="57213" Ratio="60" iCNm="BOW01_104" />
   <item mCID="57213" Ratio="2" iCNm="BOW02_113" />
   <item mCID="57213" Ratio="2" iCNm="BlueOrb_pawnd" />
@@ -2563,7 +2569,7 @@
   <item mCID="57266" Ratio="25" iCNm="BRC01_110" />
   <item mCID="57266" Ratio="100" iCNm="Hat_628010" />
   <item mCID="57266" Ratio="134" iCNm="LEG01_124" />
-  <item mCID="57266" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57266" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="57266" Ratio="2" iCNm="TBW02_116" />
   <item mCID="57266" Ratio="2" iCNm="BlueOrb_Goblin_Archer" />
   <item mCID="57266" Ratio="2" iCNm="RedOrb_Goblin_Archer" />
@@ -2583,7 +2589,7 @@
   <item mCID="57270" Ratio="134" iCNm="HAND01_127" />
   <item mCID="57270" Ratio="134" iCNm="LEG01_106" />
   <item mCID="57270" Ratio="134" iCNm="LEG01_126" />
-  <item mCID="57270" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57270" Ratio="128" iCNm="gem_star_1" />
   <item mCID="57270" Ratio="2" iCNm="SWD02_119" />
   <item mCID="57270" Ratio="2" iCNm="BlueOrb_zombiegirl2_chpel" />
   <item mCID="57270" Ratio="2" iCNm="RedOrb_zombiegirl2_chpel" />
@@ -2601,6 +2607,10 @@
   <item mCID="57275" Ratio="100" iCNm="FOOT02_123" />
   <item mCID="57275" Ratio="100" iCNm="LEG02_123" />
   <item mCID="57275" Ratio="100" iCNm="TOP02_123" />
+  <item mCID="57276" Ratio="1000" iCNm="misc_0133" />
+  <item mCID="57276" Ratio="30" iCNm="ABAND01_103" />
+  <item mCID="57276" Ratio="2" iCNm="BlueOrb_RavineLerva" />
+  <item mCID="57276" Ratio="2" iCNm="RedOrb_RavineLerva" />
   <item mCID="57279" Ratio="800" iCNm="misc_0071" />
   <item mCID="57279" Ratio="135" iCNm="R_BRC01_133" />
   <item mCID="57279" Ratio="2" iCNm="BlueOrb_TreeAmbulo_red" />
@@ -2810,7 +2820,7 @@
   <item mCID="57313" Ratio="50" iCNm="R_TSP02_105" />
   <item mCID="57313" Ratio="2" iCNm="BlueOrb_Gazing_Golem_yellow" />
   <item mCID="57313" Ratio="2" iCNm="RedOrb_Gazing_Golem_yellow" />
-  <item mCID="57313" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57313" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57314" Ratio="5000" iCNm="misc_0022" />
   <item mCID="57314" Ratio="100" iCNm="misc_firent2" />
   <item mCID="57314" Ratio="152" iCNm="BRC01_115" />
@@ -2820,13 +2830,13 @@
   <item mCID="57315" Ratio="85" iCNm="misc_egnome2" />
   <item mCID="57315" Ratio="2" iCNm="BlueOrb_Egnome_yellow" />
   <item mCID="57315" Ratio="2" iCNm="RedOrb_Egnome_yellow" />
-  <item mCID="57315" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57315" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57316" Ratio="3333" iCNm="misc_0156" />
   <item mCID="57316" Ratio="135" iCNm="R_HAND01_145" />
   <item mCID="57316" Ratio="2" iCNm="BlueOrb_yognome_yellow" />
   <item mCID="57316" Ratio="2" iCNm="RedOrb_yognome_yellow" />
   <item mCID="57316" Ratio="2" iCNm="Gem_Cataphract_DoomSpike" />
-  <item mCID="57316" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57316" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57317" Ratio="1500" iCNm="misc_Lemur" />
   <item mCID="57318" Ratio="1111" iCNm="misc_0160" />
   <item mCID="57318" Ratio="134" iCNm="R_BOW01_127" />
@@ -2835,12 +2845,12 @@
   <item mCID="57319" Ratio="2" iCNm="BlueOrb_Moya_yellow" />
   <item mCID="57319" Ratio="2" iCNm="RedOrb_Moya_yellow" />
   <item mCID="57319" Ratio="2" iCNm="Gem_Corsair_IronHook" />
-  <item mCID="57319" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57319" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57320" Ratio="115" iCNm="R_MAC01_134" />
   <item mCID="57320" Ratio="2" iCNm="BlueOrb_Moyabu_yellow" />
   <item mCID="57320" Ratio="2" iCNm="RedOrb_Moyabu_yellow" />
   <item mCID="57320" Ratio="2" iCNm="Gem_Wugushi_JincanGu" />
-  <item mCID="57320" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57320" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57322" Ratio="1000" iCNm="SWD01_106" />
   <item mCID="57322" Ratio="1000" iCNm="TSW01_104" />
   <item mCID="57322" Ratio="1000" iCNm="STF01_106" />
@@ -2854,7 +2864,7 @@
   <item mCID="57324" Ratio="115" iCNm="R_SPR01_118" />
   <item mCID="57324" Ratio="2" iCNm="BlueOrb_groll_white" />
   <item mCID="57324" Ratio="2" iCNm="RedOrb_groll_white" />
-  <item mCID="57324" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57324" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57325" Ratio="1000" iCNm="misc_0102" />
   <item mCID="57325" Ratio="75" iCNm="misc_groll2" />
   <item mCID="57325" Ratio="2" iCNm="BlueOrb_groll" />
@@ -2865,7 +2875,7 @@
   <item mCID="57326" Ratio="115" iCNm="R_TOP01_151" />
   <item mCID="57326" Ratio="2" iCNm="BlueOrb_dandel_white" />
   <item mCID="57326" Ratio="2" iCNm="RedOrb_dandel_white" />
-  <item mCID="57326" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57326" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57327" Ratio="2500" iCNm="misc_0109" />
   <item mCID="57327" Ratio="108" iCNm="HAND01_115" />
   <item mCID="57327" Ratio="2500" iCNm="food_014" />
@@ -2991,10 +3001,10 @@
   <item mCID="57354" Ratio="80" iCNm="NECK01_111" />
   <item mCID="57354" Ratio="2" iCNm="BlueOrb_Chupacabra_Blue" />
   <item mCID="57354" Ratio="2" iCNm="RedOrb_Chupacabra_Blue" />
-  <item mCID="57354" Ratio="4" iCNm="GEM_Cleric_Smite" />
+  <item mCID="57354" Ratio="2" iCNm="Gem_Cleric_SafetyZone" />
   <item mCID="57355" Ratio="1000" iCNm="misc_kowak" />
   <item mCID="57355" Ratio="115" iCNm="R_SHD01_118" />
-  <item mCID="57355" Ratio="115" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57355" Ratio="115" iCNm="gem_circle_1" />
   <item mCID="57355" Ratio="2" iCNm="BlueOrb_Kowak_orange" />
   <item mCID="57355" Ratio="2" iCNm="RedOrb_Kowak_orange" />
   <item mCID="57356" Ratio="700" iCNm="misc_0300" />
@@ -3002,7 +3012,7 @@
   <item mCID="57356" Ratio="14" iCNm="misc_0429" />
   <item mCID="57356" Ratio="2" iCNm="BlueOrb_Rondo" />
   <item mCID="57356" Ratio="2" iCNm="RedOrb_Rondo" />
-  <item mCID="57356" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57356" Ratio="127" iCNm="gem_star_1" />
   <item mCID="57357" Ratio="1250" iCNm="misc_0167" />
   <item mCID="57357" Ratio="2500" iCNm="food_014" />
   <item mCID="57357" Ratio="2" iCNm="BlueOrb_Stub_tree_orange" />
@@ -3011,7 +3021,7 @@
   <item mCID="57358" Ratio="115" iCNm="R_TSP01_106" />
   <item mCID="57358" Ratio="2" iCNm="BlueOrb_Siaulamb" />
   <item mCID="57358" Ratio="2" iCNm="RedOrb_Siaulamb" />
-  <item mCID="57358" Ratio="4" iCNm="GEM_Thaumaturge_Quicken" />
+  <item mCID="57358" Ratio="2" iCNm="Gem_Chronomancer_Quicken" />
   <item mCID="57361" Ratio="170" iCNm="misc_0190" />
   <item mCID="57361" Ratio="115" iCNm="R_RAP01_105" />
   <item mCID="57361" Ratio="2" iCNm="BlueOrb_Siaulav_orange" />
@@ -3040,7 +3050,7 @@
   <item mCID="57368" Ratio="600" iCNm="misc_0136" />
   <item mCID="57368" Ratio="2" iCNm="BlueOrb_InfroHoglan_red" />
   <item mCID="57368" Ratio="2" iCNm="RedOrb_InfroHoglan_red" />
-  <item mCID="57368" Ratio="4" iCNm="GEM_Appraiser_Insurance" />
+  <item mCID="57368" Ratio="2" iCNm="Gem_Elementalist_FreezingSphere" />
   <item mCID="57369" Ratio="1750" iCNm="misc_0152" />
   <item mCID="57369" Ratio="2" iCNm="BlueOrb_Infro_blud_red" />
   <item mCID="57369" Ratio="2" iCNm="RedOrb_Infro_blud_red" />
@@ -3051,7 +3061,7 @@
   <item mCID="57370" Ratio="2" iCNm="RedOrb_Pawnd_purple" />
   <item mCID="57370" Ratio="2" iCNm="Gem_Elementalist_Meteor" />
   <item mCID="57371" Ratio="800" iCNm="misc_pawn1" />
-  <item mCID="57371" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57371" Ratio="129" iCNm="gem_star_1" />
   <item mCID="57371" Ratio="2" iCNm="BlueOrb_Pawndel_blue" />
   <item mCID="57371" Ratio="2" iCNm="RedOrb_Pawndel_blue" />
   <item mCID="57372" Ratio="666" iCNm="misc_0178" />
@@ -3102,7 +3112,7 @@
   <item mCID="57380" Ratio="82" iCNm="SWD01_119" />
   <item mCID="57380" Ratio="82" iCNm="TBW01_119" />
   <item mCID="57380" Ratio="134" iCNm="LEG01_103" />
-  <item mCID="57380" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57380" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="57380" Ratio="2" iCNm="SWD02_118" />
   <item mCID="57380" Ratio="2" iCNm="BlueOrb_Goblin_Miners" />
   <item mCID="57380" Ratio="2" iCNm="RedOrb_Goblin_Miners" />
@@ -3116,9 +3126,9 @@
   <item mCID="57390" Ratio="13" iCNm="Drug_STA2" />
   <item mCID="57390" Ratio="1000" iCNm="card_Ironbaum" />
   <item mCID="57397" Ratio="250" iCNm="misc_0148" />
-  <item mCID="57397" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57397" Ratio="128" iCNm="gem_circle_1" />
   <item mCID="57397" Ratio="47" iCNm="R_HAND03_112" />
-  <item mCID="57397" Ratio="100" iCNm="R_LEG03_112" />
+  <item mCID="57397" Ratio="47" iCNm="R_LEG03_112" />
   <item mCID="57397" Ratio="2" iCNm="BlueOrb_Colifly_black" />
   <item mCID="57397" Ratio="2" iCNm="RedOrb_Colifly_black" />
   <item mCID="57397" Ratio="23" iCNm="R_RAP03_101" />
@@ -3127,7 +3137,7 @@
   <item mCID="57399" Ratio="115" iCNm="R_LEG01_156" />
   <item mCID="57399" Ratio="2" iCNm="BlueOrb_Colifly_yellow" />
   <item mCID="57399" Ratio="2" iCNm="RedOrb_Colifly_yellow" />
-  <item mCID="57399" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57399" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57400" Ratio="950" iCNm="misc_0139" />
   <item mCID="57401" Ratio="1200" iCNm="misc_0001" />
   <item mCID="57401" Ratio="150" iCNm="Hat_628054" />
@@ -3161,10 +3171,10 @@
   <item mCID="57406" Ratio="1000" iCNm="R_BOW01_107" />
   <item mCID="57406" Ratio="1000" iCNm="R_MAC01_109" />
   <item mCID="57406" Ratio="1000" iCNm="R_SPR01_104" />
-  <item mCID="57407" Ratio="250" iCNm="LEG01_102" />
   <item mCID="57409" Ratio="2000" iCNm="misc_seedmia" />
   <item mCID="57409" Ratio="2" iCNm="BlueOrb_seedmia" />
   <item mCID="57409" Ratio="2" iCNm="RedOrb_seedmia" />
+  <item mCID="57409" Ratio="2" iCNm="Gem_Swordman_Restrain" />
   <item mCID="57410" Ratio="6666" iCNm="misc_mallardu" />
   <item mCID="57410" Ratio="134" iCNm="SHD01_103" />
   <item mCID="57410" Ratio="58" iCNm="R_BRC02_102" />
@@ -3353,10 +3363,10 @@
   <item mCID="57463" Ratio="2" iCNm="BlueOrb_FD_bubbe_chaser" />
   <item mCID="57463" Ratio="2" iCNm="RedOrb_FD_bubbe_chaser" />
   <item mCID="57463" Ratio="2" iCNm="Gem_Cataphract_Impaler" />
-  <item mCID="57464" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57464" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="57464" Ratio="2" iCNm="BlueOrb_FD_bubbe_mage_fire" />
   <item mCID="57464" Ratio="2" iCNm="RedOrb_FD_bubbe_mage_fire" />
-  <item mCID="57464" Ratio="4" iCNm="GEM_Sapper_LegHoldTrap" />
+  <item mCID="57464" Ratio="2" iCNm="Gem_Elementalist_Prominence" />
   <item mCID="57465" Ratio="135" iCNm="R_TSF01_122" />
   <item mCID="57465" Ratio="22" iCNm="trg_crystal" />
   <item mCID="57465" Ratio="2" iCNm="BlueOrb_FD_bubbe_mage_ice" />
@@ -3364,7 +3374,7 @@
   <item mCID="57465" Ratio="2" iCNm="Gem_Cryomancer_FrostPillar" />
   <item mCID="57466" Ratio="108" iCNm="TOP01_122" />
   <item mCID="57466" Ratio="22" iCNm="trg_crystal" />
-  <item mCID="57466" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57466" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="57466" Ratio="2" iCNm="BlueOrb_FD_bubbe_fighter" />
   <item mCID="57466" Ratio="2" iCNm="RedOrb_FD_bubbe_fighter" />
   <item mCID="57466" Ratio="2" iCNm="Gem_Cataphract_EarthWave" />
@@ -3373,12 +3383,12 @@
   <item mCID="57467" Ratio="2" iCNm="RedOrb_Melatanun" />
   <item mCID="57467" Ratio="2" iCNm="Gem_Chronomancer_Stop" />
   <item mCID="57468" Ratio="134" iCNm="R_LEG01_108" />
-  <item mCID="57468" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57468" Ratio="128" iCNm="gem_circle_1" />
   <item mCID="57468" Ratio="2" iCNm="BlueOrb_FD_woodgoblin_black" />
   <item mCID="57468" Ratio="2" iCNm="RedOrb_FD_woodgoblin_black" />
   <item mCID="57468" Ratio="2" iCNm="Gem_Peltasta_ShieldLob" />
   <item mCID="57469" Ratio="134" iCNm="R_TSF01_107" />
-  <item mCID="57469" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57469" Ratio="128" iCNm="gem_square_1" />
   <item mCID="57469" Ratio="50" iCNm="R_BOW02_105" />
   <item mCID="57469" Ratio="2" iCNm="BlueOrb_FD_Bushspider_purple" />
   <item mCID="57469" Ratio="2" iCNm="RedOrb_FD_Bushspider_purple" />
@@ -3389,7 +3399,7 @@
   <item mCID="57472" Ratio="2" iCNm="TBW02_118" />
   <item mCID="57472" Ratio="2" iCNm="BlueOrb_FD_Spector_gh_purple" />
   <item mCID="57472" Ratio="2" iCNm="RedOrb_FD_Spector_gh_purple" />
-  <item mCID="57473" Ratio="58" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57473" Ratio="58" iCNm="gem_star_1" />
   <item mCID="57473" Ratio="2" iCNm="BlueOrb_FD_whip_vine_purple" />
   <item mCID="57473" Ratio="2" iCNm="RedOrb_FD_whip_vine_purple" />
   <item mCID="57474" Ratio="60" iCNm="STF01_110" />
@@ -3401,17 +3411,18 @@
   <item mCID="57475" Ratio="2" iCNm="TSF02_115" />
   <item mCID="57475" Ratio="2" iCNm="BlueOrb_FD_Deadbornscab" />
   <item mCID="57475" Ratio="2" iCNm="RedOrb_FD_Deadbornscab" />
+  <item mCID="57475" Ratio="2" iCNm="Gem_Highlander_ScullSwing" />
   <item mCID="57476" Ratio="2000" iCNm="misc_Hallowventor" />
   <item mCID="57476" Ratio="78" iCNm="misc_0077" />
   <item mCID="57476" Ratio="15" iCNm="misc_jore04" />
   <item mCID="57476" Ratio="107" iCNm="FOOT01_153" />
   <item mCID="57476" Ratio="2" iCNm="BlueOrb_FD_Hallowventor" />
   <item mCID="57476" Ratio="2" iCNm="RedOrb_FD_Hallowventor" />
-  <item mCID="57476" Ratio="4" iCNm="GEM_Paladin_StoneSkin" />
+  <item mCID="57476" Ratio="2" iCNm="Gem_Priest_Exorcise" />
   <item mCID="57477" Ratio="1000" iCNm="Gacha_F_004" />
   <item mCID="57478" Ratio="1000" iCNm="Gacha_F_005" />
   <item mCID="57479" Ratio="1000" iCNm="Gacha_F_006" />
-  <item mCID="57480" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57480" Ratio="129" iCNm="gem_square_1" />
   <item mCID="57480" Ratio="46" iCNm="R_SPR02_106" />
   <item mCID="57480" Ratio="2" iCNm="BlueOrb_FD_raffly_blue" />
   <item mCID="57480" Ratio="2" iCNm="RedOrb_FD_raffly_blue" />
@@ -3423,15 +3434,15 @@
   <item mCID="57481" Ratio="2" iCNm="RedOrb_FD_Candlespider" />
   <item mCID="57481" Ratio="2" iCNm="Gem_Barbarian_Embowel" />
   <item mCID="57482" Ratio="115" iCNm="R_MAC01_132" />
-  <item mCID="57482" Ratio="80" iCNm="R_NECK02_112" />
+  <item mCID="57482" Ratio="40" iCNm="R_NECK02_112" />
   <item mCID="57482" Ratio="2" iCNm="BlueOrb_FD_yognome" />
   <item mCID="57482" Ratio="2" iCNm="RedOrb_FD_yognome" />
   <item mCID="57482" Ratio="4200" iCNm="misc_0026" />
   <item mCID="57482" Ratio="15" iCNm="misc_ore05" />
   <item mCID="57482" Ratio="60" iCNm="MAC01_106" />
-  <item mCID="57482" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57482" Ratio="128" iCNm="gem_circle_1" />
   <item mCID="57482" Ratio="60" iCNm="SWD01_106" />
-  <item mCID="57483" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57483" Ratio="128" iCNm="gem_star_1" />
   <item mCID="57483" Ratio="2" iCNm="SPR02_114" />
   <item mCID="57483" Ratio="2" iCNm="BlueOrb_FD_Long_Arm" />
   <item mCID="57483" Ratio="2" iCNm="RedOrb_FD_Long_Arm" />
@@ -3440,18 +3451,18 @@
   <item mCID="57484" Ratio="2" iCNm="BlueOrb_FD_Mushcarfung" />
   <item mCID="57484" Ratio="2" iCNm="RedOrb_FD_Mushcarfung" />
   <item mCID="57484" Ratio="2" iCNm="Gem_Sapper_StakeStockades" />
-  <item mCID="57485" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
-  <item mCID="57485" Ratio="100" iCNm="SPR02_111" />
+  <item mCID="57485" Ratio="128" iCNm="gem_circle_1" />
+  <item mCID="57485" Ratio="2" iCNm="SPR02_111" />
   <item mCID="57485" Ratio="2" iCNm="BlueOrb_FD_maggot" />
   <item mCID="57485" Ratio="2" iCNm="RedOrb_FD_maggot" />
   <item mCID="57485" Ratio="2" iCNm="Gem_Dievdirbys_CarveLaima" />
-  <item mCID="57486" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57486" Ratio="128" iCNm="gem_circle_1" />
   <item mCID="57486" Ratio="2" iCNm="TSF02_117" />
   <item mCID="57486" Ratio="47" iCNm="R_SWD02_110" />
   <item mCID="57486" Ratio="161" iCNm="VELNIASP54_1_SECRET_KEY12" />
   <item mCID="57486" Ratio="2" iCNm="BlueOrb_FD_Firent_yellow" />
   <item mCID="57486" Ratio="2" iCNm="RedOrb_FD_Firent_yellow" />
-  <item mCID="57487" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57487" Ratio="128" iCNm="gem_star_1" />
   <item mCID="57487" Ratio="2" iCNm="BlueOrb_FD_Leaf_diving_purple" />
   <item mCID="57487" Ratio="2" iCNm="RedOrb_FD_Leaf_diving_purple" />
   <item mCID="57487" Ratio="2" iCNm="Gem_Psychokino_Teleportation" />
@@ -3464,7 +3475,7 @@
   <item mCID="57488" Ratio="2" iCNm="Gem_Paladin_Restoration" />
   <item mCID="57490" Ratio="115" iCNm="R_TSW01_111" />
   <item mCID="57492" Ratio="500" iCNm="misc_0184" />
-  <item mCID="57492" Ratio="80" iCNm="R_TSP02_104" />
+  <item mCID="57492" Ratio="33" iCNm="R_TSP02_104" />
   <item mCID="57492" Ratio="2" iCNm="BlueOrb_Triffid" />
   <item mCID="57492" Ratio="2" iCNm="RedOrb_Triffid" />
   <item mCID="57493" Ratio="60" iCNm="TSW01_105" />
@@ -3500,11 +3511,11 @@
   <item mCID="57563" Ratio="1000" iCNm="R_TSP01_105" />
   <item mCID="57565" Ratio="2500" iCNm="misc_0105" />
   <item mCID="57565" Ratio="108" iCNm="FOOT01_114" />
-  <item mCID="57565" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57565" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="57565" Ratio="2" iCNm="BlueOrb_Moving_trap" />
   <item mCID="57565" Ratio="2" iCNm="RedOrb_Moving_trap" />
-  <item mCID="57565" Ratio="4" iCNm="GEM_Swordman_Bear" />
-  <item mCID="57566" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57565" Ratio="2" iCNm="Gem_Highlander_VerticalSlash" />
+  <item mCID="57566" Ratio="128" iCNm="gem_diamond_1" />
   <item mCID="57566" Ratio="2" iCNm="STF02_115" />
   <item mCID="57566" Ratio="2" iCNm="BlueOrb_FD_spectra" />
   <item mCID="57566" Ratio="2" iCNm="RedOrb_FD_spectra" />
@@ -3526,7 +3537,7 @@
   <item mCID="57568" Ratio="2" iCNm="BlueOrb_zombiegirl2_brown" />
   <item mCID="57568" Ratio="2" iCNm="RedOrb_zombiegirl2_brown" />
   <item mCID="57568" Ratio="2" iCNm="Gem_Highlander_CrossGuard" />
-  <item mCID="57569" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57569" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="57569" Ratio="40" iCNm="R_SWD02_111" />
   <item mCID="57569" Ratio="2" iCNm="BlueOrb_FD_bubbe_chaser_hidden" />
   <item mCID="57569" Ratio="2" iCNm="RedOrb_FD_bubbe_chaser_hidden" />
@@ -3541,6 +3552,7 @@
   <item mCID="57571" Ratio="60" iCNm="STF01_105" />
   <item mCID="57571" Ratio="2" iCNm="BlueOrb_Npanto_baby" />
   <item mCID="57571" Ratio="2" iCNm="RedOrb_Npanto_baby" />
+  <item mCID="57571" Ratio="2" iCNm="Gem_Swordman_PommelBeat" />
   <item mCID="57572" Ratio="1111" iCNm="misc_0018" />
   <item mCID="57572" Ratio="134" iCNm="HAND01_106" />
   <item mCID="57572" Ratio="134" iCNm="FOOT01_106" />
@@ -3672,27 +3684,24 @@
   <item mCID="57602" Ratio="2" iCNm="Gem_Pyromancer_FireBall" />
   <item mCID="57603" Ratio="134" iCNm="HAND01_113" />
   <item mCID="57603" Ratio="33" iCNm="R_TBW02_105" />
-  <item mCID="57603" Ratio="150" iCNm="BOW02_114" />
+  <item mCID="57603" Ratio="2" iCNm="BOW02_114" />
   <item mCID="57603" Ratio="2" iCNm="BlueOrb_Deadbornscab_bow" />
   <item mCID="57603" Ratio="2" iCNm="RedOrb_Deadbornscab_bow" />
-  <item mCID="57603" Ratio="4" iCNm="GEM_Miko_Omikuji" />
+  <item mCID="57603" Ratio="2" iCNm="Gem_QuarrelShooter_RunningShot" />
   <item mCID="57604" Ratio="50" iCNm="R_STF02_106" />
   <item mCID="57604" Ratio="2" iCNm="BlueOrb_Siaulav_mage" />
   <item mCID="57604" Ratio="2" iCNm="RedOrb_Siaulav_mage" />
   <item mCID="57604" Ratio="2" iCNm="Gem_Sorcerer_Summoning" />
   <item mCID="57605" Ratio="50" iCNm="R_BOW02_102" />
-  <item mCID="57605" Ratio="100" iCNm="TBW01_107" />
+  <item mCID="57605" Ratio="60" iCNm="TBW01_107" />
   <item mCID="57605" Ratio="2" iCNm="BlueOrb_Siaulav_bow" />
   <item mCID="57605" Ratio="2" iCNm="RedOrb_Siaulav_bow" />
   <item mCID="57605" Ratio="2" iCNm="Gem_Archer_TwinArrows" />
-  <item mCID="57606" Ratio="2" iCNm="BlueOrb_Tiny_mage" />
-  <item mCID="57606" Ratio="2" iCNm="RedOrb_Tiny_mage" />
-  <item mCID="57606" Ratio="4" iCNm="GEM_Elementalist_ElementalEssence" />
   <item mCID="57607" Ratio="134" iCNm="HAND01_112" />
   <item mCID="57607" Ratio="2" iCNm="TBW02_117" />
   <item mCID="57607" Ratio="2" iCNm="BlueOrb_Tiny_bow" />
   <item mCID="57607" Ratio="2" iCNm="RedOrb_Tiny_bow" />
-  <item mCID="57607" Ratio="4" iCNm="GEM_Chaplain_Binatio" />
+  <item mCID="57607" Ratio="2" iCNm="Gem_Archer_HeavyShot" />
   <item mCID="57608" Ratio="30" iCNm="TBW02_106" />
   <item mCID="57608" Ratio="2" iCNm="BlueOrb_Spion_mage" />
   <item mCID="57608" Ratio="2" iCNm="RedOrb_Spion_mage" />
@@ -3707,7 +3716,7 @@
   <item mCID="57612" Ratio="1200" iCNm="misc_Stoulet" />
   <item mCID="57612" Ratio="58" iCNm="misc_Stoulet1" />
   <item mCID="57612" Ratio="58" iCNm="trg_crystal" />
-  <item mCID="57612" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57612" Ratio="128" iCNm="gem_star_1" />
   <item mCID="57612" Ratio="46" iCNm="STF02_104" />
   <item mCID="57613" Ratio="1100" iCNm="misc_Stoulet" />
   <item mCID="57613" Ratio="58" iCNm="misc_Stoulet1" />
@@ -3716,7 +3725,7 @@
   <item mCID="57613" Ratio="2" iCNm="RedOrb_Stoulet_bow" />
   <item mCID="57613" Ratio="2" iCNm="Gem_Fletcher_BarbedArrow" />
   <item mCID="57614" Ratio="625" iCNm="misc_Minos1" />
-  <item mCID="57614" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57614" Ratio="128" iCNm="gem_square_1" />
   <item mCID="57614" Ratio="58" iCNm="R_NECK02_110" />
   <item mCID="57615" Ratio="625" iCNm="misc_Minos1" />
   <item mCID="57615" Ratio="115" iCNm="R_TBW01_134" />
@@ -3734,7 +3743,7 @@
   <item mCID="57617" Ratio="2" iCNm="BlueOrb_flask_mage" />
   <item mCID="57617" Ratio="2" iCNm="RedOrb_flask_mage" />
   <item mCID="57617" Ratio="2" iCNm="Gem_Sadhu_OutofBody" />
-  <item mCID="57618" Ratio="1000" iCNm="misc_Kepari" />
+  <item mCID="57618" Ratio="1000" iCNm="misc_0139" />
   <item mCID="57618" Ratio="108" iCNm="TOP01_113" />
   <item mCID="57618" Ratio="2" iCNm="BlueOrb_Kepari_mage" />
   <item mCID="57618" Ratio="2" iCNm="RedOrb_Kepari_mage" />
@@ -3745,7 +3754,7 @@
   <item mCID="57619" Ratio="134" iCNm="TOP01_111" />
   <item mCID="57619" Ratio="2" iCNm="BlueOrb_wendigo_mage" />
   <item mCID="57619" Ratio="2" iCNm="RedOrb_wendigo_mage" />
-  <item mCID="57619" Ratio="4" iCNm="GEM_RuneCaster_Stan" />
+  <item mCID="57619" Ratio="2" iCNm="Gem_Psychokino_Telekinesis" />
   <item mCID="57620" Ratio="1111" iCNm="misc_0058" />
   <item mCID="57620" Ratio="115" iCNm="R_SHD01_117" />
   <item mCID="57620" Ratio="2" iCNm="STF02_117" />
@@ -3758,23 +3767,23 @@
   <item mCID="57621" Ratio="134" iCNm="TOP01_107" />
   <item mCID="57621" Ratio="2" iCNm="BlueOrb_wendigo_bow" />
   <item mCID="57621" Ratio="2" iCNm="RedOrb_wendigo_bow" />
-  <item mCID="57621" Ratio="4" iCNm="GEM_Chaplain_ParaclitusTime" />
+  <item mCID="57621" Ratio="2" iCNm="Gem_Hunter_Snatching" />
   <item mCID="57622" Ratio="115" iCNm="R_HAND01_148" />
   <item mCID="57622" Ratio="1111" iCNm="misc_0058" />
   <item mCID="57622" Ratio="2" iCNm="BlueOrb_Wendigo_archer" />
+  <item mCID="57622" Ratio="2" iCNm="Gem_Rogue_Vendetta" />
   <item mCID="57622" Ratio="2" iCNm="RedOrb_Wendigo_archer" />
-  <item mCID="57622" Ratio="4" iCNm="GEM_Hackapell_HelmChopper" />
   <item mCID="57623" Ratio="1000" iCNm="misc_0162" />
   <item mCID="57623" Ratio="2" iCNm="BlueOrb_Socket_mage" />
   <item mCID="57623" Ratio="2" iCNm="RedOrb_Socket_mage" />
-  <item mCID="57623" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="57623" Ratio="4" iCNm="GEM_OutLaw_FireBlindly" />
+  <item mCID="57623" Ratio="2" iCNm="Gem_Druid_Telepath" />
+  <item mCID="57623" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57624" Ratio="1000" iCNm="misc_0162" />
-  <item mCID="57624" Ratio="80" iCNm="R_TBW02_110" />
+  <item mCID="57624" Ratio="33" iCNm="R_TBW02_110" />
   <item mCID="57624" Ratio="2" iCNm="BlueOrb_Socket_bow" />
   <item mCID="57624" Ratio="2" iCNm="RedOrb_Socket_bow" />
   <item mCID="57624" Ratio="2" iCNm="Gem_Schwarzereiter_Caracole" />
-  <item mCID="57624" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57624" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57626" Ratio="134" iCNm="NECK01_125" />
   <item mCID="57626" Ratio="2" iCNm="BlueOrb_Colifly_bow" />
   <item mCID="57626" Ratio="2" iCNm="RedOrb_Colifly_bow" />
@@ -3786,6 +3795,7 @@
   <item mCID="57628" Ratio="115" iCNm="R_TSF01_127" />
   <item mCID="57628" Ratio="2" iCNm="BlueOrb_saltisdaughter_mage" />
   <item mCID="57628" Ratio="2" iCNm="RedOrb_saltisdaughter_mage" />
+  <item mCID="57628" Ratio="2" iCNm="Gem_Elementalist_Rain" />
   <item mCID="57629" Ratio="115" iCNm="R_DAG01_106" />
   <item mCID="57629" Ratio="2" iCNm="BlueOrb_saltisdaughter_bow" />
   <item mCID="57629" Ratio="2" iCNm="RedOrb_saltisdaughter_bow" />
@@ -3817,7 +3827,7 @@
   <item mCID="57634" Ratio="500" iCNm="misc_goblin" />
   <item mCID="57634" Ratio="2" iCNm="BlueOrb_goblin2_wand3" />
   <item mCID="57634" Ratio="2" iCNm="RedOrb_goblin2_wand3" />
-  <item mCID="57634" Ratio="4" iCNm="GEM_PlagueDoctor_Modafinil" />
+  <item mCID="57634" Ratio="2" iCNm="Gem_Chronomancer_Haste" />
   <item mCID="57635" Ratio="500" iCNm="misc_goblin" />
   <item mCID="57635" Ratio="115" iCNm="R_SWD01_135" />
   <item mCID="57635" Ratio="2" iCNm="BlueOrb_goblin2_sword" />
@@ -3827,12 +3837,12 @@
   <item mCID="57636" Ratio="115" iCNm="R_SPR01_117" />
   <item mCID="57636" Ratio="2" iCNm="BlueOrb_goblin2_hammer" />
   <item mCID="57636" Ratio="2" iCNm="RedOrb_goblin2_hammer" />
-  <item mCID="57636" Ratio="4" iCNm="GEM_Alchemist_SprinkleHPPotion" />
+  <item mCID="57636" Ratio="2" iCNm="Gem_Rodelero_ShootingStar" />
   <item mCID="57638" Ratio="135" iCNm="R_LEG01_144" />
-  <item mCID="57638" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57638" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="57638" Ratio="2" iCNm="BlueOrb_NightMaiden_mage" />
   <item mCID="57638" Ratio="2" iCNm="RedOrb_NightMaiden_mage" />
-  <item mCID="57639" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57639" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="57639" Ratio="50" iCNm="R_STF02_108" />
   <item mCID="57639" Ratio="2" iCNm="BlueOrb_NightMaiden_bow" />
   <item mCID="57639" Ratio="2" iCNm="RedOrb_NightMaiden_bow" />
@@ -3852,7 +3862,7 @@
   <item mCID="57643" Ratio="2" iCNm="Gem_Thaumaturge_SwellBody" />
   <item mCID="57644" Ratio="135" iCNm="R_TBW01_132" />
   <item mCID="57644" Ratio="333" iCNm="misc_TerraNymph" />
-  <item mCID="57644" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57644" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="57644" Ratio="40" iCNm="R_BRC02_108" />
   <item mCID="57644" Ratio="2" iCNm="BlueOrb_TerraNymph_bow" />
   <item mCID="57644" Ratio="2" iCNm="RedOrb_TerraNymph_bow" />
@@ -3873,16 +3883,16 @@
   <item mCID="57647" Ratio="2" iCNm="BlueOrb_Lichenclops_mage" />
   <item mCID="57647" Ratio="2" iCNm="RedOrb_Lichenclops_mage" />
   <item mCID="57648" Ratio="2000" iCNm="misc_Ticen" />
-  <item mCID="57648" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57648" Ratio="128" iCNm="gem_square_1" />
   <item mCID="57648" Ratio="2" iCNm="BlueOrb_ticen_mage" />
   <item mCID="57648" Ratio="2" iCNm="RedOrb_ticen_mage" />
   <item mCID="57648" Ratio="2" iCNm="Gem_Elementalist_FrostCloud" />
-  <item mCID="57648" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57648" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57649" Ratio="2000" iCNm="misc_Ticen" />
   <item mCID="57649" Ratio="115" iCNm="R_BOW01_128" />
   <item mCID="57649" Ratio="2" iCNm="BlueOrb_ticen_bow" />
   <item mCID="57649" Ratio="2" iCNm="RedOrb_ticen_bow" />
-  <item mCID="57649" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57649" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57650" Ratio="115" iCNm="R_LEG01_147" />
   <item mCID="57650" Ratio="2" iCNm="BlueOrb_Cire_mage" />
   <item mCID="57650" Ratio="2" iCNm="RedOrb_Cire_mage" />
@@ -3900,7 +3910,7 @@
   <item mCID="57655" Ratio="2" iCNm="BlueOrb_Rambear_mage" />
   <item mCID="57655" Ratio="2" iCNm="RedOrb_Rambear_mage" />
   <item mCID="57655" Ratio="2" iCNm="Gem_Necromancer_CorpseTower" />
-  <item mCID="57655" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57655" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57656" Ratio="135" iCNm="R_FOOT01_146" />
   <item mCID="57656" Ratio="2" iCNm="BlueOrb_Rambear_bow" />
   <item mCID="57656" Ratio="2" iCNm="RedOrb_Rambear_bow" />
@@ -3920,7 +3930,7 @@
   <item mCID="57665" Ratio="2" iCNm="BlueOrb_pumpflap" />
   <item mCID="57665" Ratio="2" iCNm="RedOrb_pumpflap" />
   <item mCID="57669" Ratio="2000" iCNm="misc_0255" />
-  <item mCID="57669" Ratio="25" iCNm="misc_0256" />
+  <item mCID="57669" Ratio="2" iCNm="misc_0256" />
   <item mCID="57669" Ratio="115" iCNm="R_MAC01_137" />
   <item mCID="57669" Ratio="2" iCNm="BlueOrb_jukotail" />
   <item mCID="57669" Ratio="2" iCNm="RedOrb_jukotail" />
@@ -3928,14 +3938,14 @@
   <item mCID="57670" Ratio="2" iCNm="BlueOrb_pyran" />
   <item mCID="57670" Ratio="2" iCNm="RedOrb_pyran" />
   <item mCID="57672" Ratio="500" iCNm="misc_velffigy" />
-  <item mCID="57672" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="57672" Ratio="100" iCNm="R_LEG03_111" />
-  <item mCID="57672" Ratio="100" iCNm="R_TOP03_112" />
+  <item mCID="57672" Ratio="128" iCNm="gem_diamond_1" />
+  <item mCID="57672" Ratio="47" iCNm="R_LEG03_111" />
+  <item mCID="57672" Ratio="47" iCNm="R_TOP03_112" />
   <item mCID="57672" Ratio="47" iCNm="R_FOOT03_112" />
   <item mCID="57672" Ratio="2" iCNm="BlueOrb_velffigy" />
   <item mCID="57672" Ratio="2" iCNm="RedOrb_velffigy" />
   <item mCID="57673" Ratio="135" iCNm="R_TOP01_144" />
-  <item mCID="57673" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57673" Ratio="129" iCNm="gem_square_1" />
   <item mCID="57673" Ratio="2" iCNm="BlueOrb_Burialer" />
   <item mCID="57673" Ratio="2" iCNm="RedOrb_Burialer" />
   <item mCID="57673" Ratio="2" iCNm="Gem_Chronomancer_Slow" />
@@ -3956,7 +3966,7 @@
   <item mCID="57677" Ratio="47" iCNm="R_LEG03_113" />
   <item mCID="57677" Ratio="2" iCNm="BlueOrb_anchor" />
   <item mCID="57677" Ratio="2" iCNm="RedOrb_anchor" />
-  <item mCID="57677" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57677" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57678" Ratio="135" iCNm="R_SWD01_132" />
   <item mCID="57678" Ratio="135" iCNm="R_TSP01_105" />
   <item mCID="57678" Ratio="2" iCNm="BlueOrb_anchor_mage" />
@@ -3975,7 +3985,7 @@
   <item mCID="57683" Ratio="60" iCNm="TSF01_105" />
   <item mCID="57683" Ratio="134" iCNm="HAND01_111" />
   <item mCID="57684" Ratio="1000" iCNm="misc_glyquare" />
-  <item mCID="57684" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57684" Ratio="128" iCNm="gem_star_1" />
   <item mCID="57684" Ratio="47" iCNm="R_FOOT03_113" />
   <item mCID="57684" Ratio="47" iCNm="R_FOOT03_111" />
   <item mCID="57684" Ratio="2" iCNm="BlueOrb_Glyquare" />
@@ -3985,38 +3995,38 @@
   <item mCID="57685" Ratio="134" iCNm="R_LEG01_110" />
   <item mCID="57686" Ratio="115" iCNm="R_SPR01_104" />
   <item mCID="57688" Ratio="135" iCNm="R_DAG01_103" />
-  <item mCID="57688" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57688" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="57688" Ratio="2" iCNm="BlueOrb_Elet" />
   <item mCID="57688" Ratio="2" iCNm="RedOrb_Elet" />
   <item mCID="57688" Ratio="2" iCNm="Gem_Psychokino_Raise" />
   <item mCID="57689" Ratio="2" iCNm="BlueOrb_Nnuo" />
   <item mCID="57689" Ratio="2" iCNm="RedOrb_Nnuo" />
-  <item mCID="57689" Ratio="4" iCNm="GEM_Assassin_InstantaneousAcceleration" />
+  <item mCID="57689" Ratio="2" iCNm="Gem_Rogue_Spoliation" />
   <item mCID="57690" Ratio="135" iCNm="R_LEG01_145" />
   <item mCID="57690" Ratio="2" iCNm="BlueOrb_Nuka" />
   <item mCID="57690" Ratio="2" iCNm="RedOrb_Nuka" />
   <item mCID="57690" Ratio="2" iCNm="Gem_Rodelero_Slithering" />
-  <item mCID="57690" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57690" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57691" Ratio="500" iCNm="misc_0163" />
   <item mCID="57691" Ratio="2" iCNm="BlueOrb_Elma" />
   <item mCID="57691" Ratio="2" iCNm="RedOrb_Elma" />
   <item mCID="57691" Ratio="2" iCNm="Gem_Pardoner_Indulgentia" />
-  <item mCID="57692" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57692" Ratio="129" iCNm="gem_star_1" />
   <item mCID="57692" Ratio="2" iCNm="BlueOrb_defender_spider" />
   <item mCID="57692" Ratio="2" iCNm="RedOrb_defender_spider" />
   <item mCID="57692" Ratio="2" iCNm="Gem_Sorcerer_SummonSalamion" />
   <item mCID="57694" Ratio="1500" iCNm="misc_0138" />
-  <item mCID="57694" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57694" Ratio="128" iCNm="gem_square_1" />
   <item mCID="57694" Ratio="47" iCNm="R_TOP03_111" />
   <item mCID="57694" Ratio="47" iCNm="R_HAND03_111" />
   <item mCID="57694" Ratio="47" iCNm="R_HAND03_113" />
   <item mCID="57694" Ratio="2" iCNm="BlueOrb_raider_bow" />
   <item mCID="57694" Ratio="2" iCNm="RedOrb_raider_bow" />
   <item mCID="57694" Ratio="2" iCNm="Gem_Necromancer_FleshCannon" />
-  <item mCID="57694" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57694" Ratio="128" iCNm="gem_square_1" />
   <item mCID="57695" Ratio="2" iCNm="BlueOrb_Socket_bow_brown" />
   <item mCID="57695" Ratio="2" iCNm="RedOrb_Socket_bow_brown" />
-  <item mCID="57695" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57695" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57696" Ratio="1000" iCNm="R_SWD01_134" />
   <item mCID="57696" Ratio="1000" iCNm="R_TSW01_126" />
   <item mCID="57696" Ratio="1000" iCNm="R_STF01_134" />
@@ -4028,20 +4038,20 @@
   <item mCID="57696" Ratio="1000" iCNm="R_TSP01_108" />
   <item mCID="57696" Ratio="1000" iCNm="R_PST01_101" />
   <item mCID="57697" Ratio="800" iCNm="misc_0135" />
-  <item mCID="57697" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
-  <item mCID="57697" Ratio="150" iCNm="R_SWD02_106" />
+  <item mCID="57697" Ratio="128" iCNm="gem_diamond_1" />
+  <item mCID="57697" Ratio="58" iCNm="R_SWD02_106" />
   <item mCID="57697" Ratio="2" iCNm="BlueOrb_Cronewt_bow_brown" />
   <item mCID="57697" Ratio="2" iCNm="RedOrb_Cronewt_bow_brown" />
   <item mCID="57697" Ratio="2" iCNm="Gem_Priest_Revive" />
   <item mCID="57698" Ratio="19" iCNm="SWD02_112" />
   <item mCID="57698" Ratio="2" iCNm="BlueOrb_Deadbornscab_green" />
   <item mCID="57698" Ratio="2" iCNm="RedOrb_Deadbornscab_green" />
-  <item mCID="57698" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="57699" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57698" Ratio="213" iCNm="gem_circle_1" />
+  <item mCID="57699" Ratio="128" iCNm="gem_diamond_1" />
   <item mCID="57699" Ratio="2" iCNm="BlueOrb_Deadbornscab_bow_green" />
   <item mCID="57699" Ratio="2" iCNm="RedOrb_Deadbornscab_bow_green" />
   <item mCID="57699" Ratio="2" iCNm="Gem_Schwarzereiter_ConcentratedFire" />
-  <item mCID="57700" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57700" Ratio="128" iCNm="gem_square_1" />
   <item mCID="57700" Ratio="30" iCNm="MAC02_119" />
   <item mCID="57700" Ratio="2" iCNm="BlueOrb_Colifly_bow_purple" />
   <item mCID="57700" Ratio="2" iCNm="RedOrb_Colifly_bow_purple" />
@@ -4049,13 +4059,13 @@
   <item mCID="57701" Ratio="500" iCNm="misc_velffigy" />
   <item mCID="57701" Ratio="2" iCNm="BlueOrb_velffigy_green" />
   <item mCID="57701" Ratio="2" iCNm="RedOrb_velffigy_green" />
-  <item mCID="57701" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="57701" Ratio="4" iCNm="GEM_Chronomancer_TimeForward" />
-  <item mCID="57702" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57701" Ratio="2" iCNm="Gem_Fencer_AttaqueCoquille" />
+  <item mCID="57701" Ratio="213" iCNm="gem_circle_1" />
+  <item mCID="57702" Ratio="128" iCNm="gem_circle_1" />
   <item mCID="57702" Ratio="2" iCNm="BlueOrb_pyran_green" />
   <item mCID="57702" Ratio="2" iCNm="RedOrb_pyran_green" />
   <item mCID="57702" Ratio="2" iCNm="Gem_Oracle_CounterSpell" />
-  <item mCID="57702" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57702" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57703" Ratio="135" iCNm="R_TBW01_130" />
   <item mCID="57703" Ratio="2" iCNm="BlueOrb_FD_Goblin_Archer_red" />
   <item mCID="57703" Ratio="2" iCNm="RedOrb_FD_Goblin_Archer_red" />
@@ -4083,12 +4093,12 @@
   <item mCID="57714" Ratio="30" iCNm="R_TSP03_103" />
   <item mCID="57714" Ratio="2" iCNm="BlueOrb_Harugal" />
   <item mCID="57714" Ratio="2" iCNm="RedOrb_Harugal" />
-  <item mCID="57714" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="57715" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57714" Ratio="213" iCNm="gem_square_1" />
+  <item mCID="57715" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="57715" Ratio="2" iCNm="BlueOrb_Hohen_mane" />
   <item mCID="57715" Ratio="2" iCNm="RedOrb_Hohen_mane" />
   <item mCID="57715" Ratio="2" iCNm="Gem_Chronomancer_Samsara" />
-  <item mCID="57716" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57716" Ratio="129" iCNm="gem_square_1" />
   <item mCID="57716" Ratio="2" iCNm="BlueOrb_Hohen_ritter" />
   <item mCID="57716" Ratio="2" iCNm="RedOrb_Hohen_ritter" />
   <item mCID="57716" Ratio="2" iCNm="Gem_Rogue_SneakHit" />
@@ -4098,7 +4108,7 @@
   <item mCID="57718" Ratio="135" iCNm="R_SWD01_133" />
   <item mCID="57718" Ratio="2" iCNm="BlueOrb_Hohen_mage" />
   <item mCID="57718" Ratio="2" iCNm="RedOrb_Hohen_mage" />
-  <item mCID="57718" Ratio="4" iCNm="GEM_Oracle_DivineMight" />
+  <item mCID="57718" Ratio="2" iCNm="Gem_Bokor_Ogouveve" />
   <item mCID="57719" Ratio="135" iCNm="R_SPR01_115" />
   <item mCID="57719" Ratio="2" iCNm="BlueOrb_Hohen_orben" />
   <item mCID="57719" Ratio="2" iCNm="RedOrb_Hohen_orben" />
@@ -4120,7 +4130,7 @@
   <item mCID="57729" Ratio="2" iCNm="BlueOrb_FD_colimen" />
   <item mCID="57729" Ratio="2" iCNm="RedOrb_FD_colimen" />
   <item mCID="57730" Ratio="625" iCNm="misc_Minos1" />
-  <item mCID="57730" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57730" Ratio="129" iCNm="gem_square_1" />
   <item mCID="57730" Ratio="58" iCNm="R_NECK02_110" />
   <item mCID="57730" Ratio="2" iCNm="BlueOrb_FD_minos_mage" />
   <item mCID="57730" Ratio="2" iCNm="RedOrb_FD_minos_mage" />
@@ -4128,7 +4138,7 @@
   <item mCID="57731" Ratio="1200" iCNm="misc_Stoulet" />
   <item mCID="57731" Ratio="58" iCNm="misc_Stoulet1" />
   <item mCID="57731" Ratio="22" iCNm="trg_crystal" />
-  <item mCID="57731" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57731" Ratio="129" iCNm="gem_star_1" />
   <item mCID="57731" Ratio="23" iCNm="STF02_104" />
   <item mCID="57731" Ratio="2" iCNm="BlueOrb_FD_Stoulet_mage" />
   <item mCID="57731" Ratio="2" iCNm="RedOrb_FD_Stoulet_mage" />
@@ -4146,7 +4156,7 @@
   <item mCID="57741" Ratio="2" iCNm="BlueOrb_Beetle" />
   <item mCID="57741" Ratio="2" iCNm="RedOrb_Beetle" />
   <item mCID="57742" Ratio="1700" iCNm="misc_chromadog" />
-  <item mCID="57742" Ratio="333" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57742" Ratio="333" iCNm="gem_star_1" />
   <item mCID="57742" Ratio="19" iCNm="Hat_628036" />
   <item mCID="57742" Ratio="2" iCNm="BlueOrb_Chromadog" />
   <item mCID="57742" Ratio="2" iCNm="RedOrb_Chromadog" />
@@ -4163,12 +4173,12 @@
   <item mCID="57774" Ratio="1000" iCNm="Gacha_I_002" />
   <item mCID="57775" Ratio="1000" iCNm="Gacha_I_003" />
   <item mCID="57777" Ratio="1600" iCNm="misc_0063" />
-  <item mCID="57777" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57777" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="57777" Ratio="38" iCNm="SPR02_103" />
   <item mCID="57777" Ratio="2" iCNm="BlueOrb_zinutekas" />
   <item mCID="57777" Ratio="2" iCNm="RedOrb_zinutekas" />
+  <item mCID="57777" Ratio="2" iCNm="Gem_Linker_SpiritualChain" />
   <item mCID="57777" Ratio="47" iCNm="R_LEG03_107" />
-  <item mCID="57777" Ratio="4" iCNm="GEM_Archer_Concentration" />
   <item mCID="57790" Ratio="0" iCNm="None" />
   <item mCID="57800" Ratio="0" iCNm="None" />
   <item mCID="57803" Ratio="2" iCNm="TSW02_116" />
@@ -4196,18 +4206,15 @@
   <item mCID="57825" Ratio="0" iCNm="None" />
   <item mCID="57844" Ratio="60" iCNm="MAC01_107" />
   <item mCID="57844" Ratio="134" iCNm="BRC01_127" />
-  <item mCID="57845" Ratio="100" iCNm="TBW01_107" />
-  <item mCID="57846" Ratio="115" iCNm="SWD01_107" />
+  <item mCID="57845" Ratio="60" iCNm="TBW01_107" />
+  <item mCID="57846" Ratio="60" iCNm="SWD01_107" />
   <item mCID="57847" Ratio="60" iCNm="STF01_107" />
   <item mCID="57847" Ratio="115" iCNm="R_SHD01_105" />
-  <item mCID="57848" Ratio="666" iCNm="misc_0279" />
   <item mCID="57849" Ratio="666" iCNm="misc_0279" />
   <item mCID="57849" Ratio="115" iCNm="LEG01_121" />
   <item mCID="57849" Ratio="115" iCNm="TOP01_121" />
-  <item mCID="57850" Ratio="666" iCNm="misc_0279" />
   <item mCID="57851" Ratio="666" iCNm="misc_0279" />
   <item mCID="57851" Ratio="115" iCNm="R_BRC01_131" />
-  <item mCID="57852" Ratio="666" iCNm="misc_0279" />
   <item mCID="57853" Ratio="666" iCNm="misc_0279" />
   <item mCID="57853" Ratio="115" iCNm="R_SWD01_116" />
   <item mCID="57854" Ratio="666" iCNm="misc_0279" />
@@ -4261,29 +4268,29 @@
   <item mCID="57870" Ratio="2" iCNm="RedOrb_Wendigo_magician_blue" />
   <item mCID="57870" Ratio="45" iCNm="R_HAND03_201" />
   <item mCID="57871" Ratio="500" iCNm="misc_0214" />
-  <item mCID="57871" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57871" Ratio="90" iCNm="gem_diamond_1" />
   <item mCID="57871" Ratio="2" iCNm="BlueOrb_Wendigo_bow_white" />
   <item mCID="57871" Ratio="2" iCNm="RedOrb_Wendigo_bow_white" />
-  <item mCID="57871" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57871" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="57873" Ratio="500" iCNm="misc_0214" />
   <item mCID="57873" Ratio="115" iCNm="R_MUS01_102" />
   <item mCID="57873" Ratio="2" iCNm="BlueOrb_Wendigo_archer_gray" />
   <item mCID="57873" Ratio="2" iCNm="RedOrb_Wendigo_archer_gray" />
   <item mCID="57873" Ratio="4" iCNm="Gem_Dragoon_Dragon_Soar" />
   <item mCID="57874" Ratio="1000" iCNm="misc_0196" />
-  <item mCID="57874" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57874" Ratio="90" iCNm="gem_square_1" />
   <item mCID="57874" Ratio="2" iCNm="BlueOrb_Wendigo_archer_blue" />
   <item mCID="57874" Ratio="2" iCNm="RedOrb_Wendigo_archer_blue" />
   <item mCID="57874" Ratio="43" iCNm="R_TSW02_134" />
-  <item mCID="57874" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57874" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57876" Ratio="2000" iCNm="misc_0121" />
   <item mCID="57876" Ratio="2" iCNm="BlueOrb_Templeslave_blue" />
   <item mCID="57876" Ratio="2" iCNm="RedOrb_Templeslave_blue" />
-  <item mCID="57876" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57876" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57877" Ratio="750" iCNm="misc_Kepari" />
   <item mCID="57877" Ratio="2" iCNm="BlueOrb_Kepari_green" />
   <item mCID="57877" Ratio="2" iCNm="RedOrb_Kepari_green" />
-  <item mCID="57877" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57877" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57878" Ratio="750" iCNm="misc_Kepari" />
   <item mCID="57878" Ratio="58" iCNm="misc_0216" />
   <item mCID="57878" Ratio="115" iCNm="R_SWD01_139" />
@@ -4293,29 +4300,29 @@
   <item mCID="57880" Ratio="2" iCNm="BlueOrb_Kepari_green" />
   <item mCID="57880" Ratio="2" iCNm="RedOrb_Kepari_green" />
   <item mCID="57880" Ratio="43" iCNm="R_SWD02_138" />
-  <item mCID="57880" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57880" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57881" Ratio="300" iCNm="misc_0238" />
   <item mCID="57881" Ratio="2" iCNm="BlueOrb_Templeslave_sword_blue" />
   <item mCID="57881" Ratio="2" iCNm="RedOrb_Templeslave_sword_blue" />
-  <item mCID="57881" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57881" Ratio="127" iCNm="gem_square_1" />
   <item mCID="57882" Ratio="213" iCNm="misc_Templeslave" />
   <item mCID="57882" Ratio="115" iCNm="R_FOOT01_154" />
   <item mCID="57882" Ratio="2" iCNm="BlueOrb_Templeslave_blue" />
   <item mCID="57882" Ratio="2" iCNm="RedOrb_Templeslave_blue" />
-  <item mCID="57882" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57882" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57883" Ratio="300" iCNm="misc_0238" />
   <item mCID="57883" Ratio="2" iCNm="BlueOrb_Templeslave_mage_blue" />
   <item mCID="57883" Ratio="2" iCNm="RedOrb_Templeslave_mage_blue" />
-  <item mCID="57883" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57883" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="57884" Ratio="800" iCNm="misc_Infroholder" />
   <item mCID="57884" Ratio="115" iCNm="R_TSW01_128" />
   <item mCID="57884" Ratio="2" iCNm="BlueOrb_Infroholder_bow_red" />
   <item mCID="57884" Ratio="2" iCNm="RedOrb_Infroholder_bow_red" />
   <item mCID="57885" Ratio="1000" iCNm="misc_Infroholder" />
-  <item mCID="57885" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57885" Ratio="90" iCNm="gem_diamond_1" />
   <item mCID="57885" Ratio="2" iCNm="BlueOrb_Infroholder_green" />
   <item mCID="57885" Ratio="2" iCNm="RedOrb_Infroholder_green" />
-  <item mCID="57885" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57885" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57886" Ratio="800" iCNm="misc_Infroholder" />
   <item mCID="57886" Ratio="115" iCNm="R_BOW01_129" />
   <item mCID="57886" Ratio="2" iCNm="BlueOrb_Infroholder_bow_red" />
@@ -4330,7 +4337,7 @@
   <item mCID="57889" Ratio="650" iCNm="misc_Repusbunny" />
   <item mCID="57889" Ratio="2" iCNm="BlueOrb_Repusbunny_green" />
   <item mCID="57889" Ratio="2" iCNm="RedOrb_Repusbunny_green" />
-  <item mCID="57889" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57889" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57890" Ratio="750" iCNm="misc_0243" />
   <item mCID="57890" Ratio="2" iCNm="BlueOrb_Repusbunny_purple" />
   <item mCID="57890" Ratio="2" iCNm="RedOrb_Repusbunny_purple" />
@@ -4338,7 +4345,7 @@
   <item mCID="57891" Ratio="115" iCNm="R_STF01_136" />
   <item mCID="57891" Ratio="2" iCNm="BlueOrb_Repusbunny_mage_green" />
   <item mCID="57891" Ratio="2" iCNm="RedOrb_Repusbunny_mage_green" />
-  <item mCID="57891" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57891" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57892" Ratio="2" iCNm="RedOrb_Repusbunny_bow_red" />
   <item mCID="57892" Ratio="500" iCNm="misc_0206" />
   <item mCID="57892" Ratio="2" iCNm="BlueOrb_Repusbunny_bow_red" />
@@ -4347,7 +4354,7 @@
   <item mCID="57893" Ratio="115" iCNm="R_HAND01_155" />
   <item mCID="57893" Ratio="2" iCNm="BlueOrb_Repusbunny_bow_green" />
   <item mCID="57893" Ratio="2" iCNm="RedOrb_Repusbunny_bow_green" />
-  <item mCID="57893" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57893" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57894" Ratio="750" iCNm="misc_0243" />
   <item mCID="57894" Ratio="2" iCNm="BlueOrb_Repusbunny_bow_purple" />
   <item mCID="57894" Ratio="2" iCNm="RedOrb_Repusbunny_bow_purple" />
@@ -4355,27 +4362,27 @@
   <item mCID="57895" Ratio="400" iCNm="misc_Deadbornscab" />
   <item mCID="57895" Ratio="2" iCNm="BlueOrb_Deadbornscab_red" />
   <item mCID="57895" Ratio="2" iCNm="RedOrb_Deadbornscab_red" />
-  <item mCID="57895" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57895" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57896" Ratio="400" iCNm="misc_Deadbornscab" />
   <item mCID="57896" Ratio="115" iCNm="R_HAND01_154" />
   <item mCID="57896" Ratio="2" iCNm="BlueOrb_Deadbornscab_mage_red" />
   <item mCID="57896" Ratio="2" iCNm="RedOrb_Deadbornscab_mage_red" />
-  <item mCID="57896" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57896" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57897" Ratio="209" iCNm="misc_Siaulav_blue" />
   <item mCID="57897" Ratio="2" iCNm="BlueOrb_Siaulav_blue" />
   <item mCID="57897" Ratio="2" iCNm="RedOrb_Siaulav_blue" />
   <item mCID="57897" Ratio="43" iCNm="R_STF02_133" />
-  <item mCID="57897" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57897" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57899" Ratio="209" iCNm="misc_Siaulav_blue" />
   <item mCID="57899" Ratio="2" iCNm="BlueOrb_Siaulav_mage_blue" />
   <item mCID="57899" Ratio="2" iCNm="RedOrb_Siaulav_mage_blue" />
   <item mCID="57899" Ratio="43" iCNm="R_TSF02_133" />
-  <item mCID="57899" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57899" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57900" Ratio="209" iCNm="misc_Siaulav_blue" />
   <item mCID="57900" Ratio="115" iCNm="R_CAN01_101" />
   <item mCID="57900" Ratio="2" iCNm="BlueOrb_Siaulav_bow_blue" />
   <item mCID="57900" Ratio="2" iCNm="RedOrb_Siaulav_bow_blue" />
-  <item mCID="57900" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57900" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57901" Ratio="170" iCNm="misc_0190" />
   <item mCID="57901" Ratio="115" iCNm="R_TBW01_138" />
   <item mCID="57901" Ratio="115" iCNm="R_TOP01_155" />
@@ -4394,7 +4401,6 @@
   <item mCID="57904" Ratio="115" iCNm="R_NECK01_144" />
   <item mCID="57904" Ratio="2" iCNm="BlueOrb_Tiny_mage_brown" />
   <item mCID="57904" Ratio="2" iCNm="RedOrb_Tiny_mage_brown" />
-  <item mCID="57904" Ratio="200" iCNm="R_NECK02_129" />
   <item mCID="57905" Ratio="1500" iCNm="misc_0239" />
   <item mCID="57905" Ratio="21" iCNm="misc_0241" />
   <item mCID="57905" Ratio="2" iCNm="BlueOrb_Tiny_mage_green" />
@@ -4440,7 +4446,7 @@
   <item mCID="57915" Ratio="2" iCNm="RedOrb_Stoulet_gray" />
   <item mCID="57917" Ratio="115" iCNm="R_STF01_116" />
   <item mCID="57917" Ratio="115" iCNm="HAND01_115" />
-  <item mCID="57917" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57917" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="57918" Ratio="115" iCNm="R_TSF01_109" />
   <item mCID="57919" Ratio="200" iCNm="misc_0222" />
   <item mCID="57919" Ratio="115" iCNm="R_CAN01_102" />
@@ -4462,7 +4468,7 @@
   <item mCID="57923" Ratio="115" iCNm="R_BOW01_131" />
   <item mCID="57923" Ratio="2" iCNm="BlueOrb_minos_bow_orange" />
   <item mCID="57923" Ratio="2" iCNm="RedOrb_minos_bow_orange" />
-  <item mCID="57923" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57923" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57924" Ratio="1500" iCNm="misc_0258" />
   <item mCID="57924" Ratio="3" iCNm="misc_0259" />
   <item mCID="57924" Ratio="2" iCNm="BlueOrb_minos_bow_green" />
@@ -4481,8 +4487,7 @@
   <item mCID="57927" Ratio="115" iCNm="R_BRC01_137" />
   <item mCID="57927" Ratio="2" iCNm="BlueOrb_Socket_red" />
   <item mCID="57927" Ratio="2" iCNm="RedOrb_Socket_red" />
-  <item mCID="57927" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="57927" Ratio="200" iCNm="R_NECK02_132" />
+  <item mCID="57927" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57929" Ratio="1000" iCNm="misc_0162" />
   <item mCID="57929" Ratio="30" iCNm="misc_Socket" />
   <item mCID="57929" Ratio="47" iCNm="misc_0221" />
@@ -4492,36 +4497,36 @@
   <item mCID="57930" Ratio="21" iCNm="misc_0235" />
   <item mCID="57930" Ratio="2" iCNm="BlueOrb_Socket_mage_red" />
   <item mCID="57930" Ratio="2" iCNm="RedOrb_Socket_mage_red" />
-  <item mCID="57930" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57930" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="57931" Ratio="1000" iCNm="misc_0162" />
   <item mCID="57931" Ratio="30" iCNm="misc_Socket" />
   <item mCID="57931" Ratio="115" iCNm="R_MUS01_101" />
   <item mCID="57931" Ratio="2" iCNm="BlueOrb_Socket_bow_purple" />
   <item mCID="57931" Ratio="2" iCNm="RedOrb_Socket_bow_purple" />
-  <item mCID="57931" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57931" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57932" Ratio="500" iCNm="misc_0234" />
   <item mCID="57932" Ratio="21" iCNm="misc_0235" />
   <item mCID="57932" Ratio="2" iCNm="BlueOrb_Socket_bow_red" />
   <item mCID="57932" Ratio="2" iCNm="RedOrb_Socket_bow_red" />
-  <item mCID="57932" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57932" Ratio="127" iCNm="gem_square_1" />
   <item mCID="57933" Ratio="170" iCNm="misc_0199" />
-  <item mCID="57933" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57933" Ratio="90" iCNm="gem_circle_1" />
   <item mCID="57933" Ratio="2" iCNm="BlueOrb_Colifly_mage_black" />
   <item mCID="57933" Ratio="2" iCNm="RedOrb_Colifly_mage_black" />
   <item mCID="57933" Ratio="850" iCNm="UNDER302_STAFF_TOP" />
   <item mCID="57933" Ratio="850" iCNm="UNDER302_STAFF_MID" />
   <item mCID="57933" Ratio="850" iCNm="UNDER302_STAFF_BOT" />
   <item mCID="57933" Ratio="43" iCNm="R_RAP02_106" />
-  <item mCID="57933" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57933" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57934" Ratio="170" iCNm="misc_0199" />
-  <item mCID="57934" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57934" Ratio="90" iCNm="gem_star_1" />
   <item mCID="57934" Ratio="2" iCNm="BlueOrb_Colifly_bow_black" />
   <item mCID="57934" Ratio="2" iCNm="RedOrb_Colifly_bow_black" />
   <item mCID="57934" Ratio="850" iCNm="UNDER302_STAFF_TOP" />
   <item mCID="57934" Ratio="850" iCNm="UNDER302_STAFF_MID" />
   <item mCID="57934" Ratio="850" iCNm="UNDER302_STAFF_BOT" />
   <item mCID="57934" Ratio="43" iCNm="R_MAC02_135" />
-  <item mCID="57934" Ratio="130" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57934" Ratio="130" iCNm="gem_star_1" />
   <item mCID="57935" Ratio="333" iCNm="misc_saltisdaughter" />
   <item mCID="57935" Ratio="115" iCNm="R_TOP01_156" />
   <item mCID="57935" Ratio="2" iCNm="BlueOrb_saltisdaughter_green" />
@@ -4529,35 +4534,35 @@
   <item mCID="57935" Ratio="850" iCNm="UNDER302_STAFF_TOP" />
   <item mCID="57935" Ratio="850" iCNm="UNDER302_STAFF_MID" />
   <item mCID="57935" Ratio="850" iCNm="UNDER302_STAFF_BOT" />
-  <item mCID="57935" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57935" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57936" Ratio="333" iCNm="misc_saltisdaughter" />
   <item mCID="57936" Ratio="115" iCNm="R_TOP01_152" />
   <item mCID="57936" Ratio="2" iCNm="BlueOrb_saltisdaughter_red" />
   <item mCID="57936" Ratio="2" iCNm="RedOrb_saltisdaughter_red" />
-  <item mCID="57936" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57936" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57937" Ratio="333" iCNm="misc_saltisdaughter" />
   <item mCID="57937" Ratio="2" iCNm="BlueOrb_saltisdaughter_bow_green" />
   <item mCID="57937" Ratio="2" iCNm="RedOrb_saltisdaughter_bow_green" />
-  <item mCID="57937" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57937" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57938" Ratio="333" iCNm="misc_saltisdaughter" />
   <item mCID="57938" Ratio="2" iCNm="BlueOrb_saltisdaughter_mage_red" />
   <item mCID="57938" Ratio="2" iCNm="RedOrb_saltisdaughter_mage_red" />
-  <item mCID="57938" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57938" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57939" Ratio="114" iCNm="misc_0229" />
   <item mCID="57939" Ratio="115" iCNm="R_FOOT01_159" />
   <item mCID="57939" Ratio="2" iCNm="BlueOrb_NightMaiden_mage_red" />
   <item mCID="57939" Ratio="2" iCNm="RedOrb_NightMaiden_mage_red" />
-  <item mCID="57939" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57939" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="57940" Ratio="114" iCNm="misc_0236" />
-  <item mCID="57940" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57940" Ratio="90" iCNm="gem_circle_1" />
   <item mCID="57940" Ratio="2" iCNm="BlueOrb_NightMaiden_bow_red" />
   <item mCID="57940" Ratio="2" iCNm="RedOrb_NightMaiden_bow_red" />
-  <item mCID="57940" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57940" Ratio="127" iCNm="gem_star_1" />
   <item mCID="57941" Ratio="333" iCNm="Drug_lapasape" />
   <item mCID="57941" Ratio="115" iCNm="R_FOOT01_155" />
   <item mCID="57941" Ratio="2" iCNm="BlueOrb_lapasape_blue" />
   <item mCID="57941" Ratio="2" iCNm="RedOrb_lapasape_blue" />
-  <item mCID="57941" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57941" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57942" Ratio="666" iCNm="misc_0212" />
   <item mCID="57942" Ratio="2" iCNm="BlueOrb_lapasape_brown" />
   <item mCID="57942" Ratio="2" iCNm="RedOrb_lapasape_brown" />
@@ -4583,27 +4588,27 @@
   <item mCID="57947" Ratio="2" iCNm="BlueOrb_colimen_blue" />
   <item mCID="57947" Ratio="2" iCNm="RedOrb_colimen_blue" />
   <item mCID="57947" Ratio="43" iCNm="R_TSP02_125" />
-  <item mCID="57948" Ratio="200" iCNm="misc_0201" />
+  <item mCID="57948" Ratio="46" iCNm="misc_0201" />
   <item mCID="57948" Ratio="2" iCNm="BlueOrb_colimen_brown" />
   <item mCID="57948" Ratio="2" iCNm="RedOrb_colimen_brown" />
-  <item mCID="57948" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57948" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57948" Ratio="4" iCNm="Gem_Doppelsoeldner_Redel" />
   <item mCID="57949" Ratio="46" iCNm="misc_0201" />
   <item mCID="57949" Ratio="2" iCNm="BlueOrb_colimen_mage_brown" />
   <item mCID="57949" Ratio="2" iCNm="RedOrb_colimen_mage_brown" />
-  <item mCID="57949" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57949" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57950" Ratio="115" iCNm="R_SPR01_120" />
   <item mCID="57950" Ratio="2" iCNm="BlueOrb_TerraNymph_blue" />
   <item mCID="57950" Ratio="2" iCNm="RedOrb_TerraNymph_blue" />
   <item mCID="57951" Ratio="8" iCNm="misc_0228" />
-  <item mCID="57951" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57951" Ratio="90" iCNm="gem_star_1" />
   <item mCID="57951" Ratio="2" iCNm="BlueOrb_TerraNymph_mage_blue" />
   <item mCID="57951" Ratio="2" iCNm="RedOrb_TerraNymph_mage_blue" />
-  <item mCID="57951" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57951" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="57952" Ratio="8" iCNm="misc_0228" />
   <item mCID="57952" Ratio="2" iCNm="BlueOrb_TerraNymph_bow_brown" />
   <item mCID="57952" Ratio="2" iCNm="RedOrb_TerraNymph_bow_brown" />
-  <item mCID="57952" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57952" Ratio="127" iCNm="gem_star_1" />
   <item mCID="57953" Ratio="750" iCNm="misc_0207" />
   <item mCID="57953" Ratio="115" iCNm="R_DAG01_109" />
   <item mCID="57953" Ratio="2" iCNm="BlueOrb_Cronewt_blue" />
@@ -4620,20 +4625,20 @@
   <item mCID="57955" Ratio="2" iCNm="RedOrb_Cronewt_mage_blue" />
   <item mCID="57956" Ratio="1500" iCNm="misc_Ticen" />
   <item mCID="57956" Ratio="115" iCNm="R_SWD01_136" />
-  <item mCID="57956" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57956" Ratio="90" iCNm="gem_square_1" />
   <item mCID="57956" Ratio="2" iCNm="BlueOrb_ticen_blue" />
   <item mCID="57956" Ratio="2" iCNm="RedOrb_ticen_blue" />
-  <item mCID="57956" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57956" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57957" Ratio="500" iCNm="misc_0246" />
   <item mCID="57957" Ratio="2" iCNm="misc_0262" />
   <item mCID="57957" Ratio="2" iCNm="BlueOrb_ticen_red" />
   <item mCID="57957" Ratio="2" iCNm="RedOrb_ticen_red" />
   <item mCID="57958" Ratio="1500" iCNm="misc_Ticen" />
   <item mCID="57958" Ratio="115" iCNm="R_LEG01_151" />
-  <item mCID="57958" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57958" Ratio="90" iCNm="gem_star_1" />
   <item mCID="57958" Ratio="2" iCNm="BlueOrb_ticen_bow_blue" />
   <item mCID="57958" Ratio="2" iCNm="RedOrb_ticen_bow_blue" />
-  <item mCID="57958" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57958" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57958" Ratio="4" iCNm="Gem_Dragoon_Dragontooth" />
   <item mCID="57959" Ratio="500" iCNm="misc_0246" />
   <item mCID="57959" Ratio="2" iCNm="BlueOrb_ticen_bow_red" />
@@ -4643,37 +4648,37 @@
   <item mCID="57960" Ratio="115" iCNm="R_TSF01_128" />
   <item mCID="57960" Ratio="2" iCNm="BlueOrb_ticen_mage_blue" />
   <item mCID="57960" Ratio="2" iCNm="RedOrb_ticen_mage_blue" />
-  <item mCID="57960" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57960" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57961" Ratio="500" iCNm="misc_0246" />
   <item mCID="57961" Ratio="2" iCNm="BlueOrb_ticen_mage_red" />
   <item mCID="57961" Ratio="2" iCNm="RedOrb_ticen_mage_red" />
   <item mCID="57962" Ratio="2500" iCNm="misc_0049" />
   <item mCID="57962" Ratio="200" iCNm="misc_Chafperor" />
-  <item mCID="57962" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57962" Ratio="90" iCNm="gem_circle_1" />
   <item mCID="57962" Ratio="2" iCNm="BlueOrb_Chafperor_purple" />
   <item mCID="57962" Ratio="2" iCNm="RedOrb_Chafperor_purple" />
-  <item mCID="57962" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57962" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57962" Ratio="4" iCNm="Gem_Dragoon_Serpentine" />
   <item mCID="57963" Ratio="200" iCNm="misc_Chafperor" />
   <item mCID="57963" Ratio="115" iCNm="R_LEG01_150" />
   <item mCID="57963" Ratio="2" iCNm="BlueOrb_Chafperor_mage_purple" />
   <item mCID="57963" Ratio="2" iCNm="RedOrb_Chafperor_mage_purple" />
-  <item mCID="57963" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57963" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57964" Ratio="201" iCNm="misc_Rambear_brown" />
   <item mCID="57964" Ratio="115" iCNm="R_TSP01_110" />
   <item mCID="57964" Ratio="2" iCNm="BlueOrb_Rambear_brown" />
   <item mCID="57964" Ratio="2" iCNm="RedOrb_Rambear_brown" />
-  <item mCID="57964" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57964" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57965" Ratio="201" iCNm="misc_Rambear_brown" />
   <item mCID="57965" Ratio="115" iCNm="R_TBW01_136" />
   <item mCID="57965" Ratio="2" iCNm="BlueOrb_Rambear_bow_brown" />
   <item mCID="57965" Ratio="2" iCNm="RedOrb_Rambear_bow_brown" />
-  <item mCID="57965" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57965" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57966" Ratio="201" iCNm="misc_Rambear_brown" />
   <item mCID="57966" Ratio="115" iCNm="R_TOP01_150" />
   <item mCID="57966" Ratio="2" iCNm="BlueOrb_Rambear_mage_brown" />
   <item mCID="57966" Ratio="2" iCNm="RedOrb_Rambear_mage_brown" />
-  <item mCID="57966" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57966" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57966" Ratio="4" iCNm="Gem_Dragoon_Gae_Bulg" />
   <item mCID="57967" Ratio="2" iCNm="RedOrb_Hohen_mane_purple" />
   <item mCID="57967" Ratio="2" iCNm="BlueOrb_Hohen_mane_purple" />
@@ -4684,16 +4689,16 @@
   <item mCID="57968" Ratio="115" iCNm="R_TSP01_112" />
   <item mCID="57968" Ratio="2" iCNm="BlueOrb_Hohen_mane_brown" />
   <item mCID="57968" Ratio="2" iCNm="RedOrb_Hohen_mane_brown" />
-  <item mCID="57968" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57968" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57969" Ratio="161" iCNm="misc_0257" />
   <item mCID="57969" Ratio="2" iCNm="BlueOrb_Hohen_ritter_purple" />
   <item mCID="57969" Ratio="2" iCNm="RedOrb_Hohen_ritter_purple" />
   <item mCID="57970" Ratio="1000" iCNm="misc_0191" />
-  <item mCID="57970" Ratio="40" iCNm="misc_0192" />
+  <item mCID="57970" Ratio="8" iCNm="misc_0192" />
   <item mCID="57970" Ratio="115" iCNm="R_SWD01_138" />
   <item mCID="57970" Ratio="2" iCNm="BlueOrb_Hohen_ritter_green" />
   <item mCID="57970" Ratio="2" iCNm="RedOrb_Hohen_ritter_green" />
-  <item mCID="57970" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57970" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="57971" Ratio="2" iCNm="RedOrb_hohen_barkle_blue" />
   <item mCID="57971" Ratio="2" iCNm="BlueOrb_hohen_barkle_blue" />
   <item mCID="57971" Ratio="115" iCNm="R_TOP01_157" />
@@ -4701,11 +4706,11 @@
   <item mCID="57971" Ratio="161" iCNm="misc_0257" />
   <item mCID="57971" Ratio="23" iCNm="misc_0209" />
   <item mCID="57972" Ratio="1000" iCNm="misc_0191" />
-  <item mCID="57972" Ratio="40" iCNm="misc_0192" />
+  <item mCID="57972" Ratio="8" iCNm="misc_0192" />
   <item mCID="57972" Ratio="2" iCNm="BlueOrb_hohen_barkle_green" />
   <item mCID="57972" Ratio="2" iCNm="RedOrb_hohen_barkle_green" />
-  <item mCID="57972" Ratio="100" iCNm="R_BOW02_132" />
-  <item mCID="57972" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57972" Ratio="43" iCNm="R_BOW02_132" />
+  <item mCID="57972" Ratio="213" iCNm="gem_square_1" />
   <item mCID="57973" Ratio="161" iCNm="misc_0257" />
   <item mCID="57973" Ratio="115" iCNm="R_HAND01_157" />
   <item mCID="57973" Ratio="115" iCNm="R_FOOT01_157" />
@@ -4715,18 +4720,18 @@
   <item mCID="57974" Ratio="115" iCNm="R_TSF01_130" />
   <item mCID="57974" Ratio="2" iCNm="BlueOrb_Hohen_mage_red" />
   <item mCID="57974" Ratio="2" iCNm="RedOrb_Hohen_mage_red" />
-  <item mCID="57974" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57974" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="57974" Ratio="4" iCNm="Gem_Corsair_PistolShot" />
   <item mCID="57975" Ratio="2" iCNm="misc_0213" />
   <item mCID="57975" Ratio="2" iCNm="BlueOrb_Hohen_orben_red" />
   <item mCID="57975" Ratio="2" iCNm="RedOrb_Hohen_orben_red" />
   <item mCID="57976" Ratio="1000" iCNm="misc_0191" />
-  <item mCID="57976" Ratio="40" iCNm="misc_0192" />
+  <item mCID="57976" Ratio="8" iCNm="misc_0192" />
   <item mCID="57976" Ratio="2" iCNm="misc_0195" />
   <item mCID="57976" Ratio="115" iCNm="R_NECK01_143" />
   <item mCID="57976" Ratio="2" iCNm="BlueOrb_Hohen_orben_green" />
   <item mCID="57976" Ratio="2" iCNm="RedOrb_Hohen_orben_green" />
-  <item mCID="57976" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57976" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57977" Ratio="161" iCNm="misc_0257" />
   <item mCID="57977" Ratio="114" iCNm="misc_0215" />
   <item mCID="57977" Ratio="2" iCNm="BlueOrb_Hohen_gulak_blue" />
@@ -4741,20 +4746,20 @@
   <item mCID="57980" Ratio="11" iCNm="R_CAN01_108" />
   <item mCID="57980" Ratio="2" iCNm="BlueOrb_Harugal_brown" />
   <item mCID="57980" Ratio="2" iCNm="RedOrb_Harugal_brown" />
-  <item mCID="57980" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57980" Ratio="213" iCNm="gem_star_1" />
   <item mCID="57980" Ratio="4" iCNm="Gem_Doppelsoeldner_Zornhau" />
   <item mCID="57981" Ratio="333" iCNm="misc_0230" />
-  <item mCID="57981" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57981" Ratio="90" iCNm="gem_square_1" />
   <item mCID="57981" Ratio="2" iCNm="BlueOrb_Elet_blue" />
   <item mCID="57981" Ratio="2" iCNm="RedOrb_Elet_blue" />
-  <item mCID="57981" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57981" Ratio="127" iCNm="gem_star_1" />
   <item mCID="57983" Ratio="750" iCNm="misc_0231" />
   <item mCID="57983" Ratio="10" iCNm="misc_0232" />
   <item mCID="57983" Ratio="115" iCNm="R_LEG01_159" />
   <item mCID="57983" Ratio="115" iCNm="R_TOP01_159" />
   <item mCID="57983" Ratio="2" iCNm="BlueOrb_nuo_purple" />
   <item mCID="57983" Ratio="2" iCNm="RedOrb_nuo_purple" />
-  <item mCID="57983" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57983" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="57984" Ratio="199" iCNm="misc_0247" />
   <item mCID="57984" Ratio="2" iCNm="BlueOrb_nuo_red" />
   <item mCID="57984" Ratio="2" iCNm="RedOrb_nuo_red" />
@@ -4762,14 +4767,14 @@
   <item mCID="57985" Ratio="115" iCNm="R_RAP01_106" />
   <item mCID="57985" Ratio="2" iCNm="BlueOrb_Nuka_blue" />
   <item mCID="57985" Ratio="2" iCNm="RedOrb_Nuka_blue" />
-  <item mCID="57985" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57985" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="57986" Ratio="1250" iCNm="misc_0260" />
   <item mCID="57986" Ratio="2" iCNm="BlueOrb_Nuka_brown" />
   <item mCID="57986" Ratio="2" iCNm="RedOrb_Nuka_brown" />
   <item mCID="57987" Ratio="450" iCNm="misc_0163" />
   <item mCID="57987" Ratio="2" iCNm="BlueOrb_Elma_blue" />
   <item mCID="57987" Ratio="2" iCNm="RedOrb_Elma_blue" />
-  <item mCID="57987" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57987" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="57988" Ratio="450" iCNm="misc_0163" />
   <item mCID="57988" Ratio="2" iCNm="misc_0245" />
   <item mCID="57988" Ratio="2" iCNm="BlueOrb_Elma_red" />
@@ -4778,13 +4783,13 @@
   <item mCID="57989" Ratio="115" iCNm="R_TSP01_113" />
   <item mCID="57989" Ratio="2" iCNm="BlueOrb_defender_spider_blue" />
   <item mCID="57989" Ratio="2" iCNm="RedOrb_defender_spider_blue" />
-  <item mCID="57989" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="57989" Ratio="127" iCNm="gem_square_1" />
   <item mCID="57990" Ratio="800" iCNm="misc_0252" />
   <item mCID="57990" Ratio="2" iCNm="BlueOrb_defender_spider_red" />
   <item mCID="57990" Ratio="2" iCNm="RedOrb_defender_spider_red" />
   <item mCID="57990" Ratio="45" iCNm="R_HAND03_202" />
   <item mCID="57991" Ratio="55" iCNm="BOW01_114" />
-  <item mCID="57991" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="57991" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="57991" Ratio="500" iCNm="misc_0242" />
   <item mCID="57992" Ratio="1000" iCNm="misc_0265" />
   <item mCID="57992" Ratio="2" iCNm="BlueOrb_Dumaro_yellow" />
@@ -4851,12 +4856,12 @@
   <item mCID="58010" Ratio="2" iCNm="BlueOrb_Pokubu" />
   <item mCID="58010" Ratio="2" iCNm="RedOrb_Pokubu" />
   <item mCID="58010" Ratio="2" iCNm="RedOrb_Pokubu" />
-  <item mCID="58010" Ratio="4" iCNm="GEM_OutLaw_Rampage" />
   <item mCID="58011" Ratio="2500" iCNm="misc_0010" />
   <item mCID="58011" Ratio="55" iCNm="BOW01_112" />
   <item mCID="58011" Ratio="40" iCNm="NECK01_122" />
   <item mCID="58011" Ratio="2" iCNm="BlueOrb_Jukopus" />
   <item mCID="58011" Ratio="2" iCNm="RedOrb_Jukopus" />
+  <item mCID="58011" Ratio="2" iCNm="Gem_Swordman_Concentrate" />
   <item mCID="58012" Ratio="1000" iCNm="SWD01_107" />
   <item mCID="58012" Ratio="1000" iCNm="TSW01_105" />
   <item mCID="58012" Ratio="1000" iCNm="STF01_107" />
@@ -4877,13 +4882,11 @@
   <item mCID="58015" Ratio="115" iCNm="R_HAND01_159" />
   <item mCID="58015" Ratio="2" iCNm="BlueOrb_TerraNymph_brown" />
   <item mCID="58015" Ratio="2" iCNm="RedOrb_TerraNymph_brown" />
-  <item mCID="58015" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58015" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58016" Ratio="134" iCNm="LEG01_106" />
   <item mCID="58016" Ratio="134" iCNm="TOP01_106" />
   <item mCID="58017" Ratio="134" iCNm="HAND01_106" />
   <item mCID="58017" Ratio="1500" iCNm="misc_0274" />
-  <item mCID="58018" Ratio="900" iCNm="misc_0269" />
-  <item mCID="58019" Ratio="1000" iCNm="misc_0270" />
   <item mCID="58020" Ratio="115" iCNm="SHD01_103" />
   <item mCID="58020" Ratio="58" iCNm="misc_0273" />
   <item mCID="58028" Ratio="137" iCNm="misc_0186" />
@@ -4910,7 +4913,6 @@
   <item mCID="58039" Ratio="1000" iCNm="TSP01_101" />
   <item mCID="58053" Ratio="134" iCNm="FOOT01_127" />
   <item mCID="58053" Ratio="115" iCNm="SHD01_104" />
-  <item mCID="58053" Ratio="1000" iCNm="misc_0266" />
   <item mCID="58068" Ratio="1000" iCNm="Gacha_F_052" />
   <item mCID="58071" Ratio="1000" iCNm="SWD01_105" />
   <item mCID="58071" Ratio="1000" iCNm="TSW01_103" />
@@ -4943,11 +4945,11 @@
   <item mCID="58082" Ratio="115" iCNm="HAND01_121" />
   <item mCID="58083" Ratio="115" iCNm="FOOT01_115" />
   <item mCID="58084" Ratio="115" iCNm="R_TSP01_102" />
-  <item mCID="58084" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58084" Ratio="134" iCNm="gem_star_1" />
   <item mCID="58085" Ratio="115" iCNm="NECK01_130" />
-  <item mCID="58085" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58085" Ratio="134" iCNm="gem_diamond_1" />
   <item mCID="58086" Ratio="115" iCNm="FOOT01_121" />
-  <item mCID="58086" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58086" Ratio="134" iCNm="gem_square_1" />
   <item mCID="58088" Ratio="1200" iCNm="misc_0001" />
   <item mCID="58088" Ratio="185" iCNm="TOP01_103" />
   <item mCID="58088" Ratio="2" iCNm="BlueOrb_Onion_Red" />
@@ -4957,18 +4959,16 @@
   <item mCID="58089" Ratio="95" iCNm="misc_chupacabra2" />
   <item mCID="58089" Ratio="2" iCNm="BlueOrb_Chupacabra_Blue" />
   <item mCID="58089" Ratio="2" iCNm="RedOrb_Chupacabra_Blue" />
-  <item mCID="58090" Ratio="40" iCNm="TBW01_103" />
-  <item mCID="58090" Ratio="1000" iCNm="misc_0153" />
+  <item mCID="58091" Ratio="2" iCNm="Gem_Archer_Kneelingshot" />
   <item mCID="58091" Ratio="55" iCNm="TSF01_110" />
   <item mCID="58091" Ratio="185" iCNm="LEG01_103" />
-  <item mCID="58091" Ratio="4" iCNm="GEM_OutLaw_Rampage" />
   <item mCID="58092" Ratio="55" iCNm="TBW01_120" />
-  <item mCID="58092" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58092" Ratio="134" iCNm="gem_star_1" />
   <item mCID="58093" Ratio="2500" iCNm="misc_0008" />
   <item mCID="58093" Ratio="40" iCNm="STF01_103" />
   <item mCID="58093" Ratio="1" iCNm="Gem_Swordman_Bash" />
   <item mCID="58094" Ratio="55" iCNm="TSF01_112" />
-  <item mCID="58094" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58094" Ratio="134" iCNm="gem_diamond_1" />
   <item mCID="58094" Ratio="3333" iCNm="misc_0016" />
   <item mCID="58094" Ratio="2" iCNm="BlueOrb_Yekubite" />
   <item mCID="58094" Ratio="2" iCNm="RedOrb_Yekubite" />
@@ -4978,17 +4978,17 @@
   <item mCID="58095" Ratio="75" iCNm="misc_varv2" />
   <item mCID="58095" Ratio="2" iCNm="BlueOrb_varv" />
   <item mCID="58095" Ratio="2" iCNm="RedOrb_varv" />
-  <item mCID="58095" Ratio="4" iCNm="GEM_Hunter_Howling" />
+  <item mCID="58095" Ratio="2" iCNm="Gem_Thaumaturge_SwellLeftArm" />
   <item mCID="58096" Ratio="185" iCNm="FOOT01_104" />
   <item mCID="58096" Ratio="2500" iCNm="misc_0119" />
   <item mCID="58096" Ratio="120" iCNm="misc_bat2" />
   <item mCID="58096" Ratio="2" iCNm="BlueOrb_Bat" />
   <item mCID="58096" Ratio="2" iCNm="RedOrb_Bat" />
-  <item mCID="58096" Ratio="4" iCNm="GEM_Falconer_Tomahawk" />
+  <item mCID="58096" Ratio="2" iCNm="Gem_Archer_Fulldraw" />
   <item mCID="58097" Ratio="55" iCNm="STF01_120" />
   <item mCID="58097" Ratio="185" iCNm="NECK01_124" />
   <item mCID="58098" Ratio="185" iCNm="LEG01_104" />
-  <item mCID="58098" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58098" Ratio="134" iCNm="gem_square_1" />
   <item mCID="58099" Ratio="134" iCNm="TOP01_105" />
   <item mCID="58099" Ratio="2500" iCNm="misc_Grummer" />
   <item mCID="58099" Ratio="2" iCNm="BlueOrb_Grummer" />
@@ -5019,7 +5019,7 @@
   <item mCID="58107" Ratio="2" iCNm="RedOrb_Gravegolem" />
   <item mCID="58107" Ratio="2" iCNm="Gem_Hoplite_SpearLunge" />
   <item mCID="58108" Ratio="115" iCNm="HAND01_113" />
-  <item mCID="58108" Ratio="82" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58108" Ratio="82" iCNm="gem_square_1" />
   <item mCID="58109" Ratio="40" iCNm="misc_0277" />
   <item mCID="58109" Ratio="60" iCNm="SPR01_105" />
   <item mCID="58109" Ratio="60" iCNm="SHD01_107" />
@@ -5031,21 +5031,21 @@
   <item mCID="58111" Ratio="33" iCNm="misc_0126" />
   <item mCID="58112" Ratio="115" iCNm="R_STF01_109" />
   <item mCID="58113" Ratio="134" iCNm="R_LEG01_109" />
-  <item mCID="58113" Ratio="82" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58113" Ratio="82" iCNm="gem_star_1" />
   <item mCID="58114" Ratio="134" iCNm="R_TOP01_110" />
-  <item mCID="58114" Ratio="82" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58114" Ratio="82" iCNm="gem_diamond_1" />
   <item mCID="58115" Ratio="37" iCNm="FOOT01_111" />
   <item mCID="58115" Ratio="37" iCNm="FOOT01_112" />
   <item mCID="58115" Ratio="250" iCNm="food_001" />
   <item mCID="58115" Ratio="2" iCNm="BlueOrb_Whip_vine_Ra" />
   <item mCID="58115" Ratio="2" iCNm="RedOrb_Whip_vine_Ra" />
   <item mCID="58115" Ratio="2" iCNm="Gem_Wizard_EarthQuake" />
-  <item mCID="58116" Ratio="100" iCNm="STF01_108" />
+  <item mCID="58116" Ratio="60" iCNm="STF01_108" />
   <item mCID="58116" Ratio="134" iCNm="R_FOOT01_109" />
   <item mCID="58117" Ratio="115" iCNm="TOP01_122" />
-  <item mCID="58117" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58117" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="58118" Ratio="115" iCNm="LEG01_122" />
-  <item mCID="58118" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58118" Ratio="134" iCNm="gem_diamond_1" />
   <item mCID="58119" Ratio="666" iCNm="misc_0100" />
   <item mCID="58119" Ratio="100" iCNm="misc_Fire_Dragon2" />
   <item mCID="58119" Ratio="4000" iCNm="misc_0079" />
@@ -5058,16 +5058,16 @@
   <item mCID="58120" Ratio="40" iCNm="misc_tower_of_firepuppet2" />
   <item mCID="58120" Ratio="2" iCNm="BlueOrb_tower_of_firepuppet" />
   <item mCID="58120" Ratio="2" iCNm="RedOrb_tower_of_firepuppet" />
-  <item mCID="58120" Ratio="4" iCNm="GEM_Thaumaturge_SwellHands" />
+  <item mCID="58120" Ratio="2" iCNm="Gem_Paladin_TurnUndead" />
   <item mCID="58121" Ratio="2000" iCNm="misc_jore09" />
   <item mCID="58121" Ratio="2" iCNm="BlueOrb_blindlem" />
   <item mCID="58121" Ratio="2" iCNm="RedOrb_blindlem" />
   <item mCID="58122" Ratio="1200" iCNm="misc_0088" />
-  <item mCID="58122" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58122" Ratio="134" iCNm="gem_square_1" />
   <item mCID="58122" Ratio="2" iCNm="BlueOrb_tower_of_firepuppet_black" />
   <item mCID="58122" Ratio="2" iCNm="RedOrb_tower_of_firepuppet_black" />
   <item mCID="58123" Ratio="1700" iCNm="misc_chromadog" />
-  <item mCID="58123" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58123" Ratio="134" iCNm="gem_star_1" />
   <item mCID="58123" Ratio="19" iCNm="Hat_628036" />
   <item mCID="58123" Ratio="2" iCNm="BlueOrb_Chromadog" />
   <item mCID="58123" Ratio="2" iCNm="RedOrb_Chromadog" />
@@ -5100,7 +5100,7 @@
   <item mCID="58128" Ratio="2" iCNm="RedOrb_chupacabra_desert" />
   <item mCID="58128" Ratio="2" iCNm="Gem_Pyromancer_FirePillar" />
   <item mCID="58129" Ratio="2000" iCNm="misc_0059" />
-  <item mCID="58129" Ratio="40" iCNm="misc_Sauga_s3" />
+  <item mCID="58129" Ratio="3" iCNm="misc_Sauga_s3" />
   <item mCID="58129" Ratio="115" iCNm="R_STF01_130" />
   <item mCID="58129" Ratio="2" iCNm="BlueOrb_Sauga_s" />
   <item mCID="58129" Ratio="2" iCNm="RedOrb_Sauga_s" />
@@ -5110,8 +5110,8 @@
   <item mCID="58130" Ratio="115" iCNm="TOP01_115" />
   <item mCID="58130" Ratio="2" iCNm="BlueOrb_hogma_sorcerer" />
   <item mCID="58130" Ratio="2" iCNm="RedOrb_hogma_sorcerer" />
+  <item mCID="58130" Ratio="2" iCNm="Gem_Priest_StoneSkin" />
   <item mCID="58130" Ratio="15" iCNm="Hat_628040" />
-  <item mCID="58130" Ratio="4" iCNm="GEM_Enchanter_EnchantGlove" />
   <item mCID="58131" Ratio="588" iCNm="misc_0104" />
   <item mCID="58131" Ratio="115" iCNm="R_NECK01_131" />
   <item mCID="58131" Ratio="2" iCNm="BlueOrb_Beetle" />
@@ -5121,11 +5121,11 @@
   <item mCID="58132" Ratio="2" iCNm="BlueOrb_dandel_orange" />
   <item mCID="58132" Ratio="2" iCNm="RedOrb_dandel_orange" />
   <item mCID="58132" Ratio="2" iCNm="Gem_Hunter_Hounding" />
-  <item mCID="58133" Ratio="1000" iCNm="misc_Kepari" />
+  <item mCID="58133" Ratio="1000" iCNm="misc_0139" />
   <item mCID="58133" Ratio="2" iCNm="BlueOrb_Kepari_mage" />
   <item mCID="58133" Ratio="2" iCNm="RedOrb_Kepari_mage" />
   <item mCID="58133" Ratio="2" iCNm="Gem_Thaumaturge_ShrinkBody" />
-  <item mCID="58134" Ratio="100" iCNm="BOW01_108" />
+  <item mCID="58134" Ratio="60" iCNm="BOW01_108" />
   <item mCID="58134" Ratio="2" iCNm="BlueOrb_Popolion_Orange" />
   <item mCID="58134" Ratio="2" iCNm="RedOrb_Popolion_Orange" />
   <item mCID="58134" Ratio="58" iCNm="R_NECK02_106" />
@@ -5150,7 +5150,7 @@
   <item mCID="58141" Ratio="50" iCNm="R_SHD02_107" />
   <item mCID="58141" Ratio="2" iCNm="BlueOrb_InfroBurk" />
   <item mCID="58141" Ratio="2" iCNm="RedOrb_InfroBurk" />
-  <item mCID="58141" Ratio="4" iCNm="GEM_Hoplite_SharpSpear" />
+  <item mCID="58141" Ratio="2" iCNm="Gem_Peltasta_UmboThrust" />
   <item mCID="58142" Ratio="2000" iCNm="misc_0044" />
   <item mCID="58142" Ratio="115" iCNm="R_SPR01_112" />
   <item mCID="58142" Ratio="2" iCNm="BlueOrb_operor" />
@@ -5169,7 +5169,7 @@
   <item mCID="58146" Ratio="115" iCNm="TOP01_153" />
   <item mCID="58146" Ratio="2" iCNm="BlueOrb_Shredded" />
   <item mCID="58146" Ratio="2" iCNm="RedOrb_Shredded" />
-  <item mCID="58146" Ratio="4" iCNm="GEM_Necromancer_RaiseSkullwizard" />
+  <item mCID="58146" Ratio="2" iCNm="Gem_Wizard_Sleep" />
   <item mCID="58147" Ratio="115" iCNm="R_SPR01_106" />
   <item mCID="58147" Ratio="2" iCNm="BlueOrb_New_desmodus" />
   <item mCID="58147" Ratio="2" iCNm="RedOrb_New_desmodus" />
@@ -5182,11 +5182,11 @@
   <item mCID="58148" Ratio="2" iCNm="Gem_Peltasta_RimBlow" />
   <item mCID="58149" Ratio="1111" iCNm="misc_Corylus" />
   <item mCID="58149" Ratio="60" iCNm="SWD01_106" />
-  <item mCID="58149" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58149" Ratio="134" iCNm="gem_star_1" />
   <item mCID="58149" Ratio="183" iCNm="misc_ore08" />
   <item mCID="58149" Ratio="2" iCNm="BlueOrb_Corylus" />
   <item mCID="58149" Ratio="2" iCNm="RedOrb_Corylus" />
-  <item mCID="58149" Ratio="4" iCNm="GEM_Rogue_KnifeThrowing" />
+  <item mCID="58149" Ratio="2" iCNm="Gem_Cleric_DivineMight" />
   <item mCID="58150" Ratio="500" iCNm="misc_pawn1" />
   <item mCID="58150" Ratio="60" iCNm="TSW01_104" />
   <item mCID="58150" Ratio="8" iCNm="misc_pawndel3" />
@@ -5197,7 +5197,7 @@
   <item mCID="58151" Ratio="500" iCNm="misc_pawn1" />
   <item mCID="58151" Ratio="60" iCNm="BOW01_104" />
   <item mCID="58151" Ratio="134" iCNm="LEG01_127" />
-  <item mCID="58151" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58151" Ratio="134" iCNm="gem_diamond_1" />
   <item mCID="58151" Ratio="30" iCNm="Hat_628051" />
   <item mCID="58151" Ratio="2" iCNm="BOW02_113" />
   <item mCID="58151" Ratio="2" iCNm="BlueOrb_pawnd" />
@@ -5210,7 +5210,6 @@
   <item mCID="58152" Ratio="2" iCNm="BlueOrb_Glizardon" />
   <item mCID="58152" Ratio="2" iCNm="RedOrb_Glizardon" />
   <item mCID="58152" Ratio="2" iCNm="Gem_Highlander_Moulinet" />
-  <item mCID="58153" Ratio="2500" iCNm="misc_maize" />
   <item mCID="58154" Ratio="1000" iCNm="R_SWD01_109" />
   <item mCID="58154" Ratio="1000" iCNm="R_TSW01_107" />
   <item mCID="58154" Ratio="1000" iCNm="R_STF01_109" />
@@ -5230,7 +5229,7 @@
   <item mCID="58158" Ratio="666" iCNm="misc_0065" />
   <item mCID="58158" Ratio="2" iCNm="BlueOrb_wolf_statue_mage" />
   <item mCID="58158" Ratio="2" iCNm="RedOrb_wolf_statue_mage" />
-  <item mCID="58158" Ratio="4" iCNm="GEM_Peltasta_HardShield" />
+  <item mCID="58158" Ratio="2" iCNm="Gem_Peltasta_ButterFly" />
   <item mCID="58183" Ratio="13" iCNm="Drug_HP2" />
   <item mCID="58183" Ratio="13" iCNm="Drug_SP2" />
   <item mCID="58183" Ratio="13" iCNm="Drug_STA2" />
@@ -5253,22 +5252,22 @@
   <item mCID="58208" Ratio="134" iCNm="TOP01_107" />
   <item mCID="58237" Ratio="1000" iCNm="Gacha_F_043" />
   <item mCID="58246" Ratio="1000" iCNm="Gacha_F_048" />
-  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_061" />
-  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_054" />
-  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_061" />
-  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_054" />
-  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_062" />
-  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_055" />
-  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_062" />
-  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_055" />
-  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_063" />
-  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_056" />
-  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_063" />
-  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_056" />
-  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_064" />
-  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_057" />
-  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_064" />
-  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_057" />
+  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_034" />
+  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_027" />
+  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_034" />
+  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_027" />
+  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_035" />
+  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_028" />
+  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_035" />
+  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_028" />
+  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_036" />
+  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_029" />
+  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_036" />
+  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_029" />
+  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_037" />
+  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_030" />
+  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_037" />
+  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_030" />
   <item mCID="58252" Ratio="1000" iCNm="SWD01_105" />
   <item mCID="58252" Ratio="1000" iCNm="TSW01_103" />
   <item mCID="58252" Ratio="1000" iCNm="STF01_105" />
@@ -5276,16 +5275,10 @@
   <item mCID="58252" Ratio="1000" iCNm="TBW01_105" />
   <item mCID="58252" Ratio="1000" iCNm="BOW01_103" />
   <item mCID="58252" Ratio="1000" iCNm="MAC01_105" />
-  <item mCID="58253" Ratio="400" iCNm="R_SHD03_105" />
-  <item mCID="58253" Ratio="2400" iCNm="misc_gemExpStone_randomQuest1_TA" />
-  <item mCID="58253" Ratio="2400" iCNm="misc_gemExpStone_randomQuest1_TA" />
-  <item mCID="58253" Ratio="2400" iCNm="misc_gemExpStone_randomQuest1_TA" />
-  <item mCID="58253" Ratio="2400" iCNm="misc_gemExpStone_randomQuest1_TA" />
   <item mCID="58274" Ratio="0" iCNm="None" />
   <item mCID="58296" Ratio="2" iCNm="BlueOrb_FD_Spector_gh_purple" />
   <item mCID="58296" Ratio="2" iCNm="RedOrb_FD_Spector_gh_purple" />
   <item mCID="58323" Ratio="1000" iCNm="Gacha_I_011" />
-  <item mCID="58399" Ratio="1000" iCNm="Gacha_I_013" />
   <item mCID="58401" Ratio="4" iCNm="Gem_Alchemist_Combustion" />
   <item mCID="58406" Ratio="4" iCNm="Gem_Warlock_PoleofAgony" />
   <item mCID="58412" Ratio="1000" iCNm="SWD01_110" />
@@ -5297,14 +5290,12 @@
   <item mCID="58412" Ratio="1000" iCNm="MAC01_110" />
   <item mCID="58412" Ratio="1000" iCNm="SPR01_105" />
   <item mCID="58412" Ratio="1000" iCNm="TSP01_101" />
-  <item mCID="58420" Ratio="0" iCNm="Gacha_E_003" />
-  <item mCID="58420" Ratio="0" iCNm="Gacha_E_019" />
   <item mCID="58421" Ratio="2000" iCNm="misc_0062" />
   <item mCID="58421" Ratio="75" iCNm="misc_varv2" />
   <item mCID="58421" Ratio="135" iCNm="R_SHD01_108" />
   <item mCID="58421" Ratio="2" iCNm="BlueOrb_varv" />
   <item mCID="58421" Ratio="2" iCNm="RedOrb_varv" />
-  <item mCID="58421" Ratio="4" iCNm="GEM_Hunter_Howling" />
+  <item mCID="58421" Ratio="2" iCNm="Gem_Thaumaturge_SwellLeftArm" />
   <item mCID="58431" Ratio="1000" iCNm="SWD01_110" />
   <item mCID="58431" Ratio="1000" iCNm="TSW01_108" />
   <item mCID="58431" Ratio="1000" iCNm="STF01_110" />
@@ -5327,16 +5318,16 @@
   <item mCID="58433" Ratio="27" iCNm="misc_0412" />
   <item mCID="58433" Ratio="2" iCNm="BlueOrb_tala_sorcerer" />
   <item mCID="58433" Ratio="2" iCNm="RedOrb_tala_sorcerer" />
-  <item mCID="58433" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58433" Ratio="127" iCNm="gem_star_1" />
   <item mCID="58434" Ratio="700" iCNm="misc_0345" />
   <item mCID="58434" Ratio="27" iCNm="misc_0414" />
   <item mCID="58434" Ratio="2" iCNm="BlueOrb_tala_combat" />
   <item mCID="58434" Ratio="2" iCNm="RedOrb_tala_combat" />
-  <item mCID="58434" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58434" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58435" Ratio="27" iCNm="misc_0415" />
   <item mCID="58435" Ratio="2" iCNm="BlueOrb_warleader_tala" />
   <item mCID="58435" Ratio="2" iCNm="RedOrb_warleader_tala" />
-  <item mCID="58435" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58435" Ratio="127" iCNm="gem_star_1" />
   <item mCID="58436" Ratio="700" iCNm="misc_0312" />
   <item mCID="58436" Ratio="27" iCNm="misc_0450" />
   <item mCID="58436" Ratio="2" iCNm="BlueOrb_Rakon" />
@@ -5344,20 +5335,20 @@
   <item mCID="58437" Ratio="350" iCNm="misc_0318" />
   <item mCID="58437" Ratio="2" iCNm="BlueOrb_rockon" />
   <item mCID="58437" Ratio="2" iCNm="RedOrb_rockon" />
-  <item mCID="58437" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58437" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58438" Ratio="700" iCNm="misc_0320" />
   <item mCID="58438" Ratio="2" iCNm="BlueOrb_rocktanon" />
   <item mCID="58438" Ratio="2" iCNm="RedOrb_rocktanon" />
-  <item mCID="58438" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58438" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58439" Ratio="350" iCNm="misc_0319" />
   <item mCID="58439" Ratio="2" iCNm="BlueOrb_rockoff" />
   <item mCID="58439" Ratio="2" iCNm="RedOrb_rockoff" />
-  <item mCID="58439" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58439" Ratio="127" iCNm="gem_square_1" />
   <item mCID="58440" Ratio="350" iCNm="misc_0319" />
   <item mCID="58440" Ratio="27" iCNm="misc_0426" />
   <item mCID="58440" Ratio="2" iCNm="BlueOrb_rockoff_orange" />
   <item mCID="58440" Ratio="2" iCNm="RedOrb_rockoff_orange" />
-  <item mCID="58440" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58440" Ratio="127" iCNm="gem_square_1" />
   <item mCID="58441" Ratio="700" iCNm="misc_0324" />
   <item mCID="58441" Ratio="2" iCNm="BlueOrb_dorong" />
   <item mCID="58441" Ratio="2" iCNm="RedOrb_dorong" />
@@ -5439,71 +5430,71 @@
   <item mCID="58467" Ratio="27" iCNm="misc_0419" />
   <item mCID="58467" Ratio="2" iCNm="BlueOrb_Bavon_green" />
   <item mCID="58467" Ratio="2" iCNm="RedOrb_Bavon_green" />
-  <item mCID="58467" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58467" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58468" Ratio="700" iCNm="misc_0321" />
   <item mCID="58468" Ratio="27" iCNm="misc_0417" />
   <item mCID="58468" Ratio="2" iCNm="BlueOrb_rubblem_green" />
   <item mCID="58468" Ratio="2" iCNm="RedOrb_rubblem_green" />
-  <item mCID="58468" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58468" Ratio="127" iCNm="gem_star_1" />
   <item mCID="58469" Ratio="700" iCNm="misc_0342" />
   <item mCID="58469" Ratio="27" iCNm="misc_0413" />
   <item mCID="58469" Ratio="2" iCNm="BlueOrb_flamme_priest_green" />
   <item mCID="58469" Ratio="2" iCNm="RedOrb_flamme_priest_green" />
-  <item mCID="58469" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58469" Ratio="127" iCNm="gem_square_1" />
   <item mCID="58470" Ratio="700" iCNm="misc_0343" />
   <item mCID="58470" Ratio="27" iCNm="misc_0416" />
   <item mCID="58470" Ratio="2" iCNm="BlueOrb_flamme_mage_green" />
   <item mCID="58470" Ratio="2" iCNm="RedOrb_flamme_mage_green" />
-  <item mCID="58470" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58470" Ratio="127" iCNm="gem_square_1" />
   <item mCID="58471" Ratio="700" iCNm="misc_0388" />
   <item mCID="58471" Ratio="27" iCNm="misc_0420" />
   <item mCID="58471" Ratio="27" iCNm="misc_0421" />
   <item mCID="58471" Ratio="2" iCNm="BlueOrb_Zolem_green" />
   <item mCID="58471" Ratio="2" iCNm="RedOrb_Zolem_green" />
-  <item mCID="58471" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58471" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58472" Ratio="700" iCNm="misc_0327" />
   <item mCID="58472" Ratio="27" iCNm="misc_0422" />
   <item mCID="58472" Ratio="27" iCNm="misc_0423" />
   <item mCID="58472" Ratio="2" iCNm="BlueOrb_flamag_green" />
   <item mCID="58472" Ratio="2" iCNm="RedOrb_flamag_green" />
-  <item mCID="58472" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58472" Ratio="127" iCNm="gem_square_1" />
   <item mCID="58472" Ratio="4" iCNm="Gem_Paladin_Demolition" />
   <item mCID="58473" Ratio="700" iCNm="misc_0344" />
   <item mCID="58473" Ratio="27" iCNm="misc_0424" />
   <item mCID="58473" Ratio="2" iCNm="BlueOrb_flamme_archer_green" />
   <item mCID="58473" Ratio="2" iCNm="RedOrb_flamme_archer_green" />
-  <item mCID="58473" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58473" Ratio="127" iCNm="gem_star_1" />
   <item mCID="58474" Ratio="700" iCNm="misc_0328" />
   <item mCID="58474" Ratio="27" iCNm="misc_0425" />
   <item mCID="58474" Ratio="2" iCNm="BlueOrb_wood_goblin_green" />
   <item mCID="58474" Ratio="2" iCNm="RedOrb_wood_goblin_green" />
-  <item mCID="58474" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58474" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58475" Ratio="700" iCNm="misc_0298" />
   <item mCID="58475" Ratio="27" iCNm="misc_0411" />
   <item mCID="58475" Ratio="2" iCNm="BlueOrb_Flak_green" />
   <item mCID="58475" Ratio="2" iCNm="RedOrb_Flak_green" />
-  <item mCID="58475" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58475" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58476" Ratio="700" iCNm="misc_0352" />
   <item mCID="58476" Ratio="27" iCNm="misc_0427" />
   <item mCID="58476" Ratio="2" iCNm="BlueOrb_Flamil_green" />
   <item mCID="58476" Ratio="2" iCNm="RedOrb_Flamil_green" />
-  <item mCID="58476" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58476" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58477" Ratio="700" iCNm="misc_0390" />
   <item mCID="58477" Ratio="27" iCNm="misc_0491" />
   <item mCID="58477" Ratio="63" iCNm="misc_0492" />
   <item mCID="58477" Ratio="2" iCNm="BlueOrb_charog_green" />
   <item mCID="58477" Ratio="2" iCNm="RedOrb_charog_green" />
-  <item mCID="58477" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58477" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58478" Ratio="700" iCNm="misc_0493" />
   <item mCID="58478" Ratio="2" iCNm="BlueOrb_charcoal_walker_green" />
   <item mCID="58478" Ratio="2" iCNm="RedOrb_charcoal_walker_green" />
-  <item mCID="58478" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58478" Ratio="127" iCNm="gem_square_1" />
   <item mCID="58479" Ratio="700" iCNm="misc_0322" />
   <item mCID="58479" Ratio="27" iCNm="misc_0494" />
   <item mCID="58479" Ratio="63" iCNm="misc_0495" />
   <item mCID="58479" Ratio="2" iCNm="BlueOrb_blindlem_green" />
   <item mCID="58479" Ratio="2" iCNm="RedOrb_blindlem_green" />
-  <item mCID="58479" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58479" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58480" Ratio="700" iCNm="misc_0306" />
   <item mCID="58480" Ratio="27" iCNm="misc_0480" />
   <item mCID="58480" Ratio="63" iCNm="misc_0481" />
@@ -5587,22 +5578,23 @@
   <item mCID="58500" Ratio="27" iCNm="misc_0407" />
   <item mCID="58500" Ratio="2" iCNm="BlueOrb_PagDoper_blue" />
   <item mCID="58500" Ratio="2" iCNm="RedOrb_PagDoper_blue" />
-  <item mCID="58500" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58500" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58501" Ratio="700" iCNm="misc_0337" />
   <item mCID="58501" Ratio="27" iCNm="misc_0409" />
   <item mCID="58501" Ratio="2" iCNm="BlueOrb_Pagclamper_yellow" />
   <item mCID="58501" Ratio="2" iCNm="RedOrb_Pagclamper_yellow" />
-  <item mCID="58501" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58501" Ratio="127" iCNm="gem_square_1" />
+  <item mCID="58501" Ratio="4" iCNm="Gem_Musketeer_GroovingMuzzle" />
   <item mCID="58502" Ratio="700" iCNm="misc_0338" />
   <item mCID="58502" Ratio="27" iCNm="misc_0410" />
   <item mCID="58502" Ratio="2" iCNm="BlueOrb_PagNurse_green" />
   <item mCID="58502" Ratio="2" iCNm="RedOrb_PagNurse_green" />
-  <item mCID="58502" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58502" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58503" Ratio="700" iCNm="misc_0339" />
   <item mCID="58503" Ratio="27" iCNm="misc_0408" />
   <item mCID="58503" Ratio="2" iCNm="BlueOrb_Pagshearer_yellow" />
   <item mCID="58503" Ratio="2" iCNm="RedOrb_Pagshearer_yellow" />
-  <item mCID="58503" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58503" Ratio="127" iCNm="gem_star_1" />
   <item mCID="58504" Ratio="700" iCNm="misc_0311" />
   <item mCID="58504" Ratio="27" iCNm="misc_0446" />
   <item mCID="58504" Ratio="2" iCNm="BlueOrb_Zibu_Maize_red" />
@@ -5621,25 +5613,25 @@
   <item mCID="58508" Ratio="63" iCNm="misc_0470" />
   <item mCID="58508" Ratio="2" iCNm="BlueOrb_Slime_red" />
   <item mCID="58508" Ratio="2" iCNm="RedOrb_Slime_red" />
-  <item mCID="58508" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58508" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58508" Ratio="4" iCNm="Gem_PlagueDoctor_Incineration" />
   <item mCID="58509" Ratio="700" iCNm="misc_0323" />
   <item mCID="58509" Ratio="27" iCNm="misc_0471" />
   <item mCID="58509" Ratio="63" iCNm="misc_0472" />
   <item mCID="58509" Ratio="2" iCNm="BlueOrb_arma_yellow" />
   <item mCID="58509" Ratio="2" iCNm="RedOrb_arma_yellow" />
-  <item mCID="58509" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58509" Ratio="127" iCNm="gem_square_1" />
   <item mCID="58510" Ratio="700" iCNm="misc_0308" />
   <item mCID="58510" Ratio="27" iCNm="misc_0473" />
   <item mCID="58510" Ratio="2" iCNm="BlueOrb_pyran_yellow" />
   <item mCID="58510" Ratio="2" iCNm="RedOrb_pyran_yellow" />
-  <item mCID="58510" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58510" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58511" Ratio="700" iCNm="misc_0317" />
   <item mCID="58511" Ratio="27" iCNm="misc_0474" />
   <item mCID="58511" Ratio="2" iCNm="BlueOrb_wizards_marmotte_red" />
   <item mCID="58511" Ratio="2" iCNm="RedOrb_wizards_marmotte_red" />
-  <item mCID="58511" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="58517" Ratio="0" iCNm="Gacha_E_025" />
+  <item mCID="58511" Ratio="127" iCNm="gem_star_1" />
+  <item mCID="58517" Ratio="0" iCNm="Gacha_E_019" />
   <item mCID="58518" Ratio="1000" iCNm="R_SWD01_131" />
   <item mCID="58518" Ratio="1000" iCNm="R_TSW01_123" />
   <item mCID="58518" Ratio="1000" iCNm="R_STF01_131" />
@@ -5665,7 +5657,7 @@
   <item mCID="58522" Ratio="1000" iCNm="TBW01_105" />
   <item mCID="58522" Ratio="1000" iCNm="BOW01_103" />
   <item mCID="58522" Ratio="1000" iCNm="MAC01_105" />
-  <item mCID="58523" Ratio="10000" iCNm="Gacha_ID_360_LegCard" />
+  <item mCID="58523" Ratio="1000" iCNm="Gacha_G_008" />
   <item mCID="58529" Ratio="10000" iCNm="Gacha_E_020" />
   <item mCID="58532" Ratio="750" iCNm="misc_Bume_Goblin" />
   <item mCID="58532" Ratio="135" iCNm="R_LEG01_138" />
@@ -5700,7 +5692,7 @@
   <item mCID="58541" Ratio="38" iCNm="misc_0403" />
   <item mCID="58541" Ratio="2" iCNm="BlueOrb_Elder_Rode" />
   <item mCID="58541" Ratio="2" iCNm="RedOrb_Elder_Rode" />
-  <item mCID="58542" Ratio="77" iCNm="misc_0399" />
+  <item mCID="58542" Ratio="77" iCNm="misc_0330" />
   <item mCID="58542" Ratio="27" iCNm="misc_0399" />
   <item mCID="58542" Ratio="120" iCNm="misc_0400" />
   <item mCID="58542" Ratio="2" iCNm="BlueOrb_Rodedoe" />
@@ -5760,13 +5752,12 @@
   <item mCID="58554" Ratio="27" iCNm="misc_0501" />
   <item mCID="58554" Ratio="2" iCNm="BlueOrb_kucarry_Zeffi" />
   <item mCID="58554" Ratio="2" iCNm="RedOrb_kucarry_Zeffi" />
-  <item mCID="58555" Ratio="14" iCNm="HAND02_208" />
   <item mCID="58556" Ratio="14" iCNm="TOP02_208" />
   <item mCID="58556" Ratio="2" iCNm="BlueOrb_castle_gardner" />
   <item mCID="58556" Ratio="2" iCNm="RedOrb_castle_gardner" />
   <item mCID="58558" Ratio="700" iCNm="misc_0305" />
   <item mCID="58558" Ratio="27" iCNm="misc_0437" />
-  <item mCID="58558" Ratio="40" iCNm="misc_0438" />
+  <item mCID="58558" Ratio="10" iCNm="misc_0438" />
   <item mCID="58558" Ratio="2" iCNm="BlueOrb_ragged_bird" />
   <item mCID="58558" Ratio="2" iCNm="RedOrb_ragged_bird" />
   <item mCID="58559" Ratio="700" iCNm="misc_0301" />
@@ -5799,36 +5790,35 @@
   <item mCID="58566" Ratio="2" iCNm="BlueOrb_bloom" />
   <item mCID="58566" Ratio="2" iCNm="RedOrb_bloom" />
   <item mCID="58566" Ratio="4" iCNm="Gem_Musketeer_HeadShot" />
-  <item mCID="58566" Ratio="200" iCNm="R_NECK02_128" />
   <item mCID="58567" Ratio="10000" iCNm="Gacha_G_008" />
   <item mCID="58570" Ratio="700" iCNm="misc_0496" />
   <item mCID="58570" Ratio="2" iCNm="BlueOrb_RavineLerva_cave" />
   <item mCID="58570" Ratio="2" iCNm="RedOrb_RavineLerva_cave" />
-  <item mCID="58570" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_065" />
-  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_058" />
-  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_065" />
-  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_058" />
-  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_066" />
-  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_059" />
-  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_066" />
-  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_059" />
-  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_067" />
-  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_060" />
-  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_067" />
-  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_060" />
+  <item mCID="58570" Ratio="127" iCNm="gem_star_1" />
+  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_038" />
+  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_031" />
+  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_038" />
+  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_031" />
+  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_039" />
+  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_032" />
+  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_039" />
+  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_032" />
+  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_040" />
+  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_033" />
+  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_040" />
+  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_033" />
   <item mCID="58581" Ratio="700" iCNm="misc_0386" />
   <item mCID="58581" Ratio="2" iCNm="BlueOrb_Glyquare_red" />
   <item mCID="58581" Ratio="2" iCNm="RedOrb_Glyquare_red" />
-  <item mCID="58581" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58581" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="58582" Ratio="700" iCNm="misc_0387" />
   <item mCID="58582" Ratio="2" iCNm="BlueOrb_anchor_purple" />
   <item mCID="58582" Ratio="2" iCNm="RedOrb_anchor_purple" />
-  <item mCID="58582" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58582" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58583" Ratio="700" iCNm="misc_0297" />
   <item mCID="58583" Ratio="2" iCNm="BlueOrb_Prisonfighter_green" />
   <item mCID="58583" Ratio="2" iCNm="RedOrb_Prisonfighter_green" />
-  <item mCID="58583" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58583" Ratio="127" iCNm="gem_star_1" />
   <item mCID="58585" Ratio="10000" iCNm="Gacha_G_008" />
   <item mCID="58600" Ratio="0" iCNm="None" />
   <item mCID="58604" Ratio="700" iCNm="misc_0295" />
@@ -5873,7 +5863,7 @@
   <item mCID="58636" Ratio="178" iCNm="misc_Stoulet1" />
   <item mCID="58636" Ratio="2000" iCNm="misc_0189" />
   <item mCID="58637" Ratio="500" iCNm="misc_0148" />
-  <item mCID="58637" Ratio="170" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58637" Ratio="170" iCNm="gem_circle_1" />
   <item mCID="58637" Ratio="90" iCNm="R_HAND03_112" />
   <item mCID="58637" Ratio="90" iCNm="R_LEG03_112" />
   <item mCID="58637" Ratio="2" iCNm="BlueOrb_Colifly_black" />
@@ -5885,7 +5875,7 @@
   <item mCID="58638" Ratio="2" iCNm="RedOrb_Socket" />
   <item mCID="58638" Ratio="3" iCNm="Gem_Hunter_Growling" />
   <item mCID="58639" Ratio="3400" iCNm="misc_chromadog" />
-  <item mCID="58639" Ratio="666" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58639" Ratio="666" iCNm="gem_star_1" />
   <item mCID="58639" Ratio="32" iCNm="Hat_628036" />
   <item mCID="58639" Ratio="2" iCNm="BlueOrb_Chromadog" />
   <item mCID="58639" Ratio="2" iCNm="RedOrb_Chromadog" />
@@ -5896,7 +5886,7 @@
   <item mCID="58641" Ratio="2400" iCNm="misc_Stoulet" />
   <item mCID="58641" Ratio="118" iCNm="misc_Stoulet1" />
   <item mCID="58641" Ratio="118" iCNm="trg_crystal" />
-  <item mCID="58641" Ratio="170" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58641" Ratio="170" iCNm="gem_star_1" />
   <item mCID="58642" Ratio="202" iCNm="misc_0084" />
   <item mCID="58642" Ratio="40" iCNm="R_BRC02_107" />
   <item mCID="58642" Ratio="2" iCNm="BlueOrb_InfroRocktor_red" />
@@ -5936,22 +5926,22 @@
   <item mCID="58654" Ratio="2" iCNm="BlueOrb_hogma_warrior" />
   <item mCID="58654" Ratio="2" iCNm="RedOrb_hogma_warrior" />
   <item mCID="58655" Ratio="3200" iCNm="misc_0063" />
-  <item mCID="58655" Ratio="171" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58655" Ratio="171" iCNm="gem_circle_1" />
   <item mCID="58655" Ratio="2" iCNm="BlueOrb_zinutekas" />
   <item mCID="58655" Ratio="2" iCNm="RedOrb_zinutekas" />
-  <item mCID="58655" Ratio="4" iCNm="GEM_Archer_Concentration" />
+  <item mCID="58655" Ratio="3" iCNm="Gem_Linker_SpiritualChain" />
   <item mCID="58656" Ratio="2" iCNm="BlueOrb_FD_NightMaiden" />
   <item mCID="58656" Ratio="2" iCNm="RedOrb_FD_NightMaiden" />
   <item mCID="58656" Ratio="3" iCNm="Gem_Dievdirbys_CarveAusirine" />
-  <item mCID="58657" Ratio="171" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58657" Ratio="171" iCNm="gem_circle_1" />
   <item mCID="58657" Ratio="2" iCNm="BlueOrb_NightMaiden_mage" />
   <item mCID="58657" Ratio="2" iCNm="RedOrb_NightMaiden_mage" />
-  <item mCID="58658" Ratio="171" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58658" Ratio="171" iCNm="gem_diamond_1" />
   <item mCID="58658" Ratio="100" iCNm="R_STF02_108" />
   <item mCID="58658" Ratio="2" iCNm="BlueOrb_NightMaiden_bow" />
   <item mCID="58658" Ratio="2" iCNm="RedOrb_NightMaiden_bow" />
   <item mCID="58659" Ratio="150" iCNm="food_030" />
-  <item mCID="58659" Ratio="60" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58659" Ratio="60" iCNm="gem_square_1" />
   <item mCID="58659" Ratio="2" iCNm="BlueOrb_wizards_marmotte" />
   <item mCID="58659" Ratio="2" iCNm="RedOrb_wizards_marmotte" />
   <item mCID="58662" Ratio="1400" iCNm="misc_0161" />
@@ -5978,19 +5968,19 @@
   <item mCID="58667" Ratio="8000" iCNm="misc_0013" />
   <item mCID="58667" Ratio="181" iCNm="misc_bubeWarriorBlood" />
   <item mCID="58667" Ratio="1100" iCNm="Scroll_Warp_Klaipe" />
-  <item mCID="58667" Ratio="149" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58667" Ratio="149" iCNm="gem_circle_1" />
   <item mCID="58667" Ratio="2" iCNm="BlueOrb_GoblinWarrior" />
   <item mCID="58667" Ratio="2" iCNm="RedOrb_GoblinWarrior" />
   <item mCID="58667" Ratio="2" iCNm="Gem_Highlander_CartarStroke" />
   <item mCID="58668" Ratio="1000" iCNm="misc_pawn1" />
   <item mCID="58668" Ratio="13" iCNm="misc_pawndel3" />
-  <item mCID="58668" Ratio="170" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58668" Ratio="170" iCNm="gem_circle_1" />
   <item mCID="58668" Ratio="2" iCNm="BlueOrb_Pawndel" />
   <item mCID="58668" Ratio="2" iCNm="RedOrb_Pawndel" />
   <item mCID="58668" Ratio="3" iCNm="Gem_Peltasta_SwashBuckling" />
   <item mCID="58669" Ratio="1000" iCNm="misc_pawn1" />
   <item mCID="58669" Ratio="40" iCNm="Hat_628051" />
-  <item mCID="58669" Ratio="170" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58669" Ratio="170" iCNm="gem_star_1" />
   <item mCID="58669" Ratio="2" iCNm="BlueOrb_pawnd" />
   <item mCID="58669" Ratio="2" iCNm="RedOrb_pawnd" />
   <item mCID="58669" Ratio="3" iCNm="Gem_Bokor_Zombify" />
@@ -6002,8 +5992,8 @@
   <item mCID="58671" Ratio="250" iCNm="FOOT01_105" />
   <item mCID="58672" Ratio="2" iCNm="BlueOrb_Nnuo" />
   <item mCID="58672" Ratio="2" iCNm="RedOrb_Nnuo" />
-  <item mCID="58672" Ratio="4" iCNm="GEM_Assassin_InstantaneousAcceleration" />
-  <item mCID="58673" Ratio="171" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58672" Ratio="3" iCNm="Gem_Rogue_Spoliation" />
+  <item mCID="58673" Ratio="171" iCNm="gem_diamond_1" />
   <item mCID="58673" Ratio="2" iCNm="BlueOrb_Elet" />
   <item mCID="58673" Ratio="2" iCNm="RedOrb_Elet" />
   <item mCID="58673" Ratio="2" iCNm="Gem_Psychokino_Raise" />
@@ -6013,14 +6003,14 @@
   <item mCID="58675" Ratio="2" iCNm="RedOrb_Malstatue" />
   <item mCID="58676" Ratio="25" iCNm="misc_shredded2" />
   <item mCID="58676" Ratio="38" iCNm="misc_shredded3" />
-  <item mCID="58676" Ratio="174" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58676" Ratio="174" iCNm="gem_star_1" />
+  <item mCID="58676" Ratio="3" iCNm="Gem_Wizard_Sleep" />
   <item mCID="58676" Ratio="2" iCNm="BlueOrb_Shredded" />
   <item mCID="58676" Ratio="2" iCNm="RedOrb_Shredded" />
-  <item mCID="58676" Ratio="4" iCNm="GEM_Necromancer_RaiseSkullwizard" />
   <item mCID="58677" Ratio="216" iCNm="misc_glizardon" />
   <item mCID="58677" Ratio="147" iCNm="misc_glizardon2" />
   <item mCID="58677" Ratio="91" iCNm="misc_silverbar" />
-  <item mCID="58677" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58677" Ratio="128" iCNm="gem_diamond_1" />
   <item mCID="58677" Ratio="2" iCNm="BlueOrb_Glizardon" />
   <item mCID="58677" Ratio="2" iCNm="RedOrb_Glizardon" />
   <item mCID="58677" Ratio="2" iCNm="Gem_Highlander_Moulinet" />
@@ -6034,8 +6024,8 @@
   <item mCID="58679" Ratio="100" iCNm="misc_infroRocktor2" />
   <item mCID="58679" Ratio="2" iCNm="BlueOrb_InfroRocktor" />
   <item mCID="58679" Ratio="2" iCNm="RedOrb_InfroRocktor" />
+  <item mCID="58679" Ratio="2" iCNm="Gem_Cleric_DeprotectedZone" />
   <item mCID="58679" Ratio="3" iCNm="Hat_628102" />
-  <item mCID="58679" Ratio="4" iCNm="GEM_Priest_TurnUndead" />
   <item mCID="58680" Ratio="5000" iCNm="misc_0025" />
   <item mCID="58680" Ratio="190" iCNm="misc_egnome2" />
   <item mCID="58680" Ratio="25" iCNm="misc_ore05" />
@@ -6044,7 +6034,7 @@
   <item mCID="58680" Ratio="2" iCNm="RedOrb_Egnome" />
   <item mCID="58681" Ratio="3333" iCNm="misc_shtayim" />
   <item mCID="58681" Ratio="7" iCNm="R_SPR04_103" />
-  <item mCID="58681" Ratio="171" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58681" Ratio="171" iCNm="gem_star_1" />
   <item mCID="58681" Ratio="2" iCNm="BlueOrb_shtayim" />
   <item mCID="58681" Ratio="2" iCNm="RedOrb_shtayim" />
   <item mCID="58681" Ratio="3" iCNm="Gem_Sadhu_AstralBodyExplosion" />
@@ -6065,15 +6055,13 @@
   <item mCID="58689" Ratio="80" iCNm="NECK01_111" />
   <item mCID="58689" Ratio="2" iCNm="BlueOrb_Chupacabra_Blue" />
   <item mCID="58689" Ratio="2" iCNm="RedOrb_Chupacabra_Blue" />
-  <item mCID="58689" Ratio="4" iCNm="GEM_Cleric_Smite" />
-  <item mCID="58690" Ratio="1000" iCNm="Gacha_I_017" />
-  <item mCID="58697" Ratio="10000" iCNm="Gacha_ID_380_ignas" />
+  <item mCID="58689" Ratio="2" iCNm="Gem_Cleric_SafetyZone" />
   <item mCID="58700" Ratio="3333" iCNm="misc_jore09" />
   <item mCID="58700" Ratio="134" iCNm="R_SHD01_106" />
   <item mCID="58700" Ratio="2" iCNm="BlueOrb_loftlem" />
   <item mCID="58700" Ratio="2" iCNm="RedOrb_loftlem" />
   <item mCID="58700" Ratio="2" iCNm="Gem_Highlander_CrossCut" />
-  <item mCID="58701" Ratio="80" iCNm="misc_Tanu" />
+  <item mCID="58701" Ratio="4" iCNm="misc_Tanu" />
   <item mCID="58701" Ratio="134" iCNm="TOP01_126" />
   <item mCID="58701" Ratio="60" iCNm="TSF01_105" />
   <item mCID="58701" Ratio="2" iCNm="MAC02_115" />
@@ -6083,7 +6071,7 @@
   <item mCID="58702" Ratio="1500" iCNm="misc_0064" />
   <item mCID="58702" Ratio="10" iCNm="misc_jore03" />
   <item mCID="58702" Ratio="108" iCNm="NECK01_129" />
-  <item mCID="58702" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58702" Ratio="129" iCNm="gem_star_1" />
   <item mCID="58702" Ratio="2" iCNm="BlueOrb_Vesper" />
   <item mCID="58702" Ratio="2" iCNm="RedOrb_Vesper" />
   <item mCID="58703" Ratio="2000" iCNm="misc_Lizardman" />
@@ -6091,7 +6079,7 @@
   <item mCID="58703" Ratio="108" iCNm="misc_jore10" />
   <item mCID="58703" Ratio="129" iCNm="LEG01_121" />
   <item mCID="58703" Ratio="2" iCNm="TOP01_121" />
-  <item mCID="58703" Ratio="333" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58703" Ratio="333" iCNm="gem_diamond_1" />
   <item mCID="58703" Ratio="2" iCNm="BlueOrb_Lizardman" />
   <item mCID="58703" Ratio="2" iCNm="RedOrb_Lizardman" />
   <item mCID="58703" Ratio="2" iCNm="Gem_Paladin_ResistElements" />
@@ -6107,25 +6095,25 @@
   <item mCID="58705" Ratio="82" iCNm="STF01_119" />
   <item mCID="58705" Ratio="82" iCNm="TOP01_103" />
   <item mCID="58705" Ratio="100" iCNm="FOOT02_120" />
-  <item mCID="58705" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58705" Ratio="134" iCNm="gem_square_1" />
   <item mCID="58705" Ratio="2" iCNm="BlueOrb_StonOrca" />
   <item mCID="58705" Ratio="2" iCNm="RedOrb_StonOrca" />
   <item mCID="58705" Ratio="2" iCNm="Gem_Swordman_PainBarrier" />
   <item mCID="58706" Ratio="1111" iCNm="misc_Corylus" />
   <item mCID="58706" Ratio="183" iCNm="misc_ore08" />
-  <item mCID="58706" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58706" Ratio="128" iCNm="gem_square_1" />
   <item mCID="58706" Ratio="134" iCNm="SHD01_104" />
   <item mCID="58706" Ratio="134" iCNm="BRC01_126" />
   <item mCID="58706" Ratio="2" iCNm="BlueOrb_Corylus" />
   <item mCID="58706" Ratio="2" iCNm="RedOrb_Corylus" />
-  <item mCID="58706" Ratio="4" iCNm="GEM_Rogue_KnifeThrowing" />
+  <item mCID="58706" Ratio="2" iCNm="Gem_Cleric_DivineMight" />
   <item mCID="58707" Ratio="3400" iCNm="misc_0049" />
   <item mCID="58707" Ratio="2500" iCNm="food_015" />
   <item mCID="58707" Ratio="2" iCNm="BlueOrb_Chafperor" />
   <item mCID="58707" Ratio="2" iCNm="RedOrb_Chafperor" />
   <item mCID="58707" Ratio="2" iCNm="Gem_Hoplite_Finestra" />
   <item mCID="58708" Ratio="2000" iCNm="misc_0059" />
-  <item mCID="58708" Ratio="40" iCNm="misc_Sauga_s3" />
+  <item mCID="58708" Ratio="3" iCNm="misc_Sauga_s3" />
   <item mCID="58708" Ratio="134" iCNm="R_HAND01_110" />
   <item mCID="58708" Ratio="2" iCNm="BlueOrb_Sauga_s" />
   <item mCID="58708" Ratio="2" iCNm="RedOrb_Sauga_s" />
@@ -6140,9 +6128,9 @@
   <item mCID="58710" Ratio="115" iCNm="R_FOOT01_159" />
   <item mCID="58710" Ratio="2" iCNm="BlueOrb_NightMaiden_mage_red" />
   <item mCID="58710" Ratio="2" iCNm="RedOrb_NightMaiden_mage_red" />
-  <item mCID="58710" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58710" Ratio="127" iCNm="gem_diamond_1" />
   <item mCID="58713" Ratio="2500" iCNm="misc_0094" />
-  <item mCID="58713" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58713" Ratio="129" iCNm="gem_square_1" />
   <item mCID="58713" Ratio="108" iCNm="TOP01_114" />
   <item mCID="58713" Ratio="2" iCNm="BlueOrb_Echad" />
   <item mCID="58713" Ratio="2" iCNm="RedOrb_Echad" />
@@ -6151,7 +6139,7 @@
   <item mCID="58714" Ratio="135" iCNm="R_SHD01_108" />
   <item mCID="58714" Ratio="2" iCNm="BlueOrb_varv" />
   <item mCID="58714" Ratio="2" iCNm="RedOrb_varv" />
-  <item mCID="58714" Ratio="4" iCNm="GEM_Hunter_Howling" />
+  <item mCID="58714" Ratio="2" iCNm="Gem_Thaumaturge_SwellLeftArm" />
   <item mCID="58715" Ratio="2500" iCNm="misc_0057" />
   <item mCID="58715" Ratio="70" iCNm="misc_chupacabra_desert2" />
   <item mCID="58715" Ratio="134" iCNm="LEG01_107" />
@@ -6162,21 +6150,21 @@
   <item mCID="58715" Ratio="2" iCNm="Gem_Pyromancer_FirePillar" />
   <item mCID="58716" Ratio="2500" iCNm="misc_0105" />
   <item mCID="58716" Ratio="108" iCNm="FOOT01_114" />
-  <item mCID="58716" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58716" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="58716" Ratio="2" iCNm="BlueOrb_Moving_trap" />
   <item mCID="58716" Ratio="2" iCNm="RedOrb_Moving_trap" />
-  <item mCID="58716" Ratio="4" iCNm="GEM_Swordman_Bear" />
+  <item mCID="58716" Ratio="2" iCNm="Gem_Highlander_VerticalSlash" />
   <item mCID="58717" Ratio="666" iCNm="misc_0065" />
   <item mCID="58717" Ratio="3" iCNm="misc_jore17" />
   <item mCID="58717" Ratio="108" iCNm="LEG01_114" />
-  <item mCID="58717" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58717" Ratio="129" iCNm="gem_square_1" />
   <item mCID="58717" Ratio="2" iCNm="BlueOrb_Wolf_statue" />
   <item mCID="58717" Ratio="2" iCNm="RedOrb_Wolf_statue" />
   <item mCID="58718" Ratio="90" iCNm="misc_Lemur" />
   <item mCID="58718" Ratio="30" iCNm="R_BRC02_111" />
   <item mCID="58718" Ratio="2" iCNm="BlueOrb_Lemur" />
   <item mCID="58718" Ratio="2" iCNm="RedOrb_Lemur" />
-  <item mCID="58718" Ratio="4" iCNm="GEM_Pyromancer_Prominence" />
+  <item mCID="58718" Ratio="2" iCNm="Gem_Doppelsoeldner_Mordschlag" />
   <item mCID="58719" Ratio="2000" iCNm="misc_0040" />
   <item mCID="58719" Ratio="100" iCNm="misc_jore02" />
   <item mCID="58719" Ratio="2500" iCNm="food_013" />
@@ -6185,20 +6173,20 @@
   <item mCID="58719" Ratio="2" iCNm="RedOrb_Upent" />
   <item mCID="58719" Ratio="2" iCNm="Gem_QuarrelShooter_DeployPavise" />
   <item mCID="58720" Ratio="2000" iCNm="misc_schlesien_darkmage" />
-  <item mCID="58720" Ratio="50" iCNm="misc_schlesien_darkmage3" />
-  <item mCID="58720" Ratio="25" iCNm="food_016" />
+  <item mCID="58720" Ratio="4" iCNm="misc_schlesien_darkmage3" />
+  <item mCID="58720" Ratio="1" iCNm="food_016" />
   <item mCID="58720" Ratio="135" iCNm="R_TSF01_109" />
   <item mCID="58720" Ratio="9" iCNm="Hat_628041" />
-  <item mCID="58720" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58720" Ratio="129" iCNm="gem_star_1" />
   <item mCID="58720" Ratio="2" iCNm="BlueOrb_schlesien_darkmage" />
   <item mCID="58720" Ratio="2" iCNm="RedOrb_schlesien_darkmage" />
   <item mCID="58721" Ratio="38" iCNm="misc_jore06" />
-  <item mCID="58721" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58721" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="58721" Ratio="108" iCNm="NECK01_130" />
   <item mCID="58721" Ratio="2" iCNm="BlueOrb_schlesien_claw" />
   <item mCID="58721" Ratio="2" iCNm="RedOrb_schlesien_claw" />
   <item mCID="58722" Ratio="1000" iCNm="misc_glyquare" />
-  <item mCID="58722" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58722" Ratio="128" iCNm="gem_star_1" />
   <item mCID="58722" Ratio="2" iCNm="BlueOrb_Glyquare" />
   <item mCID="58722" Ratio="2" iCNm="RedOrb_Glyquare" />
   <item mCID="58722" Ratio="2" iCNm="Gem_Druid_Chortasmata" />
@@ -6213,10 +6201,10 @@
   <item mCID="58724" Ratio="666" iCNm="misc_0065" />
   <item mCID="58724" Ratio="3" iCNm="misc_jore17" />
   <item mCID="58724" Ratio="108" iCNm="LEG01_153" />
-  <item mCID="58724" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58724" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="58724" Ratio="2" iCNm="BlueOrb_wolf_statue_mage" />
   <item mCID="58724" Ratio="2" iCNm="RedOrb_wolf_statue_mage" />
-  <item mCID="58724" Ratio="4" iCNm="GEM_Peltasta_HardShield" />
+  <item mCID="58724" Ratio="2" iCNm="Gem_Peltasta_ButterFly" />
   <item mCID="58725" Ratio="2000" iCNm="misc_0210" />
   <item mCID="58725" Ratio="115" iCNm="R_SHD01_121" />
   <item mCID="58725" Ratio="2" iCNm="BlueOrb_Tiny_blue" />
@@ -6225,15 +6213,15 @@
   <item mCID="58726" Ratio="2" iCNm="BlueOrb_Echad_bow" />
   <item mCID="58726" Ratio="2" iCNm="RedOrb_Echad_bow" />
   <item mCID="58726" Ratio="2" iCNm="Gem_Dievdirbys_CarveAustrasKoks" />
-  <item mCID="58727" Ratio="200" iCNm="misc_0201" />
+  <item mCID="58727" Ratio="46" iCNm="misc_0201" />
   <item mCID="58727" Ratio="2" iCNm="BlueOrb_colimen_brown" />
   <item mCID="58727" Ratio="2" iCNm="RedOrb_colimen_brown" />
-  <item mCID="58727" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58727" Ratio="213" iCNm="gem_square_1" />
   <item mCID="58728" Ratio="1700" iCNm="misc_rublem" />
   <item mCID="58728" Ratio="80" iCNm="misc_rublem2" />
   <item mCID="58728" Ratio="2" iCNm="BlueOrb_rubblem" />
   <item mCID="58728" Ratio="2" iCNm="RedOrb_rubblem" />
-  <item mCID="58728" Ratio="4" iCNm="GEM_Scout_ObliqueFire" />
+  <item mCID="58728" Ratio="2" iCNm="Gem_Sapper_CollarBomb" />
   <item mCID="58729" Ratio="2000" iCNm="misc_jore09" />
   <item mCID="58729" Ratio="2" iCNm="BlueOrb_blindlem" />
   <item mCID="58729" Ratio="2" iCNm="RedOrb_blindlem" />
@@ -6244,7 +6232,7 @@
   <item mCID="58730" Ratio="2" iCNm="RedOrb_Tiny_mage_brown" />
   <item mCID="58731" Ratio="1111" iCNm="misc_0093" />
   <item mCID="58731" Ratio="1" iCNm="R_SHD04_101" />
-  <item mCID="58731" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="58731" Ratio="129" iCNm="gem_square_1" />
   <item mCID="58731" Ratio="61" iCNm="TSW01_108" />
   <item mCID="58731" Ratio="2" iCNm="BlueOrb_dog_of_king" />
   <item mCID="58731" Ratio="2" iCNm="RedOrb_dog_of_king" />
@@ -6256,7 +6244,6 @@
   <item mCID="58749" Ratio="200" iCNm="CATACOMB_80_CRYSTAL" />
   <item mCID="58750" Ratio="1000" iCNm="misc_goblin" />
   <item mCID="58750" Ratio="200" iCNm="CATACOMB_80_CRYSTAL" />
-  <item mCID="58750" Ratio="4" iCNm="GEM_Alchemist_SprinkleHPPotion" />
   <item mCID="58751" Ratio="2000" iCNm="misc_goblin" />
   <item mCID="58751" Ratio="200" iCNm="CATACOMB_80_CRYSTAL" />
   <item mCID="58752" Ratio="1500" iCNm="misc_kowak" />
@@ -6289,7 +6276,7 @@
   <item mCID="58765" Ratio="300" iCNm="CATACOMB_80_CRYSTAL" />
   <item mCID="58766" Ratio="3000" iCNm="misc_0131" />
   <item mCID="58766" Ratio="300" iCNm="CATACOMB_80_CRYSTAL" />
-  <item mCID="58767" Ratio="1100" iCNm="misc_Kepari" />
+  <item mCID="58767" Ratio="1100" iCNm="misc_0139" />
   <item mCID="58767" Ratio="300" iCNm="CATACOMB_80_CRYSTAL" />
   <item mCID="58768" Ratio="1000" iCNm="misc_Mushroom_boy" />
   <item mCID="58768" Ratio="300" iCNm="CATACOMB_80_CRYSTAL" />
@@ -6317,12 +6304,10 @@
   <item mCID="58779" Ratio="400" iCNm="CATACOMB_80_CRYSTAL" />
   <item mCID="58780" Ratio="2500" iCNm="misc_0164" />
   <item mCID="58780" Ratio="400" iCNm="CATACOMB_80_CRYSTAL" />
-  <item mCID="58785" Ratio="0" iCNm="Gacha_iredian_390" />
-  <item mCID="58787" Ratio="0" iCNm="Gacha_iredian_390" />
   <item mCID="58803" Ratio="1000" iCNm="Gacha_F_044" />
   <item mCID="58804" Ratio="1000" iCNm="Gacha_F_053" />
   <item mCID="58805" Ratio="1000" iCNm="Gacha_F_041" />
-  <item mCID="58818" Ratio="1000" iCNm="Gacha_ID_330_LegCard" />
+  <item mCID="58818" Ratio="1000" iCNm="Gacha_ID_330" />
   <item mCID="58822" Ratio="200" iCNm="misc_0508" />
   <item mCID="58824" Ratio="200" iCNm="misc_0509" />
   <item mCID="58825" Ratio="200" iCNm="misc_0510" />
@@ -6333,7 +6318,9 @@
   <item mCID="58831" Ratio="200" iCNm="misc_0514" />
   <item mCID="58831" Ratio="4" iCNm="Gem_PlagueDoctor_Pandemic" />
   <item mCID="58839" Ratio="4" iCNm="Gem_Kabbalist_RevengedSevenfold" />
+  <item mCID="58841" Ratio="4" iCNm="Gem_Schwarzereiter_WildShot" />
   <item mCID="58843" Ratio="200" iCNm="misc_0517" />
+  <item mCID="58847" Ratio="4" iCNm="Gem_QuarrelShooter_StonePicking" />
   <item mCID="58855" Ratio="200" iCNm="misc_0516" />
   <item mCID="58856" Ratio="200" iCNm="misc_0515" />
   <item mCID="58865" Ratio="4" iCNm="Gem_Kabbalist_Ayin_sof" />
@@ -6351,37 +6338,43 @@
   <item mCID="59013" Ratio="831" iCNm="misc_TerraNymph" />
   <item mCID="59013" Ratio="3" iCNm="Gem_Sorcerer_SummonFamiliar" />
   <item mCID="59014" Ratio="2660" iCNm="misc_0253" />
-  <item mCID="59014" Ratio="50" iCNm="misc_0254" />
+  <item mCID="59014" Ratio="3" iCNm="misc_0254" />
   <item mCID="59015" Ratio="2660" iCNm="misc_0255" />
-  <item mCID="59015" Ratio="25" iCNm="misc_0256" />
+  <item mCID="59015" Ratio="3" iCNm="misc_0256" />
   <item mCID="59016" Ratio="3990" iCNm="misc_0191" />
   <item mCID="59016" Ratio="33" iCNm="misc_0192" />
   <item mCID="59016" Ratio="9" iCNm="misc_0195" />
   <item mCID="59017" Ratio="9" iCNm="misc_0213" />
   <item mCID="59018" Ratio="6800" iCNm="misc_0248" />
-  <item mCID="59018" Ratio="75" iCNm="misc_0249" />
+  <item mCID="59018" Ratio="9" iCNm="misc_0249" />
   <item mCID="59019" Ratio="2660" iCNm="misc_0046" />
-  <item mCID="59019" Ratio="50" iCNm="food_018" />
-  <item mCID="59019" Ratio="4" iCNm="GEM_Scout_DaggerSlash" />
+  <item mCID="59019" Ratio="11" iCNm="food_018" />
+  <item mCID="59019" Ratio="3" iCNm="Gem_Ranger_TimeBombArrow" />
   <item mCID="59020" Ratio="931" iCNm="misc_0305" />
   <item mCID="59020" Ratio="36" iCNm="misc_0437" />
-  <item mCID="59020" Ratio="40" iCNm="misc_0438" />
+  <item mCID="59020" Ratio="13" iCNm="misc_0438" />
   <item mCID="59021" Ratio="3325" iCNm="misc_0015" />
-  <item mCID="59021" Ratio="80" iCNm="misc_quartz_weaver3" />
+  <item mCID="59021" Ratio="16" iCNm="misc_quartz_weaver3" />
   <item mCID="59021" Ratio="3" iCNm="Gem_Archer_SwiftStep" />
   <item mCID="59022" Ratio="998" iCNm="misc_0231" />
   <item mCID="59022" Ratio="13" iCNm="misc_0232" />
-  <item mCID="59154" Ratio="10000" iCNm="Gacha_ID_380_Asio" />
-  <item mCID="59172" Ratio="10000" iCNm="Gacha_ID_380_Weistrel" />
-  <item mCID="59207" Ratio="10000" iCNm="Gacha_ID_380_ignas" />
-  <item mCID="59221" Ratio="75" iCNm="misc_0531" />
-  <item mCID="59221" Ratio="150" iCNm="misc_0532" />
-  <item mCID="59223" Ratio="75" iCNm="misc_0531" />
-  <item mCID="59223" Ratio="150" iCNm="misc_0532" />
-  <item mCID="59226" Ratio="75" iCNm="misc_0531" />
-  <item mCID="59226" Ratio="150" iCNm="misc_0532" />
-  <item mCID="59227" Ratio="75" iCNm="misc_0531" />
-  <item mCID="59227" Ratio="150" iCNm="misc_0532" />
+  <item mCID="100079" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100079" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100079" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100079" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100080" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100080" Ratio="0" iCNm="misc_earthTower5_toll" />
+  <item mCID="100081" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100081" Ratio="0" iCNm="misc_earthTower10_toll" />
+  <item mCID="100081" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100082" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100082" Ratio="0" iCNm="misc_earthTower15_toll" />
+  <item mCID="100082" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100082" Ratio="0" iCNm="misc_earthTower" />
+  <item mCID="100167" Ratio="1000" iCNm="misc_earthTower_2" />
+  <item mCID="100168" Ratio="1000" iCNm="misc_earthTower_2" />
+  <item mCID="100169" Ratio="1000" iCNm="misc_earthTower_2" />
+  <item mCID="100170" Ratio="1000" iCNm="misc_earthTower_2" />
   <item mCID="103003" Ratio="1000" iCNm="R_SWD01_130" />
   <item mCID="103003" Ratio="1000" iCNm="R_TSW01_122" />
   <item mCID="103003" Ratio="1000" iCNm="R_STF01_130" />
@@ -6391,14 +6384,22 @@
   <item mCID="103003" Ratio="1000" iCNm="R_MAC01_129" />
   <item mCID="103003" Ratio="1000" iCNm="R_SPR01_112" />
   <item mCID="103003" Ratio="1000" iCNm="R_TSP01_103" />
+  <item mCID="103006" Ratio="10000" iCNm="crystal_piece" />
+  <item mCID="103006" Ratio="10000" iCNm="crystal_piece" />
+  <item mCID="103006" Ratio="10000" iCNm="crystal_piece" />
+  <item mCID="103006" Ratio="10000" iCNm="crystal_piece" />
+  <item mCID="103006" Ratio="10000" iCNm="crystal_piece" />
+  <item mCID="103006" Ratio="5000" iCNm="crystal_piece" />
+  <item mCID="103006" Ratio="5000" iCNm="crystal_piece" />
+  <item mCID="103006" Ratio="5000" iCNm="crystal_piece" />
   <item mCID="103007" Ratio="60" iCNm="TBW01_106" />
   <item mCID="103007" Ratio="134" iCNm="FOOT01_106" />
   <item mCID="103008" Ratio="60" iCNm="TSF01_104" />
   <item mCID="103008" Ratio="134" iCNm="FOOT01_126" />
-  <item mCID="103008" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="103008" Ratio="134" iCNm="gem_square_1" />
   <item mCID="103009" Ratio="60" iCNm="SPR01_101" />
   <item mCID="103009" Ratio="134" iCNm="TOP01_127" />
-  <item mCID="103009" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="103009" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="103009" Ratio="137" iCNm="misc_0276" />
   <item mCID="103020" Ratio="1000" iCNm="SWD01_106" />
   <item mCID="103020" Ratio="1000" iCNm="TSW01_104" />
@@ -6414,7 +6415,7 @@
   <item mCID="103025" Ratio="134" iCNm="NECK01_126" />
   <item mCID="103025" Ratio="1250" iCNm="misc_Spector_Gh" />
   <item mCID="103025" Ratio="128" iCNm="misc_jore05" />
-  <item mCID="103025" Ratio="25" iCNm="food_016" />
+  <item mCID="103025" Ratio="1" iCNm="food_016" />
   <item mCID="103025" Ratio="2" iCNm="BlueOrb_Spector_Gh" />
   <item mCID="103025" Ratio="2" iCNm="RedOrb_Spector_Gh" />
   <item mCID="103025" Ratio="2" iCNm="Gem_Psychokino_PsychicPressure" />
@@ -6450,7 +6451,7 @@
   <item mCID="106000" Ratio="82" iCNm="SWD01_119" />
   <item mCID="106000" Ratio="82" iCNm="TBW01_119" />
   <item mCID="106000" Ratio="134" iCNm="LEG01_103" />
-  <item mCID="106000" Ratio="134" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="106000" Ratio="134" iCNm="gem_circle_1" />
   <item mCID="106000" Ratio="2" iCNm="SWD02_118" />
   <item mCID="106000" Ratio="2" iCNm="BlueOrb_Goblin_Miners" />
   <item mCID="106000" Ratio="2" iCNm="RedOrb_Goblin_Miners" />
@@ -6494,7 +6495,7 @@
   <item mCID="107023" Ratio="50" iCNm="R_TSP02_105" />
   <item mCID="107023" Ratio="2" iCNm="BlueOrb_Gazing_Golem_yellow" />
   <item mCID="107023" Ratio="2" iCNm="RedOrb_Gazing_Golem_yellow" />
-  <item mCID="107023" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="107023" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="107024" Ratio="2500" iCNm="misc_0050" />
   <item mCID="200001" Ratio="2500" iCNm="misc_0010" />
   <item mCID="200001" Ratio="55" iCNm="TBW01_118" />
@@ -6503,6 +6504,7 @@
   <item mCID="200001" Ratio="40" iCNm="NECK01_122" />
   <item mCID="200001" Ratio="2" iCNm="BlueOrb_Jukopus" />
   <item mCID="200001" Ratio="2" iCNm="RedOrb_Jukopus" />
+  <item mCID="200001" Ratio="2" iCNm="Gem_Swordman_Concentrate" />
   <item mCID="200001" Ratio="160" iCNm="R_HAND02_101" />
   <item mCID="200002" Ratio="2500" iCNm="misc_0008" />
   <item mCID="200002" Ratio="60" iCNm="SWD01_103" />
@@ -6514,15 +6516,15 @@
   <item mCID="200003" Ratio="2" iCNm="BlueOrb_Spion_mage" />
   <item mCID="200003" Ratio="2" iCNm="RedOrb_Spion_mage" />
   <item mCID="200004" Ratio="2000" iCNm="misc_Ticen" />
-  <item mCID="200004" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="200004" Ratio="128" iCNm="gem_square_1" />
   <item mCID="200004" Ratio="2" iCNm="BlueOrb_ticen_mage" />
   <item mCID="200004" Ratio="2" iCNm="RedOrb_ticen_mage" />
   <item mCID="200004" Ratio="2" iCNm="Gem_Elementalist_FrostCloud" />
-  <item mCID="200004" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="200004" Ratio="213" iCNm="gem_diamond_1" />
   <item mCID="200006" Ratio="700" iCNm="misc_0320" />
   <item mCID="200006" Ratio="2" iCNm="BlueOrb_rocktanon" />
   <item mCID="200006" Ratio="2" iCNm="RedOrb_rocktanon" />
-  <item mCID="200006" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="200006" Ratio="127" iCNm="gem_circle_1" />
   <item mCID="200007" Ratio="1200" iCNm="misc_0001" />
   <item mCID="200007" Ratio="150" iCNm="Hat_628054" />
   <item mCID="200007" Ratio="107" iCNm="SHD01_101" />
@@ -6530,10 +6532,10 @@
   <item mCID="200007" Ratio="2" iCNm="RedOrb_Onion" />
   <item mCID="200007" Ratio="2" iCNm="Gem_Wizard_Lethargy" />
   <item mCID="200008" Ratio="1428" iCNm="misc_Karas" />
-  <item mCID="200008" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="200008" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="200008" Ratio="2" iCNm="BlueOrb_Karas" />
   <item mCID="200008" Ratio="2" iCNm="RedOrb_Karas" />
-  <item mCID="200009" Ratio="129" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="200009" Ratio="129" iCNm="gem_star_1" />
   <item mCID="200009" Ratio="2" iCNm="BlueOrb_defender_spider" />
   <item mCID="200009" Ratio="2" iCNm="RedOrb_defender_spider" />
   <item mCID="200009" Ratio="2" iCNm="Gem_Sorcerer_SummonSalamion" />
@@ -6545,7 +6547,7 @@
   <item mCID="200010" Ratio="2" iCNm="Gem_Pyromancer_FireBall" />
   <item mCID="200011" Ratio="2" iCNm="BlueOrb_Nnuo" />
   <item mCID="200011" Ratio="2" iCNm="RedOrb_Nnuo" />
-  <item mCID="200011" Ratio="4" iCNm="GEM_Assassin_InstantaneousAcceleration" />
+  <item mCID="200011" Ratio="2" iCNm="Gem_Rogue_Spoliation" />
   <item mCID="200012" Ratio="500" iCNm="misc_0100" />
   <item mCID="200012" Ratio="85" iCNm="misc_Fire_Dragon2" />
   <item mCID="200012" Ratio="135" iCNm="R_MAC01_130" />
@@ -6566,7 +6568,6 @@
   <item mCID="400001" Ratio="2" iCNm="BlueOrb_Onion" />
   <item mCID="400001" Ratio="2" iCNm="RedOrb_Onion" />
   <item mCID="400001" Ratio="2" iCNm="Gem_Wizard_Lethargy" />
-  <item mCID="400002" Ratio="250" iCNm="LEG01_102" />
   <item mCID="400003" Ratio="1200" iCNm="misc_0001" />
   <item mCID="400003" Ratio="250" iCNm="HAND01_103" />
   <item mCID="400003" Ratio="55" iCNm="MAC01_118" />
@@ -6604,6 +6605,7 @@
   <item mCID="400061" Ratio="40" iCNm="NECK01_122" />
   <item mCID="400061" Ratio="2" iCNm="BlueOrb_Jukopus" />
   <item mCID="400061" Ratio="2" iCNm="RedOrb_Jukopus" />
+  <item mCID="400061" Ratio="2" iCNm="Gem_Swordman_Concentrate" />
   <item mCID="400061" Ratio="160" iCNm="R_HAND02_101" />
   <item mCID="400062" Ratio="2500" iCNm="misc_0010" />
   <item mCID="400062" Ratio="2500" iCNm="food_007" />
@@ -6629,7 +6631,7 @@
   <item mCID="400101" Ratio="60" iCNm="TSF01_103" />
   <item mCID="400101" Ratio="2" iCNm="BlueOrb_banshee" />
   <item mCID="400101" Ratio="2" iCNm="RedOrb_banshee" />
-  <item mCID="400101" Ratio="4" iCNm="GEM_Elementalist_FireClaw" />
+  <item mCID="400101" Ratio="2" iCNm="Gem_Wizard_Surespell" />
   <item mCID="400104" Ratio="132" iCNm="STF01_103" />
   <item mCID="400104" Ratio="132" iCNm="MAC01_103" />
   <item mCID="400141" Ratio="1500" iCNm="misc_Bushspider_purple" />
@@ -6662,7 +6664,7 @@
   <item mCID="400209" Ratio="147" iCNm="misc_bubeWarriorBlood" />
   <item mCID="400209" Ratio="25" iCNm="MAC03_105" />
   <item mCID="400209" Ratio="800" iCNm="Scroll_Warp_Klaipe" />
-  <item mCID="400209" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="400209" Ratio="128" iCNm="gem_circle_1" />
   <item mCID="400209" Ratio="2" iCNm="BlueOrb_GoblinWarrior" />
   <item mCID="400209" Ratio="2" iCNm="RedOrb_GoblinWarrior" />
   <item mCID="400209" Ratio="2" iCNm="Gem_Highlander_CartarStroke" />
@@ -6680,12 +6682,12 @@
   <item mCID="400244" Ratio="58" iCNm="R_NECK02_109" />
   <item mCID="400244" Ratio="2" iCNm="BlueOrb_jellyfish_red" />
   <item mCID="400244" Ratio="2" iCNm="RedOrb_jellyfish_red" />
+  <item mCID="400244" Ratio="2" iCNm="Gem_Thaumaturge_Transpose" />
   <item mCID="400244" Ratio="333" iCNm="misc_jellyfish" />
-  <item mCID="400244" Ratio="4" iCNm="GEM_QuarrelShooter_BlockAndShoot" />
   <item mCID="400281" Ratio="58" iCNm="R_TSW02_108" />
   <item mCID="400281" Ratio="2" iCNm="BlueOrb_honey_bee" />
   <item mCID="400281" Ratio="2" iCNm="RedOrb_honey_bee" />
-  <item mCID="400281" Ratio="4" iCNm="GEM_Templer_AdvancedOrders" />
+  <item mCID="400281" Ratio="2" iCNm="Gem_Hoplite_LongStride" />
   <item mCID="400301" Ratio="3333" iCNm="misc_puragi" />
   <item mCID="400301" Ratio="60" iCNm="TSW01_106" />
   <item mCID="400302" Ratio="106" iCNm="DAG01_101" />
@@ -6712,7 +6714,7 @@
   <item mCID="400324" Ratio="2" iCNm="TBW02_120" />
   <item mCID="400324" Ratio="2" iCNm="BlueOrb_zigri_red" />
   <item mCID="400324" Ratio="2" iCNm="RedOrb_zigri_red" />
-  <item mCID="400324" Ratio="4" iCNm="GEM_Assassin_Behead" />
+  <item mCID="400324" Ratio="2" iCNm="Gem_Scout_Undistance" />
   <item mCID="400341" Ratio="500" iCNm="misc_Fisherman" />
   <item mCID="400341" Ratio="135" iCNm="R_TSP01_103" />
   <item mCID="400341" Ratio="2" iCNm="BlueOrb_Fisherman" />
@@ -6727,7 +6729,7 @@
   <item mCID="400342" Ratio="4" iCNm="Gem_Doppelsoeldner_Zucken" />
   <item mCID="400343" Ratio="115" iCNm="R_SWD01_109" />
   <item mCID="400343" Ratio="115" iCNm="R_TSW01_107" />
-  <item mCID="400343" Ratio="82" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="400343" Ratio="82" iCNm="gem_circle_1" />
   <item mCID="400343" Ratio="30" iCNm="R_FOOT03_103" />
   <item mCID="400344" Ratio="500" iCNm="misc_Fisherman" />
   <item mCID="400344" Ratio="58" iCNm="R_NECK02_108" />
@@ -6782,9 +6784,9 @@
   <item mCID="400444" Ratio="2" iCNm="BlueOrb_Mushroom_boy_yellow" />
   <item mCID="400444" Ratio="2" iCNm="RedOrb_Mushroom_boy_yellow" />
   <item mCID="400461" Ratio="1428" iCNm="misc_mushroom_ent" />
-  <item mCID="400461" Ratio="180" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="400461" Ratio="180" iCNm="gem_diamond_1" />
   <item mCID="400461" Ratio="30" iCNm="R_TOP03_104" />
-  <item mCID="400462" Ratio="150" iCNm="R_TSP02_102" />
+  <item mCID="400462" Ratio="58" iCNm="R_TSP02_102" />
   <item mCID="400462" Ratio="9999" iCNm="food_014" />
   <item mCID="400462" Ratio="9999" iCNm="food_014" />
   <item mCID="400462" Ratio="2" iCNm="BlueOrb_mushroom_ent_blue" />
@@ -6807,10 +6809,10 @@
   <item mCID="400483" Ratio="333" iCNm="misc_0225" />
   <item mCID="400483" Ratio="2" iCNm="BlueOrb_pappus_kepa_purple" />
   <item mCID="400483" Ratio="2" iCNm="RedOrb_pappus_kepa_purple" />
-  <item mCID="400484" Ratio="180" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="400484" Ratio="180" iCNm="gem_star_1" />
   <item mCID="400484" Ratio="118" iCNm="R_TOP02_107" />
   <item mCID="400502" Ratio="2000" iCNm="misc_0253" />
-  <item mCID="400502" Ratio="50" iCNm="misc_0254" />
+  <item mCID="400502" Ratio="2" iCNm="misc_0254" />
   <item mCID="400502" Ratio="115" iCNm="R_HAND01_156" />
   <item mCID="400502" Ratio="2" iCNm="BlueOrb_rafflesia_green" />
   <item mCID="400502" Ratio="2" iCNm="RedOrb_rafflesia_green" />
@@ -6831,8 +6833,8 @@
   <item mCID="400543" Ratio="134" iCNm="NECK01_128" />
   <item mCID="400543" Ratio="2" iCNm="BlueOrb_Ridimed_purple" />
   <item mCID="400543" Ratio="2" iCNm="RedOrb_Ridimed_purple" />
+  <item mCID="400543" Ratio="2" iCNm="Gem_Barbarian_HelmChopper" />
   <item mCID="400543" Ratio="47" iCNm="R_HAND03_107" />
-  <item mCID="400543" Ratio="4" iCNm="GEM_OutLaw_Bully" />
   <item mCID="400561" Ratio="75" iCNm="R_SWD02_102" />
   <item mCID="400561" Ratio="2" iCNm="BlueOrb_Sakmoli" />
   <item mCID="400561" Ratio="2" iCNm="RedOrb_Sakmoli" />
@@ -6858,7 +6860,7 @@
   <item mCID="400661" Ratio="1000" iCNm="SPR01_103" />
   <item mCID="400662" Ratio="1250" iCNm="misc_Spector_Gh" />
   <item mCID="400662" Ratio="128" iCNm="misc_jore05" />
-  <item mCID="400662" Ratio="25" iCNm="food_016" />
+  <item mCID="400662" Ratio="1" iCNm="food_016" />
   <item mCID="400662" Ratio="134" iCNm="HAND01_111" />
   <item mCID="400662" Ratio="2" iCNm="BlueOrb_Spector_Gh" />
   <item mCID="400662" Ratio="2" iCNm="RedOrb_Spector_Gh" />
@@ -6894,21 +6896,21 @@
   <item mCID="400763" Ratio="132" iCNm="TOP01_104" />
   <item mCID="400801" Ratio="38" iCNm="misc_jore06" />
   <item mCID="400801" Ratio="5" iCNm="R_SPR03_101" />
-  <item mCID="400801" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="400801" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="400801" Ratio="108" iCNm="NECK01_130" />
   <item mCID="400801" Ratio="2" iCNm="BlueOrb_schlesien_claw" />
   <item mCID="400801" Ratio="2" iCNm="RedOrb_schlesien_claw" />
   <item mCID="400821" Ratio="2000" iCNm="misc_schlesien_darkmage" />
-  <item mCID="400821" Ratio="50" iCNm="misc_schlesien_darkmage3" />
-  <item mCID="400821" Ratio="25" iCNm="food_016" />
+  <item mCID="400821" Ratio="4" iCNm="misc_schlesien_darkmage3" />
+  <item mCID="400821" Ratio="1" iCNm="food_016" />
   <item mCID="400821" Ratio="135" iCNm="R_TSF01_109" />
   <item mCID="400821" Ratio="9" iCNm="Hat_628041" />
-  <item mCID="400821" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="400821" Ratio="129" iCNm="gem_star_1" />
   <item mCID="400821" Ratio="2" iCNm="BlueOrb_schlesien_darkmage" />
   <item mCID="400821" Ratio="2" iCNm="RedOrb_schlesien_darkmage" />
   <item mCID="400841" Ratio="769" iCNm="misc_schlesien_guard" />
   <item mCID="400841" Ratio="61" iCNm="TSP01_101" />
-  <item mCID="400841" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="400841" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="400841" Ratio="2" iCNm="BlueOrb_schlesien_guard" />
   <item mCID="400841" Ratio="2" iCNm="RedOrb_schlesien_guard" />
   <item mCID="400861" Ratio="3333" iCNm="misc_0070" />
@@ -6920,11 +6922,11 @@
   <item mCID="400861" Ratio="2" iCNm="RedOrb_schlesien_heavycavarly" />
   <item mCID="400861" Ratio="2" iCNm="Gem_Barbarian_Warcry" />
   <item mCID="400881" Ratio="2000" iCNm="misc_0046" />
-  <item mCID="400881" Ratio="50" iCNm="food_018" />
+  <item mCID="400881" Ratio="8" iCNm="food_018" />
   <item mCID="400881" Ratio="50" iCNm="R_HAND02_105" />
   <item mCID="400881" Ratio="2" iCNm="BlueOrb_truffle" />
   <item mCID="400881" Ratio="2" iCNm="RedOrb_truffle" />
-  <item mCID="400881" Ratio="4" iCNm="GEM_Scout_DaggerSlash" />
+  <item mCID="400881" Ratio="2" iCNm="Gem_Ranger_TimeBombArrow" />
   <item mCID="400901" Ratio="1000" iCNm="SWD01_108" />
   <item mCID="400901" Ratio="1000" iCNm="TSW01_106" />
   <item mCID="400901" Ratio="1000" iCNm="STF01_108" />
@@ -6948,7 +6950,7 @@
   <item mCID="400961" Ratio="80" iCNm="NECK01_111" />
   <item mCID="400961" Ratio="2" iCNm="BlueOrb_Chupacabra_Blue" />
   <item mCID="400961" Ratio="2" iCNm="RedOrb_Chupacabra_Blue" />
-  <item mCID="400961" Ratio="4" iCNm="GEM_Cleric_Smite" />
+  <item mCID="400961" Ratio="2" iCNm="Gem_Cleric_SafetyZone" />
   <item mCID="400965" Ratio="1300" iCNm="misc_0006" />
   <item mCID="400981" Ratio="2000" iCNm="food_Popolion" />
   <item mCID="400981" Ratio="60" iCNm="STF01_103" />
@@ -6962,19 +6964,19 @@
   <item mCID="400984" Ratio="2" iCNm="BlueOrb_Popolion_Orange" />
   <item mCID="400984" Ratio="2" iCNm="RedOrb_Popolion_Orange" />
   <item mCID="401001" Ratio="2000" iCNm="misc_0059" />
-  <item mCID="401001" Ratio="40" iCNm="misc_Sauga_s3" />
+  <item mCID="401001" Ratio="3" iCNm="misc_Sauga_s3" />
   <item mCID="401001" Ratio="134" iCNm="R_HAND01_110" />
   <item mCID="401001" Ratio="2" iCNm="BlueOrb_Sauga_s" />
   <item mCID="401001" Ratio="2" iCNm="RedOrb_Sauga_s" />
   <item mCID="401001" Ratio="2" iCNm="Gem_Dievdirbys_CarveZemina" />
   <item mCID="401001" Ratio="115" iCNm="R_HAND02_114" />
   <item mCID="401041" Ratio="2500" iCNm="misc_Tontulia" />
-  <item mCID="401041" Ratio="100" iCNm="R_SWD02_104" />
-  <item mCID="401041" Ratio="128" iCNm="misc_gemExpStone_randomQuest1_TA" />
-  <item mCID="401041" Ratio="150" iCNm="MAC02_116" />
+  <item mCID="401041" Ratio="50" iCNm="R_SWD02_104" />
+  <item mCID="401041" Ratio="128" iCNm="gem_star_1" />
+  <item mCID="401041" Ratio="2" iCNm="MAC02_116" />
   <item mCID="401041" Ratio="2" iCNm="BlueOrb_Tontulia" />
   <item mCID="401041" Ratio="2" iCNm="RedOrb_Tontulia" />
-  <item mCID="401041" Ratio="4" iCNm="GEM_Shinobi_Raiton_no_Jutsu" />
+  <item mCID="401041" Ratio="2" iCNm="Gem_Paladin_Smite" />
   <item mCID="401061" Ratio="134" iCNm="NECK01_127" />
   <item mCID="401061" Ratio="60" iCNm="TSF01_106" />
   <item mCID="401061" Ratio="58" iCNm="R_MAC02_102" />
@@ -6994,10 +6996,10 @@
   <item mCID="401101" Ratio="2" iCNm="RedOrb_Geppetto" />
   <item mCID="401121" Ratio="2500" iCNm="misc_0105" />
   <item mCID="401121" Ratio="108" iCNm="FOOT01_114" />
-  <item mCID="401121" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="401121" Ratio="129" iCNm="gem_diamond_1" />
   <item mCID="401121" Ratio="2" iCNm="BlueOrb_Moving_trap" />
   <item mCID="401121" Ratio="2" iCNm="RedOrb_Moving_trap" />
-  <item mCID="401121" Ratio="4" iCNm="GEM_Swordman_Bear" />
+  <item mCID="401121" Ratio="2" iCNm="Gem_Highlander_VerticalSlash" />
   <item mCID="401181" Ratio="333" iCNm="misc_Pino" />
   <item mCID="401181" Ratio="2500" iCNm="food_026" />
   <item mCID="401181" Ratio="25" iCNm="R_BOW02_103" />
@@ -7015,7 +7017,7 @@
   <item mCID="401241" Ratio="666" iCNm="misc_0065" />
   <item mCID="401241" Ratio="3" iCNm="misc_jore17" />
   <item mCID="401241" Ratio="108" iCNm="LEG01_114" />
-  <item mCID="401241" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="401241" Ratio="129" iCNm="gem_square_1" />
   <item mCID="401241" Ratio="2" iCNm="BlueOrb_Wolf_statue" />
   <item mCID="401241" Ratio="2" iCNm="RedOrb_Wolf_statue" />
   <item mCID="401261" Ratio="850" iCNm="misc_Cockatries" />
@@ -7025,12 +7027,12 @@
   <item mCID="401261" Ratio="2" iCNm="Gem_Wugushi_Bewitch" />
   <item mCID="401261" Ratio="133" iCNm="misc_Cockatries2" />
   <item mCID="401301" Ratio="1600" iCNm="misc_0063" />
-  <item mCID="401301" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="401301" Ratio="129" iCNm="gem_circle_1" />
   <item mCID="401301" Ratio="38" iCNm="SPR02_103" />
   <item mCID="401301" Ratio="2" iCNm="BlueOrb_zinutekas" />
   <item mCID="401301" Ratio="2" iCNm="RedOrb_zinutekas" />
+  <item mCID="401301" Ratio="2" iCNm="Gem_Linker_SpiritualChain" />
   <item mCID="401301" Ratio="47" iCNm="R_LEG03_107" />
-  <item mCID="401301" Ratio="4" iCNm="GEM_Archer_Concentration" />
   <item mCID="401341" Ratio="1200" iCNm="misc_0009" />
   <item mCID="401341" Ratio="250" iCNm="TOP01_102" />
   <item mCID="401341" Ratio="60" iCNm="TBW01_103" />
@@ -7038,6 +7040,7 @@
   <item mCID="401341" Ratio="250" iCNm="HAND01_103" />
   <item mCID="401341" Ratio="2" iCNm="BlueOrb_Pokubu" />
   <item mCID="401341" Ratio="2" iCNm="RedOrb_Pokubu" />
+  <item mCID="401341" Ratio="2" iCNm="Gem_Archer_Kneelingshot" />
   <item mCID="401341" Ratio="160" iCNm="R_TOP02_102" />
   <item mCID="401344" Ratio="1200" iCNm="misc_0009" />
   <item mCID="401344" Ratio="250" iCNm="TOP01_102" />
@@ -7046,6 +7049,7 @@
   <item mCID="401344" Ratio="250" iCNm="HAND01_103" />
   <item mCID="401344" Ratio="2" iCNm="BlueOrb_Pokubu" />
   <item mCID="401344" Ratio="2" iCNm="RedOrb_Pokubu" />
+  <item mCID="401344" Ratio="2" iCNm="Gem_Archer_Kneelingshot" />
   <item mCID="401344" Ratio="160" iCNm="R_TOP02_102" />
   <item mCID="401401" Ratio="2500" iCNm="misc_0109" />
   <item mCID="401401" Ratio="2500" iCNm="food_029" />
@@ -7058,23 +7062,23 @@
   <item mCID="401421" Ratio="2500" iCNm="misc_ore03" />
   <item mCID="401421" Ratio="180" iCNm="R_BRC02_108" />
   <item mCID="401422" Ratio="750" iCNm="misc_0071" />
-  <item mCID="401422" Ratio="90" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="401422" Ratio="90" iCNm="gem_diamond_1" />
   <item mCID="401422" Ratio="2" iCNm="BlueOrb_Candlespider_blue" />
   <item mCID="401422" Ratio="2" iCNm="RedOrb_Candlespider_blue" />
-  <item mCID="401422" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="401422" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="401423" Ratio="75" iCNm="misc_0071" />
-  <item mCID="401423" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="401423" Ratio="128" iCNm="gem_star_1" />
   <item mCID="401423" Ratio="2" iCNm="BlueOrb_Candlespider_yellow" />
   <item mCID="401423" Ratio="2" iCNm="RedOrb_Candlespider_yellow" />
   <item mCID="401423" Ratio="15" iCNm="R_RAP04_101" />
   <item mCID="401423" Ratio="2" iCNm="Gem_Doppelsoeldner_Double_pay_earn" />
-  <item mCID="401423" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="401423" Ratio="213" iCNm="gem_circle_1" />
   <item mCID="401445" Ratio="750" iCNm="misc_0187" />
   <item mCID="401445" Ratio="115" iCNm="R_SHD01_120" />
   <item mCID="401445" Ratio="2" iCNm="BlueOrb_Corpse_Flower_green" />
   <item mCID="401445" Ratio="2" iCNm="RedOrb_Corpse_Flower_green" />
-  <item mCID="401445" Ratio="4" iCNm="GEM_Dragoon_DragonFear" />
-  <item mCID="401461" Ratio="333" iCNm="misc_gemExpStone_randomQuest1_TA" />
+  <item mCID="401445" Ratio="4" iCNm="Gem_Peltasta_Langort" />
+  <item mCID="401461" Ratio="333" iCNm="gem_square_1" />
   <item mCID="401461" Ratio="2" iCNm="BlueOrb_Flying_Flog" />
   <item mCID="401461" Ratio="2" iCNm="RedOrb_Flying_Flog" />
   <item mCID="401461" Ratio="2" iCNm="Gem_Barbarian_Frenzy" />
@@ -7093,7 +7097,7 @@
   <item mCID="401482" Ratio="2" iCNm="BlueOrb_Hepatica_purple" />
   <item mCID="401482" Ratio="2" iCNm="RedOrb_Hepatica_purple" />
   <item mCID="401482" Ratio="2" iCNm="Gem_Monk_Golden_Bell_Shield" />
-  <item mCID="401482" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="401482" Ratio="213" iCNm="gem_star_1" />
   <item mCID="401501" Ratio="1250" iCNm="misc_0002" />
   <item mCID="401501" Ratio="2" iCNm="BlueOrb_Leaf_diving" />
   <item mCID="401501" Ratio="2" iCNm="RedOrb_Leaf_diving" />
@@ -7138,7 +7142,7 @@
   <item mCID="401642" Ratio="2" iCNm="BlueOrb_Big_Cockatries_green" />
   <item mCID="401642" Ratio="2" iCNm="RedOrb_Big_Cockatries_green" />
   <item mCID="401643" Ratio="6666" iCNm="misc_0248" />
-  <item mCID="401643" Ratio="100" iCNm="misc_0249" />
+  <item mCID="401643" Ratio="2" iCNm="misc_0249" />
   <item mCID="401643" Ratio="115" iCNm="R_FOOT01_156" />
   <item mCID="401643" Ratio="2" iCNm="BlueOrb_Big_Cockatries_red" />
   <item mCID="401643" Ratio="2" iCNm="RedOrb_Big_Cockatries_red" />
@@ -7197,44 +7201,4 @@
   <item mCID="450222" Ratio="1000" iCNm="R_MAC01_129" />
   <item mCID="450222" Ratio="1000" iCNm="R_SPR01_112" />
   <item mCID="450222" Ratio="1000" iCNm="R_TSP01_103" />
-  <item mCID="1000133" Ratio="1000" iCNm="Gacha_F_042" />
-  <item mCID="1000134" Ratio="1000" iCNm="Gacha_F_041" />
-  <item mCID="1000135" Ratio="1000" iCNm="Gacha_F_044" />
-  <item mCID="1000136" Ratio="1000" iCNm="Gacha_F_043" />
-  <item mCID="1000137" Ratio="1000" iCNm="Gacha_F_045" />
-  <item mCID="1000138" Ratio="1000" iCNm="Gacha_F_046" />
-  <item mCID="1000139" Ratio="1000" iCNm="Gacha_F_047" />
-  <item mCID="1000140" Ratio="1000" iCNm="Gacha_F_048" />
-  <item mCID="1000141" Ratio="1000" iCNm="Gacha_F_049" />
-  <item mCID="1000142" Ratio="1000" iCNm="Gacha_F_051" />
-  <item mCID="1000143" Ratio="1000" iCNm="Gacha_F_052" />
-  <item mCID="1000144" Ratio="1000" iCNm="Gacha_F_053" />
-  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_061" />
-  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_054" />
-  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_061" />
-  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_054" />
-  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_062" />
-  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_055" />
-  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_062" />
-  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_055" />
-  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_063" />
-  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_056" />
-  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_063" />
-  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_056" />
-  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_064" />
-  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_057" />
-  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_064" />
-  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_057" />
-  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_065" />
-  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_058" />
-  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_065" />
-  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_058" />
-  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_066" />
-  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_059" />
-  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_066" />
-  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_059" />
-  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_067" />
-  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_060" />
-  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_067" />
-  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_060" />
 </DropData>

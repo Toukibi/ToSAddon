@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.88";
+local verText = "0.89";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
@@ -857,7 +857,7 @@ function Me.UpdateFrame()
 		ToDisplayCount = 0;
 		ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_NoMeetNPC"));
 		for i,value in ipairs(NPCInfo) do
-			if value.NpcState == 0 and value.Type == "NPC" and value.X ~= nil and value.Y ~= nil then
+			if (value.NpcState == nil or value.NpcState == 0) and value.Type == "NPC" and value.X ~= nil and value.Y ~= nil then
 				ToDisplayCount = ToDisplayCount + 1;
 				ToolTipText = ToolTipText .. string.format("{nl}{s28} {/}{img %s 20 20} %s",value.Icon ,value.Name);
 			end
@@ -903,7 +903,7 @@ function Me.UpdateFrame()
 		local CollBoxOpened = true
 		for i,value in ipairs(NPCInfo) do
 			local IconText = "compen_btn"
-			if value.NpcState == 0 and value.Type == "Box" then
+			if (value.NpcState == nil or value.NpcState == 0) and value.Type == "Box" then
 				local InsideData = Toukibi:Split(value.ArgStr2, ":");
 				local InsideItemText = GetClass("Item", InsideData[2]).Name
 				local ForeColor = "#FFFFFF"
@@ -1039,7 +1039,7 @@ local function GetBoxInfo(value)
 		local LvNum = string.gsub(value.ArgStr1, "LV", "")
 		ReturnValue.Lv = tonumber(LvNum)
 	end
-	if value.NpcState ~= 0 then
+	if value.NpcState ~= nil and value.NpcState ~= 0 then
 		-- 開封済
 		ReturnValue.IsOpened = true;
 		ReturnValue.Icon = "M_message_open";
@@ -1126,7 +1126,7 @@ local function DrawIconToObjEx(objTarget, Zoom)
 													, BoxInfo.Lv
 													, BoxInfo.OpenStateText
 													, BoxInfo.Inside));
-			elseif (value.Type == "NPC" or value.Type == "Arrow" or value.Type == "Statue") and value.NpcState == 0 then
+			elseif (value.Type == "NPC" or value.Type == "Arrow" or value.Type == "Statue") and (value.NpcState == nil or value.NpcState == 0) then
 				-- まだ会っていないNPC
 				local XC = math.ceil((value.X) * Zoom) - 16;
 				local YC = math.ceil((value.Y) * Zoom) - 16;
@@ -1498,7 +1498,7 @@ end
 -- NPC情報
 function Me.GetMapNPCInfo(MapClassName)
 	-- session.GetMapNPCState(session.GetMapName()):FindAndGet(GenType)
-	-- で会ったかどうかがわかる(0:まだ  それ以外:話した・開けた事がある)
+	-- で会ったかどうかがわかる(0かnil:まだ  それ以外:話した・開けた事がある)
 	--if ui.GetFrame("loadingbg") ~= nil then return nil end
 	MapClassName = MapClassName or session.GetMapName();
 	if MapClassName == nil or MapClassName == "" or MapClassName == "None" then return end
@@ -1506,8 +1506,20 @@ function Me.GetMapNPCInfo(MapClassName)
 	local MapInfo = {};
 	MapInfo.ClassName = MapClassName;
 	local myColls = session.GetMySession():GetCollection();
-	-- MapInfo.Collection = 
-	MapInfo.NpcState = session.GetMapNPCState(MapInfo.ClassName);
+	
+	-- 2019/3/13のIToSのアップデートで取得方法が変更
+	local status, ResultValue = pcall(session.GetMapNPCState, MapInfo.ClassName);
+	local UseOldMethod = false;
+	if status then
+		-- 変更前
+		UseOldMethod = true;
+		MapInfo.NpcState = ResultValue;
+	else
+		-- 変更後
+		UseOldMethod = false;
+		MapInfo.NpcState = nil;
+	end
+
 	MapInfo.Property = geMapTable.GetMapProp(MapInfo.ClassName);
 	
 	MapInfo.ClassList, MapInfo.ClassCount = GetClassList("GenType_" .. MapInfo.ClassName);
@@ -1519,11 +1531,22 @@ function Me.GetMapNPCInfo(MapClassName)
 	for i = 0 , cnt - 1 do 
 		local MonProp = MapInfo.MonGens:Element(i);
 		local IESData_GenType = GetClassByIndexFromList(MapInfo.ClassList, i);
-	-- log(i .. ":" .. MonProp:GetName() .. ":" .. g.mapNpcState:FindAndGet(MonProp.GenType));
 		-- if string.find(string.lower(MonProp:GetDialog()),"treasurebox") then
 		if (IESData_GenType.Faction == "Neutral" and IESData_GenType.Minimap > 0 and string.find(string.lower(IESData_GenType.ClassType),"hidden") == nil and string.find(string.lower(IESData_GenType.ClassType),"trigger") == nil and string.find(string.lower(IESData_GenType.Name),"visible") == nil and string.find(string.lower(IESData_GenType.Name),"none") == nil) or string.find(string.lower(IESData_GenType.ClassType),"treasure.*box") then
+
+		--log(string.format("[%s]%s (%s)", IESData_GenType.GenType, IESData_GenType.Name, IESData_GenType.Minimap))
 			local NPCType = "NPC"
-			local NpcState = MapInfo.NpcState:FindAndGet(IESData_GenType.GenType)
+
+			-- 2019/3/13のIToSのアップデートで取得方法が変更
+			local NpcState = 0;
+			if UseOldMethod then
+				-- 変更前
+				NpcState = MapInfo.NpcState:FindAndGet(IESData_GenType.GenType);
+			else
+				-- 変更後
+				NpcState = GetNPCState(MapInfo.ClassName, IESData_GenType.GenType);
+			end
+
 			if string.find(string.lower(IESData_GenType.ClassType),"statue_zemina") then
 				NPCType = "Statue"
 			elseif string.find(string.lower(IESData_GenType.ClassType),"statue_vakarine") then
@@ -1560,6 +1583,7 @@ function Me.GetMapNPCInfo(MapClassName)
 				end
 			end
 			local IconText = MonProp:GetMinimapIcon()
+	--log(string.format("[icon_%s]:%s", IESData_GenType.GenType, IconText))
 			if string.find(string.lower(IESData_GenType.ClassType),"id_gate_npc") then
 				IconText = "minimap_indun"
 			elseif IconText == nil or IconText == "None" then
@@ -1575,7 +1599,7 @@ function Me.GetMapNPCInfo(MapClassName)
 				MapPos.x = nil
 				MapPos.y = nil
 			end
-	--log(string.format("[%s](%s) %s (%s)", IESData_GenType.GenType, MapInfo.NpcState:FindAndGet(IESData_GenType.GenType), IESData_GenType.Name, NPCType))
+	--log(string.format("[%s](%s) %s (%s)", IESData_GenType.GenType, tostring(NpcState), IESData_GenType.Name, NPCType))
 			table.insert(NoMeetNPC, {
 				Name = IESData_GenType.Name -- .. "(" .. IESData_GenType.ClassType .. ")"
 				, NpcState = NpcState
@@ -1594,7 +1618,6 @@ function Me.GetMapNPCInfo(MapClassName)
 			});
 		end
 	end
-
 	-- view(NoMeetNPC)
 	return NoMeetNPC;
 	-- return MapInfo
@@ -1610,7 +1633,6 @@ function Me.GetMapMonsterInfo(MapClassName)
 	MapInfo.ClassName = MapClassName;
 	local myColls = session.GetMySession():GetCollection();
 	-- MapInfo.Collection = 
-	MapInfo.NpcState = session.GetMapNPCState(MapInfo.ClassName);
 	MapInfo.Property = geMapTable.GetMapProp(MapInfo.ClassName);
 	
 	MapInfo.ClassList, MapInfo.ClassCount = GetClassList("GenType_" .. MapInfo.ClassName);

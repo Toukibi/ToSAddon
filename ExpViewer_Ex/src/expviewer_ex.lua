@@ -1,11 +1,11 @@
 local addonName = "ExpViewer_Ex";
-local verText = "1.00";
+local verText = "1.02";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/expv", "/expviewer"};
 local CommandParamList = {
-	reset = {jp = "計測をリセット", en = "Reset session."}
-  , update = {jp = "表示を更新", en = "Force update display."}
+	reset = {jp = "設定リセット", en = "Reset the all settings."}
+  , update = {jp = "表示を更新", en = "The additional information displayed will be updated."}
   , jp = {jp = "日本語モードに切り替え", en = "Switch to Japanese mode.(日本語へ)"}
   , en = {jp = "英語モードに切り替え(Switch to English mode.)", en = "Switch to English mode."}
   };
@@ -1045,7 +1045,7 @@ end
 
 function TOUKIBI_EXPVIEWER_ON_GAME_START()
 	Me.UpdateBaseExpData();
-	Me.Data.ExpData.nowMoney = GET_TOTAL_MONEY();
+	Me.Data.ExpData.nowMoney = session.GetInvItemByName('Vis').count;
 end
 
 function TOUKIBI_EXPVIEWER_START_DRAG()
@@ -1160,8 +1160,9 @@ function TOUKIBI_EXPVIEWER_PROCESS_COMMAND(command)
 		-- return;
 	end 
 	if cmd == "reset" then 
-		-- リセット
-		TOUKIBI_EXPVIEWER_RESET_BUFFER();
+		-- すべてをリセット
+		MargeDefaultSetting(true, true);
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.ResetSettings"), "Notice", true, false);
 		return;
 	elseif cmd == "update" then
 		-- Updateの処理をここに書く
@@ -1215,8 +1216,12 @@ function EXPVIEWER_EX_ON_INIT(addon, frame)
 	addon:RegisterMsg('GAME_START', 'TOUKIBI_EXPVIEWER_ON_GAME_START');
 	
 	Me.IsDragging = false;
-	ui.GetFrame(addonNameLower):EnableMove(Me.Settings.Movable and 1 or 0);
-	
+
+	local objFrame = ui.GetFrame(addonNameLower)
+	if objFrame ~= nil then
+		objFrame:EnableMove(Me.Settings.Movable and 1 or 0);
+	end
+
 	Me.UpdatePos()
 	-- スラッシュコマンドを登録する
 	local acutil = require("acutil");
