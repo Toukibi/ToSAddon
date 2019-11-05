@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.89";
+local verText = "0.90";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
@@ -2166,23 +2166,31 @@ local function ChangeMiniMapControl()
 	local strTemp = "";
 	local Parent = ui.GetFrame('minimap');
 	local TargetControl = GET_CHILD(Parent, "ZOOM_OUT", "ui::CButton");
-	TargetControl:SetGravity(ui.RIGHT, ui.BOTTOM);
-	TargetControl:SetMargin(0, 0, 2, 2);
-	TargetControl:Resize(30, 24);
+	if TargetControl ~= nil then
+		TargetControl:SetGravity(ui.RIGHT, ui.BOTTOM);
+		TargetControl:SetMargin(0, 0, 2, 2);
+		TargetControl:Resize(30, 24);
+	end
 
 	TargetControl = GET_CHILD(Parent, "ZOOM_IN", "ui::CButton");
-	TargetControl:SetGravity(ui.RIGHT, ui.BOTTOM);
-	TargetControl:SetMargin(0, 0, 2, 24);
-	TargetControl:Resize(30, 24);
+	if TargetControl ~= nil then
+		TargetControl:SetGravity(ui.RIGHT, ui.BOTTOM);
+		TargetControl:SetMargin(0, 0, 2, 24);
+		TargetControl:Resize(30, 24);
+	end
 
 	TargetControl = GET_CHILD(Parent, "open_map", "ui::CButton");
-	TargetControl:SetGravity(ui.RIGHT, ui.TOP);
-	TargetControl:SetMargin(0, 0, 2, 0);
-	TargetControl:Resize(30, 30);
+	if TargetControl ~= nil then
+		TargetControl:SetGravity(ui.RIGHT, ui.TOP);
+		TargetControl:SetMargin(0, 0, 2, 0);
+		TargetControl:Resize(30, 30);
+	end
 
 	TargetControl = GET_CHILD(Parent, "ZOOM_INFO", "ui::CRichText");
-	TargetControl:SetGravity(ui.RIGHT, ui.TOP);
-	TargetControl:SetMargin(0, 4, 36, 0);
+	if TargetControl ~= nil then
+		TargetControl:SetGravity(ui.RIGHT, ui.TOP);
+		TargetControl:SetMargin(0, 4, 36, 0);
+	end
 
 	local tmpRight = Parent:GetMargin().right + 30;
 	local tmpTop = Parent:GetMargin().top + Parent:GetHeight() - 24 - 2;
@@ -2192,24 +2200,28 @@ local function ChangeMiniMapControl()
 	TimeParent:Resize(100, 24);
 
 	TargetControl = GET_CHILD(TimeParent, "ampmText", "ui::CRichText");
-	TargetControl:SetGravity(ui.RIGHT, ui.BOTTOM);
-	TargetControl:SetMargin(0, 0, 4, 0);
-	TargetControl:Resize(30, 16);
-	TargetControl:SetFormat("{s13}{ol}%s{/}");
-	strTemp = TargetControl:GetTextByKey("ampm");
-	TargetControl:SetTextByKey("ampm", " ");
-	TargetControl:SetTextByKey("ampm", strTemp);
-	TargetControl:ShowWindow(0);
+	if TargetControl ~= nil then
+		TargetControl:SetGravity(ui.RIGHT, ui.BOTTOM);
+		TargetControl:SetMargin(0, 0, 4, 0);
+		TargetControl:Resize(30, 16);
+		TargetControl:SetFormat("{s13}{ol}%s{/}");
+		strTemp = TargetControl:GetTextByKey("ampm");
+		TargetControl:SetTextByKey("ampm", " ");
+		TargetControl:SetTextByKey("ampm", strTemp);
+		TargetControl:ShowWindow(0);
+	end
 
 	TargetControl = GET_CHILD(TimeParent, "timeText", "ui::CRichText");
-	TargetControl:SetGravity(ui.RIGHT, ui.BOTTOM);
-	TargetControl:Resize(80, 25);
-	TargetControl:SetMargin(0, 0, 4, 0);
-	TargetControl:SetTextAlign("right", "bottom");
-	TargetControl:SetFormat("{s14}{ol}%s:%s{/}");
-	strTemp = TargetControl:GetTextByKey("hour");
-	TargetControl:SetTextByKey("hour", " ");
-	TargetControl:SetTextByKey("hour", strTemp);
+	if TargetControl ~= nil then
+		TargetControl:SetGravity(ui.RIGHT, ui.BOTTOM);
+		TargetControl:Resize(80, 25);
+		TargetControl:SetMargin(0, 0, 4, 0);
+		TargetControl:SetTextAlign("right", "bottom");
+		TargetControl:SetFormat("{s14}{ol}%s:%s{/}");
+		strTemp = TargetControl:GetTextByKey("hour");
+		TargetControl:SetTextByKey("hour", " ");
+		TargetControl:SetTextByKey("hour", strTemp);
+	end
 
 	local MyFrame = ui.GetFrame("mapmate")
 	MyFrame:SetGravity(ui.RIGHT, ui.TOP);
@@ -2220,12 +2232,13 @@ local function ChangeMiniMapControl()
 	MapNameFrame:ShowWindow(1);
 	GET_CHILD(MapNameFrame, "areaname", "ui::CRichText"):ShowWindow(0);
 	TargetControl = GET_CHILD(MapNameFrame, "mapName", "ui::CRichText");
-	TargetControl:SetGravity(ui.LEFT, ui.TOP);
-	TargetControl:SetMargin(0, 0, 0, 0);
-	TargetControl:EnableHitTest(1)
-	TargetControl:SetTextFixWidth(1);
-	TargetControl:SetTextMaxWidth(300);
-
+	if TargetControl ~= nil then
+		TargetControl:SetGravity(ui.LEFT, ui.TOP);
+		TargetControl:SetMargin(0, 0, 0, 0);
+		TargetControl:EnableHitTest(1)
+		TargetControl:SetTextFixWidth(1);
+		TargetControl:SetTextMaxWidth(300);
+	end
 
 end
 

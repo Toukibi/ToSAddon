@@ -39,11 +39,11 @@
     "name": "Map Mate",
     "file": "mapmate",
     "extension": "ipf",
-    "fileVersion": "v0.8.9",
+    "fileVersion": "v0.9.0",
     "releaseTag": "MapMate",
     "unicode": "⛄",
     "description": "マップ表示を色々便利にしてくれます。\n This add-on makes map display a lot convenient.",
-    "updateInfo": "v0.8.9 3/13に行われたIToSのアップデートに対応しました \n Added support for IToS update on March 13.",
+    "updateInfo": "v0.9.0 10/30に行われたIToSのアップデートに対応しました \n Added support for IToS update on October 30.",
     "tags": [
       "ui",
       "map",
