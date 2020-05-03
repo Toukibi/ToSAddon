@@ -1,41 +1,19 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : November 5, 2019
+Last Updated : May 3, 2020
+
+* **Tooltip Helper Ver. 1.05**
+  * 4/24に行われたJToSのアップデートでXMLファイルが読み込めなくなった問題に対応しました。<br>Solved the problem that XML files could not be read in the JToS update on April 24.
+
+* **Developer Console**
+  * 4/24に行われたJToSのアップデートでLoadString関数が使えなくなった問題に対応しました。<br>Solved the problem that the 'LoadString' function could not be used in the JToS update on April 24.
+
+
+November 5, 2019
 
 * **Map Mate Ver. 0.90**
   * 10/30に行われたIToSのアップデートに対応しました。<br>Added support for IToS update on October 30.
 
-March 16, 2019
-
-* **Map Mate Ver. 0.89**
-  * 3/13に行われたIToSのアップデートに対応しました。<br>Added support for IToS update on March 13.
-
-## About Re: Build patch (Update in Mar 2, 2019) (Re:Buildパッチへの対応について)
-I have confirmed that the following add-on is affected by Re: Build patch.  
-Re:Buildパッチにより次のアドオンに影響が出ていることを確認しています。
-
-* **Better Pick Queue**
-  * There is a problem that operation stops when equipment items are picked up.<br>装備アイテムを拾うと動作が停止します。
-    * Support completed in Ver.1.14.<br>Ver.1.14で対応完了しました。
-* **BuffCounter**
-  * Since the ID number of the buff and the acquisition method have been changed, the buffing enhancement value can not be displayed correctly.<br>バフの番号と取得方法が変更され、バフの強化値が正しく表示できない問題が発生しています。
-    * Support completed in Ver.1.19.<br>Ver.1.19で対応完了しました。
-* **Dur notice Mini**
-  * Since the method of obtaining the item endurance value was changed, there was a problem that display of durability was not done at all.<br>アイテム耐久値の取得方法が変更され、耐久度の表示が全くされない問題が発生していました。
-    * Support completed in Ver.1.23.<br>Ver.1.23で対応完了しました。
-* **Equip Marker**
-  * It does not work.<br>動作しません。
-    * Although it was provisionally supported by Ver. 1.03, the following functions can not be used.<br>Ver.1.03で暫定対応しましたが次の機能が使用できません。
-      * Display does not apply to item decomposition window.<br>アイテム分解ウィンドウに表示が適用されません。
-      * The display does not apply to the item column being equipped.<br>装備中アイテム欄に表示が適用されません。
-* **Remaining Counter**
-  * There is a problem that the skill icon is not displayed.<br>スキルアイコンが表示されない不具合があります。
-    * Support completed in Ver.1.04.<br>Ver.1.04で対応完了しました。
-* **Shop Helper**
-  * The skill level is not displayed at buff shops.<br>バフ商店でスキルレベルの表示がされません。
-    * Because the actual skill level differs from the displayed skill level, we are considering abolishing this function.<br>実際のスキルレベルと表示されるスキルレベルが異なるため、この機能は廃止することを検討中です。
-  * The endurance value will not be displayed until repaired at the repair shop.<br>修理商店で修理するまで耐久値の表示がされません。
-    * It occurred when it was involved in the problem of EquipMarker.<br> Please update EquipMarker.<br>EquipMarkerの不具合に巻き込まれて発生しているものでした。EquipMarkerをアップデートしてください。
 
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
@@ -107,7 +85,7 @@ This add-on will make the display of the stalls opened in towns etc. a little ea
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
 
-## [Tooltip Helper Ver. 1.04 (Rebuild by Toukibi)( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
+## [Tooltip Helper Ver. 1.05 (Rebuild by Toukibi)( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
 Tooltip Helperはツールチップに追加の情報を表示するためのアドオンです。  
 冒険日誌の変更パッチで動かなくなった原作を再構築したものです。
 Tooltip Helper is an add-on for displaying additional information on tooltips.  

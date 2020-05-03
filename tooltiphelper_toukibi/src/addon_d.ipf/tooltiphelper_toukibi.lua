@@ -1,5 +1,5 @@
 local addonName = "ToolTipHelper_Toukibi";
-local verText = "1.04";
+local verText = "1.05";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/tth"} -- {"/コマンド1", "/コマンド2", .......};
@@ -1712,24 +1712,24 @@ local ResText = {
 			PercentMark = "％"
 		},
 		ForTitle = {
-			RegisteredInTheJournal = "作成経験あり"
-		  , UnregisteredInTheJournal = "未作成"
-		  , DropsFrom = "アイテムドロップ率："
+			RegisteredInTheJournal = "{b}作成経験あり{/}"
+		  , UnregisteredInTheJournal = "{b}未作成{/}"
+		  , DropsFrom = "{b}アイテムドロップ率：{/}"
 		  , FoundMob = "討伐経験あり"
 		  , UnfoundMob = "未討伐"
 		  , ObtainedCount = "アイテム取得数："
 		  , RerollPrice = "キューブ再開封費用："
 		  , MagnumOpusCommon = "マグナムオーパス情報"
-		  , MagnumOpusFrom = "このアイテムを作るには"
-		  , MagnumOpusInto = "このアイテムを使うレシピ"
-		  , Mark_UsingXML = " {#229900}{s14}{ol}[xml]{/}{/}{/}"
+		  , MagnumOpusFrom = "{b}このアイテムを作るには{/}"
+		  , MagnumOpusInto = "{b}このアイテムを使うレシピ{/}"
+		  , Mark_UsingXML = " {#229900}{s14}{ol}{b}[xml]{/}{/}{/}{/}"
 		  , Close = "閉じる"
 		},
 		Other = {
-			ToggleOpusMap = "{nl}{s6} {/}{nl}  Shiftキーで配置を表示します"
+			ToggleOpusMap = "{nl}{s6} {/}{nl}{b}  Shiftキーで配置を表示します{/}"
 		  , NPCRepair = "NPCで修理"
 		  , SquireRepair = "修理露店で修理"
-		  , RepairCheaperCommon = "{s14}%sしたほうが安い{/}{s24} {/}"
+		  , RepairCheaperCommon = "{s14}{b}%sしたほうが安い{/}{/}{s24} {/}"
 		  , OtherItems = "    他%s種 ..."
 		},
 		SettingFrame = {
@@ -2139,6 +2139,145 @@ local Toukibi = {
 	end 
 };
 Me.ComLib = Toukibi;
+
+-- ノードオブジェクト(XMLパーサーで使用)
+local function CreateNode(name)
+    local objNode = {}
+    objNode.___value = nil
+    objNode.___name = name
+    objNode.___children = {}
+    objNode.___attrs = {}
+
+    function objNode:value() return self.___value end
+    function objNode:setValue(val) self.___value = val end
+    function objNode:name() return self.___name end
+    function objNode:setName(name) self.___name = name end
+    function objNode:children() return self.___children end
+    function objNode:numChildren() return #self.___children end
+    function objNode:addChild(child)
+        if self[child:name()] ~= nil then
+            if type(self[child:name()].name) == "function" then
+                local tmpTable = {}
+                table.insert(tmpTable, self[child:name()])
+                self[child:name()] = tmpTable
+            end
+            table.insert(self[child:name()], child)
+        else
+            self[child:name()] = child
+        end
+        table.insert(self.___children, child)
+    end
+
+    function objNode:attributes() return self.___attrs end
+    function objNode:numAttributes() return #self.___attrs end
+    function objNode:addAttribute(name, value)
+        local lName = "@" .. name
+        if self[lName] ~= nil then
+            if type(self[lName]) == "string" then
+                local tmpTable = {}
+                table.insert(tmpTable, self[lName])
+                self[lName] = tmpTable
+            end
+            table.insert(self[lName], value)
+        else
+            self[lName] = value
+        end
+        table.insert(self.___attrs, { name = name, value = self[name] })
+    end
+
+    return objNode
+end
+
+-- XMLパーサー
+local function CreateXMLParser()
+
+    XmlParser = {};
+
+    function XmlParser:FromXmlString(value)
+        value = string.gsub(value, "&#x([%x]+)%;",
+            function(h)
+                return string.char(tonumber(h, 16))
+            end);
+        value = string.gsub(value, "&#([0-9]+)%;",
+            function(h)
+                return string.char(tonumber(h, 10))
+            end);
+        value = string.gsub(value, "&quot;", "\"");
+        value = string.gsub(value, "&apos;", "'");
+        value = string.gsub(value, "&gt;", ">");
+        value = string.gsub(value, "&lt;", "<");
+        value = string.gsub(value, "&amp;", "&");
+        return value;
+    end
+
+    function XmlParser:ParseArgs(node, s)
+        string.gsub(s, "(%w+)=([\"'])(.-)%2", function(w, _, a)
+            node:addAttribute(w, self:FromXmlString(a))
+        end)
+    end
+
+    function XmlParser:ParseXmlText(xmlText)
+        local stack = {}
+        local top = CreateNode()
+        table.insert(stack, top)
+        local ni, c, label, xarg, empty
+        local i, j = 1, 1
+        while true do
+            ni, j, c, label, xarg, empty = string.find(xmlText, "<(%/?)([%w_:]+)(.-)(%/?)>", i)
+            if not ni then break end
+            local text = string.sub(xmlText, i, ni - 1);
+            if not string.find(text, "^%s*$") then
+                local lVal = (top:value() or "") .. self:FromXmlString(text)
+                stack[#stack]:setValue(lVal)
+            end
+            if empty == "/" then -- empty element tag
+                local lNode = CreateNode(label)
+                self:ParseArgs(lNode, xarg)
+                top:addChild(lNode)
+            elseif c == "" then -- start tag
+                local lNode = CreateNode(label)
+                self:ParseArgs(lNode, xarg)
+                table.insert(stack, lNode)
+                top = lNode
+            else -- end tag
+                local toclose = table.remove(stack) -- remove top
+
+                top = stack[#stack]
+                if #stack < 1 then
+                    error("XmlParser: nothing to close with " .. label)
+                end
+                if toclose:name() ~= label then
+                    error("XmlParser: trying to close " .. toclose.name .. " with " .. label)
+                end
+                top:addChild(toclose)
+            end
+            i = j + 1
+        end
+        local text = string.sub(xmlText, i);
+        if #stack > 1 then
+            error("XmlParser: unclosed " .. stack[#stack]:name());
+        end
+        return top
+    end
+
+    function XmlParser:loadFile(xmlFilename)
+        local path = xmlFilename;
+        local hFile, err = io.open(path, "r");
+
+        if hFile and not err then
+            local xmlText = hFile:read("*a"); -- read file content
+            io.close(hFile);
+            return self:ParseXmlText(xmlText), nil;
+        else
+            print(err);
+            return nil;
+        end
+    end
+
+    return XmlParser;
+end
+
+
 local function log(value)
 	Toukibi:Log(value);
 end
@@ -2230,7 +2369,7 @@ local function MargeDefaultSetting(Force, DoSave)
 	Me.Settings.showItemLevel				 = Toukibi:GetValueOrDefault(Me.Settings.showItemLevel					, true, Force);
 	Me.Settings.showJournalStats			 = Toukibi:GetValueOrDefault(Me.Settings.showJournalStats				, true, Force);
 	Me.Settings.showRepairRecommendation	 = Toukibi:GetValueOrDefault(Me.Settings.showRepairRecommendation		, true, Force);
-	Me.Settings.squireRepairPerKit			 = Toukibi:GetValueOrDefault(Me.Settings.squireRepairPerKit				, 200, Force); -- 160 is the minimum for the Squire to break even
+	Me.Settings.squireRepairPerKit			 = Toukibi:GetValueOrDefault(Me.Settings.squireRepairPerKit				, 140, Force); -- 160 is the minimum for the Squire to break even
 	Me.Settings.UseOriginalBgSkin			 = Toukibi:GetValueOrDefault(Me.Settings.UseOriginalBgSkin				, true, Force);
 	Me.Settings.UseAutoImportDropData		 = Toukibi:GetValueOrDefault(Me.Settings.UseAutoImportDropData			, false, Force);
 	
@@ -2345,13 +2484,7 @@ function Me.GetItemMaxCount(invItem)
 end
 
 function Me.LoadMagnumOpusRecipeFromXML()
-	local status, objXml = pcall(require, "xmlSimple");
-	if not status then
-		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.FailToLoadXMLSimple"), "Warning", true, false);
-		return;
-	end
-
-	local xmlMagnumOpus = objXml.newParser():loadFile(Me.MagnumOpusRecipeFileName);
+	local xmlMagnumOpus = CreateXMLParser():loadFile(Me.MagnumOpusRecipeFileName);
 	if xmlMagnumOpus == nil then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.NotFoundMagnumOpusXML"), "Caution", true, false);
 		return;
@@ -2384,13 +2517,7 @@ end
 function Me.ImportDropData()
 	local ImportFilePathName = string.format("../addons/%s/%s", addonNameLower, "dropdata.xml");
 
-	local status, objXml = pcall(require, "xmlSimple");
-	if not status then
-		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.FailToLoadXMLSimple"), "Warning", true, false);
-		return;
-	end
-
-	local xmlDropData = objXml.newParser():loadFile(ImportFilePathName);
+	local xmlDropData = CreateXMLParser():loadFile(ImportFilePathName);
 	if xmlDropData == nil then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.NotFoundDropDataXML"), "Caution", true, false);
 		return;
@@ -2630,7 +2757,7 @@ function Me.GetBasicInfoText(invItem)
 		if curCount >= maxCount then
 			TextColor = completeColor;
 		end
-		ResultText = ResultText .. string.format("%s{#%s}%s/%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.ObtainedCount"), TextColor, curCount, maxCount)
+		ResultText = ResultText .. string.format("{s14}{b}%s{#%s}%s/%s{/}{/}{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "ForTitle.ObtainedCount"), TextColor, curCount, maxCount)
 	end
 	if invItem.GroupName == "Cube" then
 		local rerollPrice = TryGet(invItem, "NumberArg1")
@@ -2713,9 +2840,9 @@ function Me.GetCollectionText(invItem)
 			local CollectionText = string.format("%s (%s/%s)", CollectionName, CurrentCount, MatchData.Count);
 			local TextStyle = {"#" .. unregisteredColor, "s15"}
 			if isCompleted then
-				TextStyle = {"#" .. completeColor, "ol", "ds", "s15"}
+				TextStyle = {"#" .. completeColor, "b", "ol", "ds", "s15"}
 			elseif hasRegistered then
-				TextStyle = {"#" .. commonColor, "ol", "ds", "s15"}
+				TextStyle = {"#" .. commonColor, "b", "ol", "ds", "s15"}
 			end
 			CollectionText = Toukibi:GetStyledText(CollectionText, TextStyle);
 			CollectionText = "{img " .. collectionIcon .. " 24 24}" .. CollectionText;
@@ -2794,7 +2921,7 @@ function Me.GetRecipeText(invItem)
 			end
 
 			local RecipeColor = GetItemRarityColor(ResultItem);
-			local TextStyle = {"ol", "s15", "ds"};
+			local TextStyle = {"ol", "s15", "b"};
 			if not HasRecipe then
 				RecipeColor = unregisteredColor;
 				TextStyle = {"s15"};

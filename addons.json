@@ -89,10 +89,11 @@
     "name": "Tooltip Helper (Rebuild by Toukibi)",
     "file": "tooltiphelper_toukibi",
     "extension": "ipf",
-    "fileVersion": "v1.0.4",
+    "fileVersion": "v1.0.5",
     "releaseTag": "TooltipHelper_Rebuild",
     "unicode": "⛄",
     "description": "Tooltip Helperの焼き直し版です。\n  This is a reworked version of Tooltip Helper.",
+    "updateInfo": "v1.0.5 4/24に行われたJToSのアップデートでXMLファイルが読み込めなくなった問題に対応しました。\n Solved the problem that XML files could not be read in the JToS update on April 24.",
     "tags": [
       "ui",
       "tooltip",

@@ -126,6 +126,7 @@ local function order_pairs(tab)
 	end
 end
 function DEVELOPERCONSOLE_PRINT_VALUE(frame, objName, objValue, ParentName, indentStr, ViewValue)
+	frame = frame or ui.GetFrame("developerconsole");
 	local textlog = frame:GetChild("textview_log");
 	indentStr = indentStr or "";
 	ParentName = ParentName or "";
@@ -152,10 +153,17 @@ function DEVELOPERCONSOLE_PRINT_VALUE(frame, objName, objValue, ParentName, inde
 						funcSrcStr = string.format("return tostring(%s:%s())", ParentName, pName);
 					end
 					-- textlog:AddText(tostring(funcSrcStr), "white_16_ol");
-					local funcResult = assert(loadstring(funcSrcStr))();
-					valueStr = valueStr .. "{#336666}" .. funcResult .. "{/} ";
+					-- local funcResult = assert(load(funcSrcStr))();
+					local status, objResult = pcall(load(funcSrcStr))
+					if not status then
+						--textlog:AddText(tostring(objResult), "white_16_ol");
+					else
+						valueStr = valueStr .. "{#336666}" .. objResult .. "{/} ";
+					end
 				end
-				textlog:AddText(string.format("%s {#888888}%s{/}%s", strLeft, valueStr, funcStr), "white_16_ol");
+				if string.sub(pName, 1, 2) ~= "__" and objName ~= ".set" then
+					textlog:AddText(string.format("%s {#888888}%s{/}%s", strLeft, valueStr, funcStr), "white_16_ol");
+				end
 			elseif pType == "userdata" or pType	 == "table" then
 				local NextParentName = ParentName;
 				if objName ~= ".get" then
@@ -200,16 +208,16 @@ function DEVELOPERCONSOLE_ENTER_KEY(frame, control, argStr, argNum)
 						ViewValue = true;
 						objName = string.sub(commandText,4)
 					end
-					local objValue = assert(loadstring(string.format("return %s", objName)))();
+					local objValue = assert(load(string.format("return %s", objName)))();
 					textlog:AddText("{#444444}type of {#005500}"  .. objName .. "{/} is {#005500}" .. type(objValue) .. "{/}{/}", "white_16_ol");
 					DEVELOPERCONSOLE_PRINT_VALUE(frame, objName, objValue, objName, nil, ViewValue);
 				elseif string.sub(commandText, 1, 1) == "?" then
 					local objName = string.sub(commandText,2)
-					local objValue = assert(loadstring(string.format("return %s", objName)))();
+					local objValue = assert(load(string.format("return %s", objName)))();
 					local strLeft = "{#444466}" .. tostring(objName) .. "{/} {#444444}={/} ";
 					textlog:AddText(strLeft .. tostring(objValue), "white_16_ol")
 				else
-					local f = assert(loadstring(commandText));
+					local f = assert(load(commandText));
 					local status, error = pcall(f);
 
 					if not status then
