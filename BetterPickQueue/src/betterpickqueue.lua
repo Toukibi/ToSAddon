@@ -1,5 +1,5 @@
 local addonName = "BetterPickQueue";
-local verText = "1.14";
+local verText = "1.15";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/pickq", "/pickqueue"} -- {"/コマンド1", "/コマンド2", .......};
@@ -37,9 +37,12 @@ local ResText = {
 		  , ResetPosition = "位置をリセット"
 		  , useSimpleMenu = "かんたん表示切り替え"
 		  , HideOriginalQueue = "標準機能のアイテム獲得の{nl}{img channel_mark_empty 24 24}    表示を消す"
-		  , ExpandTo = "表示が伸びる方向"
+		  , ExpandTo_Vertical = "表示が伸びる方向(垂直方向)"
 		  , ExpandTo_Up = "上へ"
 		  , ExpandTo_Down = "下へ"
+		  , ExpandTo_Horizonal = "表示が伸びる方向(水平方向)"
+		  , ExpandTo_Left = "左へ"
+		  , ExpandTo_Right = "右へ"
 		  , Close = "{#666666}閉じる{/}"
 		},
 		Display = {
@@ -115,9 +118,12 @@ local ResText = {
 		  , ResetPosition = "Reset position"
 		  , useSimpleMenu = "Use Simple menu"
 		  , HideOriginalQueue = "Hide default{nl}{img channel_mark_empty 24 24}       item-obtention display"
-		  , ExpandTo = "Direction of display extension"
+		  , ExpandTo_Vertical = "Vertical display extension"
 		  , ExpandTo_Up = "Upward"
 		  , ExpandTo_Down = "Downward"
+		  , ExpandTo_Horizonal = "Horizonal display extension"
+		  , ExpandTo_Left = "To the Left"
+		  , ExpandTo_Right = "To the Right"
 		  , Close = "{#666666}Close{/}"
 		},
 		Display = {
@@ -597,6 +603,7 @@ local function MargeDefaultSetting(Force, DoSave)
 	Me.Settings.SkinName		 = Toukibi:GetValueOrDefault(Me.Settings.SkinName		, "None", Force); --None/chat_window/systemmenu_vertical
 	Me.Settings.HideOriginalQueue = Toukibi:GetValueOrDefault(Me.Settings.HideOriginalQueue, false, Force);
 	Me.Settings.ExpandTo_Up		 = Toukibi:GetValueOrDefault(Me.Settings.ExpandTo_Up	, true, Force);
+	Me.Settings.ExpandTo_Left	 = Toukibi:GetValueOrDefault(Me.Settings.ExpandTo_Left	, true, Force);
 	
 	if Force then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
@@ -1177,14 +1184,28 @@ function Me.UpdatePos()
 	if objFrame == nil then return end
 
 	if Me.Settings.ExpandTo_Up then
-		if Me.Settings ~= nil and Me.Settings.MarginRight ~= nil and Me.Settings.MarginBottom ~= nil then
-			objFrame:SetGravity(ui.RIGHT, ui.BOTTOM);
-			objFrame:SetMargin(Me.Settings.PosX, 0, Me.Settings.MarginRight, Me.Settings.MarginBottom);
+		if Me.Settings.ExpandTo_Left then
+			if Me.Settings ~= nil and Me.Settings.MarginRight ~= nil and Me.Settings.MarginBottom ~= nil then
+				objFrame:SetGravity(ui.RIGHT, ui.BOTTOM);
+				objFrame:SetMargin(0, 0, Me.Settings.MarginRight, Me.Settings.MarginBottom);
+			end
+		else
+			if Me.Settings ~= nil and Me.Settings.PosX ~= nil and Me.Settings.MarginBottom ~= nil then
+				objFrame:SetGravity(ui.LEFT, ui.BOTTOM);
+				objFrame:SetMargin(Me.Settings.PosX, 0, 0, Me.Settings.MarginBottom);
+			end
 		end
 	else
-		if Me.Settings ~= nil and Me.Settings.PosX ~= nil and Me.Settings.PosY ~= nil then
-			objFrame:SetGravity(ui.LEFT, ui.TOP);
-			objFrame:SetPos(Me.Settings.PosX, Me.Settings.PosY);
+		if Me.Settings.ExpandTo_Left then
+			if Me.Settings ~= nil and Me.Settings.MarginBottom ~= nil and Me.Settings.PosY ~= nil then
+				objFrame:SetGravity(ui.RIGHT, ui.TOP);
+				objFrame:SetMargin(0, Me.Settings.PosY, Me.Settings.MarginRight, 0);
+			end
+		else
+			if Me.Settings ~= nil and Me.Settings.PosX ~= nil and Me.Settings.PosY ~= nil then
+				objFrame:SetGravity(ui.LEFT, ui.TOP);
+				objFrame:SetMargin(Me.Settings.PosX, Me.Settings.PosY, 0, 0);
+			end
 		end
 	end
 end
@@ -1263,7 +1284,7 @@ function TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE(propName, value)
 	Me.Settings[propName] = (value == 1);
 	SaveSetting();
 	Me.UpdateFrame();
-	if propName == "ExpandTo_Up" then
+	if propName == "ExpandTo_Up" or propName == "ExpandTo_Left" then
 		Me.UpdatePos()
 	end
 end
@@ -1352,15 +1373,19 @@ function TOUKIBI_BETTERPICKQUEUE_CONTEXT_MENU(frame, ctrl)
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "BackGround.Thin"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "SkinName", "chat_window"), nil, (Me.Settings.SkinName == "chat_window"));
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "BackGround.None"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "SkinName", "None"), nil, (Me.Settings.SkinName == "None"));
 		
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.4, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo"));
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.4, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Horizonal"));
+		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Left"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Left", 1), nil, Me.Settings.ExpandTo_Left);
+		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Right"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Left", 0), nil, not Me.Settings.ExpandTo_Left);
+		
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.5, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Vertical"));
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Up"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Up", 1), nil, Me.Settings.ExpandTo_Up);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Down"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Up", 0), nil, not Me.Settings.ExpandTo_Up);
 
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.5);
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.6);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_BETTERPICKQUEUE_RESET_POSITION()");
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_BETTERPICKQUEUE_UPDATE()");
 
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.6);
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.7);
 	end
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	context:Resize(cmenuWidth, context:GetHeight());

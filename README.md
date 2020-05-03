@@ -5,6 +5,9 @@ Last Updated : May 3, 2020
 * **Tooltip Helper Ver. 1.05**
   * 4/24に行われたJToSのアップデートでXMLファイルが読み込めなくなった問題に対応しました。<br>Solved the problem that XML files could not be read in the JToS update on April 24.
 
+* **Better Pick Queue Ver. 1.15**
+  * 画面の伸びる方向の設定に左右方向を追加しました。<br>A horizontal direction has been added to the setting of the direction in which the window extends.
+
 * **Developer Console**
   * 4/24に行われたJToSのアップデートでLoadString関数が使えなくなった問題に対応しました。<br>Solved the problem that the 'LoadString' function could not be used in the JToS update on April 24.
 
@@ -27,7 +30,7 @@ I am not good at English. I frequently translate English into different nuances.
 So, I would appreciate it if you could told me the correct translation when you see an unnatural English translation  
 
 
-## [Better Pick Queue Ver. 1.14 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
+## [Better Pick Queue Ver. 1.15 ( JP / EN )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
