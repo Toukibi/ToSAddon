@@ -1,41 +1,40 @@
-﻿
 # Buff Counter
 Description of [English Version is Here](#description-of-english-version).
 
-### 1.これは何？
-上段バフの残り枠数を教えてくれます。  
-(ついでにトークンの残り時間をバフ欄に表示します)  
-![外観表示](https://github.com/Toukibi/ToSAddon/blob/ForImage/BuffCounter/img/topimage.png?raw=true)  
-### 2.できること
-* 次の項目を追加表示します  
-  * 上段バフの残り数
-  * トークンの残り時間
-  * 一部スキルのスキルレベルなどのパラメータ  
+### 1.����͉��H
+��i�o�t�̎c��g���������Ă���܂��B  
+(���łɃg�[�N���̎c�莞�Ԃ��o�t���ɕ\�����܂�)  
+![�O�ϕ\��](https://github.com/Toukibi/ToSAddon/blob/ForImage/BuffCounter/img/topimage.png?raw=true)  
+### 2.�ł��邱��
+* ���̍��ڂ�ǉ��\�����܂�  
+  * ��i�o�t�̎c�萔
+  * �g�[�N���̎c�莞��
+  * �ꕔ�X�L���̃X�L�����x���Ȃǂ̃p�����[�^  
   
-スキルのパラメータ表示は、画面がゴタゴタしないよう、知ることに意味が大きいものに限定しています。  
+�X�L���̃p�����[�^�\���́A��ʂ��S�^�S�^���Ȃ��悤�A�m�邱�ƂɈӖ����傫�����̂Ɍ��肵�Ă��܂��B  
 
-### 3.追加された右クリックメニューの一覧
-1. Buff Counterの動作に関するメニュー  
-    Buff Counterのフレーム上を右クリックすると表示されます
+### 3.�ǉ����ꂽ�E�N���b�N���j���[�̈ꗗ
+1. Buff Counter�̓���Ɋւ��郁�j���[  
+    Buff Counter�̃t���[������E�N���b�N����ƕ\������܂�
 
-### 4.使用可能なコマンド一覧
-基本のコマンドは **`/buffc`** または **`/buffcounter`** です  
+### 4.�g�p�\�ȃR�}���h�ꗗ
+��{�̃R�}���h�� **`/buffc`** �܂��� **`/buffcounter`** �ł�  
 
-|コマンド|効果|
+|�R�}���h|����|
 |---|---|
-|/buffc|メイン画面の表示/非表示を切り替え|
-|/buffc reset|設定リセット|
-|/buffc resetpos<br>/buffc rspos|表示位置をリセット|
-|/buffc refresh|位置・表示を更新|
-|/buffc update|表示を更新|
-|/buffc ?|チャットログにヘルプを表示|
-|/buffc jp<br>/buffc ja|日本語モードに切り替え|
-|/buffc en|英語モードに切り替え|
-|/buffc kr|韓国語モードに切り替え|
+|/buffc|���C����ʂ̕\��/��\����؂�ւ�|
+|/buffc reset|�ݒ胊�Z�b�g|
+|/buffc resetpos<br>/buffc rspos|�\���ʒu�����Z�b�g|
+|/buffc refresh|�ʒu�E�\�����X�V|
+|/buffc update|�\�����X�V|
+|/buffc ?|�`���b�g���O�Ƀw���v��\��|
+|/buffc jp<br>/buffc ja|���{�ꃂ�[�h�ɐ؂�ւ�|
+|/buffc en|�p�ꃂ�[�h�ɐ؂�ւ�|
+|/buffc kr|�؍��ꃂ�[�h�ɐ؂�ւ�|
 
-### 5.導入方法
-このアドオンは、アドオンマネージャJPに登録しています。  
-アドオンマネージャJPを用いて導入してください  
+### 5.�������@
+���̃A�h�I���́A�A�h�I���}�l�[�W��JP�ɓo�^���Ă��܂��B  
+�A�h�I���}�l�[�W��JP��p���ē������Ă�������  
 
 ---
 ## Description of English Version 
@@ -64,7 +63,7 @@ This addon will show you the remaining number of Top Row Buff Slots left.
 ### Installation Instructions.
 Install via the Addon Manager. Leave bug reports and other issues on my Github page.  
 
-### 3. List of additional right click menu.
+### List of additional right click menu.
 1. The operation of Buff-Counter  
     Right-click on the Buff-Counter frame to display it
 

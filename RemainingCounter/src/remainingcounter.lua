@@ -1,5 +1,5 @@
 local addonName = "RemainingCounter";
-local verText = "1.05";
+local verText = "1.06";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"rmcnt", "remcount"} -- {"/コマンド1", "/コマンド2", .......};
@@ -459,10 +459,10 @@ local function GetUseItemInfo(objSkill)
 	if string.sub(SpendItemName, 1, 4) == "SCR_" then
 		-- 専用スクリプトあり
 		--local UseItemInfo = IESSkill.SpendItem;
-		--log(UseItemInfo)
+		-- log(UseItemInfo)
 		-- log("専用スクリプトあり")
 		-- log(SpendItemName)
-		objItem = assert(loadstring(string.format("return %s()", SpendItemName)))();
+		objItem = assert(load(string.format("return %s()", SpendItemName)))();
 		-- log(objItem)
 	else
 		-- アイテム名表記のみ

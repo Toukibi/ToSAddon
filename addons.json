@@ -73,11 +73,11 @@
     "name": "Remaining Counter",
     "file": "remainingcounter",
     "extension": "ipf",
-    "fileVersion": "v1.0.5",
+    "fileVersion": "v1.0.6",
     "releaseTag": "RemainingCounter",
     "unicode": "⛄",
     "description": "アイテムを使用するスキルの場合、クイックスロットの右下に残り回数を表示します。\n  For skills that use items, this add-on display the remaining number in the lower right of Quick Slot.",
-    "updateInfo": "v1.0.4 Re:Buildパッチ適用後、スキルアイコンが表示されない不具合を修正しました \n Fixed a problem that skill icon was not displayed after applying Re: Build patch.",
+    "updateInfo": "v1.0.6 4月に行われたJToSのアップデートで、アルケミストの場合にスキルアイコンが表示されなくなる問題を修正しました。\n Fixed an issue that caused the skill icon to disappear for Alchemists due to the JToS update in April.",
     "tags": [
       "ui",
       "remaining number",
