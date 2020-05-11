@@ -356,7 +356,6 @@
   <item mCID="41288" Ratio="135" iCNm="SWD01_131" />
   <item mCID="41288" Ratio="2" iCNm="BlueOrb_raider" />
   <item mCID="41288" Ratio="2" iCNm="RedOrb_raider" />
-  <item mCID="41288" Ratio="30" iCNm="TSF03_104" />
   <item mCID="41289" Ratio="92" iCNm="SHD01_101" />
   <item mCID="41290" Ratio="15" iCNm="SWD02_108" />
   <item mCID="41290" Ratio="2" iCNm="BlueOrb_wood_goblin" />
@@ -556,7 +555,6 @@
   <item mCID="41420" Ratio="135" iCNm="SWD01_131" />
   <item mCID="41420" Ratio="2" iCNm="BlueOrb_raider" />
   <item mCID="41420" Ratio="2" iCNm="RedOrb_raider" />
-  <item mCID="41420" Ratio="30" iCNm="TSF03_104" />
   <item mCID="41426" Ratio="650" iCNm="TOP03_105" />
   <item mCID="41433" Ratio="500" iCNm="misc_0061" />
   <item mCID="41433" Ratio="20" iCNm="misc_hogma_warrior2" />
@@ -1286,7 +1284,6 @@
   <item mCID="47394" Ratio="135" iCNm="HAND01_139" />
   <item mCID="47394" Ratio="2" iCNm="BlueOrb_arma" />
   <item mCID="47394" Ratio="2" iCNm="RedOrb_arma" />
-  <item mCID="47394" Ratio="30" iCNm="SPR03_108" />
   <item mCID="47395" Ratio="162" iCNm="misc_0089" />
   <item mCID="47395" Ratio="135" iCNm="TOP01_139" />
   <item mCID="47395" Ratio="2" iCNm="TBW02_119" />
@@ -1318,6 +1315,7 @@
   <item mCID="47402" Ratio="2" iCNm="TBW03_104" />
   <item mCID="47402" Ratio="2" iCNm="BlueOrb_slime_elite" />
   <item mCID="47402" Ratio="2" iCNm="RedOrb_slime_elite" />
+  <item mCID="47408" Ratio="0" iCNm="Gacha_E_025" />
   <item mCID="47410" Ratio="2500" iCNm="misc_0086" />
   <item mCID="47410" Ratio="134" iCNm="LEG01_139" />
   <item mCID="47414" Ratio="28" iCNm="LEG01_103" />
@@ -1744,7 +1742,6 @@
   <item mCID="57053" Ratio="30" iCNm="R_BRC02_107" />
   <item mCID="57053" Ratio="2" iCNm="BlueOrb_InfroRocktor_red" />
   <item mCID="57053" Ratio="2" iCNm="RedOrb_InfroRocktor_red" />
-  <item mCID="57053" Ratio="30" iCNm="TSW03_113" />
   <item mCID="57054" Ratio="666" iCNm="misc_0065" />
   <item mCID="57054" Ratio="3" iCNm="misc_jore17" />
   <item mCID="57054" Ratio="108" iCNm="LEG01_153" />
@@ -2308,6 +2305,7 @@
   <item mCID="57146" Ratio="1000" iCNm="TBW01_120" />
   <item mCID="57146" Ratio="1000" iCNm="BOW01_114" />
   <item mCID="57146" Ratio="1000" iCNm="MAC01_120" />
+  <item mCID="57147" Ratio="0" iCNm="Gacha_E_025" />
   <item mCID="57148" Ratio="13" iCNm="card_archon" />
   <item mCID="57148" Ratio="13" iCNm="Drug_SP2" />
   <item mCID="57148" Ratio="13" iCNm="Drug_STA2" />
@@ -2468,7 +2466,7 @@
   <item mCID="57202" Ratio="2" iCNm="BlueOrb_Siaumire" />
   <item mCID="57202" Ratio="2" iCNm="RedOrb_Siaumire" />
   <item mCID="57202" Ratio="2" iCNm="Gem_Bokor_Damballa" />
-  <item mCID="57203" Ratio="500" iCNm="misc_0172" />
+  <item mCID="57203" Ratio="1000" iCNm="misc_0172" />
   <item mCID="57203" Ratio="115" iCNm="TSP01_106" />
   <item mCID="57203" Ratio="2" iCNm="BlueOrb_Siaulamb" />
   <item mCID="57203" Ratio="2" iCNm="RedOrb_Siaulamb" />
@@ -2511,11 +2509,11 @@
   <item mCID="57215" Ratio="2" iCNm="BlueOrb_Big_Siaulamb" />
   <item mCID="57215" Ratio="2" iCNm="RedOrb_Big_Siaulamb" />
   <item mCID="57215" Ratio="2" iCNm="Gem_Cataphract_Rush" />
-  <item mCID="57216" Ratio="700" iCNm="misc_0173" />
-  <item mCID="57216" Ratio="800" iCNm="food_004" />
+  <item mCID="57216" Ratio="3333" iCNm="misc_0173" />
+  <item mCID="57216" Ratio="9999" iCNm="food_004" />
   <item mCID="57216" Ratio="2" iCNm="BlueOrb_Siaulogre" />
   <item mCID="57216" Ratio="2" iCNm="RedOrb_Siaulogre" />
-  <item mCID="57217" Ratio="600" iCNm="misc_0173" />
+  <item mCID="57217" Ratio="1000" iCNm="misc_0173" />
   <item mCID="57217" Ratio="115" iCNm="TSW01_125" />
   <item mCID="57217" Ratio="2" iCNm="BlueOrb_Pendinmire" />
   <item mCID="57217" Ratio="2" iCNm="RedOrb_Pendinmire" />
@@ -2845,7 +2843,6 @@
   <item mCID="57324" Ratio="2" iCNm="RedOrb_groll_white" />
   <item mCID="57324" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
   <item mCID="57324" Ratio="100" iCNm="R_BRC03_109" />
-  <item mCID="57324" Ratio="100" iCNm="R_NECK04_105" />
   <item mCID="57325" Ratio="1000" iCNm="misc_0102" />
   <item mCID="57325" Ratio="75" iCNm="misc_groll2" />
   <item mCID="57325" Ratio="2" iCNm="BlueOrb_groll" />
@@ -2878,7 +2875,6 @@
   <item mCID="57330" Ratio="2" iCNm="BlueOrb_operor_white" />
   <item mCID="57330" Ratio="2" iCNm="RedOrb_operor_white" />
   <item mCID="57330" Ratio="2" iCNm="Gem_Hunter_Retrieve" />
-  <item mCID="57331" Ratio="30" iCNm="CAN03_101" />
   <item mCID="57332" Ratio="3333" iCNm="misc_Mentiwood" />
   <item mCID="57332" Ratio="134" iCNm="FOOT01_107" />
   <item mCID="57332" Ratio="2" iCNm="BlueOrb_Mentiwood" />
@@ -2929,7 +2925,6 @@
   <item mCID="57343" Ratio="135" iCNm="R_NECK01_131" />
   <item mCID="57343" Ratio="2" iCNm="BlueOrb_hook" />
   <item mCID="57343" Ratio="2" iCNm="RedOrb_hook" />
-  <item mCID="57343" Ratio="30" iCNm="SWD03_101" />
   <item mCID="57344" Ratio="1000" iCNm="SWD01_136" />
   <item mCID="57344" Ratio="1000" iCNm="TSW01_128" />
   <item mCID="57344" Ratio="1000" iCNm="STF01_136" />
@@ -2997,7 +2992,7 @@
   <item mCID="57357" Ratio="2500" iCNm="food_014" />
   <item mCID="57357" Ratio="2" iCNm="BlueOrb_Stub_tree_orange" />
   <item mCID="57357" Ratio="2" iCNm="RedOrb_Stub_tree_orange" />
-  <item mCID="57358" Ratio="500" iCNm="misc_0172" />
+  <item mCID="57358" Ratio="1000" iCNm="misc_0172" />
   <item mCID="57358" Ratio="115" iCNm="TSP01_106" />
   <item mCID="57358" Ratio="2" iCNm="BlueOrb_Siaulamb" />
   <item mCID="57358" Ratio="2" iCNm="RedOrb_Siaulamb" />
@@ -3010,7 +3005,6 @@
   <item mCID="57363" Ratio="2" iCNm="BlueOrb_Sakmoli" />
   <item mCID="57363" Ratio="2" iCNm="RedOrb_Sakmoli" />
   <item mCID="57363" Ratio="2" iCNm="Gem_Scout_Cloaking" />
-  <item mCID="57363" Ratio="30" iCNm="SWD03_104" />
   <item mCID="57364" Ratio="2500" iCNm="misc_0008" />
   <item mCID="57364" Ratio="60" iCNm="SWD01_103" />
   <item mCID="57364" Ratio="60" iCNm="TSF01_101" />
@@ -3075,9 +3069,6 @@
   <item mCID="57376" Ratio="2" iCNm="BlueOrb_loftlem_blue" />
   <item mCID="57376" Ratio="2" iCNm="RedOrb_loftlem_blue" />
   <item mCID="57376" Ratio="2" iCNm="Gem_Fletcher_CrossFire" />
-  <item mCID="57376" Ratio="10" iCNm="STF03_109" />
-  <item mCID="57376" Ratio="10" iCNm="MAC03_111" />
-  <item mCID="57376" Ratio="10" iCNm="TSF03_110" />
   <item mCID="57377" Ratio="1000" iCNm="misc_0164" />
   <item mCID="57378" Ratio="666" iCNm="misc_0178" />
   <item mCID="57378" Ratio="135" iCNm="RAP01_101" />
@@ -3140,14 +3131,11 @@
   <item mCID="57404" Ratio="135" iCNm="R_HAND01_140" />
   <item mCID="57404" Ratio="2" iCNm="BlueOrb_kepo" />
   <item mCID="57404" Ratio="2" iCNm="RedOrb_kepo" />
-  <item mCID="57404" Ratio="30" iCNm="TBW03_108" />
   <item mCID="57405" Ratio="250" iCNm="misc_0148" />
   <item mCID="57405" Ratio="135" iCNm="DAG01_102" />
   <item mCID="57405" Ratio="2" iCNm="BlueOrb_Colifly" />
   <item mCID="57405" Ratio="2" iCNm="RedOrb_Colifly" />
   <item mCID="57405" Ratio="2" iCNm="Gem_Fletcher_BodkinPoint" />
-  <item mCID="57405" Ratio="10" iCNm="TBW03_110" />
-  <item mCID="57405" Ratio="10" iCNm="BOW03_111" />
   <item mCID="57406" Ratio="1000" iCNm="R_SWD01_109" />
   <item mCID="57406" Ratio="1000" iCNm="R_TSW01_107" />
   <item mCID="57406" Ratio="1000" iCNm="R_STF01_109" />
@@ -3230,7 +3218,7 @@
   <item mCID="57422" Ratio="1000" iCNm="MAC01_130" />
   <item mCID="57422" Ratio="1000" iCNm="SPR01_113" />
   <item mCID="57422" Ratio="1000" iCNm="TSP01_104" />
-  <item mCID="57423" Ratio="700" iCNm="misc_0171" />
+  <item mCID="57423" Ratio="2000" iCNm="misc_0171" />
   <item mCID="57423" Ratio="2" iCNm="BlueOrb_lantern_mushroom_orange" />
   <item mCID="57423" Ratio="2" iCNm="RedOrb_lantern_mushroom_orange" />
   <item mCID="57423" Ratio="2" iCNm="Gem_Monk_HandKnife" />
@@ -3298,7 +3286,7 @@
   <item mCID="57445" Ratio="1000" iCNm="MAC01_130" />
   <item mCID="57445" Ratio="1000" iCNm="SPR01_113" />
   <item mCID="57445" Ratio="1000" iCNm="TSP01_104" />
-  <item mCID="57447" Ratio="800" iCNm="misc_0174" />
+  <item mCID="57447" Ratio="3333" iCNm="misc_0174" />
   <item mCID="57447" Ratio="2" iCNm="BlueOrb_rabbee" />
   <item mCID="57447" Ratio="2" iCNm="RedOrb_rabbee" />
   <item mCID="57447" Ratio="2" iCNm="Gem_Pardoner_Simony" />
@@ -3308,7 +3296,7 @@
   <item mCID="57449" Ratio="2" iCNm="BlueOrb_Socket" />
   <item mCID="57449" Ratio="2" iCNm="RedOrb_Socket" />
   <item mCID="57449" Ratio="2" iCNm="Gem_Hunter_Growling" />
-  <item mCID="57450" Ratio="700" iCNm="misc_0175" />
+  <item mCID="57450" Ratio="2000" iCNm="misc_0175" />
   <item mCID="57450" Ratio="2" iCNm="BlueOrb_Honeybean" />
   <item mCID="57450" Ratio="2" iCNm="RedOrb_Honeybean" />
   <item mCID="57450" Ratio="2" iCNm="Gem_Pardoner_DiscernEvil" />
@@ -3396,7 +3384,6 @@
   <item mCID="57475" Ratio="2" iCNm="TSF02_115" />
   <item mCID="57475" Ratio="2" iCNm="BlueOrb_FD_Deadbornscab" />
   <item mCID="57475" Ratio="2" iCNm="RedOrb_FD_Deadbornscab" />
-  <item mCID="57475" Ratio="50" iCNm="BOW02_106" />
   <item mCID="57476" Ratio="2000" iCNm="misc_Hallowventor" />
   <item mCID="57476" Ratio="78" iCNm="misc_0077" />
   <item mCID="57476" Ratio="15" iCNm="misc_jore04" />
@@ -3463,7 +3450,6 @@
   <item mCID="57492" Ratio="80" iCNm="R_TSP02_104" />
   <item mCID="57492" Ratio="2" iCNm="BlueOrb_Triffid" />
   <item mCID="57492" Ratio="2" iCNm="RedOrb_Triffid" />
-  <item mCID="57492" Ratio="30" iCNm="TSW03_103" />
   <item mCID="57493" Ratio="60" iCNm="TSW01_105" />
   <item mCID="57496" Ratio="1000" iCNm="Gacha_F_010" />
   <item mCID="57497" Ratio="1000" iCNm="Gacha_F_013" />
@@ -3677,8 +3663,6 @@
   <item mCID="57604" Ratio="2" iCNm="BlueOrb_Siaulav_mage" />
   <item mCID="57604" Ratio="2" iCNm="RedOrb_Siaulav_mage" />
   <item mCID="57604" Ratio="2" iCNm="Gem_Sorcerer_Summoning" />
-  <item mCID="57604" Ratio="2" iCNm="Gem_Sorcerer_Summoning" />
-  <item mCID="57604" Ratio="30" iCNm="TSF03_111" />
   <item mCID="57605" Ratio="50" iCNm="BOW02_102" />
   <item mCID="57605" Ratio="100" iCNm="TBW01_107" />
   <item mCID="57605" Ratio="2" iCNm="BlueOrb_Siaulav_bow" />
@@ -3729,12 +3713,10 @@
   <item mCID="57616" Ratio="2" iCNm="BlueOrb_stub_tree_mage" />
   <item mCID="57616" Ratio="2" iCNm="RedOrb_stub_tree_mage" />
   <item mCID="57616" Ratio="2" iCNm="Gem_Elementalist_Electrocute" />
-  <item mCID="57616" Ratio="30" iCNm="SHD03_106" />
   <item mCID="57617" Ratio="108" iCNm="NECK01_137" />
   <item mCID="57617" Ratio="2" iCNm="BlueOrb_flask_mage" />
   <item mCID="57617" Ratio="2" iCNm="RedOrb_flask_mage" />
   <item mCID="57617" Ratio="2" iCNm="Gem_Sadhu_OutofBody" />
-  <item mCID="57617" Ratio="30" iCNm="STF03_110" />
   <item mCID="57618" Ratio="1000" iCNm="misc_Kepari" />
   <item mCID="57618" Ratio="108" iCNm="TOP01_113" />
   <item mCID="57618" Ratio="2" iCNm="BlueOrb_Kepari_mage" />
@@ -3843,7 +3825,6 @@
   <item mCID="57641" Ratio="30" iCNm="R_BRC03_102" />
   <item mCID="57641" Ratio="2" iCNm="BlueOrb_lapasape_bow" />
   <item mCID="57641" Ratio="2" iCNm="RedOrb_lapasape_bow" />
-  <item mCID="57641" Ratio="30" iCNm="TSW03_102" />
   <item mCID="57642" Ratio="2" iCNm="SPR02_112" />
   <item mCID="57642" Ratio="2" iCNm="BlueOrb_colimen_mage" />
   <item mCID="57642" Ratio="2" iCNm="RedOrb_colimen_mage" />
@@ -3927,7 +3908,6 @@
   <item mCID="57670" Ratio="2" iCNm="SWD02_121" />
   <item mCID="57670" Ratio="2" iCNm="BlueOrb_pyran" />
   <item mCID="57670" Ratio="2" iCNm="RedOrb_pyran" />
-  <item mCID="57670" Ratio="30" iCNm="TBW03_111" />
   <item mCID="57672" Ratio="500" iCNm="misc_velffigy" />
   <item mCID="57672" Ratio="128" iCNm="misc_gemExpStone_randomQuest2_TA" />
   <item mCID="57672" Ratio="100" iCNm="R_LEG03_111" />
@@ -3962,10 +3942,6 @@
   <item mCID="57678" Ratio="135" iCNm="TSP01_105" />
   <item mCID="57678" Ratio="2" iCNm="BlueOrb_anchor_mage" />
   <item mCID="57678" Ratio="2" iCNm="RedOrb_anchor_mage" />
-  <item mCID="57678" Ratio="10" iCNm="SWD03_111" />
-  <item mCID="57678" Ratio="10" iCNm="TSW03_112" />
-  <item mCID="57678" Ratio="10" iCNm="SPR03_107" />
-  <item mCID="57678" Ratio="10" iCNm="TSP03_107" />
   <item mCID="57679" Ratio="2" iCNm="BOW02_116" />
   <item mCID="57679" Ratio="2" iCNm="BlueOrb_Pandroceum" />
   <item mCID="57679" Ratio="2" iCNm="RedOrb_Pandroceum" />
@@ -4124,7 +4100,6 @@
   <item mCID="57722" Ratio="2" iCNm="SWD02_121" />
   <item mCID="57722" Ratio="2" iCNm="BlueOrb_pyran" />
   <item mCID="57722" Ratio="2" iCNm="RedOrb_pyran" />
-  <item mCID="57722" Ratio="30" iCNm="TBW03_111" />
   <item mCID="57729" Ratio="2" iCNm="TSW02_116" />
   <item mCID="57729" Ratio="2" iCNm="BlueOrb_FD_colimen" />
   <item mCID="57729" Ratio="2" iCNm="RedOrb_FD_colimen" />
@@ -4689,7 +4664,7 @@
   <item mCID="57972" Ratio="40" iCNm="misc_0192" />
   <item mCID="57972" Ratio="2" iCNm="BlueOrb_hohen_barkle_green" />
   <item mCID="57972" Ratio="2" iCNm="RedOrb_hohen_barkle_green" />
-  <item mCID="57972" Ratio="100" iCNm="R_BOW02_132" />
+  <item mCID="57972" Ratio="100" iCNm="BOW02_132" />
   <item mCID="57972" Ratio="213" iCNm="misc_gemExpStone_randomQuest2_TA" />
   <item mCID="57973" Ratio="161" iCNm="misc_0257" />
   <item mCID="57973" Ratio="115" iCNm="HAND01_157" />
@@ -4992,13 +4967,11 @@
   <item mCID="58107" Ratio="2" iCNm="BlueOrb_Gravegolem" />
   <item mCID="58107" Ratio="2" iCNm="RedOrb_Gravegolem" />
   <item mCID="58107" Ratio="2" iCNm="Gem_Hoplite_SpearLunge" />
-  <item mCID="58107" Ratio="30" iCNm="SHD03_105" />
   <item mCID="58108" Ratio="115" iCNm="HAND01_113" />
   <item mCID="58108" Ratio="82" iCNm="misc_gemExpStone_randomQuest1_TA" />
   <item mCID="58109" Ratio="40" iCNm="misc_0277" />
   <item mCID="58109" Ratio="60" iCNm="SPR01_105" />
   <item mCID="58109" Ratio="60" iCNm="SHD01_107" />
-  <item mCID="58109" Ratio="20" iCNm="SHD03_102" />
   <item mCID="58110" Ratio="115" iCNm="FOOT01_114" />
   <item mCID="58110" Ratio="115" iCNm="LEG01_114" />
   <item mCID="58111" Ratio="55" iCNm="MAC01_120" />
@@ -5228,22 +5201,22 @@
   <item mCID="58208" Ratio="134" iCNm="TOP01_107" />
   <item mCID="58237" Ratio="1000" iCNm="Gacha_F_043" />
   <item mCID="58246" Ratio="1000" iCNm="Gacha_F_048" />
-  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_075" />
-  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_068" />
-  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_075" />
-  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_068" />
-  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_076" />
-  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_069" />
-  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_076" />
-  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_069" />
-  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_077" />
-  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_070" />
-  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_077" />
-  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_070" />
-  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_078" />
-  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_071" />
-  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_078" />
-  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_071" />
+  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_061" />
+  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_054" />
+  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_061" />
+  <item mCID="58248" Ratio="1000" iCNm="Gacha_F_054" />
+  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_062" />
+  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_055" />
+  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_062" />
+  <item mCID="58249" Ratio="1000" iCNm="Gacha_F_055" />
+  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_063" />
+  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_056" />
+  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_063" />
+  <item mCID="58250" Ratio="1000" iCNm="Gacha_F_056" />
+  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_064" />
+  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_057" />
+  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_064" />
+  <item mCID="58251" Ratio="1000" iCNm="Gacha_F_057" />
   <item mCID="58252" Ratio="1000" iCNm="SWD01_105" />
   <item mCID="58252" Ratio="1000" iCNm="TSW01_103" />
   <item mCID="58252" Ratio="1000" iCNm="STF01_105" />
@@ -5261,12 +5234,8 @@
   <item mCID="58296" Ratio="2" iCNm="RedOrb_FD_Spector_gh_purple" />
   <item mCID="58323" Ratio="1000" iCNm="Gacha_I_011" />
   <item mCID="58399" Ratio="1000" iCNm="Gacha_I_013" />
-  <item mCID="58400" Ratio="30" iCNm="PST03_101" />
   <item mCID="58401" Ratio="4" iCNm="Gem_Alchemist_Combustion" />
-  <item mCID="58401" Ratio="30" iCNm="MUS03_104" />
-  <item mCID="58402" Ratio="30" iCNm="TSF03_120" />
   <item mCID="58406" Ratio="4" iCNm="Gem_Warlock_PoleofAgony" />
-  <item mCID="58406" Ratio="30" iCNm="RAP03_305" />
   <item mCID="58412" Ratio="1000" iCNm="SWD01_110" />
   <item mCID="58412" Ratio="1000" iCNm="TSW01_108" />
   <item mCID="58412" Ratio="1000" iCNm="STF01_110" />
@@ -5319,7 +5288,6 @@
   <item mCID="58436" Ratio="27" iCNm="misc_0450" />
   <item mCID="58436" Ratio="2" iCNm="BlueOrb_Rakon" />
   <item mCID="58436" Ratio="2" iCNm="RedOrb_Rakon" />
-  <item mCID="58436" Ratio="30" iCNm="BOW03_202" />
   <item mCID="58437" Ratio="350" iCNm="misc_0318" />
   <item mCID="58437" Ratio="2" iCNm="BlueOrb_rockon" />
   <item mCID="58437" Ratio="2" iCNm="RedOrb_rockon" />
@@ -5351,7 +5319,6 @@
   <item mCID="58443" Ratio="46" iCNm="misc_0456" />
   <item mCID="58443" Ratio="2" iCNm="BlueOrb_nukarong" />
   <item mCID="58443" Ratio="2" iCNm="RedOrb_nukarong" />
-  <item mCID="58443" Ratio="30" iCNm="SWD03_120" />
   <item mCID="58444" Ratio="700" iCNm="misc_0329" />
   <item mCID="58444" Ratio="27" iCNm="misc_0453" />
   <item mCID="58444" Ratio="2" iCNm="BlueOrb_horn_golem" />
@@ -5361,7 +5328,6 @@
   <item mCID="58445" Ratio="63" iCNm="misc_0463" />
   <item mCID="58445" Ratio="2" iCNm="BlueOrb_rompelnuka" />
   <item mCID="58445" Ratio="2" iCNm="RedOrb_rompelnuka" />
-  <item mCID="58445" Ratio="50" iCNm="SHD04_105" />
   <item mCID="58446" Ratio="700" iCNm="misc_0315" />
   <item mCID="58446" Ratio="27" iCNm="misc_0505" />
   <item mCID="58446" Ratio="63" iCNm="misc_0506" />
@@ -5389,18 +5355,15 @@
   <item mCID="58450" Ratio="63" iCNm="misc_0503" />
   <item mCID="58450" Ratio="2" iCNm="BlueOrb_Moringaga" />
   <item mCID="58450" Ratio="2" iCNm="RedOrb_Moringaga" />
-  <item mCID="58450" Ratio="30" iCNm="TBW03_120" />
   <item mCID="58453" Ratio="700" iCNm="misc_0379" />
   <item mCID="58453" Ratio="27" iCNm="misc_0459" />
   <item mCID="58453" Ratio="2" iCNm="BlueOrb_vilkas_soldier" />
   <item mCID="58453" Ratio="2" iCNm="RedOrb_vilkas_soldier" />
-  <item mCID="58453" Ratio="30" iCNm="STF03_120" />
   <item mCID="58454" Ratio="700" iCNm="misc_0381" />
   <item mCID="58454" Ratio="27" iCNm="misc_0464" />
   <item mCID="58454" Ratio="63" iCNm="misc_0465" />
   <item mCID="58454" Ratio="2" iCNm="BlueOrb_vilkas_warrior" />
   <item mCID="58454" Ratio="2" iCNm="RedOrb_vilkas_warrior" />
-  <item mCID="58454" Ratio="30" iCNm="DAG03_105" />
   <item mCID="58455" Ratio="700" iCNm="misc_0384" />
   <item mCID="58455" Ratio="27" iCNm="misc_0467" />
   <item mCID="58455" Ratio="63" iCNm="misc_0468" />
@@ -5532,7 +5495,6 @@
   <item mCID="58493" Ratio="27" iCNm="misc_0445" />
   <item mCID="58493" Ratio="2" iCNm="BlueOrb_goblin2_sword_green" />
   <item mCID="58493" Ratio="2" iCNm="RedOrb_goblin2_sword_green" />
-  <item mCID="58493" Ratio="30" iCNm="TSW03_120" />
   <item mCID="58494" Ratio="175" iCNm="misc_0335" />
   <item mCID="58494" Ratio="27" iCNm="misc_0445" />
   <item mCID="58494" Ratio="2" iCNm="BlueOrb_goblin2_hammer_green" />
@@ -5614,6 +5576,7 @@
   <item mCID="58511" Ratio="2" iCNm="BlueOrb_wizards_marmotte_red" />
   <item mCID="58511" Ratio="2" iCNm="RedOrb_wizards_marmotte_red" />
   <item mCID="58511" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
+  <item mCID="58517" Ratio="0" iCNm="Gacha_E_025" />
   <item mCID="58518" Ratio="1000" iCNm="SWD01_131" />
   <item mCID="58518" Ratio="1000" iCNm="TSW01_123" />
   <item mCID="58518" Ratio="1000" iCNm="STF01_131" />
@@ -5717,7 +5680,6 @@
   <item mCID="58550" Ratio="63" iCNm="misc_0500" />
   <item mCID="58550" Ratio="2" iCNm="BlueOrb_kucarry_symbani" />
   <item mCID="58550" Ratio="2" iCNm="RedOrb_kucarry_symbani" />
-  <item mCID="58550" Ratio="30" iCNm="TMAC03_106" />
   <item mCID="58551" Ratio="116" iCNm="misc_0331" />
   <item mCID="58551" Ratio="27" iCNm="misc_0488" />
   <item mCID="58551" Ratio="63" iCNm="misc_0489" />
@@ -5757,7 +5719,6 @@
   <item mCID="58561" Ratio="27" iCNm="misc_0435" />
   <item mCID="58561" Ratio="2" iCNm="BlueOrb_scare_crow" />
   <item mCID="58561" Ratio="2" iCNm="RedOrb_scare_crow" />
-  <item mCID="58561" Ratio="20" iCNm="HAND03_117" />
   <item mCID="58562" Ratio="700" iCNm="misc_0357" />
   <item mCID="58562" Ratio="27" iCNm="misc_0434" />
   <item mCID="58562" Ratio="2" iCNm="BlueOrb_pumpkin_dog" />
@@ -5770,7 +5731,6 @@
   <item mCID="58564" Ratio="100" iCNm="R_BRC03_123" />
   <item mCID="58565" Ratio="2" iCNm="BlueOrb_budny" />
   <item mCID="58565" Ratio="2" iCNm="RedOrb_budny" />
-  <item mCID="58565" Ratio="30" iCNm="TSP03_115" />
   <item mCID="58566" Ratio="2" iCNm="BlueOrb_bloom" />
   <item mCID="58566" Ratio="2" iCNm="RedOrb_bloom" />
   <item mCID="58566" Ratio="4" iCNm="Gem_Musketeer_HeadShot" />
@@ -5780,25 +5740,24 @@
   <item mCID="58570" Ratio="2" iCNm="BlueOrb_RavineLerva_cave" />
   <item mCID="58570" Ratio="2" iCNm="RedOrb_RavineLerva_cave" />
   <item mCID="58570" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_079" />
-  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_072" />
-  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_079" />
-  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_072" />
-  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_080" />
-  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_073" />
-  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_080" />
-  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_073" />
-  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_081" />
-  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_074" />
-  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_081" />
-  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_074" />
+  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_065" />
+  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_058" />
+  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_065" />
+  <item mCID="58577" Ratio="1000" iCNm="Gacha_F_058" />
+  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_066" />
+  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_059" />
+  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_066" />
+  <item mCID="58578" Ratio="1000" iCNm="Gacha_F_059" />
+  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_067" />
+  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_060" />
+  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_067" />
+  <item mCID="58579" Ratio="1000" iCNm="Gacha_F_060" />
   <item mCID="58581" Ratio="2" iCNm="BlueOrb_Glyquare_red" />
   <item mCID="58581" Ratio="2" iCNm="RedOrb_Glyquare_red" />
   <item mCID="58581" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
   <item mCID="58582" Ratio="2" iCNm="BlueOrb_anchor_purple" />
   <item mCID="58582" Ratio="2" iCNm="RedOrb_anchor_purple" />
   <item mCID="58582" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
-  <item mCID="58582" Ratio="30" iCNm="MAC03_204" />
   <item mCID="58583" Ratio="2" iCNm="BlueOrb_Prisonfighter_green" />
   <item mCID="58583" Ratio="2" iCNm="RedOrb_Prisonfighter_green" />
   <item mCID="58583" Ratio="127" iCNm="misc_gemExpStone_randomQuest2_TA" />
@@ -5822,10 +5781,8 @@
   <item mCID="58611" Ratio="2" iCNm="RedOrb_Aklasia" />
   <item mCID="58612" Ratio="2" iCNm="BlueOrb_Aklsabishop" />
   <item mCID="58612" Ratio="2" iCNm="RedOrb_Aklsabishop" />
-  <item mCID="58612" Ratio="100" iCNm="R_BRC03_108" />
   <item mCID="58613" Ratio="2" iCNm="BlueOrb_Aklacountess" />
   <item mCID="58613" Ratio="2" iCNm="RedOrb_Aklacountess" />
-  <item mCID="58615" Ratio="30" iCNm="SPR03_115" />
   <item mCID="58631" Ratio="10000" iCNm="Event_161027_2" />
   <item mCID="58631" Ratio="10000" iCNm="Event_161027_1" />
   <item mCID="58634" Ratio="2200" iCNm="misc_Stoulet" />
@@ -6030,6 +5987,7 @@
   <item mCID="58689" Ratio="2" iCNm="BlueOrb_Chupacabra_Blue" />
   <item mCID="58689" Ratio="2" iCNm="RedOrb_Chupacabra_Blue" />
   <item mCID="58689" Ratio="4" iCNm="GEM_Cleric_Smite" />
+  <item mCID="58690" Ratio="1000" iCNm="Gacha_I_017" />
   <item mCID="58697" Ratio="10000" iCNm="Gacha_ID_380_ignas" />
   <item mCID="58700" Ratio="3333" iCNm="misc_jore09" />
   <item mCID="58700" Ratio="134" iCNm="R_SHD01_106" />
@@ -6302,7 +6260,6 @@
   <item mCID="58869" Ratio="200" iCNm="misc_0511" />
   <item mCID="58870" Ratio="4" iCNm="Gem_Warlock_DarkTheurge" />
   <item mCID="58871" Ratio="4" iCNm="Gem_Warlock_Invocation" />
-  <item mCID="58875" Ratio="30" iCNm="SHD03_110" />
   <item mCID="58877" Ratio="200" iCNm="misc_0518" />
   <item mCID="59010" Ratio="3" iCNm="Hat_628020" />
   <item mCID="59011" Ratio="18" iCNm="R_BRC02_120" />
@@ -6339,34 +6296,8 @@
   <item mCID="59226" Ratio="150" iCNm="misc_0532" />
   <item mCID="59227" Ratio="75" iCNm="misc_0531" />
   <item mCID="59227" Ratio="150" iCNm="misc_0532" />
+  <item mCID="59262" Ratio="1000" iCNm="Gacha_Legend_400" />
   <item mCID="59281" Ratio="10000" iCNm="Gacha_Unique_2_400" />
-  <item mCID="59296" Ratio="1000" iCNm="Gacha_F_085" />
-  <item mCID="59296" Ratio="1000" iCNm="Gacha_F_084" />
-  <item mCID="59296" Ratio="1000" iCNm="Gacha_F_085" />
-  <item mCID="59296" Ratio="1000" iCNm="Gacha_F_084" />
-  <item mCID="59297" Ratio="0" iCNm="D_UNDERAQUEDUCT_EVETN4_ITEM1" />
-  <item mCID="59299" Ratio="10000" iCNm="Gacha_Unique_MothRaid" />
-  <item mCID="59303" Ratio="9960" iCNm="misc_ore27" />
-  <item mCID="59303" Ratio="20" iCNm="helmet_baniclips" />
-  <item mCID="59303" Ratio="20" iCNm="costume_Com_216" />
-  <item mCID="59307" Ratio="10000" iCNm="Gacha_Unique_400_Piece" />
-  <item mCID="59309" Ratio="10000" iCNm="Gacha_ID_Frost_Piece" />
-  <item mCID="59310" Ratio="10000" iCNm="Gacha_ID_315_Piece" />
-  <item mCID="59311" Ratio="10000" iCNm="Gacha_ID_380_Asio_Piece" />
-  <item mCID="59312" Ratio="10000" iCNm="Gacha_ID_380_Weistrel_Piece" />
-  <item mCID="59313" Ratio="10000" iCNm="Gacha_ID_380_ignas_Piece" />
-  <item mCID="59335" Ratio="700" iCNm="misc_0314" />
-  <item mCID="59335" Ratio="27" iCNm="misc_0502" />
-  <item mCID="59335" Ratio="63" iCNm="misc_0503" />
-  <item mCID="59335" Ratio="2" iCNm="BlueOrb_Moringaga" />
-  <item mCID="59335" Ratio="2" iCNm="RedOrb_Moringaga" />
-  <item mCID="59335" Ratio="30" iCNm="TBW03_120" />
-  <item mCID="59337" Ratio="700" iCNm="misc_0315" />
-  <item mCID="59337" Ratio="27" iCNm="misc_0505" />
-  <item mCID="59337" Ratio="63" iCNm="misc_0506" />
-  <item mCID="59337" Ratio="2" iCNm="BlueOrb_Moringbird" />
-  <item mCID="59337" Ratio="2" iCNm="RedOrb_Moringbird" />
-  <item mCID="59342" Ratio="9960" iCNm="Gacha_MothRaid_piece" />
   <item mCID="103003" Ratio="1000" iCNm="SWD01_130" />
   <item mCID="103003" Ratio="1000" iCNm="R_TSW01_122" />
   <item mCID="103003" Ratio="1000" iCNm="STF01_130" />
@@ -6817,7 +6748,6 @@
   <item mCID="400561" Ratio="2" iCNm="BlueOrb_Sakmoli" />
   <item mCID="400561" Ratio="2" iCNm="RedOrb_Sakmoli" />
   <item mCID="400561" Ratio="2" iCNm="Gem_Scout_Cloaking" />
-  <item mCID="400561" Ratio="30" iCNm="SWD03_104" />
   <item mCID="400563" Ratio="2000" iCNm="misc_Sakmoli" />
   <item mCID="400563" Ratio="134" iCNm="R_MAC01_109" />
   <item mCID="400563" Ratio="2500" iCNm="food_014" />
@@ -7004,7 +6934,6 @@
   <item mCID="401261" Ratio="2" iCNm="RedOrb_Cockatries" />
   <item mCID="401261" Ratio="2" iCNm="Gem_Wugushi_Bewitch" />
   <item mCID="401261" Ratio="133" iCNm="misc_Cockatries2" />
-  <item mCID="401261" Ratio="30" iCNm="SWD03_103" />
   <item mCID="401301" Ratio="1600" iCNm="misc_0063" />
   <item mCID="401301" Ratio="129" iCNm="misc_gemExpStone_randomQuest1_TA" />
   <item mCID="401301" Ratio="38" iCNm="SPR02_103" />
@@ -7145,7 +7074,6 @@
   <item mCID="401741" Ratio="135" iCNm="R_NECK01_131" />
   <item mCID="401741" Ratio="2" iCNm="BlueOrb_hook" />
   <item mCID="401741" Ratio="2" iCNm="RedOrb_hook" />
-  <item mCID="401741" Ratio="30" iCNm="SWD03_101" />
   <item mCID="401761" Ratio="4000" iCNm="wood_02" />
   <item mCID="401761" Ratio="1500" iCNm="food_005" />
   <item mCID="401761" Ratio="135" iCNm="SWD01_116" />
@@ -7178,14 +7106,6 @@
   <item mCID="450222" Ratio="1000" iCNm="R_MAC01_129" />
   <item mCID="450222" Ratio="1000" iCNm="R_SPR01_112" />
   <item mCID="450222" Ratio="1000" iCNm="TSP01_103" />
-  <item mCID="710002" Ratio="1000" iCNm="Gacha_F_075" />
-  <item mCID="710002" Ratio="1000" iCNm="Gacha_F_068" />
-  <item mCID="710002" Ratio="1000" iCNm="Gacha_F_075" />
-  <item mCID="710002" Ratio="1000" iCNm="Gacha_F_068" />
-  <item mCID="710003" Ratio="1000" iCNm="Gacha_F_077" />
-  <item mCID="710003" Ratio="1000" iCNm="Gacha_F_070" />
-  <item mCID="710003" Ratio="1000" iCNm="Gacha_F_077" />
-  <item mCID="710003" Ratio="1000" iCNm="Gacha_F_070" />
   <item mCID="1000133" Ratio="1000" iCNm="Gacha_F_042" />
   <item mCID="1000134" Ratio="1000" iCNm="Gacha_F_041" />
   <item mCID="1000135" Ratio="1000" iCNm="Gacha_F_044" />
@@ -7198,32 +7118,32 @@
   <item mCID="1000142" Ratio="1000" iCNm="Gacha_F_051" />
   <item mCID="1000143" Ratio="1000" iCNm="Gacha_F_052" />
   <item mCID="1000144" Ratio="1000" iCNm="Gacha_F_053" />
-  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_075" />
-  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_068" />
-  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_075" />
-  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_068" />
-  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_076" />
-  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_069" />
-  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_076" />
-  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_069" />
-  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_077" />
-  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_070" />
-  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_077" />
-  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_070" />
-  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_078" />
-  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_071" />
-  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_078" />
-  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_071" />
-  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_079" />
-  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_072" />
-  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_079" />
-  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_072" />
-  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_080" />
-  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_073" />
-  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_080" />
-  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_073" />
-  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_081" />
-  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_074" />
-  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_081" />
-  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_074" />
+  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_061" />
+  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_054" />
+  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_061" />
+  <item mCID="1000145" Ratio="1000" iCNm="Gacha_F_054" />
+  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_062" />
+  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_055" />
+  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_062" />
+  <item mCID="1000146" Ratio="1000" iCNm="Gacha_F_055" />
+  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_063" />
+  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_056" />
+  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_063" />
+  <item mCID="1000147" Ratio="1000" iCNm="Gacha_F_056" />
+  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_064" />
+  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_057" />
+  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_064" />
+  <item mCID="1000148" Ratio="1000" iCNm="Gacha_F_057" />
+  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_065" />
+  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_058" />
+  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_065" />
+  <item mCID="1000149" Ratio="1000" iCNm="Gacha_F_058" />
+  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_066" />
+  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_059" />
+  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_066" />
+  <item mCID="1000150" Ratio="1000" iCNm="Gacha_F_059" />
+  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_067" />
+  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_060" />
+  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_067" />
+  <item mCID="1000151" Ratio="1000" iCNm="Gacha_F_060" />
 </DropData>
