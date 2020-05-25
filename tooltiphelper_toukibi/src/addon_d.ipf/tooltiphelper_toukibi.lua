@@ -1,5 +1,5 @@
 local addonName = "ToolTipHelper_Toukibi";
-local verText = "1.05";
+local verText = "1.06";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/tth"} -- {"/コマンド1", "/コマンド2", .......};
@@ -2868,6 +2868,23 @@ function Me.GetCollectionText(invItem)
 	return ResultText;
 end
 
+local function GetEquipInvCount(itemClsName)
+	if itemClsName == nil or itemClsName == "" or itemClsName == "None" then
+		return 0;
+	end
+	local invItemList = session.GetInvItemList();
+	local retTable = {Value = 0};
+	FOR_EACH_INVENTORY(invItemList, function(invItemList, invItem, retTable, itemClsName)
+			if invItem ~= nil then
+				local objItem = GetIES(invItem:GetObject());
+				if objItem.ClassName == itemClsName then
+					retTable.Value = retTable.Value + 1;
+				end
+			end
+		end, false, retTable, itemClsName);
+	return retTable.Value;
+end
+
 function Me.GetRecipeText(invItem)
 	if not Me.Settings.showRecipeCustomTooltips then
 		return "";
@@ -2883,6 +2900,19 @@ function Me.GetRecipeText(invItem)
 	if MatchList == nil then
 		return "";
 	end
+	local invItemIsRecipe = false;
+	if IS_RECIPE_ITEM(invItem) ~= 0 then
+		invItemIsRecipe = true
+	end
+
+	local HaveCount = 0;
+	if invItem.ItemType == "Equip" then
+		HaveCount = GetEquipInvCount(invItem.ClassName)
+	elseif session.GetInvItemByName(invItem.ClassName) == nil then
+		HaveCount = 0;
+	else
+		HaveCount = session.GetInvItemByName(invItem.ClassName).count;
+	end
 
 	local ResultList = {};
 	for i, MatchData in ipairs(MatchList) do
@@ -2891,11 +2921,22 @@ function Me.GetRecipeText(invItem)
 		if TargetRecipe ~= nil then
 			local ResultItem = GetClass("Item", TargetRecipe.TargetItem);
 
-			local NeedCount, HaveCount = 1, 0;
-			if IS_RECIPE_ITEM(invItem) ~= 0 then
-				NeedCount, HaveCount = 1, 1;
+			local NeedCount = 1;
+			if invItemIsRecipe then
+				NeedCount = 1;
 			else
-				NeedCount, HaveCount = GET_RECIPE_MATERIAL_INFO(TargetRecipe, MatchData.Pos);
+				-- 一番大本の取得方法
+				-- NeedCount = GET_RECIPE_MATERIAL_INFO(TargetRecipe, MatchData.Pos);
+
+				-- GET_RECIPE_MATERIAL_INFO 内での取得方法
+				local clsName = "Item_"..MatchData.Pos.."_1";
+				local itemName = TargetRecipe[clsName];
+				if itemName ~= "None" then
+					-- 必要数の取得
+					NeedCount = GET_RECIPE_REQITEM_CNT(TargetRecipe, clsName);
+				else
+					NeedCount = 1;
+				end
 			end
 			
 			--log(MatchData.ClassType)
@@ -2911,6 +2952,12 @@ function Me.GetRecipeText(invItem)
 			local isCrafted = false;
 			if ADVENTURE_BOOK_CRAFT_CONTENT.EXIST_IN_HISTORY(ResultItem.ClassID) == 1 then
 				isCrafted = true;
+			end
+
+			-- イベントアイテムであるか
+			local isEventItem = false;
+			if string.find(string.lower(TargetRecipe.ClassName), "event") then
+				isEventItem = true;
 			end
 
 			local strTemp = "";
@@ -2951,6 +2998,7 @@ function Me.GetRecipeText(invItem)
 	-- log(string.format("  --> %s%s%s", strTemp, RecipeItemText, CountText));
 			table.insert(ResultList	, {isCrafted = isCrafted
 									, ItemGrade = grade
+									, EventRecipe = isEventItem
 									, Name = dictionary.ReplaceDicIDInCompStr(ResultItem.Name)
 									, Text = Toukibi:GetStyledText(string.format("%s%s", RecipeItemText, CountText), TextStyle)
 										});
@@ -2965,12 +3013,19 @@ function Me.GetRecipeText(invItem)
 									end
 									return false
 								end
+								if a.EventRecipe ~= b.EventRecipe then
+									if a.EventRecipe then
+										return false
+									end
+									return true
+								end
 								if a.ItemGrade ~= b.ItemGrade then
 									return a.ItemGrade < b.ItemGrade
 								end
 								return a.Name < b.Name
 							end)
 
+	
 	-- 出力するテキストを生成する
 	local ResultText = "{nl}";
 	local prevIsCrafted = nil;
@@ -2999,6 +3054,7 @@ function Me.GetRecipeText(invItem)
 		prevIsCrafted = value.isCrafted;
 	end
 	ResultText = Toukibi:GetStyledText(ResultText, {"#" .. labelColor});
+
 	-- log(ResultText);
 	return ResultText;
 end
@@ -3804,6 +3860,7 @@ function TOOLTIPHELPER_TOUKIBI_ON_INIT(addon, frame)
 end
 
 -- ドロップ情報書き込み
+-- ToolTipR.ExportDropData()
 function Me.ExportDropData()
 	local ExportFilePathName = string.format("../addons/%s/%s", addonNameLower, "dropdata.json");
 

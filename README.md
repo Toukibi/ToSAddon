@@ -1,21 +1,17 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : May 9, 2020
+Last Updated : May 25, 2020
+
+* **Tooltip Helper Ver. 1.06**
+  * 使用先の多いアイテムにマウスカーソルを当てるとラグが発生する問題を修正しました。<br>Fixed an issue that caused a lag when hovering over an item with a lot of usage.
+  * イベント制作アイテムの表示優先度を下げました。<br>Lowered the display priority of event production items.
+
+
+May 9, 2020
 
 * **Remaining Counter Ver. 1.06**
   * 4月に行われたJToSのアップデートで、アルケミストの場合にスキルアイコンが表示されなくなる問題を修正しました。<br>Fixed an issue that caused the skill icon to disappear for Alchemists due to the JToS update in April.
 
-
-May 3, 2020
-
-* **Tooltip Helper Ver. 1.05**
-  * 4月に行われたJToSのアップデートでXMLファイルが読み込めなくなった問題に対応しました。<br>Solved the problem that XML files could not be read in the JToS update on April.
-
-* **Better Pick Queue Ver. 1.15**
-  * 画面の伸びる方向の設定に左右方向を追加しました。<br>A horizontal direction has been added to the setting of the direction in which the window extends.
-
-* **Developer Console**
-  * 4月に行われたJToSのアップデートでLoadString関数が使えなくなった問題に対応しました。<br>Solved the problem that the 'LoadString' function could not be used in the JToS update on April.
 
 
 ## Notice:
@@ -93,7 +89,7 @@ This add-on will make the display of the stalls opened in towns etc. a little ea
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
 
-## [Tooltip Helper Ver. 1.05 (Rebuild by Toukibi)( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
+## [Tooltip Helper Ver. 1.06 (Rebuild by Toukibi)( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
 Tooltip Helperはツールチップに追加の情報を表示するためのアドオンです。  
 冒険日誌の変更パッチで動かなくなった原作を再構築したものです。
 Tooltip Helper is an add-on for displaying additional information on tooltips.  
