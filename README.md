@@ -1,17 +1,24 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : May 25, 2020
+Last Updated : July 3, 2020
+
+* **MapMate Ver. 0.92**
+  * コレクションにどのモンスターがどの程度の割合でドロップするかの情報を追加しました。<br>Added information to the collection display which monsters drop the item to what percentage.
+  * モンスターごとのアイテムドロップリストを表示できるようにしました。<br>Enabled to display the item drop list for each monster.
+  * モンスター一覧をフローティング表示している時、討伐数が更新されない問題を修正しました。<br>Fixed an issue where the number of subjugations was not updated when the monster list was floating displayed.
+  * ミニマップにおける情報の表示位置を調整しました。<br>Adjusted the display position of information on the mini map.
+
+* **Tooltip Helper Ver. 1.07**
+  * `/tth import`コマンドを複数回使用すると表示も複数回ダブって表示される問題を修正しました。<br>Fixed a problem that the display is duplicated multiple times when the `/tth import` command is used multiple times.
+
+* **Shop Helper Ver. 0.92**
+  * 修理露店における追加オブジェクトの表示位置を調整しました。<br>Adjusted the display position of additional objects in repair stalls.
+
+May 25, 2020
 
 * **Tooltip Helper Ver. 1.06**
   * 使用先の多いアイテムにマウスカーソルを当てるとラグが発生する問題を修正しました。<br>Fixed an issue that caused a lag when hovering over an item with a lot of usage.
   * イベント制作アイテムの表示優先度を下げました。<br>Lowered the display priority of event production items.
-
-
-May 9, 2020
-
-* **Remaining Counter Ver. 1.06**
-  * 4月に行われたJToSのアップデートで、アルケミストの場合にスキルアイコンが表示されなくなる問題を修正しました。<br>Fixed an issue that caused the skill icon to disappear for Alchemists due to the JToS update in April.
-
 
 
 ## Notice:
@@ -73,7 +80,7 @@ ItemDropsが2になって帰ってきました。ドロップしたアイテム�
 ItemDrops is back. It highlights the dropped item **more strongly**.    
 ![Image of main image of ItemDrops2](https://github.com/Toukibi/ToSAddon/blob/ForImage/ItemDrops2/img/topimage_ja.jpg?raw=true)    
 
-## [Map Mate Ver. 0.90 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
+## [Map Mate Ver. 0.92 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
 マップ表示を色々便利にしてくれます。  
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
@@ -83,13 +90,13 @@ This add-on makes map display a lot convenient.
 The number of remaining skills is displayed at the bottom right of the skill icon.   
 !["Image of main image of Remaining-Counter"](https://github.com/Toukibi/ToSAddon/blob/ForImage/RemainingCounter/img/topimage.png?raw=true)  
 
-## [Shop Helper Ver. 0.90 ( Ja / En / Kr / Br )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
+## [Shop Helper Ver. 0.92 ( Ja / En / Kr / Br )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
 街などで開かれている露店の表示を少しだけ使いやすくしてくれます。  
 This add-on will make the display of the stalls opened in towns etc. a little easier to use.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
 
-## [Tooltip Helper Ver. 1.06 (Rebuild by Toukibi)( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
+## [Tooltip Helper Ver. 1.07 (Rebuild by Toukibi)( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
 Tooltip Helperはツールチップに追加の情報を表示するためのアドオンです。  
 冒険日誌の変更パッチで動かなくなった原作を再構築したものです。
 Tooltip Helper is an add-on for displaying additional information on tooltips.  

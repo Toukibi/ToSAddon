@@ -1,5 +1,5 @@
 local addonName = "ToolTipHelper_Toukibi";
-local verText = "1.06";
+local verText = "1.07";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/tth"} -- {"/コマンド1", "/コマンド2", .......};
@@ -2538,6 +2538,7 @@ function Me.ImportDropData()
 									, Ratio = DropRatio
 									 });
 	end
+
 	--view(Me.DropXMLData)
 	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteImportDropDataXML"), "Notice", true, false);
 	Me.CreateDropRatioListFromXmlData()
@@ -2640,8 +2641,8 @@ end
 
 function Me.CreateDropRatioListFromXmlData()
 	if Me.DropXMLData == nil then return end;
+	Me.ApplicationsList.DropRatio = {};
 	local tblTarget = Me.ApplicationsList.DropRatio;
-	if tblTarget == nil then tblTarget = {} end
 
 	for _, value in ipairs(Me.DropXMLData) do
 		local clsMob = GetClassByType("Monster", value.MobID)

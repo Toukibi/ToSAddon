@@ -1,5 +1,5 @@
 local addonName = "MapMateMob";
-local verText = "1.06";
+local verText = "1.07";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mmob", "/MMob"} -- {"/コマンド1", "/コマンド2", .......};
@@ -71,6 +71,9 @@ local ResText = {
 		  , Normal = "通常"
 		  , Flying = "飛行"
 		},
+		DropRatio = {
+			TitleFormat = "%sのドロップ情報{nl}{s4} {/}{nl}"
+		},
 		Other = {
 			PercentChar = "％"
 		  , Opened = "開封済"
@@ -131,6 +134,9 @@ local ResText = {
 		  , Holding = "Holding"
 		  , Normal = "Normal"
 		  , Flying = "Flying"
+		},
+		DropRatio = {
+			TitleFormat = "Items drop of %s{nl}{s4} {/}{nl}"
 		},
 		Other = {
 			PercentChar = "%"
@@ -564,6 +570,53 @@ end
 
 -- ===== アドオンの内容ここから =====
 
+local function GetCommaedTextEx(value, MaxTextLen, AfterTheDecimalPointLen, usePlusMark, AddSpaceAfterSign)
+	local lMaxTextLen = MaxTextLen or 0;
+	local lAfterTheDecimalPointLen = AfterTheDecimalPointLen or 0;
+	local lusePlusMark = usePlusMark or false;
+	local lAddSpaceAfterSign = AddSpaceAfterSign or lusePlusMark;
+
+	if lAfterTheDecimalPointLen < 0 then lAfterTheDecimalPointLen = 0 end
+	local IsNegative = (value < 0);
+	local SourceValue = math.floor(math.abs(value) * math.pow(10, lAfterTheDecimalPointLen) + 0.5);
+	local IntegerPartValue = math.floor(SourceValue * math.pow(10, -1 *lAfterTheDecimalPointLen));
+	local DecimalPartValue = SourceValue - IntegerPartValue * math.pow(10, lAfterTheDecimalPointLen);
+	local IntegerPartText = GetCommaedText(IntegerPartValue);
+	local DecimalPartText = tostring(DecimalPartValue);
+
+	-- 記号をつける
+	local SignMark = "";
+	if IsNegative then
+		-- 負の数の場合は頭にマイナスをつける
+		SignMark = "-";
+	else
+		-- 正の数の場合はusePlusMarkがTrueの場合のみ付加する
+		if lusePlusMark then
+			if Me.Settings.Lang == "jp" and IntegerPartValue == 0 and DecimalPartValue == 0 then
+			-- 日本語の場合はゼロぴったり時に±を実装
+				SignMark = "±";
+			else
+				SignMark = "+";
+			end
+		end
+	end
+	if lAddSpaceAfterSign and string.len(SignMark) > 0 then
+		SignMark = " " .. SignMark .. " ";
+	end
+	-- 整数部を成形
+	local RoughFinish = SignMark .. IntegerPartText;
+	-- 小数部を成形
+	if DecimalPartValue > 0 or lAfterTheDecimalPointLen > 0 then
+		RoughFinish = RoughFinish .. string.format(string.format(".%%0%dd", lAfterTheDecimalPointLen), DecimalPartValue);
+	end
+	-- 長さに合わせて整形する
+	-- すでに文字長オーバーの場合はそのまま返す
+	if string.len(RoughFinish) >= lMaxTextLen then return RoughFinish end
+	-- 挿入する空白を作成する
+	local PaddingText = string.rep(" ", lMaxTextLen - string.len(RoughFinish));
+	return PaddingText .. RoughFinish;
+end
+
 local function GetPopTimeText(value)
 	value = tonumber(value)
 	local ForeColor = "#66AA33";
@@ -598,6 +651,133 @@ local function GetPopTimeText(value)
 	return Toukibi:GetStyledText(ReturnValue, {ForeColor});
 end
 
+local function GetItemGrade(itemObj)
+	local grade = itemObj.ItemGrade;
+
+	if (itemObj.ItemType == "Recipe") then
+		local recipeGrade = tonumber(itemObj.Icon:match("misc(%d)")) - 1;
+		if (recipeGrade <= 0) then recipeGrade = 1 end;
+		grade = recipeGrade;
+	end
+	return grade;
+end
+
+local function GetItemRarityColor(itemObj)
+	local itemProp = geItemTable.GetProp(itemObj.ClassID);
+	local grade = GetItemGrade(itemObj);
+
+	if (itemProp.setInfo ~= nil) then return "00FF00"; -- set piece
+	elseif (grade == 0) then return "FFFFFF"; -- default
+	elseif (grade == 1) then return "FFFFFF"; -- common
+	elseif (grade == 2) then return "108CFF"; -- rare
+	elseif (grade == 3) then return "9F30FF"; -- epic
+	elseif (grade == 4) then return "FF4F00"; -- orange
+	elseif (grade == 5) then return "FFFF53"; -- legendary
+	else return "E1E1E1"; -- no grade (non-equipment items)
+	end
+end
+
+local function CreateDropRatioTooltip(MobData)
+	-- モンスターごとのドロップリストを作成する
+	-- 対象データのみ抽出
+	
+	local MatchList = {};
+	--IToSかJToSかの判別(アイテムドロップテーブルの存在を確認することで判別)
+	if GetClassCount("MonsterDropItemList_Onion") < 0 then
+		-- ない場合(JToS)
+		-- ToolTipHelper (Rebuild by Toukibi)の検出
+		if ToolTipR.DropXMLData == nil or #ToolTipR.DropXMLData == 0 then return nil end;
+		for _, value in ipairs(ToolTipR.DropXMLData) do
+			if value.MobID == MobData.ClassID then
+				table.insert(MatchList,  {ItemClassName = value.Item
+										, Ratio = value.Ratio})
+			end
+		end
+	else
+		-- ある場合(IToS)
+		-- ドロップテーブルから直に情報を取得する
+		local monCls = GetClass("Monster", MobData.ClassName)
+		if monCls.Faction == "Monster" and monCls.GroupName == "Monster" then
+			local dropID = monCls.DropItemList;
+			if dropID ~= nil and dropID ~= "None" then
+				local dropID = 'MonsterDropItemList_' .. dropID;
+				local dropClassCount = GetClassCount(dropID);
+				if dropClassCount ~= nil and dropClassCount > 0 then
+					for j = 0, dropClassCount - 1 do
+						local dropIES = GetClassByIndex(dropID, j);
+						if dropIES ~= nil and dropIES.GroupName == 'Item' then
+							table.insert(MatchList,  {ItemClassName = dropIES.ItemClassName
+													, Ratio = dropIES.DropRatio})
+
+						end
+					end
+				end
+			end
+		end
+	end
+
+	-- 抽出されたリストをソートする
+	table.sort(MatchList, function(a, b)
+		return a.Ratio > b.Ratio
+	end)
+
+	local ReturnValue = Toukibi:GetStyledText(string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "DropRatio.TitleFormat"), MobData.Name), {"#66AA33", "s14", "b"});
+
+	-- 抽出されたデータからテキストを作成する
+	local clsList, cnt = GetClassList("Collection");
+	local MyCollectionList = session.GetMySession():GetCollection();
+	for _, value in ipairs(MatchList) do
+		local strTemp = "{nl}";
+		local strCollectionCount = "";
+		local StatusIcon = "channel_mark_empty";
+		local CurrentCount, RequireCount = 0, 0;
+		local itemCls = GetClass("Item", value.ItemClassName);
+		local GradeColor = GetItemRarityColor(itemCls);
+
+		-- TooltipHelper (Rebuild by Toukibi)のコレクションアイテムリストの検出
+		if ToolTipR.ApplicationsList.Collection == nil then
+			if ToolTipR ~= nil then
+				ToolTipR.CreateApplicationsList_Collection();
+			end
+		end
+		if ToolTipR.ApplicationsList.Collection ~= nil then
+			local MatchList = ToolTipR.ApplicationsList.Collection[value.ItemClassName];
+			if MatchList ~= nil then
+				StatusIcon = "icon_item_box";
+				for i, MatchData in ipairs(MatchList) do
+					-- 該当のコレクションのデータを取得する
+					local TargetCollection = GetClassByIndexFromList(clsList, MatchData.Index);
+					local collectionJournal = TryGetProp(TargetCollection,'Journal')
+					if collectionJournal == 'TRUE' then
+						local MyCollection = MyCollectionList:Get(TargetCollection.ClassID);
+						RequireCount = RequireCount + MatchData.Count;
+						if MyCollection ~= nil then
+							CurrentCount = CurrentCount + MyCollection:GetItemCountByType(GetClass("Item", value.ItemClassName).ClassID);
+						end
+					end
+				end
+				local CollectionCountTextColor = "#FF8888";
+				if RequireCount <= CurrentCount then
+					CollectionCountTextColor = "#00FF00";
+				end
+				strCollectionCount = string.format("{%s}(%s/%s){/}", CollectionCountTextColor, CurrentCount, RequireCount)
+			end
+		end
+
+		strTemp = strTemp .. string.format("{b}{img %s 24 24} %s%s  {img %s 32 32} {#%s}%s{/} %s{/}"
+										 , StatusIcon
+										 , GetCommaedTextEx(tonumber(value.Ratio) / 100, 7, 2)
+										 , Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.PercentChar")
+										 , GET_ITEM_ICON_IMAGE(itemCls)
+										 , GradeColor
+										 , itemCls.Name
+										 , strCollectionCount);
+		ReturnValue = ReturnValue .. strTemp;
+	end
+
+	return ReturnValue;
+end
+
 -- MOB情報GroupBox描画
 function CreateMobPanel(Parent, MobData, Index, Top)
 	local width = Parent:GetWidth() - 24;
@@ -616,12 +796,18 @@ function CreateMobPanel(Parent, MobData, Index, Top)
 
 	local picMobImage = tolua.cast(pnlBase:CreateOrGetControl("picture", "mobimage", 4, 4, 48, 48), "ui::CPicture");
 	picMobImage:SetGravity(ui.LEFT, ui.TOP);
-	picMobImage:EnableHitTest(0);
+	picMobImage:EnableHitTest(1);
 	picMobImage:SetEnableStretch(1);
 	picMobImage:EnableChangeMouseCursor(0);
 	local IconName = MobData.Icon
 	if string.find(string.lower(IconName),"mon_") == nil then IconName = "mon_" .. string.lower(IconName) end
 	picMobImage:SetImage(IconName);
+	local strDropListTooltipText = CreateDropRatioTooltip(MobData)
+	if strDropListTooltipText ~= nil then
+		picMobImage:SetTextTooltip(strDropListTooltipText);
+	else
+		picMobImage:SetTextTooltip("");
+	end
 
 	local picMobType = tolua.cast(pnlBase:CreateOrGetControl("picture", "mobType", 120, 2, 20, 20), "ui::CPicture");
 	picMobType:SetGravity(ui.LEFT, ui.TOP);
@@ -760,39 +946,47 @@ function CreateMobPanel(Parent, MobData, Index, Top)
 end
 
 
-function Me.UpdateOnlyMobCount(MobClassName)
+function Me.UpdateOnlyMobCount()
 	if Me.MobInfo == nil then
 		Me.MobInfo = MyParent.GetMapMonsterInfo()
 	end
+	--log("MOB討伐数更新");
 	local BaseFrame = ui.GetFrame("mapmatemob");
 	if BaseFrame == nil then return end
 	local BodyGBox = GET_CHILD_GROUPBOX(BaseFrame, "pnlBase");
-	local TargetParent = GET_CHILD(BodyGBox, "pnlMob_" .. MobClassName);
-	if TargetParent ~= nil then
-		for name, value in pairs(Me.MobInfo) do
-			if value.ClassName == MobClassName then
-				local txtMobKillCount = GET_CHILD(TargetParent, "mobKillCount", "ui::CRichText");
-				if txtMobKillCount ~= nil then
-					local wiki = GetWikiByName(value.JournalID);
-					local pKillCount = 0;
-					if wiki ~= nil then
-						pKillCount =GetWikiIntProp(wiki, "KillCount")
-					end
-					local pRequired = 0;
-					if GetClass('Journal_monkill_reward', value.JournalID) ~= nil then
-						pRequired = GetClass('Journal_monkill_reward', value.JournalID).Count1
-					end
+	for name, value in pairs(Me.MobInfo) do
+		local TargetParent = GET_CHILD(BodyGBox, "pnlMob_" .. value.ClassName);
+		if TargetParent ~= nil then
+			local txtMobKillCount = GET_CHILD(TargetParent, "mobKillCount", "ui::CRichText");
+			if txtMobKillCount ~= nil then
+				local pKillCount = 0;
+				local pRequired = 0;
 
-					local TextColor = "#333333"
-					if pKillCount >= pRequired then
-						TextColor = "#4444FF"
+				-- 2020/6/24 遅れながらにも新方式に切り替え
+				-- pKillCount = ADVENTURE_BOOK_MONSTER_CONTENT.MONSTER_KILL_COUNT(value.ClassID);
+				if FunctionExists(GetMonKillCount) then
+					pKillCount = GetMonKillCount(nil, value.ClassID);
+					local MonGrade = 'BASIC';
+					if value.Rank == 'Boss' then
+						MonGrade = 'BOSS';
 					end
-					txtMobKillCount:SetText(Toukibi:GetStyledText(string.format("[%s/%s]", pKillCount, pRequired), {TextColor, "s12", "b"}));
+					-- log(GetClass('AdventureBookConst', MonGrade .. '_MON_GRADE_COUNT').Value);
+					pRequired = GetClass('AdventureBookConst', MonGrade .. '_MON_KILL_COUNT_GRADE' .. GetClass('AdventureBookConst', MonGrade .. '_MON_GRADE_COUNT').Value).Value;
 				end
+
+				local TextColor = "#333333"
+				if pKillCount >= pRequired then
+					TextColor = "#4444FF"
+				end
+				local KillCountLimit = 120;
+				if FunctionExists(GetMonKillCount) and pKillCount >= KillCountLimit then
+					pKillCount = "over " .. KillCountLimit;
+				end
+				txtMobKillCount:SetText(Toukibi:GetStyledText(string.format("[%s/%s]", pKillCount, pRequired), {TextColor, "s12", "b"}));
 			end
+		else
+			--log("対象発見できず  " .. "pnlMob_" .. value.ClassName)
 		end
-	else
-		--log("対象発見できず  " .. "pnlMob_" .. MobClassName)
 	end
 end
 
@@ -916,10 +1110,11 @@ end
 
 -- ***** その他のイベント受け *****
 
-function TOUKIBI_MAPMATEMOB_COUNTCHANGE(frame, msg, str, type)
-	local wikiCls = GetClassByType("Wiki", type);
-	if wikiCls.Category ~= "Map" then
-		Me.UpdateOnlyMobCount(wikiCls.ClassName)
+function TOUKIBI_MAPMATEMOB_COUNTCHANGE(frame, msg, argStr, argNum)
+	if msg == "UPDATE_ADVENTURE_BOOK" then
+		if argNum == ABT_MON_KILL_COUNT then
+			Me.UpdateOnlyMobCount()
+		end
 	end
 end
 
@@ -1060,7 +1255,7 @@ function MAPMATEMOB_ON_INIT(addon, frame)
 	--]]
 
 	-- イベントを登録する
-	addon:RegisterMsg('WIKI_PROP_UPDATE', 'TOUKIBI_MAPMATEMOB_COUNTCHANGE');
+	addon:RegisterOpenOnlyMsg("UPDATE_ADVENTURE_BOOK", 'TOUKIBI_MAPMATEMOB_COUNTCHANGE');
 
 	--Me.Settings.FloatMode = false;
 	local BaseFrame = ui.GetFrame("mapmatemob")

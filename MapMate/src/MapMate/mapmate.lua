@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.90";
+local verText = "0.92";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
@@ -20,6 +20,9 @@ local DebugMode = false;
 -- テキストリソース
 local ResText = {
 	jp = {
+		Common = {
+			PercentMark = "％"
+		},
 		Menu = {
 			Title = "{#006666}==== MapMateの設定(接続人数更新) ===={/}"
 		  , TitleNotice = "{#663333}更新機能はサーバーへの通信を行います。{nl}使用は自己責任でお願いします。{/}"
@@ -108,6 +111,9 @@ local ResText = {
 		}
 	},
 	en = {
+		Common = {
+			PercentMark = "%"
+		},
 		Menu = {
 			Title = "{#006666}======= MapMate setting ======={nl}(connection number update){/}"
 		  , TitleNotice = "{#663333}The update function communicates with{nl}the server. Use it at your own risk.{/}"
@@ -619,6 +625,53 @@ end
 
 -- ===== アドオンの内容ここから =====
 
+local function GetCommaedTextEx(value, MaxTextLen, AfterTheDecimalPointLen, usePlusMark, AddSpaceAfterSign)
+	local lMaxTextLen = MaxTextLen or 0;
+	local lAfterTheDecimalPointLen = AfterTheDecimalPointLen or 0;
+	local lusePlusMark = usePlusMark or false;
+	local lAddSpaceAfterSign = AddSpaceAfterSign or lusePlusMark;
+
+	if lAfterTheDecimalPointLen < 0 then lAfterTheDecimalPointLen = 0 end
+	local IsNegative = (value < 0);
+	local SourceValue = math.floor(math.abs(value) * math.pow(10, lAfterTheDecimalPointLen) + 0.5);
+	local IntegerPartValue = math.floor(SourceValue * math.pow(10, -1 *lAfterTheDecimalPointLen));
+	local DecimalPartValue = SourceValue - IntegerPartValue * math.pow(10, lAfterTheDecimalPointLen);
+	local IntegerPartText = GetCommaedText(IntegerPartValue);
+	local DecimalPartText = tostring(DecimalPartValue);
+
+	-- 記号をつける
+	local SignMark = "";
+	if IsNegative then
+		-- 負の数の場合は頭にマイナスをつける
+		SignMark = "-";
+	else
+		-- 正の数の場合はusePlusMarkがTrueの場合のみ付加する
+		if lusePlusMark then
+			if Me.Settings.Lang == "jp" and IntegerPartValue == 0 and DecimalPartValue == 0 then
+			-- 日本語の場合はゼロぴったり時に±を実装
+				SignMark = "±";
+			else
+				SignMark = "+";
+			end
+		end
+	end
+	if lAddSpaceAfterSign and string.len(SignMark) > 0 then
+		SignMark = " " .. SignMark .. " ";
+	end
+	-- 整数部を成形
+	local RoughFinish = SignMark .. IntegerPartText;
+	-- 小数部を成形
+	if DecimalPartValue > 0 or lAfterTheDecimalPointLen > 0 then
+		RoughFinish = RoughFinish .. string.format(string.format(".%%0%dd", lAfterTheDecimalPointLen), DecimalPartValue);
+	end
+	-- 長さに合わせて整形する
+	-- すでに文字長オーバーの場合はそのまま返す
+	if string.len(RoughFinish) >= lMaxTextLen then return RoughFinish end
+	-- 挿入する空白を作成する
+	local PaddingText = string.rep(" ", lMaxTextLen - string.len(RoughFinish));
+	return PaddingText .. RoughFinish;
+end
+
 -- バッジを作る
 local function CreateMiniBadge(parentCtrl, noticeName, point)
 	--point = point * 100
@@ -948,6 +1001,7 @@ function Me.UpdateFrame()
 		-- コレクション
 		ToDisplayCount = #Me.ThisMapInfo.CollectionID;
 		if ToDisplayCount > 0 then
+			local MobInfo = Me.GetMapMonsterInfo()
 			for i, value in ipairs(Me.ThisMapInfo.CollectionID) do
 				local MaxCount = 0;
 				local NotCount = 0;
@@ -956,6 +1010,30 @@ function Me.UpdateFrame()
 				local ToolTipText = string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.ListTitleFormat"), value.Name);
 				ToolTipText = ToolTipText .. string.format("{nl}    %s{nl}{s9} {nl} {nl}{/}{#66FF66}{s11}{b}%s{/}{/}{/}", value.Magic , Toukibi:GetResText(ResText, Me.Settings.Lang, "MapInfo.List_Collection"))
 				for j, tmpRecord in ipairs(Me.ThisMapInfo.CollectItem[value.ClassID]) do
+					local DropText = "";
+					if ToolTipR ~= nil then
+						-- ToolTipHelper (Rebuild by Toukibi)の検出
+						if ToolTipR.ApplicationsList.DropRatio ~= nil then
+							-- ドロップ率データの有無を確認
+							-- ドロップ率データを取り出してみる
+							local MatchList = ToolTipR.ApplicationsList.DropRatio[tmpRecord.ClassName];
+							if MatchList ~= nil then
+								for i, MatchData in ipairs(MatchList) do
+									if MatchData.Rank ~= "BOSS" then
+										if MobInfo ~= nil then
+											for _, value in pairs(MobInfo) do
+												if value.ClassID == MatchData.ClassID then
+													local DropRatioText = GetCommaedTextEx(tonumber(MatchData.DropRatio) / 100, 7, 2);
+													local MobText = string.format("{img channel_mark_empty 40 4}{s14}{b}%s%s  %s (Lv.%s){/}{/}", DropRatioText, Toukibi:GetResText(ResText, Me.Settings.Lang, "Common.PercentMark"), MatchData.Name, MatchData.Lv);
+													DropText = DropText .. "{nl}" .. MobText;
+												end
+											end
+										end
+									end
+								end
+							end
+						end
+					end
 					MaxCount = MaxCount + 1;
 					local CheckIcon = "socket_slot_check";
 					local TextColor = "#88FFFF";
@@ -976,6 +1054,7 @@ function Me.UpdateFrame()
 						end
 					end
 					ToolTipText = ToolTipText .. string.format("{nl}{img %s 32 32} {img %s 20 20}{%s}{s9} {/}{ol}%s{/}{/}{s36} {/}", tmpRecord.imgName, CheckIcon, TextColor, tmpRecord.Name);
+					ToolTipText = ToolTipText .. "{nl}" .. DropText
 				end
 				if NotCount == 0 then NotCount = nil end
 				if Completed then NotCount = -1 end
@@ -1284,7 +1363,7 @@ local function UpdatelblMapName()
 										  , AreaText));
 			lblTarget:SetMargin(0, 4, 0, 0);
 		else
-			lblTarget:SetTextByKey('name', string.format("{s14}{ol}{#CCCCCC}%s{/}{/}{/}"
+			lblTarget:SetTextByKey('name', string.format("{s14}{ol}{b}{#CCCCCC}%s{/}{/}{/}{/}"
 										  , AreaText));
 			lblTarget:SetMargin(0, 0, 0, 0);
 		end
@@ -2123,21 +2202,21 @@ local function AddControlToMiniMap()
 		pTop = 5;
 	end
 	local lblFogRate = tolua.cast(Parent:CreateOrGetControl("richtext", "MapMate_FogRate", 0, 0, 80, 20), "ui::CRichText");
-	lblFogRate:SetGravity(ui.LEFT, ui.TOP);
-	lblFogRate:SetMargin(pleft + 4, pTop + 2, 0, 0);
+	lblFogRate:SetGravity(ui.RIGHT, ui.TOP);
+	lblFogRate:SetMargin(pleft + 4, pTop + 4, 4, 0);
 	lblFogRate:EnableHitTest(0);
 	lblFogRate:SetText(" ");
 	lblFogRate:ShowWindow(0);
 
 	local lblPCCount = tolua.cast(Parent:CreateOrGetControl("richtext", "MapMate_PCCount", 0, 0, 200, 20), "ui::CRichText");
 	lblPCCount:SetGravity(ui.RIGHT, ui.BOTTOM);
-	lblPCCount:SetMargin(0, 0, 36, 20);
+	lblPCCount:SetMargin(0, 0, 8, 20);
 	lblPCCount:EnableHitTest(1);
 	lblPCCount:SetText("{img minimap_0_old 16 16}{s14}{ol}--{/}{/}");
 
 	local lblPCCountRemainingTime = tolua.cast(Parent:CreateOrGetControl("richtext", "MapMate_PCCountRemainingTime", 0, 0, 200, 20), "ui::CRichText");
 	lblPCCountRemainingTime:SetGravity(ui.RIGHT, ui.BOTTOM);
-	lblPCCountRemainingTime:SetMargin(0, 0, 76, 20);
+	lblPCCountRemainingTime:SetMargin(0, 0, 46, 20);
 	lblPCCountRemainingTime:EnableHitTest(1);
 	lblPCCountRemainingTime:SetText("{#888888}{s8}{ol}--{/}{/}{/}");
 
@@ -2192,7 +2271,7 @@ local function ChangeMiniMapControl()
 		TargetControl:SetMargin(0, 4, 36, 0);
 	end
 
-	local tmpRight = Parent:GetMargin().right + 30;
+	local tmpRight = Parent:GetMargin().right + 0;
 	local tmpTop = Parent:GetMargin().top + Parent:GetHeight() - 24 - 2;
 	local TimeParent = ui.GetFrame('time');
 	TimeParent:SetGravity(ui.RIGHT, ui.TOP);

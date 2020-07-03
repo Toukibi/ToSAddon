@@ -1,5 +1,5 @@
 local addonName = "ShopHelper";
-local verText = "0.90";
+local verText = "0.92";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/sh", "/shophelper", "/shelper", "/ShopHelper"};
@@ -1209,7 +1209,7 @@ function Me.Save()
 end
 
 local function MargeAverageDataRecord(SkillID, Force, pPrice, pRadix, pSuburb)
-	log(SkillID)
+	-- log(SkillID)
 	Me.Settings.AverageData[tostring(SkillID)] = Me.Settings.AverageData[tostring(SkillID)] or {};
 	if Force then --リセット
 		Me.Settings.AverageData[tostring(SkillID)].Price  = pPrice;
@@ -1638,9 +1638,9 @@ function Me.AddInfoToSquireBuff(BaseFrame)
 		ToukibiUI:SetMargin(RepairFrame:GetChild("TitleSkin"), nil, 94 + 20, nil, nil);
 		ToukibiUI:SetMargin(RepairFrame:GetChild("Money"), nil, 102 + 20, nil, nil);
 		ToukibiUI:SetMargin(RepairFrame:GetChild("reqitemMoney"), nil, 100 + 20, nil, nil);
-		ToukibiUI:SetMargin(RepairFrame:GetChild("selectAllBtn"), nil, 135 + 50, nil, nil);
-		ToukibiUI:SetMargin(RepairFrame:GetChild("selectEquipedBtn"), nil, 135 + 50, nil, nil);
-		ToukibiUI:SetMargin(RepairFrame:GetChild("repairlistGbox"), nil, 140 + 60, nil, nil);
+		ToukibiUI:SetMargin(RepairFrame:GetChild("selectAllBtn"), nil, 135 + 20, nil, nil);
+		ToukibiUI:SetMargin(RepairFrame:GetChild("selectEquipedBtn"), nil, 135 + 20, nil, nil);
+		ToukibiUI:SetMargin(RepairFrame:GetChild("repairlistGbox"), nil, 140 + 30, nil, nil);
 		-- できたスペースに追加情報を書き込む
 		local OwnerFamilyName = tostring(info.GetFamilyName(BaseFrame:GetUserIValue("HANDLE")));
 		local SLv = BaseFrame:GetUserIValue("SKILLLEVEL");
