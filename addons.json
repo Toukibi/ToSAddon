@@ -21,11 +21,11 @@
     "name": "Dur Notice Mini",
     "file": "durnoticemini",
     "extension": "ipf",
-    "fileVersion": "v1.2.3",
+    "fileVersion": "v1.2.4",
     "releaseTag": "DurNoticeMini",
     "unicode": "⛄",
     "description": "武器と防具のそれぞれで最も低い耐久値を表示します。zealotさんのDur Noticeを小型化してステータス表示に溶け込めるようにしたものです。\n This add-on is a miniaturized version of durability value viewer 'Dur Notice' made by 'zealot'.",
-    "updateInfo": "v1.2.3 Re:Buildパッチに対応しました \n Corresponded to Re: Build patch.",
+    "updateInfo": "v1.2.4 武器の飾りも耐久値の表示に反映されるようにしました。 \n The durability value of the trinket is now displayed.",
     "tags": [
       "ui",
       "durability",

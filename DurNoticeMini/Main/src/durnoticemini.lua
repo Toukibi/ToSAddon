@@ -1,5 +1,5 @@
 local addonName = "DurNoticeMini";
-local verText = "1.23";
+local verText = "1.24";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/durmini", "/DurMini", "/Durmini", "/durMini"};
@@ -27,7 +27,7 @@ local DebugMode = false;
 
 -- ***** 変数の宣言と設定 *****
 Me.SettingFilePathName = string.format("../addons/%s/settings.json", addonNameLower);
-local eqTypes = {"RH", "LH", "SHIRT", "GLOVES", "PANTS", "BOOTS", "RING1", "RING2", "NECK"};
+local eqTypes = {"RH", "LH", "SHIRT", "GLOVES", "PANTS", "BOOTS", "RING1", "RING2", "NECK", "TRINKET"};
 local eqDurData = {}
 Me.Loaded = false;
 
@@ -589,7 +589,7 @@ local function GetMinimumDur()
 	end
 	for key, value in pairs(eqDurData) do
 		local index = 2;
-		if key == "LH" or key == "RH" then index = 1 end
+		if key == "LH" or key == "RH" or key == "TRINKET" then index = 1 end
 		if value.Dur > 0 and (ReturnValue[index].Dur == nil or ReturnValue[index].Dur > value.Dur) then
 			ReturnValue[index].Dur = value.Dur;
 			ReturnValue[index].EqTypeName = value.eqTypeName;

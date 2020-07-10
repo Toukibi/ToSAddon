@@ -1,6 +1,12 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : July 3, 2020
+Last Updated : July 10, 2020
+
+* **Dur notice Mini Ver. 1.24**
+  * 武器の飾りも耐久値の表示に反映されるようにしました。<br>The durability value of the trinket is now displayed.
+
+
+July 3, 2020
 
 * **MapMate Ver. 0.92**
   * コレクションにどのモンスターがどの程度の割合でドロップするかの情報を追加しました。<br>Added information to the collection display which monsters drop the item to what percentage.
@@ -13,12 +19,6 @@ Last Updated : July 3, 2020
 
 * **Shop Helper Ver. 0.92**
   * 修理露店における追加オブジェクトの表示位置を調整しました。<br>Adjusted the display position of additional objects in repair stalls.
-
-May 25, 2020
-
-* **Tooltip Helper Ver. 1.06**
-  * 使用先の多いアイテムにマウスカーソルを当てるとラグが発生する問題を修正しました。<br>Fixed an issue that caused a lag when hovering over an item with a lot of usage.
-  * イベント制作アイテムの表示優先度を下げました。<br>Lowered the display priority of event production items.
 
 
 ## Notice:
@@ -60,7 +60,7 @@ It makes it easier to distinguish items so as not to disassemble important items
 (**It will not be able to prevent the decomposition by mistake**)  
 !["Image of main image of Don't-Decompose-Me"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DontDecomposeMe/img/topimage_ja.png?raw=true)  
 
-## [Dur notice Mini Ver. 1.23 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
+## [Dur notice Mini Ver. 1.24 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  

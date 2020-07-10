@@ -1,5 +1,5 @@
 local addonName = "DurNoticePopup";
-local verText = "1.02";
+local verText = "1.03";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SettingFileName = "setting.json"
@@ -451,7 +451,7 @@ local function CheckGetMethod()
 end
 
 function Me.GetDurData()
-	local eqTypes = {"RH", "LH", "SHIRT", "GLOVES", "PANTS", "BOOTS", "RING1", "RING2", "NECK"};
+	local eqTypes = {"RH", "LH", "SHIRT", "GLOVES", "PANTS", "BOOTS", "RING1", "RING2", "NECK", "TRINKET"};
 	local ReturnValue = {}
 	for i = 1, #eqTypes do
 --		CHECK_DUR(Me.frame, eqTypes[i]);
