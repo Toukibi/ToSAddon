@@ -1,6 +1,12 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : July 10, 2020
+Last Updated : July 19, 2020
+
+* **Remaining Counter Ver. 1.07**
+  * セット装備スキルをスロットに登録した状態でセット装備のセット条件が満たされなくなるとスロットアイコンの表示が止まる問題を修正しました。<br>Fixed an issue where the slot icon would stop drawing if the set conditions for the set equipment were not met while the set equipment skill was registered in the slot.
+
+
+July 10, 2020
 
 * **Dur notice Mini Ver. 1.24**
   * 武器の飾りも耐久値の表示に反映されるようにしました。<br>The durability value of the trinket is now displayed.
@@ -85,7 +91,7 @@ ItemDrops is back. It highlights the dropped item **more strongly**.
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
 
-## [Remaining Counter Ver. 1.06 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/RemainingCounter)
+## [Remaining Counter Ver. 1.07 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/RemainingCounter)
 スキルアイコンの右下に残り使用回数を表示します。  
 The number of remaining skills is displayed at the bottom right of the skill icon.   
 !["Image of main image of Remaining-Counter"](https://github.com/Toukibi/ToSAddon/blob/ForImage/RemainingCounter/img/topimage.png?raw=true)  
