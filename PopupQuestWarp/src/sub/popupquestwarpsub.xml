@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="popupquestwarpsub" x="0" y="0" width="400" height="300">
+	<frame fasthide="true" layout_gravity="left top" margin="300 150 0 0"/>
+	<input moveable="true" moveintitlebar="false" hittestframe="true" hittest="true" resize="false"/>
+	<layer layerlevel="95"/>
+	<draw drawframe="true" drawtitlebarframe="false" drawtitlebar="false"/>
+	<skin frameskin="tooltip1"/>
+	<option closebutton="false" hideable="false"/>
+	<sound opensound="win_open" closesound="win_close"/>
+	<script OpenScp="TOUKIBI_POPUPQUESTWARPSUB_OPEN" lostFocusScp="TOUKIBI_POPUPQUESTWARPSUB_LOSTFOCUS" MouseMoveScp="TOUKIBI_POPUPQUESTWARPSUB_ADDDURATION"/>
+	<controls>
+		<richtext name="title" rect="0 0 240 24" margin="20 8 0 0" layout_gravity="left top" hittest="false" caption="{@st66b}ワープ先一覧{/}"/>
+		<groupbox name="pnlBase" rect="0 0 400 10" margin="0 30 0 0" layout_gravity="left top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<timer name="timer_cd" rect="0 0 10 10"/>
+	</controls>
+</uiframe>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="popupquestwarp" x="100" y="30" width="22" height="22">
+	<frame fasthide="true" layout_gravity="left top" margin="100 30 0 0" keyboardselectframe="false"/>
+	<input moveable="true" moveintitlebar="false" hittestframe="true" hittest="true"/>
+	<layer layerlevel="62"/>
+	<draw drawframe="false" drawtitlebarframe="false" drawtitlebar="false"/>
+	<option visible="true" alwaysVisible="true" closebutton="false" hideable="false" autoopen="true"/>
+	<script OpenScp="TOUKIBI_POPUPQUESTWARP_UPDATE_ALL" LBtnUpScp="TOUKIBI_POPUPQUESTWARP_END_DRAG" RBtnDwScp="TOUKIBI_POPUPQUESTWARP_CONTEXT_MENU" lostFocusScp="TOUKIBI_POPUPQUESTWARP_LOSTFOCUS" MouseMoveScp="TOUKIBI_POPUPQUESTWARP_MOUSEMOVE"/>
+	<controls>
+		<timer name="timer_cd" rect="0 0 10 10"/>
+	</controls>
+</uiframe>

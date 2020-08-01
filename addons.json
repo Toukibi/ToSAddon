@@ -194,5 +194,20 @@
       "ui",
       "items"
     ]
+  },
+  {
+    "name": "Popup Quest Warp",
+    "file": "popupquestwarp",
+    "extension": "ipf",
+    "fileVersion": "v1.0.0",
+    "releaseTag": "PopupQuestWarp",
+    "unicode": "⛄",
+    "description": "街への帰還石/スクロールと各クエストへのワープを補助します。 \n  This add-on will assist you in using warp-stones/scrolls to the city and warping each quest.",
+    "updateInfo": "v1.0.0 新規公開 \n New release.",
+    "tags": [
+      "ui",
+      "quest warp",
+      "warp stone"
+    ]
   }
 ]

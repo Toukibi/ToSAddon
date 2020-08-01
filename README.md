@@ -1,30 +1,17 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : July 19, 2020
+Last Updated : August 1, 2020
+
+* **[New Add-on] Popup Quest Warp Ver. 1.00**
+  * 新規公開<br>New release.
+  * 街への帰還石/スクロールと各クエストへのワープを補助します。<br>This add-on will assist you in using warp-stones/scrolls to the city and warping each quest.
+
+
+July 19, 2020
 
 * **Remaining Counter Ver. 1.07**
   * セット装備スキルをスロットに登録した状態でセット装備のセット条件が満たされなくなるとスロットアイコンの表示が止まる問題を修正しました。<br>Fixed an issue where the slot icon would stop drawing if the set conditions for the set equipment were not met while the set equipment skill was registered in the slot.
 
-
-July 10, 2020
-
-* **Dur notice Mini Ver. 1.24**
-  * 武器の飾りも耐久値の表示に反映されるようにしました。<br>The durability value of the trinket is now displayed.
-
-
-July 3, 2020
-
-* **MapMate Ver. 0.92**
-  * コレクションにどのモンスターがどの程度の割合でドロップするかの情報を追加しました。<br>Added information to the collection display which monsters drop the item to what percentage.
-  * モンスターごとのアイテムドロップリストを表示できるようにしました。<br>Enabled to display the item drop list for each monster.
-  * モンスター一覧をフローティング表示している時、討伐数が更新されない問題を修正しました。<br>Fixed an issue where the number of subjugations was not updated when the monster list was floating displayed.
-  * ミニマップにおける情報の表示位置を調整しました。<br>Adjusted the display position of information on the mini map.
-
-* **Tooltip Helper Ver. 1.07**
-  * `/tth import`コマンドを複数回使用すると表示も複数回ダブって表示される問題を修正しました。<br>Fixed a problem that the display is duplicated multiple times when the `/tth import` command is used multiple times.
-
-* **Shop Helper Ver. 0.92**
-  * 修理露店における追加オブジェクトの表示位置を調整しました。<br>Adjusted the display position of additional objects in repair stalls.
 
 
 ## Notice:
@@ -90,6 +77,11 @@ ItemDrops is back. It highlights the dropped item **more strongly**.
 マップ表示を色々便利にしてくれます。  
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
+
+## [Popup Quest Warp Ver. 1.00 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/PopupQuestWarp)
+街への帰還石/スクロールと各クエストへのワープを補助します。  
+This add-on will assist you in using warp-stones/scrolls to the city and warping each quest.   
+!["Image of main image of Popup-quest-warp"](https://github.com/Toukibi/ToSAddon/blob/ForImage/PopupQuestWarp/img/ppqw_forlist_en.jpg?raw=true)  
 
 ## [Remaining Counter Ver. 1.07 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/RemainingCounter)
 スキルアイコンの右下に残り使用回数を表示します。  
