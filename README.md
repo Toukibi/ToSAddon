@@ -1,17 +1,17 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : August 1, 2020
+Last Updated : August 6, 2020
+
+* **Tooltip Helper Ver. 1.08**
+  * アイテムドロップ率のファイル形式をXMLからTSVに変更し、読み込み速度を向上させました。<br>Changed the file format of item drop rate from XML to TSV to improve the loading speed.
+  * アイテムドロップ率のファイルの自動読み込みオプションを追加しました。(IToSは自動読み込みしません)<br>Added a file auto-load option for item drop rate. (IToS is not applicable)
+
+
+August 1, 2020
 
 * **[New Add-on] Popup Quest Warp Ver. 1.00**
   * 新規公開<br>New release.
   * 街への帰還石/スクロールと各クエストへのワープを補助します。<br>This add-on will assist you in using warp-stones/scrolls to the city and warping each quest.
-
-
-July 19, 2020
-
-* **Remaining Counter Ver. 1.07**
-  * セット装備スキルをスロットに登録した状態でセット装備のセット条件が満たされなくなるとスロットアイコンの表示が止まる問題を修正しました。<br>Fixed an issue where the slot icon would stop drawing if the set conditions for the set equipment were not met while the set equipment skill was registered in the slot.
-
 
 
 ## Notice:
@@ -94,7 +94,7 @@ This add-on will make the display of the stalls opened in towns etc. a little ea
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)
 !["Image of setting image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/option_jp.jpg?raw=true)  
 
-## [Tooltip Helper Ver. 1.07 (Rebuild by Toukibi)( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
+## [Tooltip Helper Ver. 1.08 (Rebuild by Toukibi)( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/TooltipHelper_Rebuild)
 Tooltip Helperはツールチップに追加の情報を表示するためのアドオンです。  
 冒険日誌の変更パッチで動かなくなった原作を再構築したものです。
 Tooltip Helper is an add-on for displaying additional information on tooltips.  

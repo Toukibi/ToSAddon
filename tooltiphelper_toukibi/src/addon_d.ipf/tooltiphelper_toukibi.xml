@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uiframe name="tooltiphelper_toukibi" x="0" y="0" width="520" height="660" create="open">
+<uiframe name="tooltiphelper_toukibi" x="0" y="0" width="520" height="690" create="open">
 	<frame fasthide="true" layout_gravity="center center" margin="0 0 0 0"/>
 	<skin frameskin=" "/>
 	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
@@ -9,7 +9,7 @@
 	<sound opensound="sys_popup_open_1" closesound="character_item_window_close"/>
 	<script OpenScp="TOUKIBI_TTHELPER_OPEN_SETTING" CloseScp="TOUKIBI_TTHELPER_CLOSE_SETTING"/>
 	<controls>
-		<groupbox name="pnlMain" rect="0 0 520 630" margin="0 30 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" savescroll="true" scrollbar="true" skin="test_frame_low"/>
+		<groupbox name="pnlMain" rect="0 0 520 660" margin="0 30 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" savescroll="true" scrollbar="true" skin="test_frame_low"/>
 		<groupbox name="pipwin_top" rect="0 0 520 60" margin="0 0 0 0" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false" skin="test_frame_top"/>
 		<richtext name="title" rect="0 0 200 80" margin="0 16 0 0" layout_gravity="center top" caption="{@st43}Tooltip Helperの設定{/}" textalign="left top" hittest="false"/>
 		<button name="close" rect="0 0 44 44" margin="0 19 28 0" layout_gravity="right top" image="testclose_button"
@@ -26,15 +26,16 @@
 		<checkbox name="showRecipe" parent="pnlMain" rect="0 0 120 30" margin="40 205 0 0" layout_gravity="left top" ConfigName="showRecipe" caption="{@st66b}アイテム製造材料{/}" clicksound="button_click_big" oversound="button_over"/>
 		<checkbox name="showRecipeHaveNeedCount" parent="pnlMain" rect="0 0 120 30" margin="65 230 0 0" layout_gravity="left top" ConfigName="showRecipeHaveNeedCount" caption="{@st66b}所持数/必要数を表示{/}" clicksound="button_click_big" oversound="button_over"/>
 		<checkbox name="showItemDropRatio" parent="pnlMain" rect="0 0 120 30" margin="40 260 0 0" layout_gravity="left top" ConfigName="showItemDropRatio" caption="{@st66b}ドロップ率{/}" clicksound="button_click_big" oversound="button_over"/>
-		<checkbox name="showMagnumOpus" parent="pnlMain" rect="0 0 120 30" margin="40 285 0 0" layout_gravity="left top" ConfigName="showMagnumOpus" caption="{@st66b}マグナムオーパス{/}" clicksound="button_click_big" oversound="button_over"/>
-		<checkbox name="AllwaysDisplayOpusMap_From" parent="pnlMain" rect="0 0 120 30" margin="65 310 0 0" layout_gravity="left top" ConfigName="AllwaysDisplayOpusMap_From" caption="{@st66b}外部ファイル(recipe_puzzle.xml)の読み込みを行う{/}" clicksound="button_click_big" oversound="button_over"/>
-		<checkbox name="AllwaysDisplayOpusMap_Into" parent="pnlMain" rect="0 0 120 30" margin="65 335 0 0" layout_gravity="left top" ConfigName="AllwaysDisplayOpusMap_Into" caption="{@st66b}外部ファイル(recipe_puzzle.xml)の読み込みを行う{/}" clicksound="button_click_big" oversound="button_over"/>
-		<checkbox name="useRecipePuzzleXML" parent="pnlMain" rect="0 0 120 30" margin="65 360 0 0" layout_gravity="left top" ConfigName="useRecipePuzzleXML" caption="{@st66b}外部ファイル(recipe_puzzle.xml)の読み込みを行う{/}" clicksound="button_click_big" oversound="button_over"/>
-		<checkbox name="showJournalStats" parent="pnlMain" rect="0 0 120 30" margin="40 390 0 0" layout_gravity="left top" ConfigName="showJournalStats" caption="{@st66b}アイテム取得数{/}" clicksound="button_click_big" oversound="button_over"/>
-		<checkbox name="showRepairRecommendation" parent="pnlMain" rect="0 0 120 30" margin="40 415 0 0" layout_gravity="left top" ConfigName="showRepairRecommendation" caption="{@st66b}推奨する修理手段{/}" clicksound="button_click_big" oversound="button_over"/>
-		<richtext name="repairPrice_title" parent="pnlMain" rect="0 0 120 24" margin="150 448 0 0" layout_gravity="left top" caption="{@st66b}修理露店の基本修理価格{/}"/>
-		<edit name="repairPrice" parent="pnlMain" rect="0 0 80 26" margin="65 443 0 0" layout_gravity="left top" OffsetForDraw="0 -1" clicksound="button_click_big" fontname="white_18_ol" maxlen="5" oversound="button_over" skin="test_weight_skin" textalign="center center"/>
-		<checkbox name="UseOriginalBgSkin" parent="pnlMain" rect="0 0 120 30" margin="40 480 0 0" layout_gravity="left top" ConfigName="UseOriginalBgSkin" caption="{@st66b}背景の透明度を下げる{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="UseAutoImportDropData" parent="pnlMain" rect="0 0 120 30" margin="65 285 0 0" layout_gravity="left top" ConfigName="showItemDropRatio" caption="{@st66b}外部ファイル(dropdata.tsv)の自動読み込みを行う{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="showMagnumOpus" parent="pnlMain" rect="0 0 120 30" margin="40 315 0 0" layout_gravity="left top" ConfigName="showMagnumOpus" caption="{@st66b}マグナムオーパス{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="AllwaysDisplayOpusMap_From" parent="pnlMain" rect="0 0 120 30" margin="65 340 0 0" layout_gravity="left top" ConfigName="AllwaysDisplayOpusMap_From" caption="{@st66b}外部ファイル(recipe_puzzle.xml)の読み込みを行う{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="AllwaysDisplayOpusMap_Into" parent="pnlMain" rect="0 0 120 30" margin="65 365 0 0" layout_gravity="left top" ConfigName="AllwaysDisplayOpusMap_Into" caption="{@st66b}外部ファイル(recipe_puzzle.xml)の読み込みを行う{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="useRecipePuzzleXML" parent="pnlMain" rect="0 0 120 30" margin="65 390 0 0" layout_gravity="left top" ConfigName="useRecipePuzzleXML" caption="{@st66b}外部ファイル(recipe_puzzle.xml)の読み込みを行う{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="showJournalStats" parent="pnlMain" rect="0 0 120 30" margin="40 420 0 0" layout_gravity="left top" ConfigName="showJournalStats" caption="{@st66b}アイテム取得数{/}" clicksound="button_click_big" oversound="button_over"/>
+		<checkbox name="showRepairRecommendation" parent="pnlMain" rect="0 0 120 30" margin="40 445 0 0" layout_gravity="left top" ConfigName="showRepairRecommendation" caption="{@st66b}推奨する修理手段{/}" clicksound="button_click_big" oversound="button_over"/>
+		<richtext name="repairPrice_title" parent="pnlMain" rect="0 0 120 24" margin="150 478 0 0" layout_gravity="left top" caption="{@st66b}修理露店の基本修理価格{/}"/>
+		<edit name="repairPrice" parent="pnlMain" rect="0 0 80 26" margin="65 473 0 0" layout_gravity="left top" OffsetForDraw="0 -1" clicksound="button_click_big" fontname="white_18_ol" maxlen="5" oversound="button_over" skin="test_weight_skin" textalign="center center"/>
+		<checkbox name="UseOriginalBgSkin" parent="pnlMain" rect="0 0 120 30" margin="40 510 0 0" layout_gravity="left top" ConfigName="UseOriginalBgSkin" caption="{@st66b}背景の透明度を下げる{/}" clicksound="button_click_big" oversound="button_over"/>
 
 		<button name="btn_cencel" parent="pnlMain" rect="10 10 140 55" margin=" 80 0 0 30" layout_gravity="center bottom" LBtnUpScp="ui.CloseFrame(&apos;tooltiphelper_toukibi&apos;)" caption="{@st42}閉じる" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_gray_button"/>
 		<button name="btn_excute" parent="pnlMain" rect="10 10 140 55" margin="-90 0 0 30" layout_gravity="center bottom" LBtnUpScp="TOUKIBI_TTHELPER_EXEC_SETTING" caption="{@st42}保存" clicksound="button_click_3" oversound="button_cursor_over_2" skin="test_red_button"/>

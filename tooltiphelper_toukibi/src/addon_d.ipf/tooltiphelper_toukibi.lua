@@ -1,5 +1,5 @@
 local addonName = "ToolTipHelper_Toukibi";
-local verText = "1.07";
+local verText = "1.08";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/tth"} -- {"/コマンド1", "/コマンド2", .......};
@@ -1746,6 +1746,7 @@ local ResText = {
 			, showRecipe = "アイテム製造書"
 			, showRecipeHaveNeedCount = "所持数/必要数を表示"
 			, showItemDropRatio = "ドロップ率"
+			, UseAutoImportDropData = "外部ファイル(dropdata.tsv)の自動読み込みを行う"
 			, showMagnumOpus = "マグナムオーパス"
 			, AllwaysDisplayOpusMap_From = "変換元のアイテム配置を常に表示する"
 			, AllwaysDisplayOpusMap_Into = "変換先のアイテム配置を常に表示する"
@@ -1766,10 +1767,13 @@ local ResText = {
 		  , FailToLoadXMLSimple = "エラー：xmlSimpleの読み込みに失敗しました"
 		  , NotFoundMagnumOpusXML = "'recipe_puzzle.xml' は検出されませんでした"
 		  , FoundMagnumOpusXML = "'recipe_puzzle.xml' を検出しました"
-		  , StartImportDropData = "'dropdata.xml'の読み込みを開始します。この処理では10秒弱画面がフリーズします。"
+		  , StartImportDropData = "'dropdata.tsv'の読み込みを開始します。この処理では10秒弱画面がフリーズします。"
 		  , NotFoundDropDataXML = "'dropdata.xml' は検出されませんでした"
 		  , FoundDropDataXML = "'dropdata.xml' を検出しました"
 		  , CompleteImportDropDataXML = "'dropdata.xml' の読み込みが完了しました"
+		  , NotFoundDropDataTSV = "'dropdata.tsv' は検出されませんでした"
+		  , FoundDropDataTSV = "'dropdata.tsv' を検出しました"
+		  , CompleteImportDropDataTSV = "'dropdata.tsv' の読み込みが完了しました"
 		}
 	},
 	en = {
@@ -1811,6 +1815,7 @@ local ResText = {
 		  , showRecipe = "Recipe"
 		  , showRecipeHaveNeedCount = "Display possession / required number"
 		  , showItemDropRatio = "Drop ratio"
+		  , UseAutoImportDropData = "Automatically read the external file (dropdata.tsv)."
 		  , showMagnumOpus = "Magnum Opus"
 		  , AllwaysDisplayOpusMap_From = "Always display the item placement : Transmuted From"
 		  , AllwaysDisplayOpusMap_Into = "Always display the item placement : Transmutes Into"
@@ -1831,10 +1836,13 @@ local ResText = {
 		  , FailToLoadXMLSimple = "Error: Unable to load xmlSimple"
 		  , NotFoundMagnumOpusXML = "Magnum Opus recipe file not found"
 		  , FoundMagnumOpusXML = "Magnum Opus recipe file was found"
-		  , StartImportDropData = "Start loading 'dropdata.xml'. In this process, the screen freezes up for about 10 seconds."
+		  , StartImportDropData = "Start loading 'dropdata.tsv'. In this process, the screen freezes up for about 10 seconds."
 		  , NotFoundDropDataXML = "'dropdata.xml' is not found"
 		  , FoundDropDataXML = "found 'dropdata.xml'"
 		  , CompleteImportDropDataXML = "Import of 'dropdata.xml' is completed"
+		  , NotFoundDropDataTSV = "'dropdata.tsv' is not found"
+		  , FoundDropDataTSV = "found 'dropdata.tsv'"
+		  , CompleteImportDropDataTSV = "Import of 'dropdata.tsv' is completed"
 		}
 	}
 };
@@ -2514,38 +2522,49 @@ function Me.LoadMagnumOpusRecipeFromXML()
 	end
 end
 
-function Me.ImportDropData()
-	local ImportFilePathName = string.format("../addons/%s/%s", addonNameLower, "dropdata.xml");
+function Me.ImportDropData(ShowMessage)
+	local ImportFilePathName = string.format("../addons/%s/%s", addonNameLower, "dropdata.tsv");
 
-	local xmlDropData = CreateXMLParser():loadFile(ImportFilePathName);
-	if xmlDropData == nil then
-		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.NotFoundDropDataXML"), "Caution", true, false);
-		return;
-	else
-		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.FoundDropDataXML"), "Notice", true, false);
+	if ShowMessage then
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.FoundDropDataTSV"), "Notice", true, false);
 	end
 
-	Me.DropXMLData = {};
-	local DropDataList = xmlDropData["DropData"]:children();
+	local hFile, err = io.open(ImportFilePathName, "r");
 
-	for i = 1, #DropDataList do
-		local DropDataRecord = DropDataList[i];
-		local ItemClassName = DropDataRecord["@iCNm"];
-		local DropMobID = tonumber(DropDataRecord["@mCID"]);
-		local DropRatio = tonumber(DropDataRecord["@Ratio"]);
-		table.insert(Me.DropXMLData, {Item = ItemClassName
-									, MobID = DropMobID
-									, Ratio = DropRatio
-									 });
+	if hFile and not err then
+		Me.DropXMLData = {};
+
+		local StartNum, EndNum, DropMobID, DropRatio, ItemClassName;
+		for rawText in hFile:lines() do
+			StartNum, EndNum, DropMobID, DropRatio, ItemClassName = string.find(rawText, "^(%d+)\t(%d+)\t([%w_]+)$");
+			if StartNum then
+				table.insert(Me.DropXMLData, {Item = ItemClassName
+											, MobID = tonumber(DropMobID)
+											, Ratio = tonumber(DropRatio)
+											});
+			
+			else
+				log(string.format( "Error has occured:  MobID=%s Ratio=%s Item=%s", DropMobID, DropRatio, ItemClassName));
+			end
+		end
+
+		io.close(hFile);
+	else
+		if ShowMessage then
+			Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.NotFoundDropDataTSV"), "Caution", true, false);
+		end
 	end
 
 	--view(Me.DropXMLData)
-	Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteImportDropDataXML"), "Notice", true, false);
+	if ShowMessage then
+		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteImportDropDataTSV"), "Notice", true, false);
+	end
+
 	Me.CreateDropRatioListFromXmlData()
 end
 
 function TOUKIBI_TTHELPER_START_IMPORT()
-	Me.ImportDropData()
+	Me.ImportDropData(true)
 end
 
 -- ===========================
@@ -2646,37 +2665,41 @@ function Me.CreateDropRatioListFromXmlData()
 
 	for _, value in ipairs(Me.DropXMLData) do
 		local clsMob = GetClassByType("Monster", value.MobID)
-		local itemClassName = value.Item;
-		local DropRatio = value.Ratio;
+		if clsMob ~= nil then
+			local itemClassName = value.Item;
+			local DropRatio = value.Ratio;
 
-		if tblTarget[itemClassName] == nil then
-			tblTarget[itemClassName] = {};
-		end
-
-		local MobClassID = clsMob.ClassID;
-		local MobClassName = clsMob.ClassName;
-		local MobName = dictionary.ReplaceDicIDInCompStr(clsMob.Name);
-		local MobLv = clsMob.Level;
-		local MobRank = clsMob.MonRank;
-
-		local isNewMob = true;
-		
-		--[[
-		for k = 1, #tblTarget[itemClassName] do
-			if tblTarget[itemClassName][k].ClassName == MobClassName and tblTarget[itemClassName][k].DropRatio == DropRatio then
-				isNewMob = false;
-				break
+			if tblTarget[itemClassName] == nil then
+				tblTarget[itemClassName] = {};
 			end
-		end
-		--]]
-		if isNewMob then
-			table.insert(tblTarget[itemClassName],	 {ClassID = MobClassID
-													, ClassName = MobClassName
-													, Name = MobName
-													, DropRatio = DropRatio
-													, Rank = string.upper(MobRank)
-													, Lv = MobLv
-													 })
+
+			local MobClassID = clsMob.ClassID;
+			local MobClassName = clsMob.ClassName;
+			local MobName = dictionary.ReplaceDicIDInCompStr(clsMob.Name);
+			local MobLv = clsMob.Level;
+			local MobRank = clsMob.MonRank;
+
+			local isNewMob = true;
+			
+			--[[
+			for k = 1, #tblTarget[itemClassName] do
+				if tblTarget[itemClassName][k].ClassName == MobClassName and tblTarget[itemClassName][k].DropRatio == DropRatio then
+					isNewMob = false;
+					break
+				end
+			end
+			--]]
+			if isNewMob then
+				table.insert(tblTarget[itemClassName],	 {ClassID = MobClassID
+														, ClassName = MobClassName
+														, Name = MobName
+														, DropRatio = DropRatio
+														, Rank = string.upper(MobRank)
+														, Lv = MobLv
+														})
+			end
+		else
+			-- log("Cannot found MobID:" .. value.MobID)
 		end
 	end
 	--view(tblTarget)
@@ -3597,6 +3620,7 @@ function Me.InitSettingValue(BaseFrame)
 	ToukibiUI:SetCheckedByName(BodyGBox, "showRecipe",					 Me.Settings.showRecipeCustomTooltips);
 	ToukibiUI:SetCheckedByName(BodyGBox, "showRecipeHaveNeedCount",		 Me.Settings.showRecipeHaveNeedCount);
 	ToukibiUI:SetCheckedByName(BodyGBox, "showItemDropRatio",			 Me.Settings.showItemDropRatio);
+	ToukibiUI:SetCheckedByName(BodyGBox, "UseAutoImportDropData",		 Me.Settings.UseAutoImportDropData);
 	ToukibiUI:SetCheckedByName(BodyGBox, "showMagnumOpus",				 Me.Settings.showMagnumOpus);
 	ToukibiUI:SetCheckedByName(BodyGBox, "AllwaysDisplayOpusMap_From",	 Me.Settings.AllwaysDisplayOpusMap_From);
 	ToukibiUI:SetCheckedByName(BodyGBox, "AllwaysDisplayOpusMap_Into",	 Me.Settings.AllwaysDisplayOpusMap_Into);
@@ -3626,6 +3650,7 @@ function Me.ExecSetting()
 	Me.Settings.showRecipeCustomTooltips =		 ToukibiUI:GetCheckedByName(BodyGBox, "showRecipe");
 	Me.Settings.showRecipeHaveNeedCount =		 ToukibiUI:GetCheckedByName(BodyGBox, "showRecipeHaveNeedCount");
 	Me.Settings.showItemDropRatio =				 ToukibiUI:GetCheckedByName(BodyGBox, "showItemDropRatio");
+	Me.Settings.UseAutoImportDropData =			 ToukibiUI:GetCheckedByName(BodyGBox, "UseAutoImportDropData");
 	Me.Settings.showMagnumOpus =				 ToukibiUI:GetCheckedByName(BodyGBox, "showMagnumOpus");
 	Me.Settings.AllwaysDisplayOpusMap_From =	 ToukibiUI:GetCheckedByName(BodyGBox, "AllwaysDisplayOpusMap_From");
 	Me.Settings.AllwaysDisplayOpusMap_Into =	 ToukibiUI:GetCheckedByName(BodyGBox, "AllwaysDisplayOpusMap_Into");
@@ -3667,6 +3692,8 @@ function Me.InitSettingText(BaseFrame, LangMode)
 						  Toukibi:GetResText(ResText, LangMode, "SettingFrame.showRecipeHaveNeedCount"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "showItemDropRatio", "ui::CCheckBox"), 
 						  Toukibi:GetResText(ResText, LangMode, "SettingFrame.showItemDropRatio"), {"@st66b"});
+		ToukibiUI:SetText(GET_CHILD(TargetGBox, "UseAutoImportDropData", "ui::CCheckBox"), 
+						  Toukibi:GetResText(ResText, LangMode, "SettingFrame.UseAutoImportDropData"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "showMagnumOpus", "ui::CCheckBox"), 
 						  Toukibi:GetResText(ResText, LangMode, "SettingFrame.showMagnumOpus"), {"@st66b"});
 		ToukibiUI:SetText(GET_CHILD(TargetGBox, "AllwaysDisplayOpusMap_From", "ui::CCheckBox"), 
@@ -3842,6 +3869,13 @@ function TOOLTIPHELPER_TOUKIBI_ON_INIT(addon, frame)
 		Me.LoadMagnumOpusRecipeFromXML();
 		Me.CreateApplicationsList_Collection();
 		Me.CreateApplicationsList_Recipe();
+		-- IToSかJTosか判別(ドロップ率のクラスにヒットさせることで判別する)
+		if GetClassCount("MonsterDropItemList_Onion") < 0 then
+			-- JToSの場合
+			if Me.Settings.UseAutoImportDropData then
+				Me.ImportDropData(false);
+			end
+		end
 		Me.CreateDropRatioList();
 	end
 	if Me.Settings.DoNothing then return end
@@ -3864,7 +3898,9 @@ end
 -- ToolTipR.ExportDropData()
 function Me.ExportDropData()
 	local ExportFilePathName = string.format("../addons/%s/%s", addonNameLower, "dropdata.json");
+	local ExportFilePathName_tsv = string.format("../addons/%s/%s", addonNameLower, "dropdata.dat");
 
+	local hFile = io.open(ExportFilePathName_tsv, "w");
 	local tblTarget = {};
 	local clsList, cnt = GetClassList("Monster");
 	for i = 0 , cnt - 1 do
@@ -3886,12 +3922,15 @@ function Me.ExportDropData()
 													, mCID = MobClassID
 													, Ratio = DropRatio
 													 });
+							
+							hFile:write(string.format("%s\t%s\t%s\n", MobClassID, DropRatio, itemClassName));
 						end
 					end
 				end
 			end
 		end
 	end
+	hFile:close();
 	-- Toukibi:SaveTable(ExportFilePathName, Me.ApplicationsList.DropRatio);
 	 Toukibi:SaveTable(ExportFilePathName, tblTarget);
 	log('[Export Drop Ratio Data] Finish!!')

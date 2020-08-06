@@ -89,11 +89,11 @@
     "name": "Tooltip Helper (Rebuild by Toukibi)",
     "file": "tooltiphelper_toukibi",
     "extension": "ipf",
-    "fileVersion": "v1.0.7",
+    "fileVersion": "v1.0.8",
     "releaseTag": "TooltipHelper_Rebuild",
     "unicode": "⛄",
     "description": "Tooltip Helperの焼き直し版です。\n  This is a reworked version of Tooltip Helper.",
-    "updateInfo": "v1.0.7 /tth importコマンドを複数回使用すると表示も複数回ダブって表示される問題を修正しました。\n Fixed a problem that the display is duplicated multiple times when the /tth import command is used multiple times.",
+    "updateInfo": "v1.0.8 アイテムドロップ率のファイル形式をXMLからTSVに変更し、読み込み速度を向上させました。\n Changed the file format of item drop rate from XML to TSV to improve the loading speed.",
     "tags": [
       "ui",
       "tooltip",
