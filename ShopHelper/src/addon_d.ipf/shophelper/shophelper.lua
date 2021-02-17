@@ -1,5 +1,5 @@
 local addonName = "ShopHelper";
-local verText = "0.92";
+local verText = "0.93";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/sh", "/shophelper", "/shelper", "/ShopHelper"};
@@ -778,9 +778,18 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
-		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+		text = text or "";
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
+		local strTemp = string.format("{img fullgray %s 1}", width);
+		if text ~= "" then
+			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
+		end
+		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
 
 	-- コンテキストメニュー項目を作成
@@ -2295,10 +2304,10 @@ function TOUKIBI_SHOPHELPER_OPEN_BALOON_CONTEXT_MENU(frame, ctrl)
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AsNormal"), string.format("TOUKIBI_SHOPHELPER_CHANGE_DISPLAYSTATE(%s, %s)", handle, MyEnums.DisplayState.NoMark), nil, (DisplayState == MyEnums.DisplayState.NoMark));
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Hate"), string.format("TOUKIBI_SHOPHELPER_CHANGE_DISPLAYSTATE(%s, %s)", handle, MyEnums.DisplayState.HateMark), nil, (DisplayState == MyEnums.DisplayState.HateMark));
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.NeverShow"), string.format("TOUKIBI_SHOPHELPER_CHANGE_DISPLAYSTATE(%s, %s)", handle, MyEnums.DisplayState.Never), nil, (DisplayState == MyEnums.DisplayState.Never));
-	Toukibi:MakeCMenuSeparator(context, 300.1);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 1);
 	local strRequestLikeItScp = string.format("SEND_PC_INFO(%d)", handle);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.LikeYou"), strRequestLikeItScp, nil, Liked);
-	Toukibi:MakeCMenuSeparator(context, 300.2);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 2);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	context:Resize(320, context:GetHeight());
 	ui.OpenContextMenu(context);

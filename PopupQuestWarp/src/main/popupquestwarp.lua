@@ -1,5 +1,5 @@
 local addonName = "PopupQuestWarp";
-local verText = "1.00";
+local verText = "1.01";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/ppqw"} -- {"/コマンド1", "/コマンド2", .......};
@@ -340,13 +340,16 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width, text, style)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
 		text = text or "";
-		style = style or {"ol", "b", "s12", "#AAFFAA"}
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
 		local strTemp = string.format("{img fullgray %s 1}", width);
 		if text ~= "" then
 			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
 		end
 		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
@@ -877,11 +880,11 @@ function TOUKIBI_POPUPQUESTWARP_CONTEXT_MENU(frame, ctrl)
 										, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title")
 										, 0, 0, 180, 0);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_POPUPQUESTWARP_UPDATE()");
-	Toukibi:MakeCMenuSeparator(context, 270.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title_EscapeStoneVisible"));
+	Toukibi:MakeCMenuSeparator(context, 270, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title_EscapeStoneVisible"));
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.EscapeStone"), "TOUKIBI_POPUPQUESTWARP_TOGGLEPROP('DisplayEscapeStone')", nil, Me.Settings.DisplayEscapeStone);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.EscapeStone_Klaipeda"), "TOUKIBI_POPUPQUESTWARP_TOGGLEPROP('DisplayEscapeStoneKlaipeda')", nil, Me.Settings.DisplayEscapeStoneKlaipeda);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.EscapeStone_Orsha"), "TOUKIBI_POPUPQUESTWARP_TOGGLEPROP('DisplayEscapeStoneOrsha')", nil, Me.Settings.DisplayEscapeStoneOrsha);
-	Toukibi:MakeCMenuSeparator(context, 270.2, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title_Horizontal"));
+	Toukibi:MakeCMenuSeparator(context, 270, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Title_Horizontal"));
 	Toukibi:MakeCMenuItem(context
 						, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Vertical")
 						, "TOUKIBI_POPUPQUESTWARP_TOGGLEPROP('Horizontal', false)"
@@ -892,11 +895,11 @@ function TOUKIBI_POPUPQUESTWARP_CONTEXT_MENU(frame, ctrl)
 						, "TOUKIBI_POPUPQUESTWARP_TOGGLEPROP('Horizontal', true)"
 						, nil
 						, Me.Settings.Horizontal);
-	Toukibi:MakeCMenuSeparator(context, 270.4);
+	Toukibi:MakeCMenuSeparator(context, 270, nil, nil, 4);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.LockPosition"), "TOUKIBI_POPUPQUESTWARP_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_POPUPQUESTWARP_RESETPOS()");
 	-- 閉じる
-	Toukibi:MakeCMenuSeparator(context, 270.5);
+	Toukibi:MakeCMenuSeparator(context, 270, nil, nil, 5);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	context:Resize(300, context:GetHeight());
 	ui.OpenContextMenu(context);

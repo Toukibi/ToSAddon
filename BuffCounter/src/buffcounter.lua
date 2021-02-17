@@ -1,5 +1,5 @@
 local addonName = "BuffCounter";
-local verText = "1.19";
+local verText = "1.20";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/buffc", "/buffcounter", "/BuffCounter"} -- {"/コマンド1", "/コマンド2", .......};
@@ -404,9 +404,18 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
-		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+		text = text or "";
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
+		local strTemp = string.format("{img fullgray %s 1}", width);
+		if text ~= "" then
+			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
+		end
+		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
 
 	-- コンテキストメニュー項目を作成
@@ -1120,7 +1129,7 @@ function TOUKIBI_BUFFCOUNTER_CONTEXT_MENU(frame, ctrl)
 	Toukibi:MakeCMenuSeparator(context, 300);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.FixPosition"), "TOUKIBI_BUFFCOUNTER_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_BUFFCOUNTER_RESETPOS()", nil, false);
-	Toukibi:MakeCMenuSeparator(context, 300.1);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 1);
 	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Title"), 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Use"), 
@@ -1133,7 +1142,7 @@ function TOUKIBI_BUFFCOUNTER_CONTEXT_MENU(frame, ctrl)
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_Space"), 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Mode_UltraMini"), 
 											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('DisplayMode', 'ultramini')", nil, (Me.Settings.DisplayMode == "ultramini"));
-	Toukibi:MakeCMenuSeparator(context, 300.2);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 2);
 	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Title"), 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Deep"), 
@@ -1146,7 +1155,7 @@ function TOUKIBI_BUFFCOUNTER_CONTEXT_MENU(frame, ctrl)
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_Space"), 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Back_None"), 
 											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('SkinName', 'None')", nil, (Me.Settings.SkinName == "None"));
-	Toukibi:MakeCMenuSeparator(context, 300.3);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 3);
 	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Title"), 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Block"), 
@@ -1155,7 +1164,7 @@ function TOUKIBI_BUFFCOUNTER_CONTEXT_MENU(frame, ctrl)
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Space"), 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Gauge_Bar"), 
 											"TOUKIBI_BUFFCOUNTER_CHANGEPROP('GaugeStyle', 'continuous')", nil, (Me.Settings.GaugeStyle == "continuous"));
-	Toukibi:MakeCMenuSeparator(context, 300.4);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 4);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	if Me.Settings.Lang == "en" then
 		context:Resize(330, context:GetHeight());

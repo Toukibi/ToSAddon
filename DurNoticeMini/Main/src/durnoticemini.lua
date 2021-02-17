@@ -1,5 +1,5 @@
 local addonName = "DurNoticeMini";
-local verText = "1.24";
+local verText = "1.25";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/durmini", "/DurMini", "/Durmini", "/durMini"};
@@ -361,9 +361,18 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
-		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+		text = text or "";
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
+		local strTemp = string.format("{img fullgray %s 1}", width);
+		if text ~= "" then
+			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
+		end
+		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
 
 	-- コンテキストメニュー項目を作成
@@ -644,7 +653,7 @@ function TOUKIBI_DURMINI_CONTEXT_MENU(frame, ctrl)
 	Toukibi:MakeCMenuSeparator(context, 240);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.LockPosition"), "TOUKIBI_DURMINI_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_DURMINI_RESETPOS()");
-	Toukibi:MakeCMenuSeparator(context, 240.1);
+	Toukibi:MakeCMenuSeparator(context, 240, nil, nil, 1);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	context:Resize(270, context:GetHeight());
 	ui.OpenContextMenu(context);

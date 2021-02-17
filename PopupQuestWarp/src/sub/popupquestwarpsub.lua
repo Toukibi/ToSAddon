@@ -1,5 +1,5 @@
 local addonName = "PopupQuestWarpSub";
-local verText = "1.00";
+local verText = "1.01";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/puqwsub"} -- {"/コマンド1", "/コマンド2", .......};
@@ -346,13 +346,16 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width, text, style)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
 		text = text or "";
-		style = style or {"ol", "b", "s12", "#AAFFAA"}
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
 		local strTemp = string.format("{img fullgray %s 1}", width);
 		if text ~= "" then
 			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
 		end
 		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
@@ -1047,7 +1050,7 @@ function TOUKIBI_POPUPQUESTWARPSUB_MAIN_CONTEXT_MENU(frame, ctrl)
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Orsha"), "TOUKIBI_POPUPQUESTWARPSUB_TOGGLEPROP('DisplayOrsha')", nil, Me.Settings.DisplayOrsha);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Fedimian"), "TOUKIBI_POPUPQUESTWARPSUB_TOGGLEPROP('DisplayFedimian')", nil, Me.Settings.DisplayFedimian);
 	-- 閉じる
-	Toukibi:MakeCMenuSeparator(context, 210.1);
+	Toukibi:MakeCMenuSeparator(context, 210);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	context:Resize(240, context:GetHeight());
 	ui.OpenContextMenu(context);

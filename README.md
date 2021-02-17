@@ -6,7 +6,12 @@ Last Updated : February 17, 2021
 右クリックメニューのセパレータが太くなる不具合がありました。以下のアドオンは修正を完了しています。<br>
 There was a problem that the separator of the right-click menu became thick. The following add-ons have been fixed.
   * **Better Pick Queue Ver. 1.18**
+  * **Buff Counter Ver. 1.20**
+  * **Dur Notice Mini Ver. 1.25**
+  * **Experience Viewer Ex Ver. 1.03**
   * **Map Mate Ver. 0.93**
+  * **Popup Quest Warp Ver. 1.01**
+  * **Shop Heler Ver. 0.93**
 
 
 August 6, 2020
@@ -33,7 +38,7 @@ So, I would appreciate it if you could told me the correct translation when you 
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    
 
-## [BuffCounter Ver. 1.19 ( Ja / En / Kr )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
+## [BuffCounter Ver. 1.20 ( Ja / En / Kr )](https://github.com/Toukibi/ToSAddon/tree/master/BuffCounter)
 上段バフの残り枠数を教えてくれます。  
 さらに、トークンの残り日数やバフのレベル・効果などを追加表示します。  
 This add-on will tell you the remaining number of upper buffs.  
@@ -55,7 +60,7 @@ It makes it easier to distinguish items so as not to disassemble important items
 (**It will not be able to prevent the decomposition by mistake**)  
 !["Image of main image of Don't-Decompose-Me"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DontDecomposeMe/img/topimage_ja.png?raw=true)  
 
-## [Dur notice Mini Ver. 1.24 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
+## [Dur notice Mini Ver. 1.25 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/DurNoticeMini)
 装備の耐久で最も低い武器と防具の数値をリアルタイムに表示してくれます。  
 This add-on will tell you the minimum durability value of your equipment.  
 !["Image of main image of Dur-Notice-Mini"](https://github.com/Toukibi/ToSAddon/blob/ForImage/DurNoticeMini/Main/img/topimage.png?raw=true)  
@@ -65,7 +70,7 @@ This add-on will tell you the minimum durability value of your equipment.
 This add-on adds enhancement value, item rank and unidentified icon to the item display.    
 ![Image of main image of Equip-Marker](https://github.com/Toukibi/ToSAddon/blob/ForImage/EquipMarker/img/topimage_ja.jpg?raw=true)    
 
-## [Experience Viewer Ex Ver. 1.02](https://github.com/Toukibi/ToSAddon/tree/master/ExpViewer_Ex)
+## [Experience Viewer Ex Ver. 1.03](https://github.com/Toukibi/ToSAddon/tree/master/ExpViewer_Ex)
 経験値に関する情報と、獲得シルバーの情報を表示します。  
 This add-on will display all sorts of information about your character's experience and information on acquired silver.  
 ![ExpViewerの外観](https://github.com/Toukibi/ToSAddon/blob/ForImage/ExpViewer_Ex/img/topimage_ja.jpg?raw=true)
@@ -80,7 +85,7 @@ ItemDrops is back. It highlights the dropped item **more strongly**.
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  
 
-## [Popup Quest Warp Ver. 1.00 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/PopupQuestWarp)
+## [Popup Quest Warp Ver. 1.01 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/PopupQuestWarp)
 街への帰還石/スクロールと各クエストへのワープを補助します。  
 This add-on will assist you in using warp-stones/scrolls to the city and warping each quest.   
 !["Image of main image of Popup-quest-warp"](https://github.com/Toukibi/ToSAddon/blob/ForImage/PopupQuestWarp/img/ppqw_forlist_en.jpg?raw=true)  
@@ -90,7 +95,7 @@ This add-on will assist you in using warp-stones/scrolls to the city and warping
 The number of remaining skills is displayed at the bottom right of the skill icon.   
 !["Image of main image of Remaining-Counter"](https://github.com/Toukibi/ToSAddon/blob/ForImage/RemainingCounter/img/topimage.png?raw=true)  
 
-## [Shop Helper Ver. 0.92 ( Ja / En / Kr / Br )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
+## [Shop Helper Ver. 0.93 ( Ja / En / Kr / Br )](https://github.com/Toukibi/ToSAddon/tree/master/ShopHelper)
 街などで開かれている露店の表示を少しだけ使いやすくしてくれます。  
 This add-on will make the display of the stalls opened in towns etc. a little easier to use.  
 !["Image of main image of ShopHelper"](https://github.com/Toukibi/ToSAddon/blob/forImageStrage/ShopHelper/img/ShopHelperImage.jpg?raw=true)

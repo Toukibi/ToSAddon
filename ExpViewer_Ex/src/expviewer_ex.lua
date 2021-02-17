@@ -1,5 +1,5 @@
 local addonName = "ExpViewer_Ex";
-local verText = "1.02";
+local verText = "1.03";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/expv", "/expviewer"};
@@ -357,9 +357,18 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
-		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+		text = text or "";
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
+		local strTemp = string.format("{img fullgray %s 1}", width);
+		if text ~= "" then
+			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
+		end
+		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
 	-- 子を持つメニュー項目を作成
 	MakeCMenuParentItem = function(self, parent, text, child)
@@ -1103,7 +1112,7 @@ function TOUKIBI_EXPVIEWER_CONTEXT_MENU(frame, ctrl)
 	Toukibi:MakeCMenuSeparator(context, 240);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetSession"), "TOUKIBI_EXPVIEWER_RESET_BUFFER()");
 	--Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_EXPVIEWER_UPDATE()");
-	Toukibi:MakeCMenuSeparator(context, 240.1);
+	Toukibi:MakeCMenuSeparator(context, 240, nil, nil, 1);
 
 	local subContextDisplay = ui.CreateContextMenu("SUBCONTEXT_DISPLAY", "", 0, 0, 0, 0);
 		Toukibi:MakeCMenuItem(subContextDisplay, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.Title_Current"), string.format("TOUKIBI_EXPVIEWER_TOGGLE_VALUE('%s', %s)", "showCurrent", not Me.Settings.showCurrent and 1 or 0), nil, Me.Settings.showCurrent);
@@ -1133,9 +1142,9 @@ function TOUKIBI_EXPVIEWER_CONTEXT_MENU(frame, ctrl)
 
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.useMetricPrefix"), string.format("TOUKIBI_EXPVIEWER_TOGGLE_VALUE('%s', %s)", "useMetricPrefix", not Me.Settings.useMetricPrefix and 1 or 0), nil, Me.Settings.useMetricPrefix);
 	
-	Toukibi:MakeCMenuSeparator(context, 240.2);
+	Toukibi:MakeCMenuSeparator(context, 240, nil, nil, 2);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.LockPosition"), "TOUKIBI_EXPVIEWER_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
-	Toukibi:MakeCMenuSeparator(context, 240.3);
+	Toukibi:MakeCMenuSeparator(context, 240, nil, nil, 3);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	context:Resize(270, context:GetHeight());
 	ui.OpenContextMenu(context);
