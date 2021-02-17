@@ -1,17 +1,18 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : August 6, 2020
+Last Updated : February 17, 2021
+
+* **Right-click menu bug (右クリックメニューの不具合について)**<br>
+右クリックメニューのセパレータが太くなる不具合がありました。以下のアドオンは修正を完了しています。<br>
+There was a problem that the separator of the right-click menu became thick. The following add-ons have been fixed.
+  * **Better Pick Queue Ver. 1.18**
+
+
+August 6, 2020
 
 * **Tooltip Helper Ver. 1.08**
   * アイテムドロップ率のファイル形式をXMLからTSVに変更し、読み込み速度を向上させました。<br>Changed the file format of item drop rate from XML to TSV to improve the loading speed.
   * アイテムドロップ率のファイルの自動読み込みオプションを追加しました。(IToSは自動読み込みしません)<br>Added a file auto-load option for item drop rate. (IToS is not applicable)
-
-
-August 1, 2020
-
-* **[New Add-on] Popup Quest Warp Ver. 1.00**
-  * 新規公開<br>New release.
-  * 街への帰還石/スクロールと各クエストへのワープを補助します。<br>This add-on will assist you in using warp-stones/scrolls to the city and warping each quest.
 
 
 ## Notice:
@@ -26,7 +27,7 @@ I am not good at English. I frequently translate English into different nuances.
 So, I would appreciate it if you could told me the correct translation when you see an unnatural English translation  
 
 
-## [Better Pick Queue Ver. 1.15 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
+## [Better Pick Queue Ver. 1.18 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/BetterPickQueue)
 画面の右下で拾ったアイテムを表示する機能を強化します。  
 This add-on enhances the ability to display the items picked up.  
 ![Image of main image of Better-Pick-Queue](https://github.com/Toukibi/ToSAddon/blob/ForImage/BetterPickQueue/img/topimage2_ja.jpg?raw=true)    

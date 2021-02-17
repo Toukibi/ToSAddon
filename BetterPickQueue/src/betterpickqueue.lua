@@ -1,5 +1,5 @@
 local addonName = "BetterPickQueue";
-local verText = "1.15";
+local verText = "1.18";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/pickq", "/pickqueue"} -- {"/コマンド1", "/コマンド2", .......};
@@ -50,6 +50,8 @@ local ResText = {
 		  , GuessCount = "1時間あたりの取得量"
 		  , SimpleLog = "簡易ログ"
 		  , Silver = "シルバー"
+		  , MercenaryBadge = "傭兵団コイン"
+		  , WeeklyMercenaryBadgeCount = "傭兵団コイン週間獲得量"
 		  , WeightData = "所持重量"
 		  , OldItem = "拾って時間の経った物"
 		  , ElapsedTime = "経過時間"
@@ -80,6 +82,7 @@ local ResText = {
 		Other = {
 			Multiple = "×"
 		  , Percent = "％"
+		  , WeeklyMercenaryBadgeCount = "傭兵団コイン週間獲得量{nl}  "
 		  , WeightTitle = "所持重量："
 		  , LogSpacer = "        "
 		  , TotalTitle = "{s4} {/}/{s4} {/}"
@@ -131,6 +134,8 @@ local ResText = {
 		  , GuessCount = "pcs/Hr"
 		  , SimpleLog = "Simple log"
 		  , Silver = "Silver"
+		  , MercenaryBadge = "Mercenary Badge"
+		  , WeeklyMercenaryBadgeCount = "Weekly Mercenary Badge"
 		  , WeightData = "Weight Info."
 		  , OldItem = "Items picked up long ago"
 		  , ElapsedTime = "Elapsed time"
@@ -161,6 +166,7 @@ local ResText = {
 		Other = {
 			Multiple = " x "
 		  , Percent = "%"
+		  , WeeklyMercenaryBadgeCount = "Weekly Mercenary Badge{nl}  "
 		  , WeightTitle = "Weight : "
 		  , LogSpacer = "              "
 		  , TotalTitle = " /"
@@ -451,13 +457,16 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width, text, style)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
 		text = text or "";
-		style = style or {"ol", "b", "s12", "#AAFFAA"}
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
 		local strTemp = string.format("{img fullgray %s 1}", width);
 		if text ~= "" then
 			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
 		end
 		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
@@ -574,36 +583,38 @@ end
 local function MargeDefaultSetting(Force, DoSave)
 	DoSave = Toukibi:GetValueOrDefault(DoSave, true);
 	Me.Settings = Me.Settings or {};
-	Me.Settings.DoNothing		 = Toukibi:GetValueOrDefault(Me.Settings.DoNothing		, false, Force);
-	Me.Settings.Lang			 = Toukibi:GetValueOrDefault(Me.Settings.Lang			, Toukibi:GetDefaultLangCode(), Force);
-	Me.Settings.Movable			 = Toukibi:GetValueOrDefault(Me.Settings.Movable		, true, Force);
-	Me.Settings.Visible			 = Toukibi:GetValueOrDefault(Me.Settings.Visible		, true, Force);
-	Me.Settings.PosX			 = Toukibi:GetValueOrDefault(Me.Settings.PosX			, 0, Force);
-	Me.Settings.PosY			 = Toukibi:GetValueOrDefault(Me.Settings.PosY			, 250, Force);
-	Me.Settings.MarginBottom	 = Toukibi:GetValueOrDefault(Me.Settings.MarginBottom	, 90, Force);
-	Me.Settings.MarginRight		 = Toukibi:GetValueOrDefault(Me.Settings.MarginRight	, 20, Force);
+	Me.Settings.DoNothing			 = Toukibi:GetValueOrDefault(Me.Settings.DoNothing			, false, Force);
+	Me.Settings.Lang				 = Toukibi:GetValueOrDefault(Me.Settings.Lang				, Toukibi:GetDefaultLangCode(), Force);
+	Me.Settings.Movable				 = Toukibi:GetValueOrDefault(Me.Settings.Movable			, true, Force);
+	Me.Settings.Visible				 = Toukibi:GetValueOrDefault(Me.Settings.Visible			, true, Force);
+	Me.Settings.PosX				 = Toukibi:GetValueOrDefault(Me.Settings.PosX				, 0, Force);
+	Me.Settings.PosY				 = Toukibi:GetValueOrDefault(Me.Settings.PosY				, 250, Force);
+	Me.Settings.MarginBottom		 = Toukibi:GetValueOrDefault(Me.Settings.MarginBottom		, 90, Force);
+	Me.Settings.MarginRight			 = Toukibi:GetValueOrDefault(Me.Settings.MarginRight		, 20, Force);
 	
-	Me.Settings.useSimpleMenu	 = Toukibi:GetValueOrDefault(Me.Settings.useSimpleMenu	, true, Force);
-	Me.Settings.CurrentMode		 = Toukibi:GetValueOrDefault(Me.Settings.CurrentMode	, "Normal", Force); -- Normal/Counter/Detail
+	Me.Settings.useSimpleMenu		 = Toukibi:GetValueOrDefault(Me.Settings.useSimpleMenu		, true, Force);
+	Me.Settings.CurrentMode			 = Toukibi:GetValueOrDefault(Me.Settings.CurrentMode		, "Normal", Force); -- Normal/Counter/Detail
 	
-	Me.Settings.ShowElapsedTime	 = Toukibi:GetValueOrDefault(Me.Settings.ShowElapsedTime, false, Force);
-	Me.Settings.ShowCurrent		 = Toukibi:GetValueOrDefault(Me.Settings.ShowCurrent	, true, Force);
-	Me.Settings.ShowGuess		 = Toukibi:GetValueOrDefault(Me.Settings.ShowGuess		, false, Force);
-	Me.Settings.ShowLog			 = Toukibi:GetValueOrDefault(Me.Settings.ShowLog		, true, Force);
+	Me.Settings.ShowElapsedTime		 = Toukibi:GetValueOrDefault(Me.Settings.ShowElapsedTime	, false, Force);
+	Me.Settings.ShowCurrent			 = Toukibi:GetValueOrDefault(Me.Settings.ShowCurrent		, true, Force);
+	Me.Settings.ShowGuess			 = Toukibi:GetValueOrDefault(Me.Settings.ShowGuess			, false, Force);
+	Me.Settings.ShowLog				 = Toukibi:GetValueOrDefault(Me.Settings.ShowLog			, true, Force);
 	
-	Me.Settings.OrderBy			 = Toukibi:GetValueOrDefault(Me.Settings.OrderBy		, "byGetTime", Force); -- byName/byCount/byGetTime
-	Me.Settings.AutoResetByMap	 = Toukibi:GetValueOrDefault(Me.Settings.AutoResetByMap	, true, Force);
-	Me.Settings.AutoResetByCh	 = Toukibi:GetValueOrDefault(Me.Settings.AutoResetByCh	, false, Force);
+	Me.Settings.OrderBy				 = Toukibi:GetValueOrDefault(Me.Settings.OrderBy			, "byGetTime", Force); -- byName/byCount/byGetTime
+	Me.Settings.AutoResetByMap		 = Toukibi:GetValueOrDefault(Me.Settings.AutoResetByMap		, true, Force);
+	Me.Settings.AutoResetByCh		 = Toukibi:GetValueOrDefault(Me.Settings.AutoResetByCh		, false, Force);
 	
-	Me.Settings.ShowVis			 = Toukibi:GetValueOrDefault(Me.Settings.ShowVis		, true, Force);
-	Me.Settings.ShowWeight		 = Toukibi:GetValueOrDefault(Me.Settings.ShowWeight		, true, Force);
-	Me.Settings.ShowOldItem		 = Toukibi:GetValueOrDefault(Me.Settings.ShowOldItem	, false, Force);
+	Me.Settings.ShowVis				 = Toukibi:GetValueOrDefault(Me.Settings.ShowVis			, true, Force);
+	Me.Settings.ShowMercenaryBadge	 = Toukibi:GetValueOrDefault(Me.Settings.ShowMercenaryBadge	, true, Force);
+	Me.Settings.ShowMBadgeGauge		 = Toukibi:GetValueOrDefault(Me.Settings.ShowMBadgeGauge	, false, Force);
+	Me.Settings.ShowWeight			 = Toukibi:GetValueOrDefault(Me.Settings.ShowWeight			, true, Force);
+	Me.Settings.ShowOldItem			 = Toukibi:GetValueOrDefault(Me.Settings.ShowOldItem		, false, Force);
 
-	Me.Settings.DueDateDisplay	 = Toukibi:GetValueOrDefault(Me.Settings.DueDateDisplay	, 10, Force);
-	Me.Settings.SkinName		 = Toukibi:GetValueOrDefault(Me.Settings.SkinName		, "None", Force); --None/chat_window/systemmenu_vertical
-	Me.Settings.HideOriginalQueue = Toukibi:GetValueOrDefault(Me.Settings.HideOriginalQueue, false, Force);
-	Me.Settings.ExpandTo_Up		 = Toukibi:GetValueOrDefault(Me.Settings.ExpandTo_Up	, true, Force);
-	Me.Settings.ExpandTo_Left	 = Toukibi:GetValueOrDefault(Me.Settings.ExpandTo_Left	, true, Force);
+	Me.Settings.DueDateDisplay		 = Toukibi:GetValueOrDefault(Me.Settings.DueDateDisplay		, 10, Force);
+	Me.Settings.SkinName			 = Toukibi:GetValueOrDefault(Me.Settings.SkinName			, "None", Force); --None/chat_window/systemmenu_vertical
+	Me.Settings.HideOriginalQueue	 = Toukibi:GetValueOrDefault(Me.Settings.HideOriginalQueue	, false, Force);
+	Me.Settings.ExpandTo_Up			 = Toukibi:GetValueOrDefault(Me.Settings.ExpandTo_Up		, true, Force);
+	Me.Settings.ExpandTo_Left		 = Toukibi:GetValueOrDefault(Me.Settings.ExpandTo_Left		, true, Force);
 	
 	if Force then
 		Toukibi:AddLog(Toukibi:GetResText(ResText, Me.Settings.Lang, "System.CompleteLoadDefault"), "Info", true, false);
@@ -918,7 +929,7 @@ local function MakeItemText(itemClsName)
 	strResult = string.format("{img %s 24 24} {#%s}%s{/} {#33FFFF}( %s ){/}"
 		, itemCls.Icon
 		, GetItemRarityColor(itemCls)
-		, dictionary.ReplaceDicIDInCompStr(itemCls.Name)
+		, dictionary.ReplaceDicIDInCompStr(itemCls.Name) -- .. ":" .. itemClsName
 		, GetCommaedTextEx(GetDiffCount(itemClsName), 0, 0, true, false)
 	)
 	
@@ -1033,6 +1044,66 @@ local function GetMyWeightText()
 	return strResult;
 end
 
+local function GetMercenaryBadgeGaugeText()
+	local GaugeWidth = 160;
+	local RedZone = 90;
+	local acc = GetMyAccountObj();
+	if acc == nil then
+		return
+	end
+
+	local NowCount = TryGetProp(acc, 'WEEKLY_PVP_MINE_COUNT', 0);
+	local MaxCount = tonumber(MAX_WEEKLY_PVP_MINE_COUNT);
+	local isTokenState = session.loginInfo.IsPremiumState(ITEM_TOKEN);
+	if isTokenState == true then
+		local bonusValue = tonumber(WEEKLY_PVP_MINE_COUNT_TOKEN_BONUS);
+		MaxCount = MaxCount + bonusValue;
+	end
+
+	local textColor = "FFFFFF";
+	local WeeklyRate = 0;
+	if MaxCount > 0 then
+		WeeklyRate = NowCount * 100 / MaxCount;
+	end
+	if MaxCount < NowCount then
+		textColor = "FF1111";
+	elseif WeeklyRate >= 95 then
+		textColor = "FF3333";
+	elseif WeeklyRate >= RedZone then
+		textColor = "FF9999";
+	end
+	local strResult = string.format("%s%s/%s {s12}(%d%s){/}"
+								, Toukibi:GetStyledText(Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.WeeklyMercenaryBadgeCount"), {"s14", "#cccccc"})
+								, Toukibi:GetStyledText(GetCommaedTextEx(NowCount), {"#" .. textColor})
+								, GetCommaedTextEx(MaxCount)
+								, WeeklyRate
+								, Toukibi:GetResText(ResText, Me.Settings.Lang, "Other.Percent")
+								);
+
+	local widthYellow, widthRed, widthBack = 0, 0, GaugeWidth;
+	widthYellow = math.floor(NowCount * GaugeWidth / MaxCount);
+	if widthYellow > GaugeWidth then
+		widthYellow = GaugeWidth;
+	end
+	widthBack = GaugeWidth - widthYellow;
+	if widthYellow * 100 > GaugeWidth * RedZone then
+		local tmpValue = GaugeWidth * RedZone / 100;
+		widthRed = widthYellow - tmpValue;
+		widthYellow = tmpValue;
+	end
+	strResult = strResult .. "{nl}{s6} {/}";
+	if widthYellow > 0 then
+		strResult = strResult .. string.format("{img fullyellow %d 2}", widthYellow);
+	end
+	if widthRed > 0 then
+		strResult = strResult .. string.format("{img fullred %d 2}", widthRed);
+	end
+	if widthBack > 0 then
+		strResult = strResult .. string.format("{img fullblack %d 2}", widthBack);
+	end
+	return strResult;
+end
+
 local function AddLabel(parent, ctrlName, text, left, top, style)
 	if parent == nil then return end
 	if ctrlName == nil or ctrlName == "" then return end
@@ -1048,6 +1119,11 @@ local function AddLabel(parent, ctrlName, text, left, top, style)
 end
 
 local function SortByName(a, b)
+	if a.ClassName == "misc_pvp_mine2" then -- 傭兵団コインであるか
+		return false
+	elseif b.ClassName == "misc_pvp_mine2" then
+		return true
+	end
 	if a.ClassName == "Vis" then -- お金であるか
 		return false
 	elseif b.ClassName == "Vis" then
@@ -1057,6 +1133,11 @@ local function SortByName(a, b)
 end
 
 local function SortByCount(a, b)
+	if a.ClassName == "misc_pvp_mine2" then -- 傭兵団コインであるか
+		return false
+	elseif b.ClassName == "misc_pvp_mine2" then
+		return true
+	end
 	if a.ClassName == "Vis" then -- お金であるか
 		return false
 	elseif b.ClassName == "Vis" then
@@ -1069,6 +1150,11 @@ local function SortByCount(a, b)
 end
 
 local function SortByGetTime(a, b)
+	if a.ClassName == "misc_pvp_mine2" then -- 傭兵団コインであるか
+		return false
+	elseif b.ClassName == "misc_pvp_mine2" then
+		return true
+	end
 	if a.ClassName == "Vis" then -- お金であるか
 		return false
 	elseif b.ClassName == "Vis" then
@@ -1089,11 +1175,15 @@ function Me.UpdateFrame()
 		InitPickData("Vis", 0)
 	end
 	
+	if Me.Settings.ShowMercenaryBadge and Me.Data.Pick.misc_pvp_mine2 == nil then
+		-- 傭兵団コイン情報がない場合は追加する
+		InitPickData("misc_pvp_mine2", 0)
+	end
 	-- 並べ替えの準備を行う
 	local tmpTable = {};
 	for _, value in pairs(Me.Data.Pick) do
 		-- 表示の条件に見合うものだけを並べ替えの対象にする
-		if GetState_ShowOldItem() or (value.ClassName == "Vis" and Me.Settings.ShowVis) or (os.clock() - value.LastTime) <= Me.Settings.DueDateDisplay then
+		if GetState_ShowOldItem() or (value.ClassName == "Vis" and Me.Settings.ShowVis) or (value.ClassName == "misc_pvp_mine2" and Me.Settings.ShowMercenaryBadge) or (os.clock() - (value.LastTime or 0)) <= Me.Settings.DueDateDisplay then
 			table.insert(tmpTable, value);
 		else
 			-- 表示の対象にならなかったコントロールは削除する
@@ -1154,8 +1244,19 @@ function Me.UpdateFrame()
 	
 	TargetLabelName = "lblFooter";
 	strResult = "";
-	if Me.Settings.ShowWeight then
-		strResult = GetMyWeightText();
+	if Me.Settings.ShowWeight or Me.Settings.ShowMBadgeGauge then
+		if Me.Settings.ShowMBadgeGauge then
+			if strResult ~= "" then
+				strResult = strResult .. "{nl}{s6} {/}{nl}"
+			end
+			strResult = strResult .. GetMercenaryBadgeGaugeText();
+		end
+		if Me.Settings.ShowWeight then
+			if strResult ~= "" then
+				strResult = strResult .. "{nl}{s6} {/}{nl}"
+			end
+			strResult = strResult .. GetMyWeightText();
+		end
 		cPosY = cPosY + 6;
 	elseif not hasDisplayData then
 		strResult = Toukibi:GetStyledText("Better Pick Queue ver. " .. verText, {"#666666", "s12"});
@@ -1325,67 +1426,69 @@ function TOUKIBI_BETTERPICKQUEUE_CONTEXT_MENU(frame, ctrl)
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.useSimpleMenu"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "useSimpleMenu", not Me.Settings.useSimpleMenu and 1 or 0), nil, Me.Settings.useSimpleMenu);
 		if Me.Settings.useSimpleMenu then
 			-- 簡単メニュー
-			Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "SimpleMenuSelect.Title"));
+			Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, Toukibi:GetResText(ResText, Me.Settings.Lang, "SimpleMenuSelect.Title"));
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "SimpleMenuSelect.Normal"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "CurrentMode", "Normal"), nil, (Me.Settings.CurrentMode == "Normal"));
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "SimpleMenuSelect.Counter"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "CurrentMode", "Counter"), nil, (Me.Settings.CurrentMode == "Counter"));
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "SimpleMenuSelect.Detail"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "CurrentMode", "Detail"), nil, (Me.Settings.CurrentMode == "Detail"));
 		else
 			-- カスタム設定
-			Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.DisplayItems"));
+			Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.DisplayItems"));
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.CurrentCount"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowCurrent", not Me.Settings.ShowCurrent and 1 or 0), nil, Me.Settings.ShowCurrent);
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.GuessCount"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowGuess", not Me.Settings.ShowGuess and 1 or 0), nil, Me.Settings.ShowGuess);
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.SimpleLog"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowLog", not Me.Settings.ShowLog and 1 or 0), nil, Me.Settings.ShowLog);
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.ElapsedTime"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowElapsedTime", not Me.Settings.ShowElapsedTime and 1 or 0), nil, Me.Settings.ShowElapsedTime);
 			
-			Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.2, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.SortedBy"));
+			Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.SortedBy"));
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Order.byName"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "OrderBy", "byName"), nil, (Me.Settings.OrderBy == "byName"));
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Order.byCount"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "OrderBy", "byCount"), nil, (Me.Settings.OrderBy == "byCount"));
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Order.byGetTime"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "OrderBy", "byGetTime"), nil, (Me.Settings.OrderBy == "byGetTime"));
 		end
 		
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.3, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AllwaysDisplay"));
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AllwaysDisplay"));
 		if Me.Settings.useSimpleMenu then
 			-- かんたんメニューときだけ表示
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.ElapsedTime"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowElapsedTime", not Me.Settings.ShowElapsedTime and 1 or 0), nil, Me.Settings.ShowElapsedTime);
 		end
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.Silver"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowVis", not Me.Settings.ShowVis and 1 or 0), nil, Me.Settings.ShowVis);
+		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.MercenaryBadge"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowMercenaryBadge", not Me.Settings.ShowMercenaryBadge and 1 or 0), nil, Me.Settings.ShowMercenaryBadge);
+		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.WeeklyMercenaryBadgeCount"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowMBadgeGauge", not Me.Settings.ShowMBadgeGauge and 1 or 0), nil, Me.Settings.ShowMBadgeGauge);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.WeightData"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowWeight", not Me.Settings.ShowWeight and 1 or 0), nil, Me.Settings.ShowWeight);
 		if not Me.Settings.useSimpleMenu then
 			-- カスタムメニューのときだけ表示
 			Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Display.OldItem"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ShowOldItem", not Me.Settings.ShowOldItem and 1 or 0), nil, Me.Settings.ShowOldItem);
 		end
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.4);
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, nil, nil, 1);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.LockPosition"), "TOUKIBI_BETTERPICKQUEUE_CHANGE_MOVABLE()", nil, not Me.Settings.Movable);
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.5);
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, nil, nil, 2);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetSession"), "TOUKIBI_BETTERPICKQUEUE_RESET_DATA()");
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.6);
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, nil, nil, 3);
 	else
 		cmenuWidth = 270
 		--第2メニュー
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.1);
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.HideOriginalQueue"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "HideOriginalQueue", not Me.Settings.HideOriginalQueue and 1 or 0), nil, Me.Settings.HideOriginalQueue);
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.2, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoReset"));
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoReset"));
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "AutoReset.byMap"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "AutoResetByMap", not Me.Settings.AutoResetByMap and 1 or 0), nil, Me.Settings.AutoResetByMap);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "AutoReset.byChannel"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "AutoResetByCh", not Me.Settings.AutoResetByCh and 1 or 0), nil, Me.Settings.AutoResetByCh);
 		
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.3, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.BackGround"));
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.BackGround"));
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "BackGround.Deep"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "SkinName", "systemmenu_vertical"), nil, (Me.Settings.SkinName == "systemmenu_vertical"));
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "BackGround.Thin"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "SkinName", "chat_window"), nil, (Me.Settings.SkinName == "chat_window"));
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "BackGround.None"), string.format("TOUKIBI_BETTERPICKQUEUE_SETVALUE('%s', '%s')", "SkinName", "None"), nil, (Me.Settings.SkinName == "None"));
 		
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.4, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Horizonal"));
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Horizonal"));
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Left"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Left", 1), nil, Me.Settings.ExpandTo_Left);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Right"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Left", 0), nil, not Me.Settings.ExpandTo_Left);
 		
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.5, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Vertical"));
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Vertical"));
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Up"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Up", 1), nil, Me.Settings.ExpandTo_Up);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ExpandTo_Down"), string.format("TOUKIBI_BETTERPICKQUEUE_TOGGLE_VALUE('%s', %s)", "ExpandTo_Up", 0), nil, not Me.Settings.ExpandTo_Up);
 
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.6);
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, nil, nil, 1);
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ResetPosition"), "TOUKIBI_BETTERPICKQUEUE_RESET_POSITION()");
 		Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow"), "TOUKIBI_BETTERPICKQUEUE_UPDATE()");
 
-		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30 + 0.7);
+		Toukibi:MakeCMenuSeparator(context, cmenuWidth - 30, nil, nil, 2);
 	end
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close"));
 	context:Resize(cmenuWidth, context:GetHeight());

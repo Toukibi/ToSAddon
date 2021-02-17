@@ -2,7 +2,7 @@
 <uiframe name="betterpickqueue" x="0" y="250" width="400" height="120">
 	<frame title="Better Pick Queue" fasthide="true" snapclient="true" snapframe="true"  layout_gravity="right botttom"/>
 	<input moveable="true" hittestframe="true" moveintitlebar="false" hittest="true"/>
-	<layer layerlevel="31"/>
+	<layer layerlevel="51"/>
 	<draw drawframe="true" drawtitlebarframe="false" drawtitlebar="false"/>
 	<skin frameskin="chat_window"/>
 	<option visible="true" alwaysVisible="true" closebutton="false" hideable="false" autoopen="true"/>
