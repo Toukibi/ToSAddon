@@ -39,11 +39,11 @@
     "name": "Map Mate",
     "file": "mapmate",
     "extension": "ipf",
-    "fileVersion": "v0.9.2",
+    "fileVersion": "v0.9.3",
     "releaseTag": "MapMate",
     "unicode": "⛄",
     "description": "マップ表示を色々便利にしてくれます。\n This add-on makes map display a lot convenient.",
-    "updateInfo": "v0.9.2 モンスター一覧とコレクションアイテム一覧にアイテムドロップ率の情報が付加されました。 \n Item drop rate information has been added to the monster list and collection item list.",
+    "updateInfo": "v0.9.3 右クリックメニューの不具合を修正しました。\n Fixed a bug in the right-click menu.",
     "tags": [
       "ui",
       "map",

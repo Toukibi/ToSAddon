@@ -1,5 +1,5 @@
 local addonName = "MapMate";
-local verText = "0.92";
+local verText = "0.93";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mapmate", "/mmate", "/MapMate", "/MMate"};
@@ -469,13 +469,16 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width, text, style)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
 		text = text or "";
-		style = style or {"ol", "b", "s12", "#AAFFAA"}
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
 		local strTemp = string.format("{img fullgray %s 1}", width);
 		if text ~= "" then
 			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
 		end
 		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
@@ -1991,7 +1994,7 @@ function TOUKIBI_MAPMATE_CONTEXT_MENU_PCCOUNT(frame, ctrl)
 	local context = ui.CreateContextMenu("MAPMATE_PCCOUNT_RBTN", Title, 0, 0, 320, 0);
 	Toukibi:MakeCMenuSeparator(context, 300);
 	Toukibi:MakeCMenuItem(context, string.format("{#FFFF88}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow")), "TOUKIBI_MAPMATE_EXEC_PCCUPDATE()", nil, nil);
-	Toukibi:MakeCMenuSeparator(context, 300.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Title"));
+	Toukibi:MakeCMenuSeparator(context, 300, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdate_Title"));
 	Toukibi:MakeCMenuItem(context
 						, string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.AutoUpdateBySeconds"), 10)
 						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(10)"
@@ -2027,12 +2030,12 @@ function TOUKIBI_MAPMATE_CONTEXT_MENU_PCCOUNT(frame, ctrl)
 						, "TOUKIBI_MAPMATE_CHANGE_PCCUPDATEINTERVAL(nil)"
 						, nil
 						, Me.Settings.UpdatePCCountInterval == nil);
-	Toukibi:MakeCMenuSeparator(context, 300.2);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 2);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ManuallyUpdate"), "TOUKIBI_MAPMATE_TOGGLEPROP('EnableOneClickPCCUpdate')", nil, Me.Settings.EnableOneClickPCCUpdate);
 	Toukibi:MakeCMenuItem(context, string.format("{#8888FF}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ContinuousUpdatePrevention")), "TOUKIBI_MAPMATE_TOGGLEPROP('UsePCCountSafety')", nil, Me.Settings.UsePCCountSafety);
-	Toukibi:MakeCMenuSeparator(context, 300.3);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 3);
 	Toukibi:MakeCMenuItem(context, Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.ShowMapNameOutside"), "TOUKIBI_MAPMATE_TOGGLEPROP('ShowMapNameOutside')", nil, Me.Settings.ShowMapNameOutside);
-	Toukibi:MakeCMenuSeparator(context, 300.4);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 4);
 	Toukibi:MakeCMenuItem(context, string.format("{#666666}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close")));
 	context:Resize(330, context:GetHeight());
 	ui.OpenContextMenu(context);
@@ -2054,7 +2057,7 @@ function TOUKIBI_MAPMATE_CONTEXT_MENU_CLOCK(frame, ctrl)
 						, "TOUKIBI_MAPMATE_CHANGEPROP('UseServerClock', false)"
 						, nil
 						, not Me.Settings.UseServerClock);
-	Toukibi:MakeCMenuSeparator(context, 300.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ampm_Title"));
+	Toukibi:MakeCMenuSeparator(context, 300, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ampm_Title"));
 	Toukibi:MakeCMenuItem(context
 						, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.ampm")
 						, "TOUKIBI_MAPMATE_CHANGEPROP('UseAMPM', true)"
@@ -2065,14 +2068,14 @@ function TOUKIBI_MAPMATE_CONTEXT_MENU_CLOCK(frame, ctrl)
 						, "TOUKIBI_MAPMATE_CHANGEPROP('UseAMPM', false)"
 						, nil
 						, not Me.Settings.UseAMPM);
-	Toukibi:MakeCMenuSeparator(context, 300.2);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 2);
 	Toukibi:MakeCMenuItem(context
 						, Toukibi:GetResText(ResText, Me.Settings.Lang, "ClockMenu.DisplaySec")
 						, "TOUKIBI_MAPMATE_TOGGLEPROP('DisplaySec')"
 						, nil
 						, Me.Settings.DisplaySec);
 	-- 閉じる
-	Toukibi:MakeCMenuSeparator(context, 300.3);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 3);
 	Toukibi:MakeCMenuItem(context, string.format("{#666666}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close")));
 	context:Resize(330, context:GetHeight());
 	ui.OpenContextMenu(context);
@@ -2089,7 +2092,7 @@ function TOUKIBI_MAPMATE_CONTEXT_MENU_QUEST(frame, ctrl)
 						, "TOUKIBI_MAPMATE_TOGGLEPROP_WITH_UPDATE('DisplayImpossibleQuest')"
 						, nil
 						, Me.Settings.DisplayImpossibleQuest);
-	Toukibi:MakeCMenuSeparator(context, 300.1, Toukibi:GetResText(ResText, Me.Settings.Lang, "QuestMenu.CountTitle"));
+	Toukibi:MakeCMenuSeparator(context, 300, Toukibi:GetResText(ResText, Me.Settings.Lang, "QuestMenu.CountTitle"));
 	Toukibi:MakeCMenuItem(context
 						, Toukibi:GetResText(ResText, Me.Settings.Lang, "QuestMenu.CountPossible")
 						, "TOUKIBI_MAPMATE_CHANGEPROP_WITH_UPDATE('QuestBadge_DisplayAll', false)"
@@ -2102,7 +2105,7 @@ function TOUKIBI_MAPMATE_CONTEXT_MENU_QUEST(frame, ctrl)
 						, Me.Settings.QuestBadge_DisplayAll);
 
 	-- 閉じる
-	Toukibi:MakeCMenuSeparator(context, 300.2);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 2);
 	Toukibi:MakeCMenuItem(context, string.format("{#666666}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close")));
 	context:Resize(330, context:GetHeight());
 	ui.OpenContextMenu(context);

@@ -6,6 +6,7 @@ Last Updated : February 17, 2021
 右クリックメニューのセパレータが太くなる不具合がありました。以下のアドオンは修正を完了しています。<br>
 There was a problem that the separator of the right-click menu became thick. The following add-ons have been fixed.
   * **Better Pick Queue Ver. 1.18**
+  * **Map Mate Ver. 0.93**
 
 
 August 6, 2020
@@ -74,7 +75,7 @@ ItemDropsが2になって帰ってきました。ドロップしたアイテム�
 ItemDrops is back. It highlights the dropped item **more strongly**.    
 ![Image of main image of ItemDrops2](https://github.com/Toukibi/ToSAddon/blob/ForImage/ItemDrops2/img/topimage_ja.jpg?raw=true)    
 
-## [Map Mate Ver. 0.92 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
+## [Map Mate Ver. 0.93 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
 マップ表示を色々便利にしてくれます。  
 This add-on makes map display a lot convenient.   
 !["Image of main image of Map-Mate"](https://github.com/Toukibi/ToSAddon/blob/ForImage/MapMate/image/MapMate_MiniMap.png?raw=true)  

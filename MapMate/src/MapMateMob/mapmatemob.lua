@@ -1,5 +1,5 @@
 local addonName = "MapMateMob";
-local verText = "1.07";
+local verText = "1.08";
 local autherName = "TOUKIBI";
 local addonNameLower = string.lower(addonName);
 local SlashCommandList = {"/mmob", "/MMob"} -- {"/コマンド1", "/コマンド2", .......};
@@ -416,9 +416,18 @@ local Toukibi = {
 
 	-- ***** コンテキストメニュー関連 *****
 	-- セパレータを挿入
-	MakeCMenuSeparator = function(self, parent, width)
+	MakeCMenuSeparator = function(self, parent, width, text, style, index)
 		width = width or 300;
-		ui.AddContextMenuItem(parent, string.format("{img fullgray %s 1}", width), "None");
+		text = text or "";
+		style = style or {"ol", "b", "s12", "#AAFFAA"};
+		index = index or 0;
+		local strTemp = string.format("{img fullgray %s 1}", width);
+		if text ~= "" then
+			strTemp = strTemp .. "{s4} {/}{nl}" .. self:GetStyledText(text, style);
+		elseif index > 0 then
+			strTemp = strTemp .. string.format("{nl}{img fullblack %s 1}", index);
+		end
+		ui.AddContextMenuItem(parent, string.format(strTemp, width), "None");
 	end,
 
 	-- コンテキストメニュー項目を作成
@@ -1061,7 +1070,7 @@ function TOUKIBI_MAPMATEMOB_CONTEXT_MENU(frame, ctrl)
 	local context = ui.CreateContextMenu("MAPMATEMOB_MAIN_RBTN", Title, 0, 0, 320, 0);
 	Toukibi:MakeCMenuSeparator(context, 300);
 	Toukibi:MakeCMenuItem(context, string.format("{#FFFF88}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.UpdateNow")), "TOUKIBI_MAPMATEMOB_UPDATE()", nil, nil);
-	Toukibi:MakeCMenuSeparator(context, 300.1);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 1);
 	Toukibi:MakeCMenuItemHasCheckInTheMiddle(context, 
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Height_Title"), 
 											string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.HeightByLines"), 2), 
@@ -1078,7 +1087,7 @@ function TOUKIBI_MAPMATEMOB_CONTEXT_MENU(frame, ctrl)
 											Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Height_Space"), 
 											string.format(Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.HeightByLines"), 8), 
 											"TOUKIBI_MAPMATEMOB_CHANGEPROP('Height', 720)", nil, Me.Settings.Height == 720);
-	Toukibi:MakeCMenuSeparator(context, 300.2);
+	Toukibi:MakeCMenuSeparator(context, 300, nil, nil, 2);
 	Toukibi:MakeCMenuItem(context, string.format("{#666666}%s{/}", Toukibi:GetResText(ResText, Me.Settings.Lang, "Menu.Close")));
 	context:Resize(330, context:GetHeight());
 	ui.OpenContextMenu(context);
