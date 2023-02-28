@@ -280,7 +280,6 @@
 41265	2500	misc_0168
 41265	2	BlueOrb_Cyst
 41265	2	RedOrb_Cyst
-41265	2	Gem_Linker_UmbilicalCord
 41266	2000	misc_Ammon
 41266	25	SPR02_102
 41266	2	BlueOrb_Ammon
@@ -321,7 +320,6 @@
 41276	129	misc_gemExpStone_randomQuest1_TA
 41276	2	BlueOrb_shtayim
 41276	2	RedOrb_shtayim
-41276	2	Gem_Sadhu_AstralBodyExplosion
 41277	5	HAND03_106
 41277	135	SPR01_105
 41277	2	BlueOrb_Tombsinker
@@ -384,7 +382,6 @@
 41299	115	SHD01_119
 41299	2	BlueOrb_Repusbunny
 41299	2	RedOrb_Repusbunny
-41299	2	Gem_Fletcher_MagicArrow
 41302	625	misc_Minos1
 41302	115	SPR01_116
 41302	50	R_DAG04_101
@@ -575,12 +572,10 @@
 41435	50	TSF02_104
 41435	2	BlueOrb_hogma_sorcerer
 41435	2	RedOrb_hogma_sorcerer
-41435	4	GEM_Enchanter_EnchantGlove
 41436	750	misc_ellom
 41436	135	STF01_130
 41436	2	BlueOrb_ellom
 41436	2	RedOrb_ellom
-41436	2	Gem_Ranger_SpiralArrow
 41437	10	misc_ellom2
 41438	201	misc_ellom
 41438	132	LEG01_103
@@ -601,6 +596,7 @@
 41441	50	TSW02_105
 41441	2	BlueOrb_warleader_hogma
 41441	2	RedOrb_warleader_hogma
+41441	100	misc_warleader_hogma
 41442	1000	misc_0153
 41442	115	BOW01_126
 41442	2	BlueOrb_chupaluka
@@ -610,7 +606,6 @@
 41443	135	R_SPR01_112
 41443	2	BlueOrb_ellomago
 41443	2	RedOrb_ellomago
-41443	2	Gem_Wugushi_Detoxify
 41444	134	HAND01_127
 41445	1000	misc_0102
 41445	75	misc_groll2
@@ -630,7 +625,6 @@
 41447	333	misc_gemExpStone_randomQuest1_TA
 41447	2	BlueOrb_Lizardman
 41447	2	RedOrb_Lizardman
-41447	2	Gem_Paladin_ResistElements
 41448	666	misc_Tama
 41448	135	R_TBW01_132
 41448	108	HAND01_121
@@ -1304,7 +1298,6 @@
 47398	333	misc_gemExpStone_randomQuest1_TA
 47398	2	BlueOrb_tower_of_firepuppet
 47398	2	RedOrb_tower_of_firepuppet
-47398	4	GEM_Thaumaturge_SwellHands
 47399	1200	misc_0088
 47399	135	LEG01_139
 47399	2	BlueOrb_tower_of_firepuppet_black
@@ -1341,7 +1334,6 @@
 47445	135	R_SPR01_112
 47445	2	BlueOrb_ellomago
 47445	2	RedOrb_ellomago
-47445	2	Gem_Wugushi_Detoxify
 47446	60	TSF01_104
 47446	60	SPR01_101
 47446	46	NECK02_103
@@ -1449,7 +1441,6 @@
 47479	3333	food_002
 47479	2	BlueOrb_Doyor
 47479	2	RedOrb_Doyor
-47479	2	Gem_Priest_Blessing
 47480	2000	misc_0112
 47480	1111	food_010
 47480	21	SWD02_105
@@ -1533,7 +1524,6 @@
 47528	60	STF01_106
 47528	2	BlueOrb_Mallardu
 47528	2	RedOrb_Mallardu
-47528	2	Gem_Highlander_Crown
 47529	134	HAND01_105
 47529	31	STF02_102
 47529	2500	food_014
@@ -1632,7 +1622,7 @@
 57026	134	TOP01_127
 57026	2	BlueOrb_Egnome
 57026	2	RedOrb_Egnome
-57026	2	Gem_Peltasta_UmboBlow
+57026	2	Gem_Peltasta_Langort
 57027	1428	misc_0035
 57027	60	TSW01_105
 57027	2	BlueOrb_Beetow
@@ -1704,13 +1694,11 @@
 57044	115	R_BRC01_135
 57044	2	BlueOrb_infro_Blud
 57044	2	RedOrb_infro_Blud
-57044	2	Gem_Sadhu_Possession
 57044	64	HAND01_202
 57045	2500	misc_Ticen
 57045	134	R_FOOT01_109
 57045	2	RedOrb_ticen
 57045	2	BlueOrb_ticen
-57045	2	Gem_Barbarian_Cleave
 57046	1428	misc_Tucen
 57046	134	FOOT01_110
 57046	2	BlueOrb_tucen
@@ -2471,7 +2459,6 @@
 57203	115	TSP01_106
 57203	2	BlueOrb_Siaulamb
 57203	2	RedOrb_Siaulamb
-57203	4	GEM_Thaumaturge_Quicken
 57205	666	misc_0178
 57205	135	RAP01_101
 57205	2	BlueOrb_Siaulago
@@ -3000,7 +2987,6 @@
 57358	115	TSP01_106
 57358	2	BlueOrb_Siaulamb
 57358	2	RedOrb_Siaulamb
-57358	4	GEM_Thaumaturge_Quicken
 57361	170	misc_0190
 57361	115	RAP01_105
 57361	2	BlueOrb_Siaulav_orange
@@ -3030,7 +3016,6 @@
 57368	600	misc_0136
 57368	2	BlueOrb_InfroHoglan_red
 57368	2	RedOrb_InfroHoglan_red
-57368	4	GEM_Appraiser_Insurance
 57369	1750	misc_0152
 57369	2	BlueOrb_Infro_blud_red
 57369	2	RedOrb_Infro_blud_red
@@ -3165,7 +3150,6 @@
 57410	60	STF01_106
 57410	2	BlueOrb_Mallardu
 57410	2	RedOrb_Mallardu
-57410	2	Gem_Highlander_Crown
 57412	1000	SWD01_133
 57412	1000	TSW01_125
 57412	1000	STF01_133
@@ -3531,7 +3515,6 @@
 57570	134	TOP01_104
 57570	2	BlueOrb_Npanto_hand
 57570	2	RedOrb_Npanto_hand
-57570	2	Gem_Ranger_HighAnchoring
 57571	1111	misc_0018
 57571	60	BOW01_103
 57571	60	STF01_105
@@ -3638,6 +3621,7 @@
 57597	2	RedOrb_Templeslave_mage
 57597	2	Gem_Wizard_MagicMissile
 57597	47	FOOT03_107
+57597	100	misc_Templeslave
 57598	2	BlueOrb_Infroholder_mage
 57598	2	RedOrb_Infroholder_mage
 57598	2	Gem_Cleric_PatronSaint
@@ -3732,13 +3716,11 @@
 57617	108	NECK01_137
 57617	2	BlueOrb_flask_mage
 57617	2	RedOrb_flask_mage
-57617	2	Gem_Sadhu_OutofBody
 57617	30	STF03_110
 57618	1000	misc_Kepari
 57618	108	TOP01_113
 57618	2	BlueOrb_Kepari_mage
 57618	2	RedOrb_Kepari_mage
-57618	2	Gem_Thaumaturge_ShrinkBody
 57619	1111	misc_0058
 57619	40	misc_0126
 57619	134	LEG01_111
@@ -3850,7 +3832,6 @@
 57643	333	misc_TerraNymph
 57643	2	BlueOrb_TerraNymph_mage
 57643	2	RedOrb_TerraNymph_mage
-57643	2	Gem_Thaumaturge_SwellBody
 57644	135	R_TBW01_132
 57644	333	misc_TerraNymph
 57644	129	misc_gemExpStone_randomQuest2_TA
@@ -3862,7 +3843,6 @@
 57645	135	STF01_116
 57645	2	BlueOrb_Cronewt_mage
 57645	2	RedOrb_Cronewt_mage
-57645	2	Gem_Sadhu_VashitaSiddhi
 57646	800	misc_0135
 57646	108	LEG01_113
 57646	135	BOW01_111
@@ -3903,7 +3883,6 @@
 57656	135	FOOT01_146
 57656	2	BlueOrb_Rambear_bow
 57656	2	RedOrb_Rambear_bow
-57656	2	Gem_Fletcher_BroadHead
 57660	115	FOOT01_149
 57660	40	R_BRC02_110
 57660	2	BlueOrb_wood_lwa
@@ -3938,7 +3917,6 @@
 57673	129	misc_gemExpStone_randomQuest2_TA
 57673	2	BlueOrb_Burialer
 57673	2	RedOrb_Burialer
-57673	2	Gem_Chronomancer_Slow
 57674	134	LEG01_126
 57674	1428	misc_Velwriggler
 57675	1428	misc_Velwriggler
@@ -4093,7 +4071,6 @@
 57715	129	misc_gemExpStone_randomQuest2_TA
 57715	2	BlueOrb_Hohen_mane
 57715	2	RedOrb_Hohen_mane
-57715	2	Gem_Chronomancer_Samsara
 57716	129	misc_gemExpStone_randomQuest2_TA
 57716	2	BlueOrb_Hohen_ritter
 57716	2	RedOrb_Hohen_ritter
@@ -4144,7 +4121,6 @@
 57733	8000	misc_0119
 57733	2	BlueOrb_FD_Bat_big
 57733	2	RedOrb_FD_Bat_big
-57733	2	Gem_Rodelero_ShieldShoving
 57734	2	TSP02_111
 57734	2	BlueOrb_Gravegolem_blue
 57734	2	RedOrb_Gravegolem_blue
@@ -4650,6 +4626,7 @@
 57964	2	BlueOrb_Rambear_brown
 57964	2	RedOrb_Rambear_brown
 57964	213	misc_gemExpStone_randomQuest2_TA
+57964	100	misc_Rambear_brown
 57965	115	TBW01_136
 57965	2	BlueOrb_Rambear_bow_brown
 57965	2	RedOrb_Rambear_bow_brown
@@ -4700,7 +4677,6 @@
 57974	2	BlueOrb_Hohen_mage_red
 57974	2	RedOrb_Hohen_mage_red
 57974	213	misc_gemExpStone_randomQuest2_TA
-57974	4	Gem_Corsair_PistolShot
 57975	2	misc_0213
 57975	2	BlueOrb_Hohen_orben_red
 57975	2	RedOrb_Hohen_orben_red
@@ -5033,7 +5009,6 @@
 58120	40	misc_tower_of_firepuppet2
 58120	2	BlueOrb_tower_of_firepuppet
 58120	2	RedOrb_tower_of_firepuppet
-58120	4	GEM_Thaumaturge_SwellHands
 58121	2000	misc_jore09
 58121	2	BlueOrb_blindlem
 58121	2	RedOrb_blindlem
@@ -5061,7 +5036,6 @@
 58126	115	FOOT01_122
 58126	2	RedOrb_ticen
 58126	2	BlueOrb_ticen
-58126	2	Gem_Barbarian_Cleave
 58127	1428	misc_Tucen
 58127	115	TBW01_130
 58127	2	BlueOrb_tucen
@@ -5086,7 +5060,6 @@
 58130	2	BlueOrb_hogma_sorcerer
 58130	2	RedOrb_hogma_sorcerer
 58130	15	Hat_628040
-58130	4	GEM_Enchanter_EnchantGlove
 58131	588	misc_0104
 58131	115	R_NECK01_131
 58131	2	BlueOrb_Beetle
@@ -5099,7 +5072,6 @@
 58133	1000	misc_Kepari
 58133	2	BlueOrb_Kepari_mage
 58133	2	RedOrb_Kepari_mage
-58133	2	Gem_Thaumaturge_ShrinkBody
 58134	100	BOW01_108
 58134	2	BlueOrb_Popolion_Orange
 58134	2	RedOrb_Popolion_Orange
@@ -5119,7 +5091,6 @@
 58140	100	misc_Lizardman2
 58140	2	BlueOrb_Lizardman
 58140	2	RedOrb_Lizardman
-58140	2	Gem_Paladin_ResistElements
 58141	3400	misc_0074
 58141	115	R_MAC01_129
 58141	50	SHD02_107
@@ -5772,7 +5743,6 @@
 58565	30	TSP03_115
 58566	2	BlueOrb_bloom
 58566	2	RedOrb_bloom
-58566	4	Gem_Musketeer_HeadShot
 58566	200	R_NECK02_128
 58567	10000	Gacha_G_008
 58570	700	misc_0496
@@ -5946,7 +5916,6 @@
 58667	149	misc_gemExpStone_randomQuest1_TA
 58667	2	BlueOrb_GoblinWarrior
 58667	2	RedOrb_GoblinWarrior
-58667	2	Gem_Highlander_CartarStroke
 58668	1000	misc_pawn1
 58668	170	misc_gemExpStone_randomQuest1_TA
 58668	2	BlueOrb_Pawndel
@@ -6002,7 +5971,7 @@
 58680	5000	misc_0025
 58680	190	misc_egnome2
 58680	25	misc_ore05
-58680	2	Gem_Peltasta_UmboBlow
+58680	2	Gem_Peltasta_Langort
 58680	2	BlueOrb_Egnome
 58680	2	RedOrb_Egnome
 58681	3333	misc_shtayim
@@ -6010,7 +5979,6 @@
 58681	171	misc_gemExpStone_randomQuest1_TA
 58681	2	BlueOrb_shtayim
 58681	2	RedOrb_shtayim
-58681	3	Gem_Sadhu_AstralBodyExplosion
 58686	1000	Event_161109_Cube
 58687	134	HAND01_106
 58687	1500	misc_0274
@@ -6056,7 +6024,6 @@
 58703	333	misc_gemExpStone_randomQuest1_TA
 58703	2	BlueOrb_Lizardman
 58703	2	RedOrb_Lizardman
-58703	2	Gem_Paladin_ResistElements
 58704	1000	misc_0102
 58704	75	misc_groll2
 58704	2	BlueOrb_groll
@@ -6345,9 +6312,6 @@
 59296	1000	Gacha_F_088
 59297	0	D_UNDERAQUEDUCT_EVETN4_ITEM1
 59299	10000	Gacha_Unique_MothRaid
-59303	9960	misc_ore27
-59303	20	helmet_baniclips
-59303	20	costume_Com_216
 59307	10000	Gacha_Unique_400_Piece
 59309	10000	Gacha_ID_Frost_Piece
 59310	10000	Gacha_ID_315_Piece
@@ -6360,6 +6324,7 @@
 59463	1000	Gacha_F_088
 59463	1000	Gacha_F_087
 59463	1000	Gacha_F_088
+59518	10000	Gacha_Unique_430_Piece
 103003	1000	SWD01_130
 103003	1000	R_TSW01_122
 103003	1000	STF01_130
@@ -6642,7 +6607,6 @@
 400209	128	misc_gemExpStone_randomQuest1_TA
 400209	2	BlueOrb_GoblinWarrior
 400209	2	RedOrb_GoblinWarrior
-400209	2	Gem_Highlander_CartarStroke
 400241	95	R_SWD01_109
 400241	50	SHD02_106
 400242	134	R_HAND01_108
@@ -6709,7 +6673,6 @@
 400344	135	TOP01_138
 400344	2	BlueOrb_Fisherman_red
 400344	2	RedOrb_Fisherman_red
-400344	2	Gem_Ranger_BounceShot
 400361	92	MAC01_104
 400381	4000	misc_0047
 400381	2500	food_014
@@ -7041,7 +7004,6 @@
 401423	2	BlueOrb_Candlespider_yellow
 401423	2	RedOrb_Candlespider_yellow
 401423	15	R_RAP04_101
-401423	2	Gem_Doppelsoeldner_Double_pay_earn
 401423	213	misc_gemExpStone_randomQuest2_TA
 401445	750	misc_0187
 401445	115	SHD01_120
