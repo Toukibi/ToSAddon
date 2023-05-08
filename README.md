@@ -1,6 +1,12 @@
 ## Recent updates (最近の更新内容)
 
-Last Updated : February 17, 2021
+Last Updated : May 8, 2023
+
+* 新しいアドオン[**KoJa Name Translater Ver.1.01**]を追加しました  
+Added a new add-on [**KoJa Name Translator Ver.1.01**]  
+But, this addon is Japanese version only, sorry.
+
+February 17, 2021
 
 * **Right-click menu bug (右クリックメニューの不具合について)**<br>
 右クリックメニューのセパレータが太くなる不具合がありました。以下のアドオンは修正を完了しています。<br>
@@ -13,14 +19,7 @@ There was a problem that the separator of the right-click menu became thick. The
   * **Popup Quest Warp Ver. 1.01**
   * **Shop Heler Ver. 0.93**
 
-
-August 6, 2020
-
-* **Tooltip Helper Ver. 1.08**
-  * アイテムドロップ率のファイル形式をXMLからTSVに変更し、読み込み速度を向上させました。<br>Changed the file format of item drop rate from XML to TSV to improve the loading speed.
-  * アイテムドロップ率のファイルの自動読み込みオプションを追加しました。(IToSは自動読み込みしません)<br>Added a file auto-load option for item drop rate. (IToS is not applicable)
-
-
+***
 ## Notice:
 <span style="color:#FF0000;">The author is not currently working in ToS.  
 Therefore, I am planning to fix fatal things. However, basically it only updates as a whim.  
@@ -79,6 +78,16 @@ This add-on will display all sorts of information about your character's experie
 ItemDropsが2になって帰ってきました。ドロップしたアイテムを**色濃く**強調表示してくれます。  
 ItemDrops is back. It highlights the dropped item **more strongly**.    
 ![Image of main image of ItemDrops2](https://github.com/Toukibi/ToSAddon/blob/ForImage/ItemDrops2/img/topimage_ja.jpg?raw=true)    
+
+## [KoJa Name Translater Ver 1.01 ( Ja only )](https://github.com/Toukibi/ToSAddon/tree/master/KoJaNameTranslater)
+ToSがWサーバーに統合されてから韓国の方がたくさん見られるようになりました。  
+しかし、名前が・・・名前が・・・ **読めない! 分からない!! 覚えられない!!!**  
+そこで、アドオンでキャラクター名と露店名などを翻訳して、Ctrlキーを押している間だけ翻訳されたテキストに入れ替えを行うアドオンを作成しました。  
+![Image of Translated Nameplate by KoJaNameTranslater](https://github.com/Toukibi/ToSAddon/blob/ForImage/KoJaNameTranslater/img/TranslateImage.png?raw=true)  
+なお、このアドオンはアドオンマネージャーからインストールするだけでは動作しません。  
+以下のヘルプページを見ながら追加分を手動で導入してください。  
+**[KoJa Name Translaterヘルプ](https://github.com/Toukibi/ToSAddon/wiki/KoJaNameTranslater)**  
+Sorry. This addon is Japanese version only.
 
 ## [Map Mate Ver. 0.93 ( Ja / En )](https://github.com/Toukibi/ToSAddon/tree/master/MapMate)
 マップ表示を色々便利にしてくれます。  

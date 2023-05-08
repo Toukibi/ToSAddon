@@ -209,5 +209,20 @@
       "quest warp",
       "warp stone"
     ]
+  },
+  {
+    "name": "KoJa Name Translater",
+    "file": "koja_name_translater",
+    "extension": "ipf",
+    "fileVersion": "v1.0.1",
+    "releaseTag": "KoJaNameTranslater",
+    "unicode": "⛄",
+    "description": "韓国語のキャラクターの名前を翻訳します。 \n  This add-on will tTranslate Korean character names. \n But this add-on is Japanese version only.",
+    "tags": [
+      "ui",
+      "translation",
+      "character name",
+      "Japanese version only"
+    ]
   }
 ]
