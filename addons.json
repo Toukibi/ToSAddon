@@ -217,7 +217,7 @@
     "fileVersion": "v1.0.1",
     "releaseTag": "KoJaNameTranslater",
     "unicode": "⛄",
-    "description": "韓国語のキャラクターの名前を翻訳します。 \n  This add-on will tTranslate Korean character names. \n But this add-on is Japanese version only.",
+    "description": "韓国語のキャラクターの名前を翻訳します。 \n  This add-on will tTranslate Korean character names. \n But this add-on is Japanese version only. ",
     "tags": [
       "ui",
       "translation",

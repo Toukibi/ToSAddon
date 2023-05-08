@@ -4,8 +4,8 @@ Last Updated : May 8, 2023
 
 * 新しいアドオン[**KoJa Name Translater Ver.1.01**]を追加しました  
 Added a new add-on [**KoJa Name Translator Ver.1.01**]  
-But, this addon is Japanese version only, sorry.
-
+But, this addon is Japanese version only, sorry.  
+  
 February 17, 2021
 
 * **Right-click menu bug (右クリックメニューの不具合について)**<br>
