@@ -3,35 +3,39 @@
   
 Sorry. This addon is Japanese version only.  
   
-### 1.����͉��H
-�����؍����C�v���X�g�[���[2���v���C�����o���ŁA�L�����N�^�[���� **�ǂ߂Ȃ�! ������Ȃ�!! �o�����Ȃ�!!!** �ŋ�J���܂����B  
-���̌o���𓥂܂��ăL�����N�^�[���� **Ctrl�L�[�������Ă���Ԃ���** �|�󂵂����O�ɕ\����؂�ւ���A�h�I���ł��B  
-### 2.�ł��邱��
-* Ctrl�L�[�������Ă���Ԃ����ȉ��̕���|�󂵂������ɓ���ւ��܂��B  
-  * �L�����N�^�[�̃M���h���E�`�[�����E�L�����N�^�[��
-  * �I�X�̖���
-  * [������]�y�b�g���E�R���p�j�I�������\���ł����炢����
+![翻訳結果のイメージ画像](https://github.com/Toukibi/ToSAddon/blob/ForImage/KoJaNameTranslater/img/TranslateImage.png)
+  
+### 1.これは何？
+私が韓国メイプルストーリー2をプレイした経験で、キャラクター名が **読めない! 分からない!! 覚えられない!!!** で苦労しました。  
+その経験を踏まえてキャラクター名を **Ctrlキーを押している間だけ** 翻訳した名前に表示を切り替えるアドオンです。  
+### 2.できること
+* Ctrlキーを押している間だけ以下の物を翻訳した文字に入れ替えます。  
+  * キャラクターのギルド名・チーム名・キャラクター名
+  * 露店の名称
+  * [未実装]ペット名・コンパニオン名も表示できたらいいな
 
-### 3.�ǉ����ꂽ�E�N���b�N���j���[�̈ꗗ
-�E�N���b�N���j���[�͂���܂���B  
-�R�}���h **`/kojatrans`** �Őݒ�̃R�}���h���Ăяo���Ă��������B  
-�����Ƃ��A�ݒ肷�鍀�ڂ͂قڂ���܂��񂪁E�E�E
+### 3.追加された右クリックメニューの一覧
+右クリックメニューはありません。  
+コマンド **`/kojatrans`** で設定のコマンドを呼び出してください。  
+もっとも、設定する項目はほぼありませんが・・・
 
-### 4.�g�p�\�ȃR�}���h�ꗗ
-�ݒ肷�鍀�ڂ͂قڂ���܂���B  
-�R�}���h **`/kojatrans`** �Ŏ��̎����s�Ȃ��܂��B
+### 4.使用可能なコマンド一覧
+設定する項目はほぼありません。  
+コマンド **`/kojatrans`** で次の事が行なえます。
 
-|�R�}���h|����|
+|コマンド|効果|
 |---|---|
-|/kojatrans|�`���b�g���O�Ɏg�p�\�ȃR�}���h�̕\��|
-|/kojatrans reset|�ݒ�����Z�b�g|
-|/kojatrans update|�������X�V|
-|/kojatrans ?|�`���b�g���O�Ƀw���v��\��|
-|/kojatrans jp<br>/kojatrans ja|���{�ꃂ�[�h�ɐ؂�ւ�|
-|/kojatrans en|�p�ꃂ�[�h�ɐ؂�ւ�(�قڈӖ�������܂���)|
-|/kojatrans restart|���݂̖|��f�[�^��j�����ăA�h�I�����Ďn�����܂�(�|�󂪋l�܂������ȂǂɎg�p���Ă݂Ă��������B)|
+|/kojatrans|チャットログに使用可能なコマンドの表示|
+|/kojatrans reset|設定をリセット|
+|/kojatrans update|処理を更新|
+|/kojatrans ?|チャットログにヘルプを表示|
+|/kojatrans jp<br>/kojatrans ja|日本語モードに切り替え|
+|/kojatrans en|英語モードに切り替え(ほぼ意味がありません)|
+|/kojatrans restart|現在の翻訳データを破棄してアドオンを再始動します(翻訳が詰まった時などに使用してみてください。)|
 
-### 5.�������@
-���̃A�h�I���́A�A�h�I���}�l�[�W��JP�ɓo�^���Ă��܂��B  
-�A�h�I���}�l�[�W��JP��p���ē������Ă�������  
-�ł���!! **����ɒǉ����čs����Ƃ�����܂��B���̃����N�̐�����ǂ݂Ȃ��瓱�����s���Ă��������B** �A�h�I���P�̂����ł͓��삵�܂���B
+### 5.導入方法
+このアドオンは、アドオンマネージャに登録しています。  
+アドオンマネージャを用いて導入してください  
+ですが!! **それに追加して行う作業があります。下のリンクの説明を読みながら導入を行ってください。** アドオン単体だけでは動作しません。  
+  
+[KoJa Name Translater ヘルプ](https://github.com/Toukibi/ToSAddon/wiki/KoJaNameTranslater)
